@@ -1,0 +1,49 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://src/core/EnemyUI.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/battle/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/enemies/devil.tres" type="Resource" id=3]
+[ext_resource path="res://src/core/Battle.gd" type="Script" id=5]
+[ext_resource path="res://src/battle/Actions.tscn" type="PackedScene" id=6]
+
+[node name="Battle" type="Node2D"]
+script = ExtResource( 5 )
+enemy = ExtResource( 3 )
+
+[node name="BlackBG" type="ColorRect" parent="."]
+margin_right = 108.0
+margin_bottom = 192.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="."]
+margin_right = 108.0
+margin_bottom = 61.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = -2.0
+margin_bottom = -2.0
+color = Color( 0.792157, 0.780392, 0.721569, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Player" parent="." instance=ExtResource( 2 )]
+position = Vector2( 54, 67 )
+
+[node name="Enemy" parent="." instance=ExtResource( 1 )]
+position = Vector2( 54, 28 )
+
+[node name="Actions" parent="." instance=ExtResource( 6 )]
+[connection signal="start_turn" from="." to="Actions" method="_on_Battle_start_turn"]
+[connection signal="used_action" from="Enemy" to="." method="_on_Enemy_used_action"]
+[connection signal="ended_turn" from="Actions" to="." method="_on_Actions_ended_turn"]
