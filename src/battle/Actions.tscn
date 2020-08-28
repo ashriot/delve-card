@@ -14,6 +14,16 @@ position = Vector2( 95, 1 )
 visible = false
 position = Vector2( 109, 71 )
 
+[node name="EndTurn" type="Button" parent="."]
+margin_left = 69.0
+margin_top = 179.0
+margin_right = 106.0
+margin_bottom = 190.0
+text = "End Turn"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Hand" type="Node2D" parent="."]
 position = Vector2( 0, 86 )
 
@@ -34,17 +44,7 @@ position = Vector2( 0, 68 )
 [node name="InputBlocker" type="ColorRect" parent="Hand"]
 margin_right = 108.0
 margin_bottom = 105.0
-color = Color( 0.862745, 0.0509804, 0.0509804, 0 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="EndTurn" type="Button" parent="."]
-margin_left = 69.0
-margin_top = 179.0
-margin_right = 106.0
-margin_bottom = 190.0
-text = "End Turn"
+color = Color( 1, 1, 1, 0 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

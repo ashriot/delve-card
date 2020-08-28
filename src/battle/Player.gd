@@ -40,6 +40,13 @@ func take_hit(damage: int) -> void:
 	floating_text.initialize(damage, false)
 	add_child(floating_text)
 	$AnimationPlayer.play("Shake")
+	if ac > 0:
+		if ac > damage:
+			self.ac -= damage
+			damage = 0
+		else:
+			damage -= ac
+			self.ac = 0
 	self.hp -= damage
 
 # SETTERS ###########################################
@@ -76,6 +83,6 @@ func set_mp(value: int) -> void:
 	mp_value.bbcode_text = text
 
 func set_ap(value: int) -> void:
-	ap = value
-	$Player/Panel/AP/Current.rect_size = Vector2(4 * value, 7)
+	ap = clamp(value, 0, actor.max_ap)
+	$Player/Panel/AP/Current.rect_size = Vector2(4 * ap, 7)
 

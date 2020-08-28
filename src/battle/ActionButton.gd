@@ -102,12 +102,20 @@ func execute() -> void:
 	player.mp -= mp_cost
 #	var hit = Hit.new() as Hit
 #	hit.initialize(Player.player, target.enemy, action)
-	for hit in action.hits:
-		print("hit: ", hit)
-		create_effect(enemy.global_position)
-		yield(self, "inflict_hit")
-		enemy.take_hit(action.damage)
-		yield(self, "anim_finished")
+	if action.target_type == Action.TargetType.OPPONENT:
+		for hit in action.hits:
+			print("hit: ", hit)
+			create_effect(enemy.global_position)
+			yield(self, "inflict_hit")
+			enemy.take_hit(action.damage)
+			yield(self, "anim_finished")
+	else:
+		if action.damage_type == Action.DamageType.AP:
+			AudioController.play_sfx("wind_up")
+			player.ap += damage
+		elif action.damage_type == Action.DamageType.AC:
+			AudioController.play_sfx("hit")
+			player.ac += damage
 	emit_signal("action_finished", action)
 
 func inflict_hit() -> void:

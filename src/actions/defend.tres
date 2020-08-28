@@ -4,15 +4,15 @@
 
 [resource]
 script = ExtResource( 1 )
-name = "Attack"
-description = ""
+name = "Defend"
+description = "Gain 4 Armor."
 action_type = 0
-target_type = 1
-ap_cost = 0
+target_type = 0
+ap_cost = 1
 mp_cost = 0
-healing = false
-damage_type = 0
-damage = 8
+healing = true
+damage_type = 1
+damage = 4
 hits = 1
 drawX = 0
-frame_id = 0
+frame_id = 12

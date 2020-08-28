@@ -14,6 +14,15 @@ player = ExtResource( 7 )
 [node name="Title" type="Node2D" parent="."]
 visible = false
 
+[node name="ColorRect" type="ColorRect" parent="Title"]
+margin_right = 108.0
+margin_bottom = 192.0
+color = Color( 0.145098, 0.145098, 0.133333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Sprite" type="Sprite" parent="Title"]
+position = Vector2( 9, 17 )
 texture = ExtResource( 2 )
 centered = false

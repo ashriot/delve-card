@@ -9,6 +9,7 @@ signal graveyard_count(value)
 signal graveyard_done
 signal ended_turn
 signal done_discarding
+signal done_filling_hand
 
 export var HAND_SIZE: = 5
 
@@ -96,6 +97,7 @@ func fill_hand() -> void:
 		yield(get_tree().create_timer(0.12), "timeout")
 	if deck.get_child_count() == 0:
 		recover_graveyard()
+	emit_signal("done_filling_hand")
 	input_blocker.hide()
 
 func set_pos(node: Node2D) -> void:
@@ -114,7 +116,7 @@ func remove_pos(node: Node2D) -> void:
 
 func draw(value: int) -> void:
 	input_blocker.show()
-	for i in range(0, value):
+	for _i in range(0, value):
 		if deck.get_child_count() == 0:
 			yield(get_tree().create_timer(0.1), "timeout")
 			recover_graveyard()
@@ -130,15 +132,16 @@ func draw(value: int) -> void:
 	input_blocker.hide()
 
 func discard_hand() -> void:
-	for i in hand.get_children():
-		if i.get_child_count() > 0:
-			var child = i.get_child(0)
-			child.discard()
-			yield(child, "discarded")
-			remove_pos(child)
-			self.hand_count -= 1
-			graveyard.add_child(child)
-			self.graveyard_count += 1
+	if hand_count > 0:
+		for i in hand.get_children():
+			if i.get_child_count() > 0:
+				var child = i.get_child(0)
+				child.discard()
+				yield(child, "discarded")
+				remove_pos(child)
+				self.hand_count -= 1
+				graveyard.add_child(child)
+				self.graveyard_count += 1
 	emit_signal("done_discarding")
 
 func played_action(action_button: ActionButton) -> void:
@@ -160,8 +163,12 @@ func block_input(block: bool) -> void:
 
 func _on_EndTurn_button_up():
 	input_blocker.show()
-	discard_hand()
-	yield(self, "done_discarding")
+	end_turn.hide()
+	if hand_count > 0:
+		discard_hand()
+		yield(self, "done_discarding")
+	fill_hand()
+	yield(self, "done_filling_hand")
 	emit_signal("ended_turn")
 
 func set_deck_count(value: int) -> void:
@@ -174,4 +181,4 @@ func set_graveyard_count(value: int) -> void:
 
 func _on_Battle_start_turn():
 	player.start_turn()
-	fill_hand()
+	end_turn.show()

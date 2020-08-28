@@ -29,10 +29,7 @@ func initialize(_actor: Actor) -> void:
 
 func take_hit(damage) -> void:
 	print("taking ", damage, " damage")
-	var text = randi() % 10 + 1
-	var crit = randi() % 6
-	if crit == 1:
-		damage *= 2
+	var crit = 0
 	var floating_text = FloatingText.instance()
 	floating_text.initialize(damage, crit == 1)
 	add_child(floating_text)
