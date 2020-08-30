@@ -1,6 +1,7 @@
 extends Node2D
 
 signal inflict_hit
+signal inflict_effect
 signal finished
 
 func _on_AnimationPlayer_animation_finished(_anim_name) -> void:
@@ -9,3 +10,6 @@ func _on_AnimationPlayer_animation_finished(_anim_name) -> void:
 
 func inflict_hit() -> void:
 	emit_signal("inflict_hit")
+
+func inflict_effect() -> void:
+	emit_signal("inflict_effect")

@@ -1,16 +1,17 @@
 [gd_resource type="Resource" load_steps=6 format=2]
 
 [ext_resource path="res://src/player/actor.gd" type="Script" id=1]
-[ext_resource path="res://src/actions/short_sword.tres" type="Resource" id=2]
-[ext_resource path="res://src/actions/defend.tres" type="Resource" id=3]
-[ext_resource path="res://src/actions/prepare.tres" type="Resource" id=4]
-[ext_resource path="res://src/actions/iron_claws.tres" type="Resource" id=13]
+[ext_resource path="res://src/actions/fighter/short_sword.tres" type="Resource" id=2]
+[ext_resource path="res://src/actions/fighter/defend.tres" type="Resource" id=3]
+[ext_resource path="res://src/actions/fighter/muster.tres" type="Resource" id=4]
+[ext_resource path="res://src/actions/fighter/longsword.tres" type="Resource" id=5]
 
 [resource]
 script = ExtResource( 1 )
 name = "Fighter"
 max_hp = 50
-max_ap = 3
+max_ap = 4
 initial_ac = 0
 initial_mp = 0
-actions = [ ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 3 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 4 ), ExtResource( 13 ), ExtResource( 13 ) ]
+gold = 0
+actions = [ ExtResource( 3 ), ExtResource( 3 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 5 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 4 ) ]

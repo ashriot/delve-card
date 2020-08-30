@@ -37,7 +37,7 @@ func _process(delta) -> void:
 	position += velocity * delta
 
 func initialize(_text: int, _crit: bool) -> void:
-	self.text = str(_text)
+	self.text = _text
 	crit = _crit
 
 func display_text(value: String) -> void:
@@ -45,7 +45,7 @@ func display_text(value: String) -> void:
 	$RightShadow.text = (value)
 	$Label.text = (value)
 
-func set_text(value: String) -> void:
+func set_text(value: int) -> void:
 	$LeftShadow.text = str(value)
 	$RightShadow.text = str(value)
 	$Label.text = str(value)

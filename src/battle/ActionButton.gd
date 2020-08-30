@@ -1,19 +1,21 @@
-extends Node2D
+extends Control
 class_name ActionButton
 
 var FloatingText = preload("res://assets/animations/FloatingText.tscn")
 
 signal inflict_hit
+signal inflict_effect
 signal anim_finished
 signal action_finished
 signal button_pressed(block)
 signal played(action_button)
 signal discarded(action_button)
 
-onready var animationPlayer: = $Button/AnimationPlayer
+signal show_card(action_button)
+signal hide_card
 
-var deck: Node2D
-var graveyard: Node2D
+onready var animationPlayer: = $AnimationPlayer
+onready var timer: = $Timer
 
 var action: Action
 var player: Player
@@ -24,15 +26,13 @@ var mp_cost: int
 var damage: int
 var hits: int
 
+var hovering: = false
 var initialized: = false
 
-func initialize(_action: Action, _player: Player, \
-	_enemy: Enemy, _deck: Node2D, _graveyard: Node2D) -> void:
+func initialize(_action: Action, _player: Player, _enemy: Enemy) -> void:
 	action = _action
 	player = _player
 	enemy = _enemy
-	deck = _deck
-	graveyard = _graveyard
 	$Button/AP.hide()
 	$Button/MP.hide()
 	$Button/Sprite.frame = action.frame_id
@@ -42,6 +42,7 @@ func initialize(_action: Action, _player: Player, \
 	damage = action.damage
 	hits = action.hits
 	update_data()
+	initialized = true
 
 func show() -> void:
 	$Button.modulate.a = 0
@@ -57,14 +58,25 @@ func discard() -> void:
 
 func update_data() -> void:
 	if action.ap_cost > 0:
-		$Button/AP.show()
 		$Button/AP.rect_size = Vector2(5 * action.ap_cost, 7)
+		$Button/AP.show()
 	elif action.mp_cost > 0:
+		$Button/MP.bbcode_text = " " + str(action.mp_cost) + "MP"
 		$Button/MP.show()
-		$Button/MP.text = str(action.mp_cost) + "MP"
 	
 	var hit_text = "" if hits < 2 else ("x" + str(hits))
-	$Button/Damage.bbcode_text = "[right]" + str(damage) + hit_text
+	var type = "HP" if action.healing else "dmg"
+	if action.damage_type == Action.DamageType.AC:
+		type = "AC"
+	elif action.damage_type == Action.DamageType.MP:
+		type = "MP"
+	elif action.damage_type == Action.DamageType.AP:
+		type = "AP"
+	var prepend = "+" if action.healing else ""
+	var text = "[right]" + prepend + str(damage) + hit_text + type
+	if action.damage == 0:
+		text = ""
+	$Button/Damage.bbcode_text = text
 
 func playable() -> bool:
 	if ap_cost > player.ap:
@@ -85,8 +97,12 @@ func play() -> void:
 		display_error()
 		return
 	emit_signal("button_pressed", true)
-#	print("Playing " + action.name + "!")
-	animationPlayer.play("Use")
+	if action.drop:
+		animationPlayer.play("Drop")
+	else:
+		animationPlayer.play("Use")
+	player.ap -= ap_cost
+	player.mp -= mp_cost
 	execute()
 	yield(animationPlayer, "animation_finished")
 	emit_signal("played", self)
@@ -98,28 +114,48 @@ func display_error() -> void:
 	add_child(floating_text)
 
 func execute() -> void:
-	player.ap -= ap_cost
-	player.mp -= mp_cost
 #	var hit = Hit.new() as Hit
 #	hit.initialize(Player.player, target.enemy, action)
 	if action.target_type == Action.TargetType.OPPONENT:
 		for hit in action.hits:
-			print("hit: ", hit)
 			create_effect(enemy.global_position)
 			yield(self, "inflict_hit")
-			enemy.take_hit(action.damage)
+			emit_signal("action_finished", action)
+			var crit = randf() < action.crit_chance
+			var damage = action.damage * (2 if crit else 1)
+			if action.name == "Drown":
+				damage += clamp(player.mp, 0, 20)
+			enemy.take_hit(action, damage, crit)
 			yield(self, "anim_finished")
 	else:
-		if action.damage_type == Action.DamageType.AP:
-			AudioController.play_sfx("wind_up")
-			player.ap += damage
-		elif action.damage_type == Action.DamageType.AC:
-			AudioController.play_sfx("hit")
-			player.ac += damage
-	emit_signal("action_finished", action)
+		if action.fx != null:
+			create_effect(player.global_position)
+			yield(self, "inflict_effect")
+			if action.extra_action != null:
+				action.extra_action.execute(player)
+			yield(self, "anim_finished")
+		if action.damage > 0:
+			if action.damage_type == Action.DamageType.HP:
+				AudioController.play_sfx("heal")
+				player.take_healing(action.damage, "HP")
+			if action.damage_type == Action.DamageType.AP:
+				AudioController.play_sfx("blip_up")
+				player.take_healing(action.damage, "AP")
+			elif action.damage_type == Action.DamageType.AC:
+				AudioController.play_sfx("grazed")
+				player.take_healing(action.damage, "AC")
+			elif action.damage_type == Action.DamageType.MP:
+				AudioController.play_sfx("mp_gain")
+				player.take_healing(action.damage, "MP")
+		emit_signal("action_finished", action)
+	if action.drop:
+		queue_free()
 
 func inflict_hit() -> void:
 	emit_signal("inflict_hit")
+	
+func inflict_effect() -> void:
+	emit_signal("inflict_effect")
 
 func create_effect(position: Vector2) -> void:
 	if action.fx == null:
@@ -130,13 +166,24 @@ func create_effect(position: Vector2) -> void:
 	else:
 		var effect = action.fx.instance()
 		effect.connect("inflict_hit", self, "inflict_hit")
+		effect.connect("inflict_effect", self, "inflict_effect")
 		enemy.add_child(effect)
 		effect.global_position = position
 		yield(effect, "finished")
 		emit_signal("anim_finished")
 
-func _on_button_up():
+func _on_Button_up() -> void:
+	timer.stop()
+	if hovering:
+		hovering = false
+		emit_signal("hide_card")
+		return
 	play()
 
-func _on_Button_button_down():
-	pass # Replace with function body.
+func _on_Button_down():
+	timer.start(.25)
+
+func _on_Timer_timeout() -> void:
+	timer.stop()
+	hovering = true
+	emit_signal("show_card", self)

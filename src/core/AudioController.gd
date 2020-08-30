@@ -32,7 +32,10 @@ func play_sfx(name: String) -> void:
 		sfx3.play()
 
 func click() -> void:
-	play_sfx("menu_023")
+	play_sfx("click")
+	
+func back() -> void:
+	play_sfx("back")
 
 func steps() -> void:
 	play_sfx("footsteps")

@@ -3,6 +3,8 @@ class_name Player
 
 var FloatingText = preload("res://assets/animations/FloatingText.tscn")
 
+signal add_to_deck(action_name, qty)
+
 onready var hp_value = $Player/Panel/HP/Value
 onready var hp_percent = $Player/Panel/HP/TextureProgress
 onready var ac_value = $Player/Panel/AC/Value
@@ -17,14 +19,18 @@ var actor: Actor
 
 func initialize(_actor: Actor) ->  void:
 #	randomize()
-	print(str(global_position))
 	assert(_actor is Actor)
 	actor = _actor as Actor
 	self.hp = actor.max_hp
 	self.ac = actor.initial_ac
 	self.mp = actor.initial_mp
 	self.ap = actor.max_ap
+	actor.actions.sort()
 	$Player/Panel/AP/Max.rect_size = Vector2(4 * actor.max_ap, 7)
+
+func reset() -> void:
+	self.ac = actor.initial_ac
+	self.mp = actor.initial_mp
 
 func set_deck_count(value: int) -> void:
 	$Deck/ColorRect/Label.text = str(value)
@@ -38,7 +44,8 @@ func start_turn() -> void:
 func take_hit(damage: int) -> void:
 	var floating_text = FloatingText.instance()
 	floating_text.initialize(damage, false)
-	add_child(floating_text)
+	floating_text.position = Vector2(54, 67)
+	get_parent().add_child(floating_text)
 	$AnimationPlayer.play("Shake")
 	if ac > 0:
 		if ac > damage:
@@ -49,19 +56,39 @@ func take_hit(damage: int) -> void:
 			self.ac = 0
 	self.hp -= damage
 
+func take_healing(amount: int, type: String) -> void:
+	var floating_text = FloatingText.instance()
+	if type == "HP":
+		self.hp += amount
+	if type == "AC":
+		self.ac += amount
+	if type == "AP":
+		self.ap += amount
+	if type == "MP":
+		self.mp += amount
+	var text = "+" + str(amount) + type
+	floating_text.display_text(text)
+	floating_text.position = Vector2(54, 67)
+	get_parent().add_child(floating_text)
+
+func add_to_deck(action_name: String, qty: int) -> void:
+	emit_signal("add_to_deck", action_name, qty)
+
 # SETTERS ###########################################
 
 func set_hp(value: int) -> void:
+	value = clamp(value, 0, actor.max_hp)
 	hp = value
+	actor.hp = value
 	var zeros = 3 - str(value).length()
 	var cur = str(value).pad_zeros(3)
 	var cur_sub = cur.substr(0, zeros)
 	zeros = 3 - str(actor.max_hp).length()
 	cur = str(actor.max_hp).pad_zeros(3)
-#	var max_sub = cur.substr(0, zeros)
-	var text = "[color=#22cac7b8]" + cur_sub + "[/color]" + str(value)
-#		+ "[color=#22cac7b8]" + max_sub + "[/color]" \
-#		+ str(actor.max_hp)
+	var max_sub = cur.substr(0, zeros)
+	var text = "[color=#22cac7b8]" + cur_sub + "[/color]" + str(value) \
+		+ "/[color=#22cac7b8]" + max_sub + "[/color]" \
+		+ str(actor.max_hp)
 	hp_value.bbcode_text = text
 	hp_percent.max_value = actor.max_hp
 	hp_percent.value = hp

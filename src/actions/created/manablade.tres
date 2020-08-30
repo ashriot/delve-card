@@ -1,0 +1,26 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://assets/animations/Manablade.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/actions/res/action.gd" type="Script" id=2]
+
+[resource]
+script = ExtResource( 2 )
+name = "Manablade"
+description = "Deal %damage damage."
+rarity = 2
+upgraded = false
+action_type = 0
+target_type = 1
+ap_cost = 0
+mp_cost = 0
+healing = false
+damage_type = 0
+damage = 3
+hits = 2
+crit_chance = 0.0
+drawX = 0
+draw_type = 7
+drop = false
+consume = true
+frame_id = 1
+fx = ExtResource( 1 )

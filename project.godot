@@ -12,12 +12,17 @@ _global_script_classes=[ {
 "base": "Resource",
 "class": "Action",
 "language": "GDScript",
-"path": "res://src/actions/action.gd"
+"path": "res://src/actions/res/action.gd"
 }, {
-"base": "Node2D",
+"base": "Control",
 "class": "ActionButton",
 "language": "GDScript",
 "path": "res://src/battle/ActionButton.gd"
+}, {
+"base": "Control",
+"class": "ActionChoice",
+"language": "GDScript",
+"path": "res://src/core/ActionChoice.gd"
 }, {
 "base": "Node2D",
 "class": "Actions",
@@ -33,6 +38,16 @@ _global_script_classes=[ {
 "class": "Battle",
 "language": "GDScript",
 "path": "res://src/core/Battle.gd"
+}, {
+"base": "ColorRect",
+"class": "Card",
+"language": "GDScript",
+"path": "res://Card.gd"
+}, {
+"base": "Node2D",
+"class": "Dungeon",
+"language": "GDScript",
+"path": "res://src/core/Dungeon.gd"
 }, {
 "base": "Node2D",
 "class": "Enemy",
@@ -50,6 +65,11 @@ _global_script_classes=[ {
 "path": "res://src/core/Game.gd"
 }, {
 "base": "Node2D",
+"class": "Loot",
+"language": "GDScript",
+"path": "res://src/core/Loot.gd"
+}, {
+"base": "Node2D",
 "class": "Player",
 "language": "GDScript",
 "path": "res://src/battle/Player.gd"
@@ -57,12 +77,16 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "Action": "",
 "ActionButton": "",
+"ActionChoice": "",
 "Actions": "",
 "Actor": "",
 "Battle": "",
+"Card": "",
+"Dungeon": "",
 "Enemy": "",
 "FloatingText": "",
 "Game": "",
+"Loot": "",
 "Player": ""
 }
 
@@ -70,11 +94,17 @@ _global_script_class_icons={
 
 config/name="Delve"
 run/main_scene="res://src/core/Game.tscn"
+boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://icon.png"
 
 [autoload]
 
 AudioController="*res://src/core/AudioController.tscn"
+
+[debug]
+
+gdscript/warnings/narrowing_conversion=false
+gdscript/warnings/return_value_discarded=false
 
 [display]
 
@@ -83,7 +113,7 @@ window/size/height=192
 window/size/test_width=432
 window/size/test_height=768
 window/stretch/mode="2d"
-window/stretch/aspect="expand"
+window/stretch/aspect="keep"
 
 [gui]
 

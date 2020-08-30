@@ -1,0 +1,63 @@
+extends Resource
+class_name Action
+
+enum ActionType {
+	WEAPON,
+	SPELL,
+	CRYSTAL,
+	FEAT,
+	PASSIVE,
+	CURSE,
+	ITEM,
+	ANY
+}
+
+enum TargetType {
+	MYSELF,
+	OPPONENT,
+	BOTH
+}
+
+enum DamageType {
+	HP,
+	AC,
+	MP,
+	AP
+}
+
+export var name: String
+export(String, MULTILINE) var description setget, get_description
+export var rarity: = 1
+export var upgraded: = false
+export(ActionType) var action_type: = ActionType.WEAPON
+export(TargetType) var target_type: = TargetType.OPPONENT
+export var ap_cost: = 0
+export var mp_cost: = 0
+export var healing: = false
+export(DamageType) var damage_type: = DamageType.HP
+export var damage: = 0
+export var hits: = 1
+export var crit_chance: = 0.0
+export var drawX: = 0
+export(ActionType) var draw_type: = ActionType.ANY
+export var drop: = false
+export var consume: = false
+export var frame_id: = 0
+export var fx: PackedScene
+export var extra_action: Resource
+
+func execute() -> void:
+	pass
+
+func get_description() -> Array:
+	var dmg = str(damage) + ("x" + str(hits) if hits > 1 else "")
+	var text = description.replace("%damage", dmg)
+	text = text.replace("%drawX", str(drawX))
+	if crit_chance > 0:
+		text += " " + str(crit_chance* 100) + "% Crit chance."
+	if drop:
+		text += " Drop."
+	if consume:
+		text += " Consume."
+	var type = (ActionType.keys()	[action_type] as String).capitalize()
+	return [type, text]

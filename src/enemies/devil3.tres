@@ -1,0 +1,17 @@
+[gd_resource type="Resource" load_steps=5 format=2]
+
+[ext_resource path="res://src/player/actor.gd" type="Script" id=1]
+[ext_resource path="res://src/actions/enemy/attack2.tres" type="Resource" id=2]
+[ext_resource path="res://src/actions/enemy/attack1.tres" type="Resource" id=3]
+[ext_resource path="res://src/actions/enemy/attack3.tres" type="Resource" id=4]
+
+[resource]
+script = ExtResource( 1 )
+name = ""
+level = 3
+max_hp = 60
+max_ap = 3
+initial_ac = 0
+initial_mp = 0
+gold = 0
+actions = [ ExtResource( 3 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 4 ) ]

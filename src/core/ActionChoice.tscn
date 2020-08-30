@@ -1,0 +1,99 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://src/core/ActionChoice.gd" type="Script" id=1]
+[ext_resource path="res://assets/images/ui/diamond_outline.png" type="Texture" id=2]
+[ext_resource path="res://assets/images/sheets/icons.png" type="Texture" id=3]
+
+[node name="ActionChoice" type="Control"]
+margin_right = 108.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 108, 17 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Chosen" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.6, 0.584314, 0.521569, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="."]
+margin_top = 2.0
+margin_right = 108.0
+margin_bottom = 15.0
+rect_min_size = Vector2( 90, 13 )
+text = "Action Button"
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="Button"]
+modulate = Color( 0.792157, 0.780392, 0.721569, 1 )
+position = Vector2( 2, 2 )
+texture = ExtResource( 3 )
+centered = false
+vframes = 10
+hframes = 13
+frame = 26
+
+[node name="Damage" type="RichTextLabel" parent="Button"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -57.0
+margin_top = -3.0
+margin_right = -3.0
+margin_bottom = 4.0
+mouse_filter = 2
+custom_colors/font_color_shadow = Color( 0.145098, 0.145098, 0.133333, 1 )
+custom_constants/shadow_offset_x = 1
+custom_constants/shadow_offset_y = 0
+custom_constants/shadow_as_outline = 1
+bbcode_enabled = true
+bbcode_text = "[right]44x4"
+text = "44x4"
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MP" type="RichTextLabel" parent="Button"]
+margin_left = 9.0
+margin_top = -3.0
+margin_right = 39.0
+margin_bottom = 4.0
+mouse_filter = 2
+custom_colors/font_color_shadow = Color( 0.145098, 0.145098, 0.133333, 1 )
+custom_constants/shadow_offset_x = 1
+custom_constants/shadow_offset_y = 0
+custom_constants/shadow_as_outline = 1
+bbcode_enabled = true
+bbcode_text = " 44MP"
+text = " 44MP"
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AP" type="TextureRect" parent="Button"]
+visible = false
+margin_left = 12.0
+margin_top = -3.0
+margin_right = 17.0
+margin_bottom = 4.0
+mouse_filter = 2
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Timer" type="Timer" parent="."]
+[connection signal="button_down" from="Button" to="." method="_on_Button_down"]
+[connection signal="button_up" from="Button" to="." method="_on_Button_up"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
