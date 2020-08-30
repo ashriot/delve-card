@@ -97,7 +97,7 @@ func play() -> void:
 		display_error()
 		return
 	emit_signal("button_pressed", true)
-	if action.drop:
+	if action.drop or action.consume:
 		animationPlayer.play("Drop")
 	else:
 		animationPlayer.play("Use")
@@ -148,7 +148,7 @@ func execute() -> void:
 				AudioController.play_sfx("mp_gain")
 				player.take_healing(action.damage, "MP")
 		emit_signal("action_finished", action)
-	if action.drop:
+	if action.drop or action.consume:
 		queue_free()
 
 func inflict_hit() -> void:

@@ -198,7 +198,7 @@ func discard_hand() -> void:
 				yield(child, "discarded")
 				remove_pos(child)
 				self.hand_count -= 1
-				if child.action.drop:
+				if child.action.drop or child.action.consume:
 					child.queue_free()
 				else:
 					graveyard.add_child(child)
@@ -211,7 +211,7 @@ func played_action(action_button: ActionButton) -> void:
 	if action_button.action.drawX > 0:
 		draw(action_button.action.drawX, action_button.action.draw_type)
 		yield(self, "done_drawing")
-	if !action_button.action.drop:
+	if !action_button.action.drop and !action_button.action.consume:
 		graveyard.add_child(action_button)
 		self.graveyard_count += 1
 

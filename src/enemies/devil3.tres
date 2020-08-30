@@ -9,7 +9,7 @@
 script = ExtResource( 1 )
 name = ""
 level = 3
-max_hp = 60
+max_hp = 40
 max_ap = 3
 initial_ac = 0
 initial_mp = 0

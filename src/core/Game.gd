@@ -84,6 +84,7 @@ func create_loot_list() -> Array:
 		var chance = 0.25 * i
 		var roll = rare if rand < chance else common
 		loot_list.append(pick_loot(roll))
+		print(loot_list[i])
 	return loot_list
 
 func pick_loot(rank: int) -> String:
@@ -95,12 +96,15 @@ func pick_loot(rank: int) -> String:
 		table = loot2
 	if rank == 3:
 		table = loot3
+	if rank == 4:
+		table = loot4
 	var rand = randi() % table.size()
 	return table[rand]
 
 func get_loot(player_name: String, rank: int) -> Array:
 	var list = []
 	var path = "res://src/actions/" + player_name + "/" + str(rank) + "/"
+	print("Path: ", path)
 	var files = []
 	var dir = Directory.new()
 	dir.open(path)
