@@ -73,6 +73,16 @@ _global_script_classes=[ {
 "class": "Player",
 "language": "GDScript",
 "path": "res://src/battle/Player.gd"
+}, {
+"base": "Control",
+"class": "PotionButton",
+"language": "GDScript",
+"path": "res://src/potions/PotionButton.gd"
+}, {
+"base": "ColorRect",
+"class": "PotionCard",
+"language": "GDScript",
+"path": "res://src/potions/PotionCard.gd"
 } ]
 _global_script_class_icons={
 "Action": "",
@@ -87,7 +97,9 @@ _global_script_class_icons={
 "FloatingText": "",
 "Game": "",
 "Loot": "",
-"Player": ""
+"Player": "",
+"PotionButton": "",
+"PotionCard": ""
 }
 
 [application]

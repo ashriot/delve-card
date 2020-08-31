@@ -1,0 +1,178 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://assets/images/ui/fill_texture.png" type="Texture" id=1]
+[ext_resource path="res://src/potions/PotionCard.gd" type="Script" id=2]
+[ext_resource path="res://assets/images/sheets/icons.png" type="Texture" id=3]
+
+[sub_resource type="Animation" id=1]
+resource_name = "FadeIn"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "FadeOut"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[node name="PotionCard" type="ColorRect"]
+margin_right = 108.0
+margin_bottom = 192.0
+color = Color( 0.145098, 0.145098, 0.133333, 0.784314 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Drop" type="Panel" parent="."]
+visible = false
+margin_top = 60.0
+margin_right = 108.0
+margin_bottom = 78.0
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="RichTextLabel" parent="Drop"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 2.0
+margin_right = 1.0
+bbcode_enabled = true
+bbcode_text = "Drop. [color=#88cac7b8]Remove for remainder of the battle."
+text = "Drop. Remove for remainder of the battle."
+scroll_active = false
+
+[node name="Consume" type="Panel" parent="."]
+visible = false
+margin_top = 60.0
+margin_right = 108.0
+margin_bottom = 78.0
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="RichTextLabel" parent="Consume"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 2.0
+margin_right = 1.0
+bbcode_enabled = true
+bbcode_text = "Consume. [color=#88cac7b8]Permanently remove."
+text = "Consume. Permanently remove."
+scroll_active = false
+
+[node name="Panel" type="Panel" parent="."]
+anchor_top = 0.318
+anchor_bottom = 0.318
+margin_top = -58.056
+margin_right = 108.0
+margin_bottom = -0.0560036
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="Panel"]
+modulate = Color( 0.792157, 0.780392, 0.721569, 1 )
+position = Vector2( 2, 2 )
+texture = ExtResource( 3 )
+centered = false
+vframes = 10
+hframes = 13
+frame = 74
+
+[node name="Title" type="Label" parent="Panel"]
+anchor_right = 1.0
+margin_left = 9.0
+margin_right = -3.0
+margin_bottom = 14.0
+text = "Minor Healing Potion"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="Panel"]
+modulate = Color( 0.447059, 0.435294, 0.419608, 1 )
+anchor_right = 1.0
+margin_left = 3.0
+margin_top = 12.0
+margin_right = -3.0
+margin_bottom = 13.0
+texture = ExtResource( 1 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Description" type="Label" parent="Panel"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -53.0
+margin_top = -57.0
+margin_right = 53.0
+margin_bottom = -6.0
+custom_constants/line_spacing = 1
+text = "Action Button Description Goes Here!"
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Type" type="Label" parent="Panel"]
+margin_left = 76.0
+margin_top = 45.0
+margin_right = 110.0
+margin_bottom = 59.0
+custom_colors/font_color = Color( 0.447059, 0.435294, 0.419608, 1 )
+text = "Potion"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Rarity" type="Label" parent="Panel"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = -1.0
+margin_top = -12.0
+margin_right = 37.0
+margin_bottom = 2.00001
+custom_colors/font_color = Color( 0.447059, 0.435294, 0.419608, 1 )
+text = "*****"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/FadeIn = SubResource( 1 )
+anims/FadeOut = SubResource( 2 )

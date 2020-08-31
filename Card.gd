@@ -12,6 +12,9 @@ var action_button
 var initialized = false
 
 func initialize(_action_button, have: int) -> void:
+	var potion = true if \
+		_action_button.action.action_type == Action.ActionType.ITEM \
+		else false
 	action_button = _action_button
 	$Panel/AP.hide()
 	$Panel/MP.hide()
@@ -32,15 +35,16 @@ func initialize(_action_button, have: int) -> void:
 		$Consume.show()
 	else:
 		$Consume.hide()
-	if have > 0:
-		$Panel/Have.text = "Have: " + str(have)
-	else:
-		$Panel/Have.text = "New!"
-	ap_cost = action_button.action.ap_cost
-	mp_cost = action_button.action.mp_cost
-	damage = action_button.action.damage
-	hits = action_button.action.hits
-	update_data()
+	if !potion:
+		if have > 0:
+			$Panel/Have.text = "Have: " + str(have)
+		else:
+			$Panel/Have.text = "New!"
+		ap_cost = action_button.action.ap_cost
+		mp_cost = action_button.action.mp_cost
+		damage = action_button.action.damage
+		hits = action_button.action.hits
+		update_data()
 	modulate.a = 0
 	var pos = Vector2(0, get_global_mouse_position().y - $Panel.rect_size.y - 27)
 	$Panel.rect_global_position = pos

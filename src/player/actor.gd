@@ -11,6 +11,7 @@ export var gold: = 0
 
 var hp: int
 
+export(Array) var potions: = []
 export(Array) var actions: = []
 
 func initialize() -> void:

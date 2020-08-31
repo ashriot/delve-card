@@ -1,18 +1,8 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Card.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/battle/Actions.gd" type="Script" id=2]
-[ext_resource path="res://assets/images/sheets/16x16_various.png" type="Texture" id=3]
-
-[sub_resource type="StyleBoxEmpty" id=1]
-
-[sub_resource type="StyleBoxEmpty" id=2]
-
-[sub_resource type="StyleBoxEmpty" id=3]
-
-[sub_resource type="StyleBoxEmpty" id=4]
-
-[sub_resource type="StyleBoxEmpty" id=5]
+[ext_resource path="res://src/potions/PotionButton.tscn" type="PackedScene" id=4]
 
 [node name="Actions" type="Node2D"]
 script = ExtResource( 2 )
@@ -26,8 +16,8 @@ visible = false
 position = Vector2( 109, 71 )
 
 [node name="EndTurn" type="Button" parent="."]
-margin_left = 69.0
-margin_top = 176.0
+margin_left = 71.0
+margin_top = 174.0
 margin_right = 108.0
 margin_bottom = 191.0
 text = "End Turn"
@@ -65,111 +55,17 @@ __meta__ = {
 visible = false
 mouse_filter = 2
 
-[node name="ItemBelt" type="Control" parent="."]
-visible = false
+[node name="ItemBelt" type="HBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
 margin_top = 175.0
 margin_right = 68.0
 margin_bottom = 191.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="HBoxContainer" type="HBoxContainer" parent="ItemBelt"]
-anchor_right = 1.0
-anchor_bottom = 1.0
 custom_constants/separation = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button" type="Button" parent="ItemBelt/HBoxContainer"]
-margin_right = 16.0
-margin_bottom = 16.0
-rect_min_size = Vector2( 16, 16 )
-custom_styles/hover = SubResource( 1 )
-custom_styles/pressed = SubResource( 2 )
-custom_styles/focus = SubResource( 3 )
-custom_styles/disabled = SubResource( 4 )
-custom_styles/normal = SubResource( 5 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Sprite" type="Sprite" parent="ItemBelt/HBoxContainer/Button"]
-modulate = Color( 0.792157, 0.780392, 0.721569, 1 )
-position = Vector2( -3, -2 )
-texture = ExtResource( 3 )
-centered = false
-vframes = 15
-hframes = 16
-frame = 192
-
-[node name="Button2" type="Button" parent="ItemBelt/HBoxContainer"]
-margin_left = 17.0
-margin_right = 33.0
-margin_bottom = 16.0
-rect_min_size = Vector2( 16, 16 )
-custom_styles/hover = SubResource( 1 )
-custom_styles/pressed = SubResource( 2 )
-custom_styles/focus = SubResource( 3 )
-custom_styles/disabled = SubResource( 4 )
-custom_styles/normal = SubResource( 5 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Sprite" type="Sprite" parent="ItemBelt/HBoxContainer/Button2"]
-modulate = Color( 0.792157, 0.780392, 0.721569, 1 )
-position = Vector2( -3, -2 )
-texture = ExtResource( 3 )
-centered = false
-vframes = 15
-hframes = 16
-frame = 160
-
-[node name="Button3" type="Button" parent="ItemBelt/HBoxContainer"]
-margin_left = 34.0
-margin_right = 50.0
-margin_bottom = 16.0
-rect_min_size = Vector2( 16, 16 )
-custom_styles/hover = SubResource( 1 )
-custom_styles/pressed = SubResource( 2 )
-custom_styles/focus = SubResource( 3 )
-custom_styles/disabled = SubResource( 4 )
-custom_styles/normal = SubResource( 5 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Sprite" type="Sprite" parent="ItemBelt/HBoxContainer/Button3"]
-modulate = Color( 0.792157, 0.780392, 0.721569, 1 )
-position = Vector2( -3, -2 )
-texture = ExtResource( 3 )
-centered = false
-vframes = 15
-hframes = 16
-frame = 170
-
-[node name="Button4" type="Button" parent="ItemBelt/HBoxContainer"]
-margin_left = 51.0
-margin_right = 67.0
-margin_bottom = 16.0
-rect_min_size = Vector2( 16, 16 )
-custom_styles/hover = SubResource( 1 )
-custom_styles/pressed = SubResource( 2 )
-custom_styles/focus = SubResource( 3 )
-custom_styles/disabled = SubResource( 4 )
-custom_styles/normal = SubResource( 5 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Sprite" type="Sprite" parent="ItemBelt/HBoxContainer/Button4"]
-modulate = Color( 0.792157, 0.780392, 0.721569, 1 )
-position = Vector2( -3, -2 )
-texture = ExtResource( 3 )
-centered = false
-vframes = 15
-hframes = 16
-frame = 180
+[node name="PotionButton" parent="ItemBelt" instance=ExtResource( 4 )]
 [connection signal="button_up" from="EndTurn" to="." method="_on_EndTurn_button_up"]

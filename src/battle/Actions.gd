@@ -25,6 +25,7 @@ onready var pos4: = $Hand/Pos4
 onready var pos5: = $Hand/Pos5
 onready var deck: = $Deck
 onready var graveyard: = $Graveyard
+onready var item_belt: = $ItemBelt
 onready var end_turn: = $EndTurn
 
 var hand_count: = 0
@@ -42,6 +43,7 @@ func initialize(_player: Player, _enemyUI: Enemy) -> void:
 	player = _player
 	enemyUI = _enemyUI
 	actions = player.actor.actions
+	setup_item_belt()
 	fill_deck()
 	initialized = true
 
@@ -76,6 +78,11 @@ func recover_graveyard() -> void:
 	yield(get_tree().create_timer(0.1), "timeout")
 	emit_signal("graveyard_done")
 	shuffle_deck()
+
+func setup_item_belt() -> void:
+	for child in item_belt.get_children():
+		child.initialize(player.actor.potions[0])
+		child.connect("used_potion", self, "used_potion")
 
 func fill_deck() -> void:
 	if deck_count > 0:
@@ -226,6 +233,9 @@ func block_input(block: bool) -> void:
 		input_blocker.show()
 	else:
 		input_blocker.hide()
+
+func used_potion(potion: Action) -> void:
+	print("Using: ", potion.name)
 
 func _on_EndTurn_button_up():
 	AudioController.click()
