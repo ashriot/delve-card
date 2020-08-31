@@ -93,6 +93,7 @@ tracks/1/keys = {
 [node name="Game" type="Node"]
 script = ExtResource( 3 )
 player = ExtResource( 4 )
+mute = true
 
 [node name="Battle" parent="." instance=ExtResource( 1 )]
 
@@ -357,6 +358,35 @@ margin_bottom = 204.0
 margin_top = 221.0
 margin_bottom = 221.0
 
+[node name="EndGame" type="Panel" parent="."]
+visible = false
+margin_right = 108.0
+margin_bottom = 192.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="EndGame"]
+anchor_right = 1.0
+margin_top = 26.0
+margin_bottom = 40.0
+text = "Thank you for playing!"
+align = 1
+
+[node name="Restart" type="Button" parent="EndGame"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -37.0
+margin_top = 25.0
+margin_right = 37.0
+margin_bottom = 44.0
+text = "Restart Game"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Fade" type="ColorRect" parent="."]
 margin_right = 108.0
 margin_bottom = 192.0
@@ -372,3 +402,4 @@ anims/FadeIn = SubResource( 7 )
 anims/FadeOut = SubResource( 8 )
 [connection signal="start_battle" from="Dungeon" to="." method="_on_Dungeon_start_battle"]
 [connection signal="button_up" from="Title/ColorRect/StartGame" to="." method="_on_StartGame_button_up"]
+[connection signal="button_up" from="EndGame/Restart" to="." method="_on_Restart_button_up"]

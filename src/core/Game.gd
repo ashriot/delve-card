@@ -11,6 +11,7 @@ onready var title: = $Title
 onready var battle: = $Battle
 onready var dungeon: = $Dungeon
 onready var loot: = $Loot
+onready var end_game: = $EndGame
 onready var fade = $Fade/AnimationPlayer
 
 var loot1: Array = []
@@ -30,6 +31,7 @@ func _ready() -> void:
 	battle.hide()
 	loot.hide()
 	dungeon.hide()
+	end_game.hide()
 	loot1 = get_loot(player.name, 1)
 	loot2 = get_loot(player.name, 2)
 	loot3 = get_loot(player.name, 3)
@@ -47,7 +49,11 @@ func _on_StartGame_button_up() -> void:
 func _on_Dungeon_start_battle(enemy: Actor) -> void:
 	start_battle(dungeon, enemy)
 	yield(self, "battle_finished")
-	dungeon.advance()
+	if dungeon.progress == 9:
+		print("done")
+		end_game.show()
+	else:
+		dungeon.advance()
 
 func start_battle(scene_to_hide: Node2D, enemy: Actor) -> void:
 	fade.play("FadeOut")
@@ -59,6 +65,9 @@ func start_battle(scene_to_hide: Node2D, enemy: Actor) -> void:
 	yield(fade, "animation_finished")
 	yield(battle, "battle_finished")
 	fade.play("FadeOut")
+	if battle.game_over:
+		game_over()
+		return
 	AudioController.play_bgm("victory")
 	yield(fade, "animation_finished")
 	loot.setup(create_loot_list())
@@ -73,6 +82,15 @@ func start_battle(scene_to_hide: Node2D, enemy: Actor) -> void:
 	fade.play("FadeIn")
 	emit_signal("battle_finished")
 
+func game_over() -> void:
+	battle.hide()
+	AudioController.play_bgm("title")
+	yield(fade, "animation_finished")
+	player.hp = player.max_hp
+	$EndGame/Label.text = "Game Over"
+	end_game.show()
+	fade.play("FadeIn")
+
 func create_loot_list() -> Array:
 	var level = (1 + dungeon.progress / 3) as int
 	print(level)
@@ -83,8 +101,11 @@ func create_loot_list() -> Array:
 		var rand = randf()
 		var chance = 0.25 * i
 		var roll = rare if rand < chance else common
-		loot_list.append(pick_loot(roll))
-		print(loot_list[i])
+		var pick = pick_loot(roll)
+		while loot_list.has(pick):
+			print(pick)
+			pick = pick_loot(roll)
+		loot_list.append(pick)
 	return loot_list
 
 func pick_loot(rank: int) -> String:
@@ -120,3 +141,14 @@ func get_loot(player_name: String, rank: int) -> Array:
 	for loot in files:
 		list.append(load(path + loot))
 	return list
+
+func _on_Restart_button_up():
+	AudioController.click()
+	player.hp = player.max_hp
+	dungeon.reset()
+	fade.play("FadeOut")
+	yield(fade, "animation_finished")
+	end_game.hide()
+	dungeon.show()
+	AudioController.play_bgm("dungeon")	
+	fade.play("FadeIn")

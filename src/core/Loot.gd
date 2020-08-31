@@ -98,7 +98,11 @@ func _on_Finished_button_up():
 	emit_signal("looting_finished")
 
 func _on_show_card(btn: ActionChoice) -> void:
-	card.initialize(btn)
+	var count = 0
+	for a in player.actions:
+		if a.name == btn.action.name:
+			count += 1
+	card.initialize(btn, count)
 
 func _on_hide_card():
 	card.close()

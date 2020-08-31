@@ -14,6 +14,7 @@ var hp: int setget set_hp
 var ac: int setget set_ac
 var mp: int setget set_mp
 var ap: int setget set_ap
+var dead: bool setget , get_dead
 
 var actor: Actor
 
@@ -29,6 +30,7 @@ func initialize(_actor: Actor) ->  void:
 	$Player/Panel/AP/Max.rect_size = Vector2(4 * actor.max_ap, 7)
 
 func reset() -> void:
+	self.hp = actor.hp
 	self.ac = actor.initial_ac
 	self.mp = actor.initial_mp
 
@@ -43,18 +45,23 @@ func start_turn() -> void:
 
 func take_hit(damage: int) -> void:
 	var floating_text = FloatingText.instance()
+	var blocked_dmg = 0
+	var hp_dmg = 0
+	if ac > 0:
+		if ac > damage:
+			self.ac -= damage
+			blocked_dmg = damage
+			damage = 0
+		else:
+			damage -= ac
+			blocked_dmg = damage
+			self.ac = 0
+	self.hp -= damage
+	hp_dmg = damage
 	floating_text.initialize(damage, false)
 	floating_text.position = Vector2(54, 67)
 	get_parent().add_child(floating_text)
 	$AnimationPlayer.play("Shake")
-	if ac > 0:
-		if ac > damage:
-			self.ac -= damage
-			damage = 0
-		else:
-			damage -= ac
-			self.ac = 0
-	self.hp -= damage
 
 func take_healing(amount: int, type: String) -> void:
 	var floating_text = FloatingText.instance()
@@ -113,3 +120,5 @@ func set_ap(value: int) -> void:
 	ap = clamp(value, 0, actor.max_ap)
 	$Player/Panel/AP/Current.rect_size = Vector2(4 * ap, 7)
 
+func get_dead() -> bool:
+	return hp == 0

@@ -14,12 +14,14 @@ signal discarded(action_button)
 signal show_card(action_button)
 signal hide_card
 
+onready var button = $Button
 onready var animationPlayer: = $AnimationPlayer
 onready var timer: = $Timer
 
 var action: Action
 var player: Player
 var enemy: Enemy
+var played: = false
 
 var ap_cost: int
 var mp_cost: int
@@ -49,6 +51,7 @@ func show() -> void:
 	AudioController.play_sfx("draw")
 	animationPlayer.play("Draw")
 	yield(animationPlayer, "animation_finished")
+	played = false
 
 func discard() -> void:
 	AudioController.play_sfx("draw")
@@ -96,6 +99,7 @@ func play() -> void:
 	if !playable():
 		display_error()
 		return
+	played = true
 	emit_signal("button_pressed", true)
 	if action.drop or action.consume:
 		animationPlayer.play("Drop")
@@ -133,7 +137,6 @@ func execute() -> void:
 			yield(self, "inflict_effect")
 			if action.extra_action != null:
 				action.extra_action.execute(player)
-			yield(self, "anim_finished")
 		if action.damage > 0:
 			if action.damage_type == Action.DamageType.HP:
 				AudioController.play_sfx("heal")
@@ -148,6 +151,7 @@ func execute() -> void:
 				AudioController.play_sfx("mp_gain")
 				player.take_healing(action.damage, "MP")
 		emit_signal("action_finished", action)
+		yield(self, "anim_finished")
 	if action.drop or action.consume:
 		queue_free()
 
@@ -174,6 +178,7 @@ func create_effect(position: Vector2) -> void:
 
 func _on_Button_up() -> void:
 	timer.stop()
+	if played: return
 	if hovering:
 		hovering = false
 		emit_signal("hide_card")

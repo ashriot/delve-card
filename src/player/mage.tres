@@ -1,10 +1,11 @@
-[gd_resource type="Resource" load_steps=6 format=2]
+[gd_resource type="Resource" load_steps=7 format=2]
 
 [ext_resource path="res://src/player/actor.gd" type="Script" id=1]
 [ext_resource path="res://src/actions/mage/1/mana_shell.tres" type="Resource" id=2]
 [ext_resource path="res://src/actions/mage/1/mana_dart.tres" type="Resource" id=3]
 [ext_resource path="res://src/actions/mage/1/cracked_crystal.tres" type="Resource" id=4]
 [ext_resource path="res://src/actions/mage/1/wooden_wand.tres" type="Resource" id=5]
+[ext_resource path="res://src/actions/mage/1/minor_heal.tres" type="Resource" id=6]
 
 [resource]
 script = ExtResource( 1 )
@@ -15,4 +16,4 @@ max_ap = 2
 initial_ac = 0
 initial_mp = 4
 gold = 0
-actions = [ ExtResource( 5 ), ExtResource( 5 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 4 ), ExtResource( 3 ), ExtResource( 3 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 2 ) ]
+actions = [ ExtResource( 5 ), ExtResource( 5 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 4 ), ExtResource( 3 ), ExtResource( 3 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 6 ) ]

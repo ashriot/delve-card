@@ -61,14 +61,18 @@ func display_message(value: String) -> void:
 
 func recover_graveyard() -> void:
 	display_message("Shuffling...")
+	var i = 0
 	while graveyard.get_child_count() > 0:
+		i += 1
 		var action = graveyard.get_child(0)
 		graveyard.remove_child(action)
 		deck.add_child(action)
 		self.graveyard_count = graveyard.get_child_count()
 		self.deck_count = deck.get_child_count()
-		AudioController.play_sfx("draw")
-		yield(get_tree().create_timer(0.05), "timeout")
+		if i == 3:
+			AudioController.play_sfx("draw")
+			i = 0
+		yield(get_tree().create_timer(0.01), "timeout")
 	yield(get_tree().create_timer(0.1), "timeout")
 	emit_signal("graveyard_done")
 	shuffle_deck()
@@ -137,10 +141,12 @@ func remove_pos(node: Control) -> void:
 				i.remove_child(node)
 				return
 
-func add_to_deck(list_of_actions) -> void:
-	print("adding to deck...")
+func add_to_deck(actions_to_add) -> void:
+	var list_of_actions = []
+	list_of_actions += actions_to_add
 	while list_of_actions.size() > 0:
-		var action = list_of_actions.pop_front()
+		var action = list_of_actions.pop_front() as ActionButton
+		action.played = true
 		player.get_parent().add_child(action)
 		action.rect_position = Vector2(54, 72)
 		action.animationPlayer.play("Gain")
@@ -198,11 +204,8 @@ func discard_hand() -> void:
 				yield(child, "discarded")
 				remove_pos(child)
 				self.hand_count -= 1
-				if child.action.drop or child.action.consume:
-					child.queue_free()
-				else:
-					graveyard.add_child(child)
-					self.graveyard_count += 1
+				graveyard.add_child(child)
+				self.graveyard_count += 1
 	emit_signal("done_discarding")
 
 func played_action(action_button: ActionButton) -> void:
@@ -242,7 +245,12 @@ func set_graveyard_count(value: int) -> void:
 	emit_signal("graveyard_count", value)
 
 func show_card(action_button: ActionButton) -> void:
-	card.initialize(action_button)
+	var count = 0
+	for a in actions:
+		print(a.name +" == " + action_button.action.name)
+		if a.name == action_button.action.name:
+			count += 1
+	card.initialize(action_button, count)
 
 func hide_card() -> void:
 	card.close()

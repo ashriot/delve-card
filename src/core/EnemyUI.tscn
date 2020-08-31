@@ -190,6 +190,17 @@ modulate = Color( 0.145098, 0.145098, 0.133333, 1 )
 position = Vector2( 0, -35 )
 texture = ExtResource( 7 )
 
+[node name="Level" type="Label" parent="Enemy"]
+margin_left = -11.0
+margin_top = -35.0
+margin_right = 12.0
+margin_bottom = -21.0
+custom_colors/font_color = Color( 0.6, 0.584314, 0.521569, 1 )
+text = "Lv.1"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="HP" type="Control" parent="Enemy"]
 anchor_left = 0.5
 anchor_right = 0.5
@@ -247,7 +258,7 @@ texture = ExtResource( 8 )
 centered = false
 vframes = 10
 hframes = 13
-frame = 4
+frame = 2
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Enemy/Attack"]
 anchor_right = 1.0
@@ -272,17 +283,6 @@ anims/Attack = SubResource( 1 )
 anims/Died = SubResource( 2 )
 anims/Hit = SubResource( 3 )
 anims/Idle = SubResource( 4 )
-
-[node name="Level" type="Label" parent="Enemy"]
-margin_left = -11.0
-margin_top = -35.0
-margin_right = 12.0
-margin_bottom = -21.0
-custom_colors/font_color = Color( 0.6, 0.584314, 0.521569, 1 )
-text = "Lv.1"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 9 )
