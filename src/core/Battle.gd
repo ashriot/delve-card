@@ -46,4 +46,5 @@ func _on_Enemy_block_input():
 	actions.block_input(true)
 
 func _on_Enemy_died():
+	actions.block_input(true)
 	emit_signal("battle_finished", true)

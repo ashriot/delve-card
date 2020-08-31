@@ -28,7 +28,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1, 0.65, 0.75 ),
+"times": PoolRealArray( 0, 0.1, 0.35, 0.75 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
@@ -82,9 +82,10 @@ tracks/4/keys = {
 
 [node name="Sprite" parent="." index="0"]
 modulate = Color( 1, 1, 1, 0 )
-position = Vector2( 0, 32 )
+position = Vector2( 0, 5 )
 texture = ExtResource( 2 )
 hframes = 10
+frame = 9
 
 [node name="AnimationPlayer" parent="." index="1"]
 autoplay = "Animate"
