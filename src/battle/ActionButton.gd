@@ -47,6 +47,7 @@ func initialize(_action: Action, _player: Player, _enemy: Enemy) -> void:
 	initialized = true
 
 func show() -> void:
+	modulate.a = 1
 	$Button.modulate.a = 0
 	AudioController.play_sfx("draw")
 	animationPlayer.play("Draw")
@@ -96,6 +97,9 @@ func get_error() -> String:
 	return "Something's missing!"
 
 func play() -> void:
+	if hovering:
+		hovering = false
+		emit_signal("hide_card")
 	if !playable():
 		display_error()
 		return
@@ -180,6 +184,7 @@ func create_effect(position: Vector2) -> void:
 		emit_signal("anim_finished")
 
 func _on_Button_up() -> void:
+	modulate.a = 1
 	timer.stop()
 	if played: return
 	if hovering:
@@ -189,6 +194,7 @@ func _on_Button_up() -> void:
 	play()
 
 func _on_Button_down():
+	modulate.a = 0.66
 	timer.start(.25)
 
 func _on_Timer_timeout() -> void:

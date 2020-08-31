@@ -43,5 +43,8 @@ offset = Vector2( -3, -3 )
 vframes = 15
 hframes = 16
 frame = 166
+
+[node name="Timer" type="Timer" parent="."]
 [connection signal="button_down" from="Button" to="." method="_on_Button_button_down"]
 [connection signal="button_up" from="Button" to="." method="_on_Button_up"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

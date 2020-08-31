@@ -1,14 +1,31 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://src/core/Battle.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/images/bgs/title.png" type="Texture" id=2]
 [ext_resource path="res://src/core/Game.gd" type="Script" id=3]
 [ext_resource path="res://src/player/mage.tres" type="Resource" id=4]
 [ext_resource path="res://src/core/Loot.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/images/ui/Shield.png" type="Texture" id=6]
+[ext_resource path="res://assets/images/ui/Staff.png" type="Texture" id=7]
+[ext_resource path="res://assets/images/ui/Heart.png" type="Texture" id=8]
 [ext_resource path="res://src/battle/ActionButton.tscn" type="PackedScene" id=12]
 [ext_resource path="res://src/core/Dungeon.gd" type="Script" id=14]
 
-[sub_resource type="StyleBoxEmpty" id=1]
+[sub_resource type="Animation" id=1]
+length = 1.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.145098, 0.145098, 0.133333, 0 ), Color( 0, 0, 0, 1 ), Color( 0.145098, 0.145098, 0.133333, 0 ) ]
+}
 
 [sub_resource type="StyleBoxEmpty" id=2]
 
@@ -18,7 +35,19 @@
 
 [sub_resource type="StyleBoxEmpty" id=5]
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="StyleBoxEmpty" id=6]
+
+[sub_resource type="StyleBoxEmpty" id=7]
+
+[sub_resource type="StyleBoxEmpty" id=8]
+
+[sub_resource type="StyleBoxEmpty" id=9]
+
+[sub_resource type="StyleBoxEmpty" id=10]
+
+[sub_resource type="StyleBoxEmpty" id=11]
+
+[sub_resource type="Animation" id=12]
 length = 1.2
 loop = true
 tracks/0/type = "value"
@@ -34,8 +63,7 @@ tracks/0/keys = {
 "values": [ Color( 0.145098, 0.145098, 0.133333, 0 ), Color( 0.145098, 0.145098, 0.133333, 1 ), Color( 0.145098, 0.145098, 0.133333, 0 ) ]
 }
 
-[sub_resource type="Animation" id=7]
-resource_name = "FadeIn"
+[sub_resource type="Animation" id=13]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:color")
@@ -62,8 +90,7 @@ tracks/1/keys = {
 "values": [ 2 ]
 }
 
-[sub_resource type="Animation" id=8]
-resource_name = "FadeOut"
+[sub_resource type="Animation" id=14]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:color")
@@ -100,6 +127,7 @@ player = ExtResource( 4 )
 visible = false
 
 [node name="Dungeon" type="Node2D" parent="."]
+visible = false
 script = ExtResource( 14 )
 
 [node name="TextureRect" type="ColorRect" parent="Dungeon"]
@@ -236,6 +264,109 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="DemoScreen" type="ColorRect" parent="."]
+visible = false
+margin_right = 108.0
+margin_bottom = 192.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="DemoScreen"]
+anchor_right = 1.0
+margin_top = -2.0
+margin_bottom = 47.0
+custom_constants/line_spacing = 1
+text = "Thank you for playing the DELVE alpha test!
+
+Game Basics
+
+
+STATS"
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label3" type="Label" parent="DemoScreen"]
+anchor_right = 1.0
+margin_left = 10.0
+margin_top = 49.0
+margin_bottom = 126.0
+custom_constants/line_spacing = 1
+text = "HP: Hit Points. You do not heal after battle.
+
+AC: Armor Class. Removed before HP. Resets after each fight.
+
+MP: Mana Points. Required by spells. Resets after each fight."
+autowrap = true
+
+[node name="Heart" type="Sprite" parent="DemoScreen/Label3"]
+modulate = Color( 0.792157, 0.780392, 0.721569, 1 )
+position = Vector2( -3, 8 )
+texture = ExtResource( 8 )
+
+[node name="Shield" type="Sprite" parent="DemoScreen/Label3"]
+modulate = Color( 0.792157, 0.780392, 0.721569, 1 )
+position = Vector2( -3, 29 )
+texture = ExtResource( 6 )
+
+[node name="Staff" type="Sprite" parent="DemoScreen/Label3/Shield"]
+position = Vector2( 0, 28 )
+texture = ExtResource( 7 )
+
+[node name="Label2" type="Label" parent="DemoScreen"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = 28.0
+margin_right = 2.0
+margin_bottom = 84.0
+custom_constants/line_spacing = 1
+text = "* Tap and hold on any action to see more details.
+
+* Max hand size is 5.
+
+* There are many more features coming soon!"
+autowrap = true
+
+[node name="TapToStart2" type="Label" parent="DemoScreen"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = 82.0
+margin_bottom = 96.0
+text = "Tap to Start"
+align = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="DemoScreen/TapToStart2"]
+autoplay = "FlashTap"
+anims/FlashTap = SubResource( 1 )
+
+[node name="ColorRect" type="ColorRect" parent="DemoScreen/TapToStart2"]
+modulate = Color( 0, 0, 0, 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DemoStart" type="Button" parent="DemoScreen"]
+margin_right = 109.0
+margin_bottom = 192.0
+custom_styles/hover = SubResource( 2 )
+custom_styles/pressed = SubResource( 3 )
+custom_styles/focus = SubResource( 4 )
+custom_styles/disabled = SubResource( 5 )
+custom_styles/normal = SubResource( 6 )
+
 [node name="Title" type="Node2D" parent="."]
 visible = false
 
@@ -276,17 +407,17 @@ __meta__ = {
 [node name="StartGame" type="Button" parent="Title/ColorRect"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_styles/hover = SubResource( 1 )
-custom_styles/pressed = SubResource( 2 )
-custom_styles/focus = SubResource( 3 )
-custom_styles/disabled = SubResource( 4 )
-custom_styles/normal = SubResource( 5 )
+custom_styles/hover = SubResource( 7 )
+custom_styles/pressed = SubResource( 8 )
+custom_styles/focus = SubResource( 9 )
+custom_styles/disabled = SubResource( 10 )
+custom_styles/normal = SubResource( 11 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Title"]
-anims/FlashTap = SubResource( 6 )
+anims/FlashTap = SubResource( 12 )
 
 [node name="Deck" type="Node2D" parent="."]
 visible = false
@@ -386,6 +517,14 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Keep" type="Label" parent="EndGame"]
+margin_top = 73.0
+margin_right = 107.0
+margin_bottom = 105.0
+text = "* If you restart the game, you will keep your current actions!"
+align = 1
+autowrap = true
+
 [node name="Fade" type="ColorRect" parent="."]
 margin_right = 108.0
 margin_bottom = 192.0
@@ -397,8 +536,9 @@ __meta__ = {
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Fade"]
-anims/FadeIn = SubResource( 7 )
-anims/FadeOut = SubResource( 8 )
+anims/FadeIn = SubResource( 13 )
+anims/FadeOut = SubResource( 14 )
 [connection signal="start_battle" from="Dungeon" to="." method="_on_Dungeon_start_battle"]
+[connection signal="button_up" from="DemoScreen/DemoStart" to="." method="_on_DemoStart_button_up"]
 [connection signal="button_up" from="Title/ColorRect/StartGame" to="." method="_on_StartGame_button_up"]
 [connection signal="button_up" from="EndGame/Restart" to="." method="_on_Restart_button_up"]

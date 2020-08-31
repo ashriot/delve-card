@@ -26,7 +26,10 @@ func initialize(_action: Action, _player: Actor) -> void:
 	$Button/AP.hide()
 	$Button/MP.hide()
 	$Button/Sprite.frame = action.frame_id
+	$Button/Chosen/HighlightSprite.frame = action.frame_id
 	$Button.text = action.name
+	$Button/Chosen/HighlightText.text = action.name
+	$Button/Chosen.hide()
 	ap_cost = action.ap_cost
 	mp_cost = action.mp_cost
 	damage = action.damage
@@ -75,4 +78,7 @@ func _on_Timer_timeout():
 
 func set_chosen(value: bool) -> void:
 	chosen = value
-	$Chosen.modulate.a = 1 if value else 0
+	if chosen:
+		$Button/Chosen.show()
+	else:
+		$Button/Chosen.hide()

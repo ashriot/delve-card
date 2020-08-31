@@ -9,9 +9,10 @@
 script = ExtResource( 1 )
 name = ""
 level = 3
-max_hp = 40
+max_hp = 38
 max_ap = 3
 initial_ac = 0
 initial_mp = 0
 gold = 0
+potions = [  ]
 actions = [ ExtResource( 3 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 4 ) ]

@@ -21,9 +21,19 @@ onready var skip_progress = $Finished/TextureRect
 var player: Actor
 var chosen_action: Action
 
+var loot1: Array = []
+var loot2: Array = []
+var loot3: Array = []
+var loot4: Array = []
+
 func initialize(_player: Actor) -> void:
-	card.hide()
 	player = _player
+	loot1 = get_loot(1)
+	loot2 = get_loot(2)
+	loot3 = get_loot(3)
+	loot4 = get_loot(4)
+	
+	card.hide()
 	deck_label.text = str(player.actions.size())
 	
 	for _i in range(3):
@@ -33,16 +43,24 @@ func initialize(_player: Actor) -> void:
 		child.connect("chosen", self, "choose")
 		choices.add_child(child)
 
-func setup(actions: Array) -> void:
+func setup(progress: int) -> void:
 	set_hp(player.hp)
 	set_ac(player.initial_ac)
+	set_ap(player.max_ap)
 	set_mp(player.initial_mp)
-	gold = str(player.gold)
+	deck_label.text = str(player.actions.size())
+	gold.text = str(player.gold)
 	finished.text = "Skip Reward"
+	var actions = new_picker(progress)
 	actions.shuffle()
 	for child in choices.get_children():
+		if actions.front() == "":
+			child.hide()
+		else:
+			child.show()
+			var action = load(actions.pop_front())
+			child.initialize(action, player)
 		child.chosen = false
-		child.initialize(actions.pop_front(), player)
 
 func set_hp(value) -> void:
 	var zeros = 3 - str(value).length()
@@ -73,8 +91,7 @@ func set_mp(value: int) -> void:
 	mp_value.bbcode_text = text
 
 func set_ap(value: int) -> void:
-	ap = value
-	ap.rect_size = Vector2(4 * ap, 7)
+	ap.rect_size = Vector2(4 * value, 7)
 
 func choose(choice: ActionChoice) -> void:
 	for child in choices.get_children():
@@ -86,13 +103,125 @@ func choose(choice: ActionChoice) -> void:
 				chosen_action = child.action
 			else:
 				AudioController.back()
+				chosen_action = null
 				finished.text = "Skip Reward"
 		else:
 			child.chosen = false
 
+func create_loot_list(progress: int) -> Array:
+	var level = (1 + progress / 3) as int
+	var loot_list = []
+	for i in range(3):
+		var common = min(level, 4)
+		var rare = min(level + 1, 4)
+		var rand = randf()
+		var chance = 0.25 * i
+		var rank = rare if rand < chance else common
+		var pick = pick_loot(rank)
+		loot_list.append(pick)
+	return loot_list
+	
+func new_picker(progress: int) -> Array:
+	var level = (1 + progress / 3) as int
+	var loot_list = []
+	var pick1 = loot1.duplicate(true)
+	pick1.shuffle()
+	var pick2 = loot2.duplicate(true)
+	pick2.shuffle()
+	var pick3 = loot3.duplicate(true)
+	pick3.shuffle()
+	var pick4 = loot4.duplicate(true)
+	pick4.shuffle()
+	
+	for i in range(3):
+		var common = min(level, 4)
+		var rare = min(level + 1, 4)
+		var rand = randf()
+		var chance = 0.25 * i
+		var rank = rare if rand < chance else common
+		if rank == 4:
+			if pick4.size() > 0:
+				loot_list.append(pick4.pop_front())
+			else: rank -= 1
+		if rank == 3:
+			if pick3.size() > 0:
+				loot_list.append(pick3.pop_front())
+			else: rank -= 1
+		if rank == 2:
+			if pick2.size() > 0:
+				loot_list.append(pick2.pop_front())
+			else: rank -= 1
+		if rank == 1:
+			if pick1.size() > 0:
+				loot_list.append(pick1.pop_front())
+			else: rank -= 1
+		if rank == 0:
+			loot_list.append("")
+	return loot_list
+
+func pick_loot(rank: int) -> String:
+	var table: Array
+	if rank == 1:
+		table = loot1
+	if rank == 2:
+		table = loot2
+	if rank == 3:
+		table = loot3
+	if rank == 4:
+		table = loot4
+	if table.size() == 0:
+		print("table is empty: " + str(rank))
+		return ""
+	var rand = randi() % table.size()
+	var item = table[rand]
+	return item
+
+func remove_loot(item: String) -> void:
+	item = item.to_lower()
+	item = item.replace(" ", "_")
+	item += ".tres"
+	var path = "res://src/actions/" + player.name + "/"
+	if loot1.has(path + "1/" + item):
+		loot1.remove(loot1.find(path + "1/" + item))
+		print("found in table 1")
+		return
+	if loot2.has(path + "2/" + item):
+		loot2.remove(loot2.find(path + "2/" + item))
+		print("found in table 2")
+		return
+	if loot3.has(path + "3/" + item):
+		loot3.remove(loot3.find(path + "3/" + item))
+		print("found in table 3")
+		return
+	if loot4.has(path + "4/" + item):
+		loot4.remove(loot4.find(path + "4/" + item))
+		print("found in table 4")
+		return
+
+func get_loot(rank: int) -> Array:
+	var list = []
+	var path = "res://src/actions/" + player.name + "/" + str(rank) + "/"
+	var files = []
+	var dir = Directory.new()
+	dir.open(path)
+	dir.list_dir_begin()
+	while true:
+		var file = dir.get_next()
+		if file == "":
+			break
+		elif not file.begins_with("."):
+			files.append(file)
+	dir.list_dir_end()
+	
+	for loot in files:
+		list.append(path + loot)
+	return list
+
 func _on_Finished_button_up():
-	player.actions.append(chosen_action)
-	player.actions.sort()
+	if chosen_action != null:
+		remove_loot(chosen_action.name)
+		player.actions.append(chosen_action)
+		player.actions.sort()
 	AudioController.click()
 	skip_progress.rect_size.x = 0
 	emit_signal("looting_finished")

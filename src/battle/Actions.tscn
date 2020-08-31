@@ -51,12 +51,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Card" parent="." instance=ExtResource( 1 )]
-visible = false
-mouse_filter = 2
-
 [node name="ItemBelt" type="HBoxContainer" parent="."]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1.0
@@ -69,4 +64,18 @@ __meta__ = {
 }
 
 [node name="PotionButton" parent="ItemBelt" instance=ExtResource( 4 )]
+visible = false
+
+[node name="PotionButton2" parent="ItemBelt" instance=ExtResource( 4 )]
+visible = false
+
+[node name="PotionButton3" parent="ItemBelt" instance=ExtResource( 4 )]
+visible = false
+
+[node name="PotionButton4" parent="ItemBelt" instance=ExtResource( 4 )]
+visible = false
+
+[node name="Card" parent="." instance=ExtResource( 1 )]
+visible = false
+mouse_filter = 2
 [connection signal="button_up" from="EndTurn" to="." method="_on_EndTurn_button_up"]

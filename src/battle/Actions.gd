@@ -43,7 +43,7 @@ func initialize(_player: Player, _enemyUI: Enemy) -> void:
 	player = _player
 	enemyUI = _enemyUI
 	actions = player.actor.actions
-	setup_item_belt()
+#	setup_item_belt()
 	fill_deck()
 	initialized = true
 
@@ -80,9 +80,16 @@ func recover_graveyard() -> void:
 	shuffle_deck()
 
 func setup_item_belt() -> void:
+	item_belt.show()
 	for child in item_belt.get_children():
-		child.initialize(player.actor.potions[0])
+		var index = child.get_index()
+		if player.actor.potions.size() <= index:
+			return
+		child.show()
+		child.initialize(player.actor.potions[index])
 		child.connect("used_potion", self, "used_potion")
+		child.connect("show_card", self, "show_card")
+		child.connect("hide_card", self, "hide_card")
 
 func fill_deck() -> void:
 	if deck_count > 0:
@@ -90,6 +97,8 @@ func fill_deck() -> void:
 			deck.remove_child(child)
 			child.queue_free()
 		self.deck_count = deck.get_child_count()
+		print("Deck Count: ", self.deck_count \
+			, " Action Count: ", str(player.actor.actions.size()))
 	for action in actions:
 		var action_button = _ActionButton.instance() as ActionButton
 		initialize_button(action_button, action)
@@ -128,7 +137,7 @@ func fill_hand() -> void:
 			yield(self, "graveyard_done")
 		var action = deck.get_child(0)
 		deck.remove_child(action)
-		self.deck_count -= 1
+		self.deck_count = deck.get_child_count()
 		set_pos(action)
 		action.show()
 		yield(get_tree().create_timer(0.12), "timeout")
@@ -146,6 +155,7 @@ func remove_pos(node: Control) -> void:
 		if i.get_child_count() > 0:
 			if i.get_child(0) == node:
 				i.remove_child(node)
+				hand_count -= 1
 				return
 
 func add_to_deck(actions_to_add) -> void:
@@ -183,7 +193,7 @@ func draw(value: int, type) -> void:
 			input_blocker.hide()
 			return
 		deck.remove_child(action)
-		self.deck_count -= 1
+		self.deck_count = deck.get_child_count()
 		if hand_count == HAND_SIZE:
 			action.discard()
 		else:
@@ -210,14 +220,12 @@ func discard_hand() -> void:
 				child.discard()
 				yield(child, "discarded")
 				remove_pos(child)
-				self.hand_count -= 1
 				graveyard.add_child(child)
 				self.graveyard_count += 1
 	emit_signal("done_discarding")
 
 func played_action(action_button: ActionButton) -> void:
 	remove_pos(action_button)
-	self.hand_count -= 1
 	if action_button.action.drawX > 0:
 		draw(action_button.action.drawX, action_button.action.draw_type)
 		yield(self, "done_drawing")
@@ -254,12 +262,12 @@ func set_graveyard_count(value: int) -> void:
 	graveyard_count = value
 	emit_signal("graveyard_count", value)
 
-func show_card(action_button: ActionButton) -> void:
+func show_card(action_button) -> void:
 	var count = 0
-	for a in actions:
-		print(a.name +" == " + action_button.action.name)
-		if a.name == action_button.action.name:
-			count += 1
+	if action_button.action.action_type != Action.ActionType.ITEM:
+		for a in actions:
+			if a.name == action_button.action.name:
+				count += 1
 	card.initialize(action_button, count)
 
 func hide_card() -> void:

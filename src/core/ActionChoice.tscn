@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://src/core/ActionChoice.gd" type="Script" id=1]
 [ext_resource path="res://assets/images/ui/diamond_outline.png" type="Texture" id=2]
 [ext_resource path="res://assets/images/sheets/icons.png" type="Texture" id=3]
+[ext_resource path="res://assets/theming/button.tres" type="StyleBox" id=4]
 
 [node name="ActionChoice" type="Control"]
 margin_right = 108.0
@@ -13,19 +14,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Chosen" type="ColorRect" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-color = Color( 0.6, 0.584314, 0.521569, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="Button" type="Button" parent="."]
 margin_top = 2.0
 margin_right = 108.0
 margin_bottom = 15.0
 rect_min_size = Vector2( 90, 13 )
+custom_styles/pressed = ExtResource( 4 )
 text = "Action Button"
 __meta__ = {
 "_edit_group_": true,
@@ -35,6 +29,38 @@ __meta__ = {
 [node name="Sprite" type="Sprite" parent="Button"]
 modulate = Color( 0.792157, 0.780392, 0.721569, 1 )
 position = Vector2( 2, 2 )
+texture = ExtResource( 3 )
+centered = false
+vframes = 10
+hframes = 13
+frame = 26
+
+[node name="Chosen" type="ColorRect" parent="Button"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_top = 1.0
+margin_right = -1.0
+margin_bottom = -1.0
+mouse_filter = 2
+color = Color( 0.6, 0.584314, 0.521569, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HighlightText" type="Label" parent="Button/Chosen"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -2.0
+margin_bottom = 1.0
+custom_colors/font_color = Color( 0.145098, 0.145098, 0.133333, 1 )
+text = "Action Button"
+align = 1
+
+[node name="HighlightSprite" type="Sprite" parent="Button/Chosen"]
+modulate = Color( 0.145098, 0.145098, 0.133333, 1 )
+position = Vector2( 1, 1 )
 texture = ExtResource( 3 )
 centered = false
 vframes = 10

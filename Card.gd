@@ -18,7 +18,10 @@ func initialize(_action_button, have: int) -> void:
 	action_button = _action_button
 	$Panel/AP.hide()
 	$Panel/MP.hide()
-	$Panel/Sprite.frame = action_button.action.frame_id
+	if potion:
+		$Panel/Sprite.frame = 74
+	else:
+		$Panel/Sprite.frame = action_button.action.frame_id
 	$Panel/Title.text = action_button.action.name
 	var description = action_button.action.description
 	$Panel/Type.text = description[0]
@@ -44,7 +47,11 @@ func initialize(_action_button, have: int) -> void:
 		mp_cost = action_button.action.mp_cost
 		damage = action_button.action.damage
 		hits = action_button.action.hits
+		$Panel/Damage.show()
 		update_data()
+	else:
+		$Panel/Have.text = ""
+		$Panel/Damage.hide()
 	modulate.a = 0
 	var pos = Vector2(0, get_global_mouse_position().y - $Panel.rect_size.y - 27)
 	$Panel.rect_global_position = pos
