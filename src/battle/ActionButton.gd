@@ -150,7 +150,7 @@ func execute() -> void:
 			elif action.damage_type == Action.DamageType.MP:
 				var damage = action.damage
 				if action.name == "Glowing Crystal":
-					damage = min(player.mp * 2, 30)
+					damage = min(player.mp, 30)
 				AudioController.play_sfx("mp_gain")
 				player.take_healing(damage, "MP")
 		emit_signal("action_finished", action)

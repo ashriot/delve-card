@@ -93,7 +93,6 @@ tracks/1/keys = {
 [node name="Game" type="Node"]
 script = ExtResource( 3 )
 player = ExtResource( 4 )
-mute = true
 
 [node name="Battle" parent="." instance=ExtResource( 1 )]
 
@@ -122,8 +121,8 @@ default_color = Color( 0.792157, 0.780392, 0.721569, 1 )
 margin_left = 2.0
 margin_top = 6.0
 margin_right = 106.0
-margin_bottom = 187.0
-custom_constants/separation = 9
+margin_bottom = 178.0
+custom_constants/separation = 8
 __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
@@ -140,9 +139,9 @@ __meta__ = {
 }
 
 [node name="Button2" type="Button" parent="Dungeon/TextureRect/Buttons"]
-margin_top = 19.0
+margin_top = 18.0
 margin_right = 104.0
-margin_bottom = 29.0
+margin_bottom = 28.0
 rect_min_size = Vector2( 104, 0 )
 text = "Encounter"
 __meta__ = {
@@ -150,9 +149,9 @@ __meta__ = {
 }
 
 [node name="Button3" type="Button" parent="Dungeon/TextureRect/Buttons"]
-margin_top = 38.0
+margin_top = 36.0
 margin_right = 104.0
-margin_bottom = 48.0
+margin_bottom = 46.0
 rect_min_size = Vector2( 104, 0 )
 disabled = true
 text = "Encounter"
@@ -161,9 +160,9 @@ __meta__ = {
 }
 
 [node name="Button4" type="Button" parent="Dungeon/TextureRect/Buttons"]
-margin_top = 57.0
+margin_top = 54.0
 margin_right = 104.0
-margin_bottom = 67.0
+margin_bottom = 64.0
 rect_min_size = Vector2( 104, 0 )
 disabled = true
 text = "Encounter"
@@ -172,9 +171,9 @@ __meta__ = {
 }
 
 [node name="Button5" type="Button" parent="Dungeon/TextureRect/Buttons"]
-margin_top = 76.0
+margin_top = 72.0
 margin_right = 104.0
-margin_bottom = 86.0
+margin_bottom = 82.0
 rect_min_size = Vector2( 104, 0 )
 disabled = true
 text = "Encounter"
@@ -183,9 +182,9 @@ __meta__ = {
 }
 
 [node name="Button6" type="Button" parent="Dungeon/TextureRect/Buttons"]
-margin_top = 95.0
+margin_top = 90.0
 margin_right = 104.0
-margin_bottom = 105.0
+margin_bottom = 100.0
 rect_min_size = Vector2( 104, 0 )
 disabled = true
 text = "Encounter"
@@ -194,9 +193,9 @@ __meta__ = {
 }
 
 [node name="Button7" type="Button" parent="Dungeon/TextureRect/Buttons"]
-margin_top = 114.0
+margin_top = 108.0
 margin_right = 104.0
-margin_bottom = 124.0
+margin_bottom = 118.0
 rect_min_size = Vector2( 104, 0 )
 disabled = true
 text = "Encounter"
@@ -205,9 +204,9 @@ __meta__ = {
 }
 
 [node name="Button8" type="Button" parent="Dungeon/TextureRect/Buttons"]
-margin_top = 133.0
+margin_top = 126.0
 margin_right = 104.0
-margin_bottom = 143.0
+margin_bottom = 136.0
 rect_min_size = Vector2( 104, 0 )
 disabled = true
 text = "Encounter"
@@ -216,9 +215,9 @@ __meta__ = {
 }
 
 [node name="Button9" type="Button" parent="Dungeon/TextureRect/Buttons"]
-margin_top = 152.0
+margin_top = 144.0
 margin_right = 104.0
-margin_bottom = 162.0
+margin_bottom = 154.0
 rect_min_size = Vector2( 104, 0 )
 disabled = true
 text = "Encounter"
@@ -227,9 +226,9 @@ __meta__ = {
 }
 
 [node name="Button10" type="Button" parent="Dungeon/TextureRect/Buttons"]
-margin_top = 171.0
+margin_top = 162.0
 margin_right = 104.0
-margin_bottom = 181.0
+margin_bottom = 172.0
 rect_min_size = Vector2( 104, 0 )
 disabled = true
 text = "Encounter"
