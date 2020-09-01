@@ -44,6 +44,7 @@ func initialize(_player: Actor) -> void:
 		choices.add_child(child)
 
 func setup(progress: int) -> void:
+	chosen_action = null
 	set_hp(player.hp)
 	set_ac(player.initial_ac)
 	set_ap(player.max_ap)
