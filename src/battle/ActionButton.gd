@@ -80,6 +80,8 @@ func update_data() -> void:
 	var text = "[right]" + prepend + str(damage) + hit_text + type
 	if action.damage == 0:
 		text = ""
+	if action.name == "Glowing Crystal":
+		text = "[right]+?MP"
 	$Button/Damage.bbcode_text = text
 
 func playable() -> bool:
@@ -97,9 +99,7 @@ func get_error() -> String:
 	return "Something's missing!"
 
 func play() -> void:
-	if hovering:
-		hovering = false
-		emit_signal("hide_card")
+	emit_signal("hide_card")
 	if !playable():
 		display_error()
 		return

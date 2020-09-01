@@ -85,6 +85,7 @@ func update_data() -> void:
 	$Panel/Damage.bbcode_text = text
 
 func close() -> void:
-	animation_player.play("FadeOut")
-	yield(animation_player, "animation_finished")
-	hide()
+	if visible:
+		animation_player.play("FadeOut")
+		yield(animation_player, "animation_finished")
+		hide()
