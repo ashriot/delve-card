@@ -8,8 +8,9 @@
 [resource]
 script = ExtResource( 1 )
 name = ""
+portrait_id = 0
 level = 4
-max_hp = 80
+max_hp = 90
 max_ap = 3
 initial_ac = 0
 initial_mp = 0

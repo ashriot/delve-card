@@ -3,7 +3,7 @@ class_name Dungeon
 
 signal start_battle
 
-onready var buttons = $TextureRect/Buttons
+onready var buttons = $ColorRect/Buttons
 
 var progress: = 1
 

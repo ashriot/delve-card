@@ -31,6 +31,7 @@ func initialize(_actor: Actor) ->  void:
 
 func reset() -> void:
 	self.hp = actor.hp
+	self.ap = actor.max_ap
 	self.ac = actor.initial_ac
 	self.mp = actor.initial_mp
 
@@ -41,7 +42,7 @@ func set_graveyard_count(value: int) -> void:
 	$Graveyard/Label.text = str(value)
 
 func start_turn() -> void:
-	self.ap = actor.max_ap
+	self.ap += 1
 
 func take_hit(damage: int) -> void:
 	var floating_text = FloatingText.instance()
@@ -69,7 +70,7 @@ func take_healing(amount: int, type: String) -> void:
 		self.hp += amount
 	if type == "AC":
 		self.ac += amount
-	if type == "AP":
+	if type == "ST":
 		self.ap += amount
 	if type == "MP":
 		self.mp += amount

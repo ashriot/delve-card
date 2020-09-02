@@ -23,6 +23,7 @@ var player: Player
 var enemy: Enemy
 var played: = false
 
+var hp_cost: int
 var ap_cost: int
 var mp_cost: int
 var damage: int
@@ -39,8 +40,12 @@ func initialize(_action: Action, _player: Player, _enemy: Enemy) -> void:
 	$Button/MP.hide()
 	$Button/Sprite.frame = action.frame_id
 	$Button.text = action.name
-	ap_cost = action.ap_cost
-	mp_cost = action.mp_cost
+	if action.cost_type == Action.DamageType.HP:
+		hp_cost = action.cost
+	elif action.cost_type == Action.DamageType.AP:
+		ap_cost = action.cost
+	elif action.cost_type == Action.DamageType.MP:
+		mp_cost = action.cost
 	damage = action.damage
 	hits = action.hits
 	update_data()
@@ -61,11 +66,14 @@ func discard() -> void:
 	emit_signal("discarded", self)
 
 func update_data() -> void:
-	if action.ap_cost > 0:
-		$Button/AP.rect_size = Vector2(5 * action.ap_cost, 7)
+	if action.cost_type == Action.DamageType.AP and action.cost > 0:
+		$Button/AP.rect_size = Vector2(5 * ap_cost, 7)
 		$Button/AP.show()
-	elif action.mp_cost > 0:
-		$Button/MP.bbcode_text = " " + str(action.mp_cost) + "MP"
+	elif action.cost_type == Action.DamageType.MP and action.cost > 0:
+		$Button/MP.bbcode_text = " " + str(mp_cost) + "MP"
+		$Button/MP.show()
+	elif action.cost_type == Action.DamageType.HP and action.cost > 0:
+		$Button/MP.bbcode_text = " -" + str(hp_cost) + "HP"
 		$Button/MP.show()
 	
 	var hit_text = "" if hits < 2 else ("x" + str(hits))
@@ -75,9 +83,12 @@ func update_data() -> void:
 	elif action.damage_type == Action.DamageType.MP:
 		type = "MP"
 	elif action.damage_type == Action.DamageType.AP:
-		type = "AP"
+		type = "ST"
 	var prepend = "+" if action.healing else ""
-	var text = "[right]" + prepend + str(damage) + hit_text + type
+	var drown = "+"
+	if action.name != "Drown":
+		drown = ""
+	var text = "[right]" + prepend + str(damage) + drown + hit_text + type
 	if action.damage == 0:
 		text = ""
 	if action.name == "Glowing Crystal":
@@ -85,17 +96,27 @@ func update_data() -> void:
 	$Button/Damage.bbcode_text = text
 
 func playable() -> bool:
+	if action.name == "Executioner":
+		if enemy.hp > 7:
+			return false
 	if ap_cost > player.ap:
 		return false
 	if mp_cost > player.mp:
+		return false
+	if hp_cost > player.hp:
 		return false
 	return true
 
 func get_error() -> String:
+	if action.name == "Executioner":
+		if enemy.hp > 7:
+			return "Enemy HP too high!"
 	if ap_cost > player.ap:
-		return "Not Enough AP!"
+		return "Not Enough ST!"
 	if mp_cost > player.mp:
 		return "Not Enough MP!"
+	if hp_cost > player.hp:
+		return "Not Enough HP!"
 	return "Something's missing!"
 
 func play() -> void:
@@ -111,9 +132,12 @@ func play() -> void:
 		animationPlayer.play("Use")
 	player.ap -= ap_cost
 	player.mp -= mp_cost
+	player.hp -= hp_cost
 	execute()
 	yield(animationPlayer, "animation_finished")
 	emit_signal("played", self)
+	if action.drop or action.consume:
+		queue_free()
 
 func display_error() -> void:
 	var floating_text = FloatingText.instance()
@@ -128,6 +152,8 @@ func execute() -> void:
 		for hit in action.hits:
 			create_effect(enemy.global_position)
 			yield(self, "inflict_hit")
+			if action.extra_action != null:
+				action.extra_action.execute(player)
 			emit_signal("action_finished", action)
 			var crit = randf() < action.crit_chance
 			var damage = action.damage * (2 if crit else 1)
@@ -147,7 +173,7 @@ func execute() -> void:
 				player.take_healing(action.damage, "HP")
 			if action.damage_type == Action.DamageType.AP:
 				AudioController.play_sfx("blip_up")
-				player.take_healing(action.damage, "AP")
+				player.take_healing(action.damage, "ST")
 			elif action.damage_type == Action.DamageType.AC:
 				AudioController.play_sfx("grazed")
 				player.take_healing(action.damage, "AC")
@@ -159,8 +185,6 @@ func execute() -> void:
 				player.take_healing(damage, "MP")
 		emit_signal("action_finished", action)
 		yield(self, "anim_finished")
-	if action.drop or action.consume:
-		queue_free()
 
 func inflict_hit() -> void:
 	emit_signal("inflict_hit")

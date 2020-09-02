@@ -38,10 +38,14 @@ func initialize(_actor: Actor) -> void:
 	update_atk_panel()
 
 func take_hit(action: Action, damage: int, crit: bool) -> void:
-	var floating_text = FloatingText.instance()
-	floating_text.initialize(damage, crit)
-	add_child(floating_text)
-	self.hp -= damage
+	if action.name == "Executioner":
+		if hp < 8:
+			self.hp = 0
+	else:
+		var floating_text = FloatingText.instance()
+		floating_text.initialize(damage, crit)
+		add_child(floating_text)
+		self.hp -= damage
 	if self.died:
 		emit_signal("block_input")
 		hp_panel.hide()

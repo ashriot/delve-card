@@ -12,6 +12,7 @@ var player: Actor
 
 var ap_cost: int
 var mp_cost: int
+var hp_cost: int
 var damage: int
 var hits: int
 var chosen: bool setget set_chosen
@@ -20,6 +21,9 @@ var hovering: = false
 var initialized: = false
 
 func initialize(_action: Action, _player: Actor) -> void:
+	if _action == null:
+		print ("Action is null!")
+		return
 	self.chosen = false
 	action = _action
 	player = _player
@@ -30,19 +34,26 @@ func initialize(_action: Action, _player: Actor) -> void:
 	$Button.text = action.name
 	$Button/Chosen/HighlightText.text = action.name
 	$Button/Chosen.hide()
-	ap_cost = action.ap_cost
-	mp_cost = action.mp_cost
+	if action.cost_type == Action.DamageType.HP:
+		hp_cost = action.cost
+	elif action.cost_type == Action.DamageType.MP:
+		mp_cost = action.cost
+	if action.cost_type == Action.DamageType.AP:
+		ap_cost = action.cost
 	damage = action.damage
 	hits = action.hits
 	update_data()
 	initialized = true
 
 func update_data() -> void:
-	if action.ap_cost > 0:
-		$Button/AP.rect_size = Vector2(5 * action.ap_cost, 7)
+	if action.cost_type == Action.DamageType.AP and action.cost > 0:
+		$Button/AP.rect_size = Vector2(5 * ap_cost, 7)
 		$Button/AP.show()
-	elif action.mp_cost > 0:
-		$Button/MP.bbcode_text = " " + str(action.mp_cost) + "MP"
+	elif action.cost_type == Action.DamageType.MP and action.cost > 0:
+		$Button/MP.bbcode_text = " " + str(mp_cost) + "MP"
+		$Button/MP.show()
+	elif action.cost_type == Action.DamageType.HP and action.cost > 0:
+		$Button/MP.bbcode_text = " -" + str(hp_cost) + "HP"
 		$Button/MP.show()
 	
 	var hit_text = "" if hits < 2 else ("x" + str(hits))
@@ -52,7 +63,7 @@ func update_data() -> void:
 	elif action.damage_type == Action.DamageType.MP:
 		type = "MP"
 	elif action.damage_type == Action.DamageType.AP:
-		type = "AP"
+		type = "ST"
 	var prepend = "+" if action.healing else ""
 	var text = "[right]" + prepend + str(damage) + hit_text + type
 	if action.damage == 0:

@@ -15,20 +15,20 @@ onready var loot: = $Loot
 onready var end_game: = $EndGame
 onready var fade = $Fade/AnimationPlayer
 onready var demo = $DemoScreen
+onready var char_select = $CharSelect
 
 func _ready() -> void:
 	$Title/AnimationPlayer.play("FlashTap")
-	demo.hide()
 	randomize()
 	AudioController.mute = mute
 	AudioController.play_bgm("title")
-	battle.initialize(player)
 	dungeon.initialize()
-	loot.initialize(player)
 	battle.hide()
 	loot.hide()
 	dungeon.hide()
 	end_game.hide()
+	demo.hide()
+	char_select.hide()
 	if skip_intro:
 		_on_DemoStart_button_up()
 	else:
@@ -51,6 +51,16 @@ func _on_Dungeon_start_battle(enemy: Actor) -> void:
 		end_game.show()
 	else:
 		dungeon.advance()
+
+func start_game() -> void:
+	battle.initialize(player)
+	loot.initialize(player)
+	fade.play("FadeOut")
+	yield(fade, "animation_finished")
+	dungeon.show()
+	fade.play("FadeIn")
+	AudioController.play_bgm("dungeon")
+	yield(fade, "animation_finished")
 
 func start_battle(scene_to_hide: Node2D, enemy: Actor) -> void:
 	fade.play("FadeOut")
@@ -104,7 +114,21 @@ func _on_DemoStart_button_up():
 	fade.play("FadeOut")
 	yield(fade, "animation_finished")
 	demo.hide()
-	dungeon.show()
-	fade.play("FadeIn")
-	AudioController.play_bgm("dungeon")
+	start_game()
+
+func _on_CharSelect_chose_class(name: String) -> void:
+	var n = name.to_lower()
+	var player_res = load("res://src/actions/" + n + "/" + n + ".tres")
+	player = player_res
+	fade.play("FadeOut")
 	yield(fade, "animation_finished")
+	char_select.hide()
+	start_game()
+
+func _on_TextureButton_button_up():
+	AudioController.click()
+	fade.play("FadeOut")
+	yield(fade, "animation_finished")
+	title.hide()
+	char_select.show()
+	fade.play("FadeIn")

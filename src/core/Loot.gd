@@ -6,6 +6,7 @@ var _ActionChoice = preload("res://src/core/ActionChoice.tscn")
 signal looting_finished
 
 onready var playerUI = $Player
+onready var portrait: = $Panel/Portrait
 onready var hp_value = $Player/Player/Panel/HP/Value
 onready var hp_percent = $Player/Player/Panel/HP/TextureProgress
 onready var ac_value = $Player/Player/Panel/AC/Value
@@ -28,6 +29,7 @@ var loot4: Array = []
 
 func initialize(_player: Actor) -> void:
 	player = _player
+	portrait.frame = player.portrait_id
 	loot1 = get_loot(1)
 	loot2 = get_loot(2)
 	loot3 = get_loot(3)
@@ -181,7 +183,7 @@ func remove_loot(item: String) -> void:
 	item = item.to_lower()
 	item = item.replace(" ", "_")
 	item += ".tres"
-	var path = "res://src/actions/" + player.name + "/"
+	var path = "res://src/actions/" + player.name.to_lower() + "/"
 	if loot1.has(path + "1/" + item):
 		loot1.remove(loot1.find(path + "1/" + item))
 		print("found in table 1")
@@ -201,7 +203,7 @@ func remove_loot(item: String) -> void:
 
 func get_loot(rank: int) -> Array:
 	var list = []
-	var path = "res://src/actions/" + player.name + "/" + str(rank) + "/"
+	var path = "res://src/actions/" + player.name.to_lower() + "/" + str(rank) + "/"
 	var files = []
 	var dir = Directory.new()
 	dir.open(path)

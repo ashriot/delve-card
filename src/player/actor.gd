@@ -2,6 +2,7 @@ extends Resource
 class_name Actor
 
 export var name: String
+export var portrait_id: = 0
 export var level: = 1
 export var max_hp: = 1
 export var max_ap: = 3

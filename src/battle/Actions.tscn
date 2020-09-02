@@ -43,15 +43,17 @@ position = Vector2( 0, 51 )
 position = Vector2( 0, 68 )
 
 [node name="InputBlocker" type="ColorRect" parent="Hand"]
-margin_top = -2.0
+margin_top = -90.0
 margin_right = 108.0
-margin_bottom = 99.0
+margin_bottom = 102.0
 color = Color( 0, 0, 0, 0 )
 __meta__ = {
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
 [node name="ItemBelt" type="HBoxContainer" parent="."]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1.0
@@ -64,16 +66,18 @@ __meta__ = {
 }
 
 [node name="PotionButton" parent="ItemBelt" instance=ExtResource( 4 )]
-visible = false
 
 [node name="PotionButton2" parent="ItemBelt" instance=ExtResource( 4 )]
-visible = false
+margin_left = 17.0
+margin_right = 33.0
 
 [node name="PotionButton3" parent="ItemBelt" instance=ExtResource( 4 )]
-visible = false
+margin_left = 34.0
+margin_right = 50.0
 
 [node name="PotionButton4" parent="ItemBelt" instance=ExtResource( 4 )]
-visible = false
+margin_left = 51.0
+margin_right = 67.0
 
 [node name="Card" parent="." instance=ExtResource( 1 )]
 visible = false

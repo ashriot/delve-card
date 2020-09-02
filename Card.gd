@@ -5,36 +5,39 @@ onready var animation_player = $AnimationPlayer
 
 var ap_cost: int
 var mp_cost: int
+var hp_cost: int
 var damage: int
 var hits: int
 
 var action_button
+var action
 var initialized = false
 
 func initialize(_action_button, have: int) -> void:
-	var potion = true if \
-		_action_button.action.action_type == Action.ActionType.ITEM \
-		else false
 	action_button = _action_button
+	action = action_button.action
+	var potion = true if \
+		action.action_type == Action.ActionType.ITEM \
+		else false
 	$Panel/AP.hide()
 	$Panel/MP.hide()
 	if potion:
 		$Panel/Sprite.frame = 74
 	else:
-		$Panel/Sprite.frame = action_button.action.frame_id
-	$Panel/Title.text = action_button.action.name
-	var description = action_button.action.description
+		$Panel/Sprite.frame = action.frame_id
+	$Panel/Title.text = action.name
+	var description = action.description
 	$Panel/Type.text = description[0]
 	$Panel/Description.text = description[1]
 	var rarity: String
-	for _i in range(action_button.action.rarity):
+	for _i in range(action.rarity):
 		rarity += "*"
 	$Panel/Rarity.text = rarity
-	if action_button.action.drop:
+	if action.drop:
 		$Drop.show()
 	else:
 		$Drop.hide()
-	if action_button.action.consume:
+	if action.consume:
 		$Consume.show()
 	else:
 		$Consume.hide()
@@ -43,10 +46,14 @@ func initialize(_action_button, have: int) -> void:
 			$Panel/Have.text = "Have: " + str(have)
 		else:
 			$Panel/Have.text = "New!"
-		ap_cost = action_button.action.ap_cost
-		mp_cost = action_button.action.mp_cost
-		damage = action_button.action.damage
-		hits = action_button.action.hits
+		if action.cost_type == Action.DamageType.AP:
+			ap_cost = action.cost
+		elif action.cost_type == Action.DamageType.MP:
+			mp_cost = action.cost
+		elif action.cost_type == Action.DamageType.HP:
+			hp_cost = action.cost
+		damage = action.damage
+		hits = action.hits
 		$Panel/Damage.show()
 		update_data()
 	else:
@@ -63,25 +70,33 @@ func initialize(_action_button, have: int) -> void:
 	initialized = true
 
 func update_data() -> void:
-	if action_button.action.ap_cost > 0:
-		$Panel/AP.rect_size = Vector2(5 * action_button.action.ap_cost, 7)
+	if action.cost_type == Action.DamageType.AP and action.cost > 0:
+		$Panel/AP.rect_size = Vector2(5 * ap_cost, 7)
 		$Panel/AP.show()
-	elif action_button.action.mp_cost > 0:
-		$Panel/MP.bbcode_text = " " + str(action_button.action.mp_cost) + "MP"
+	elif action.cost_type == Action.DamageType.MP and action.cost > 0:
+		$Panel/MP.bbcode_text = " " + str(mp_cost) + "MP"
+		$Panel/MP.show()
+	elif action.cost_type == Action.DamageType.HP and action.cost > 0:
+		$Panel/MP.bbcode_text = " -" + str(hp_cost) + "HP"
 		$Panel/MP.show()
 	
 	var hit_text = "" if hits < 2 else ("x" + str(hits))
-	var type = "HP" if action_button.action.healing else "dmg"
-	if action_button.action.damage_type == action_button.action.DamageType.AC:
+	var type = "HP" if action.healing else "dmg"
+	if action.damage_type == Action.DamageType.AC:
 		type = "AC"
-	elif action_button.action.damage_type == action_button.action.DamageType.MP:
+	elif action.damage_type == Action.DamageType.MP:
 		type = "MP"
-	elif action_button.action.damage_type == action_button.action.DamageType.AP:
-		type = "AP"
-	var prepend = "+" if action_button.action.healing else ""
-	var text = "[right]" + prepend + str(damage) + hit_text + type
-	if action_button.action.damage == 0:
+	elif action.damage_type == Action.DamageType.AP:
+		type = "ST"
+	var prepend = "+" if action.healing else ""
+	var drown = "+"
+	if action.name != "Drown":
+		drown = ""
+	var text = "[right]" + prepend + str(damage) + drown + hit_text + type
+	if action.damage == 0:
 		text = ""
+	if action.name == "Glowing Crystal":
+		text = "[right]+?MP"
 	$Panel/Damage.bbcode_text = text
 
 func close() -> void:
