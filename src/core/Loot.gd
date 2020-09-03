@@ -94,7 +94,7 @@ func set_mp(value: int) -> void:
 	mp_value.bbcode_text = text
 
 func set_ap(value: int) -> void:
-	ap.rect_size = Vector2(4 * value, 7)
+	ap.rect_size = Vector2(6 * value, 7)
 
 func choose(choice: ActionChoice) -> void:
 	for child in choices.get_children():

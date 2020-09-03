@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/theming/panel_light.tres" type="StyleBox" id=1]
+[ext_resource path="res://src/battle/BuffCard.gd" type="Script" id=2]
+
+[node name="BuffCard" type="ColorRect"]
+margin_right = 108.0
+margin_bottom = 192.0
+color = Color( 0.145098, 0.145098, 0.133333, 0.686275 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+margin_right = 108.0
+margin_bottom = 10.0
+rect_min_size = Vector2( 108, 10 )
+custom_styles/normal = ExtResource( 1 )
+text = "Dodge
+50% chance for enemy attacks to miss."
+autowrap = true

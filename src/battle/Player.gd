@@ -2,6 +2,8 @@ extends Node2D
 class_name Player
 
 var FloatingText = preload("res://assets/animations/FloatingText.tscn")
+var BuffUI = preload("res://src/battle/BuffUI.tscn")
+var BuffCard = preload("res://src/battle/BuffCard.tscn")
 
 signal add_to_deck(action_name, qty)
 
@@ -10,13 +12,19 @@ onready var hp_percent = $Player/Panel/HP/TextureProgress
 onready var ac_value = $Player/Panel/AC/Value
 onready var mp_value = $Player/Panel/MP/Value
 
+onready var buff_bar = $BuffBar
+
 var hp: int setget set_hp
 var ac: int setget set_ac
 var mp: int setget set_mp
 var ap: int setget set_ap
 var dead: bool setget , get_dead
 
+var added_damage: = 0
+var damage_multiplier: = 0.0
+
 var actor: Actor
+var buffs: Dictionary
 
 func initialize(_actor: Actor) ->  void:
 #	randomize()
@@ -27,13 +35,18 @@ func initialize(_actor: Actor) ->  void:
 	self.mp = actor.initial_mp
 	self.ap = actor.max_ap
 	actor.actions.sort()
-	$Player/Panel/AP/Max.rect_size = Vector2(4 * actor.max_ap, 7)
+	$Player/Panel/AP/Max.rect_size = Vector2(5 * actor.max_ap, 7)
 
 func reset() -> void:
 	self.hp = actor.hp
 	self.ap = actor.max_ap
 	self.ac = actor.initial_ac
 	self.mp = actor.initial_mp
+	added_damage = 0
+	damage_multiplier = 0.0
+	buffs.clear()
+	for child in buff_bar.get_children():
+		child.queue_free()
 
 func set_deck_count(value: int) -> void:
 	$Deck/ColorRect/Label.text = str(value)
@@ -43,9 +56,17 @@ func set_graveyard_count(value: int) -> void:
 
 func start_turn() -> void:
 	self.ap += 1
+	for child in buff_bar.get_children():
+		if child.fades_per_turn:
+			reduce_buff(child.buff_name)
 
 func take_hit(damage: int) -> void:
 	var floating_text = FloatingText.instance()
+	var miss = false
+	if buffs.has("dodge"):
+		miss = randf() < .5
+	if miss:
+		damage = 0
 	var blocked_dmg = 0
 	var hp_dmg = 0
 	if ac > 0:
@@ -59,10 +80,13 @@ func take_hit(damage: int) -> void:
 			self.ac = 0
 	self.hp -= damage
 	hp_dmg = damage
-	floating_text.initialize(damage, false)
+	if miss:
+		floating_text.display_text("Miss!")
+	else:
+		floating_text.initialize(damage, false)
+		$AnimationPlayer.play("Shake")
 	floating_text.position = Vector2(54, 67)
 	get_parent().add_child(floating_text)
-	$AnimationPlayer.play("Shake")
 
 func take_healing(amount: int, type: String) -> void:
 	var floating_text = FloatingText.instance()
@@ -81,6 +105,51 @@ func take_healing(amount: int, type: String) -> void:
 
 func add_to_deck(action_name: String, qty: int) -> void:
 	emit_signal("add_to_deck", action_name, qty)
+
+func gain_buff(buff: Buff, amt: int) -> void:
+	print("Gaining ", buff.name)
+	for b in buffs.keys():
+		if b == buff.name.to_lower():
+			buffs[b].stacks += amt
+			return
+	var buffUI = BuffUI.instance()
+	buffUI.initialize(buff, amt)
+	buff_bar.add_child(buffUI)
+	buffs[buff.name.to_lower()] = buffUI
+	if buff.name == "Might":
+		added_damage += buffs[buff.name.to_lower()].stacks
+		print("MIGHT: adding " + str(added_damage) + " damage.")
+		get_tree().call_group("action_button", "update_data")
+	buffUI.connect("remove_buff", self, "remove_buff")
+	buffUI.connect("show_card", self, "show_buff_card")
+	buffUI.connect("hide_card", self, "hide_buff_card")
+
+func reduce_buff(buff_name: String) -> void:
+	print("Reducing ", buff_name)
+	for child in buff_bar.get_children():
+		if child.buff_name.to_lower() == buff_name.to_lower():
+			if buff_name == "Might":
+				added_damage -= 1
+				get_tree().call_group("action_button", "update_data")
+				print("reducing added dmg: ", added_damage)
+			child.stacks -= 1
+
+func remove_buff(buff_name: String) -> void:
+	print("Removing ", buff_name)
+	var child = buffs[buff_name.to_lower()]
+	buff_bar.remove_child(child)
+	buffs.erase(buff_name.to_lower())
+	child.queue_free()
+
+func has_buff(buff_name: String) -> bool:
+	return buffs.has(buff_name)
+
+func show_buff_card(buff: Buff) -> void:
+	var buff_card = BuffCard.instance()
+	buff_card.initialize(buff.name, buff.description)
+
+func hide_buff_card() -> void:
+	pass
 
 # SETTERS ###########################################
 
@@ -119,7 +188,7 @@ func set_mp(value: int) -> void:
 
 func set_ap(value: int) -> void:
 	ap = clamp(value, 0, actor.max_ap)
-	$Player/Panel/AP/Current.rect_size = Vector2(4 * ap, 7)
+	$Player/Panel/AP/Current.rect_size = Vector2(5 * ap, 7)
 
 func get_dead() -> bool:
 	return hp == 0

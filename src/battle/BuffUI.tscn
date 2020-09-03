@@ -1,0 +1,49 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://src/battle/BuffUI.gd" type="Script" id=1]
+[ext_resource path="res://assets/images/sheets/icons.png" type="Texture" id=2]
+
+[sub_resource type="StyleBoxEmpty" id=1]
+
+[sub_resource type="StyleBoxEmpty" id=2]
+
+[sub_resource type="StyleBoxEmpty" id=3]
+
+[sub_resource type="StyleBoxEmpty" id=4]
+
+[sub_resource type="StyleBoxEmpty" id=5]
+
+[node name="BuffUI" type="Button"]
+margin_right = 15.0
+margin_bottom = 8.0
+rect_min_size = Vector2( 15, 8 )
+custom_styles/hover = SubResource( 1 )
+custom_styles/pressed = SubResource( 2 )
+custom_styles/focus = SubResource( 3 )
+custom_styles/disabled = SubResource( 4 )
+custom_styles/normal = SubResource( 5 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="."]
+modulate = Color( 0.792157, 0.780392, 0.721569, 1 )
+texture = ExtResource( 2 )
+centered = false
+vframes = 10
+hframes = 13
+frame = 25
+
+[node name="Stacks" type="Label" parent="."]
+margin_left = 6.0
+margin_top = -3.0
+margin_right = 19.0
+margin_bottom = 11.0
+text = "4"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Timer" type="Timer" parent="."]
+[connection signal="button_down" from="." to="." method="_on_Button_down"]

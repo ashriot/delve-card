@@ -6,6 +6,7 @@ var FloatingText = preload("res://assets/animations/FloatingText.tscn")
 
 signal deck_count(value)
 signal graveyard_count(value)
+signal weapons_played(amt)
 signal graveyard_done
 signal ended_turn
 signal done_discarding
@@ -34,6 +35,8 @@ var graveyard_count setget set_graveyard_count
 var player: Player
 var enemyUI
 var actions: Array
+
+var weapons_played: = 0
 
 var initialized: = false
 
@@ -118,6 +121,8 @@ func reset_deck() -> void:
 				child.queue_free()
 	hand_count = 0
 	self.graveyard_count = 0
+	weapons_played = 0
+	print("Weapons played: ", weapons_played)
 	fill_deck()
 	shuffle_deck()
 
@@ -127,6 +132,7 @@ func initialize_button(action_button: ActionButton, action: Action) -> void:
 	action_button.connect("button_pressed", self, "block_input")
 	action_button.connect("show_card", self, "show_card")
 	action_button.connect("hide_card", self, "hide_card")
+	connect("weapons_played", action_button, "weapons_played")
 	action_button.initialize(action, player, enemyUI)
 
 func fill_hand() -> void:
@@ -225,6 +231,10 @@ func discard_hand() -> void:
 	emit_signal("done_discarding")
 
 func played_action(action_button: ActionButton) -> void:
+	if action_button.action.action_type == Action.ActionType.WEAPON:
+		weapons_played += 1
+		emit_signal("weapons_played", weapons_played)
+		print("Weapons Played: ", weapons_played)
 	remove_pos(action_button)
 	if action_button.action.drawX > 0:
 		draw(action_button.action.drawX, action_button.action.draw_type)
@@ -249,6 +259,8 @@ func _on_EndTurn_button_up():
 	AudioController.click()
 	input_blocker.show()
 	end_turn.hide()
+	weapons_played = 0
+	emit_signal("weapons_played", 0)
 	if hand_count > 0:
 		discard_hand()
 		yield(self, "done_discarding")
@@ -274,11 +286,11 @@ func hide_card() -> void:
 	card.close()
 
 func _on_Battle_start_turn():
+	player.start_turn()
 	fill_hand()
 	yield(self, "done_filling_hand")
 	AudioController.play_sfx("player_turn")
 	block_input(false)
-	player.start_turn()
 	end_turn.show()
 
 func _on_Player_add_to_deck(action_name: String, qty: int):

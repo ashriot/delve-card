@@ -29,6 +29,9 @@ var mp_cost: int
 var damage: int
 var hits: int
 
+var added_damage: = 0 setget set_added_damage
+var damage_multiplier: = 0.0 setget set_damage_multiplier
+
 var hovering: = false
 var initialized: = false
 
@@ -57,6 +60,7 @@ func show() -> void:
 	AudioController.play_sfx("draw")
 	animationPlayer.play("Draw")
 	yield(animationPlayer, "animation_finished")
+	update_data()
 	played = false
 
 func discard() -> void:
@@ -67,7 +71,7 @@ func discard() -> void:
 
 func update_data() -> void:
 	if action.cost_type == Action.DamageType.AP and action.cost > 0:
-		$Button/AP.rect_size = Vector2(5 * ap_cost, 7)
+		$Button/AP.rect_size = Vector2(6 * ap_cost, 7)
 		$Button/AP.show()
 	elif action.cost_type == Action.DamageType.MP and action.cost > 0:
 		$Button/MP.bbcode_text = " " + str(mp_cost) + "MP"
@@ -88,7 +92,10 @@ func update_data() -> void:
 	var drown = "+"
 	if action.name != "Drown":
 		drown = ""
-	var text = "[right]" + prepend + str(damage) + drown + hit_text + type
+	var text = "[right]" + prepend + \
+		str((damage + added_damage + player.added_damage) * \
+		(1 + damage_multiplier + player.damage_multiplier)) \
+		+ drown + hit_text + type
 	if action.damage == 0:
 		text = ""
 	if action.name == "Glowing Crystal":
@@ -156,17 +163,24 @@ func execute() -> void:
 				action.extra_action.execute(player)
 			emit_signal("action_finished", action)
 			var crit = randf() < action.crit_chance
-			var damage = action.damage * (2 if crit else 1)
+			var damage = (action.damage + added_damage + player.added_damage) * \
+				(1 + damage_multiplier + player.damage_multiplier)
 			if action.name == "Drown":
 				damage += clamp(player.mp, 0, 20)
+			damage *= (2 if crit else 1)
+			if player.has_buff("lifesteal"):
+				var healing = damage
+				player.take_healing(damage, "HP")
 			enemy.take_hit(action, damage, crit)
 			yield(self, "anim_finished")
+		if player.has_buff("lifesteal"):
+			player.reduce_buff("lifesteal")
 	else:
 		if action.fx != null:
 			create_effect(player.global_position)
 			yield(self, "inflict_effect")
-			if action.extra_action != null:
-				action.extra_action.execute(player)
+		if action.extra_action != null:
+			action.extra_action.execute(player)
 		if action.damage > 0:
 			if action.damage_type == Action.DamageType.HP:
 				AudioController.play_sfx("heal")
@@ -206,6 +220,18 @@ func create_effect(position: Vector2) -> void:
 		effect.global_position = position
 		yield(effect, "finished")
 		emit_signal("anim_finished")
+
+func weapons_played(amt: int) -> void:
+	if action.name == "Shiv":
+		self.added_damage = amt * action.damage
+
+func set_added_damage(value: int) -> void:
+	added_damage = value
+	update_data()
+	
+func set_damage_multiplier(value: float) -> void:
+	damage_multiplier = value
+	update_data()
 
 func _on_Button_up() -> void:
 	modulate.a = 1

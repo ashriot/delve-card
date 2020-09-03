@@ -146,7 +146,9 @@ tracks/1/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[node name="ActionButton" type="Control"]
+[node name="ActionButton" type="Control" groups=[
+"action_button",
+]]
 script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false

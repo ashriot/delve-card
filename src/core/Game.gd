@@ -55,8 +55,6 @@ func _on_Dungeon_start_battle(enemy: Actor) -> void:
 func start_game() -> void:
 	battle.initialize(player)
 	loot.initialize(player)
-	fade.play("FadeOut")
-	yield(fade, "animation_finished")
 	dungeon.show()
 	fade.play("FadeIn")
 	AudioController.play_bgm("dungeon")

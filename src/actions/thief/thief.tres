@@ -1,25 +1,25 @@
 [gd_resource type="Resource" load_steps=11 format=2]
 
 [ext_resource path="res://src/player/actor.gd" type="Script" id=1]
-[ext_resource path="res://src/actions/sorcerer/1/mana_shell.tres" type="Resource" id=2]
-[ext_resource path="res://src/actions/sorcerer/1/mana_dart.tres" type="Resource" id=3]
-[ext_resource path="res://src/actions/sorcerer/1/cracked_crystal.tres" type="Resource" id=4]
-[ext_resource path="res://src/actions/sorcerer/1/wooden_wand.tres" type="Resource" id=5]
-[ext_resource path="res://src/actions/sorcerer/1/minor_heal.tres" type="Resource" id=6]
+[ext_resource path="res://src/actions/thief/1/swift_knife.tres" type="Resource" id=2]
+[ext_resource path="res://src/actions/thief/1/dart.tres" type="Resource" id=3]
+[ext_resource path="res://src/actions/thief/1/shiv.tres" type="Resource" id=4]
+[ext_resource path="res://src/actions/thief/1/sprint_shoes.tres" type="Resource" id=6]
 [ext_resource path="res://src/potions/small_apple.tres" type="Resource" id=7]
 [ext_resource path="res://src/potions/magic_mushroom.tres" type="Resource" id=8]
 [ext_resource path="res://src/potions/roast_meat.tres" type="Resource" id=9]
 [ext_resource path="res://src/potions/large_apple.tres" type="Resource" id=10]
+[ext_resource path="res://src/actions/thief/1/trollblood_oil.tres" type="Resource" id=11]
 
 [resource]
 script = ExtResource( 1 )
 name = "Thief"
 portrait_id = 1
 level = 1
-max_hp = 40
+max_hp = 35
 max_ap = 3
 initial_ac = 0
 initial_mp = 3
 gold = 0
 potions = [ ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ) ]
-actions = [ ExtResource( 5 ), ExtResource( 5 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 4 ), ExtResource( 3 ), ExtResource( 3 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 6 ) ]
+actions = [ ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 6 ), ExtResource( 11 ) ]

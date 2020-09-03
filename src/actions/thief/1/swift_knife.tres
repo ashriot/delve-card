@@ -1,18 +1,19 @@
-[gd_resource type="Resource" load_steps=3 format=2]
+[gd_resource type="Resource" load_steps=4 format=2]
 
 [ext_resource path="res://src/actions/res/action.gd" type="Script" id=1]
-[ext_resource path="res://assets/animations/Slash.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/actions/thief/add/ac_gain_1.gd" type="Script" id=2]
+[ext_resource path="res://assets/animations/Slash.tscn" type="PackedScene" id=3]
 
 [resource]
 script = ExtResource( 1 )
-name = "Deft Blade"
+name = "Swift Knife"
 description = "Deal %damage damage and gain 1 AC."
 rarity = 1
 upgraded = false
 action_type = 0
 target_type = 1
-ap_cost = 0
-mp_cost = 0
+cost_type = 3
+cost = 0
 healing = false
 damage_type = 0
 damage = 1
@@ -23,4 +24,5 @@ draw_type = 7
 drop = false
 consume = false
 frame_id = 0
-fx = ExtResource( 2 )
+fx = ExtResource( 3 )
+extra_action = ExtResource( 2 )

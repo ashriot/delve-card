@@ -17,9 +17,9 @@ position = Vector2( 109, 71 )
 
 [node name="EndTurn" type="Button" parent="."]
 margin_left = 71.0
-margin_top = 174.0
+margin_top = 172.0
 margin_right = 108.0
-margin_bottom = 191.0
+margin_bottom = 189.0
 text = "End Turn"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -31,16 +31,16 @@ position = Vector2( 0, 90 )
 [node name="Pos1" type="Position2D" parent="Hand"]
 
 [node name="Pos2" type="Position2D" parent="Hand"]
-position = Vector2( 0, 17 )
+position = Vector2( 0, 16 )
 
 [node name="Pos3" type="Position2D" parent="Hand"]
-position = Vector2( 0, 34 )
+position = Vector2( 0, 32 )
 
 [node name="Pos4" type="Position2D" parent="Hand"]
-position = Vector2( 0, 51 )
+position = Vector2( 0, 48 )
 
 [node name="Pos5" type="Position2D" parent="Hand"]
-position = Vector2( 0, 68 )
+position = Vector2( 0, 64 )
 
 [node name="InputBlocker" type="ColorRect" parent="Hand"]
 margin_top = -90.0
@@ -57,9 +57,9 @@ visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1.0
-margin_top = 175.0
+margin_top = 173.0
 margin_right = 68.0
-margin_bottom = 191.0
+margin_bottom = 189.0
 custom_constants/separation = 1
 __meta__ = {
 "_edit_use_anchors_": false
