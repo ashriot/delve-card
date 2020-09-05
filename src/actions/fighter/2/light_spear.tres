@@ -4,10 +4,13 @@
 [ext_resource path="res://assets/animations/Slash.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/actions/fighter/res/light_spear.gd" type="Script" id=3]
 
+
+
+
 [resource]
 script = ExtResource( 1 )
 name = "Light Spear"
-description = "Deal %damage damage. Gain 1 AP."
+description = "Deal %damage damage. Gain 1 ST."
 rarity = 2
 upgraded = false
 action_type = 0

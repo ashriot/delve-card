@@ -101,10 +101,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.4, 0.5 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.35, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( -54, 12 ), Vector2( -54, -7 ), Vector2( -59, -7 ), Vector2( -79, -7 ) ]
+"values": [ Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( -12, 0 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Button:modulate")
@@ -113,7 +113,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0.05, 0.1, 0.4, 0.5 ),
+"times": PoolRealArray( 0, 0.1, 0.35, 0.5 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
@@ -155,7 +155,9 @@ __meta__ = {
 }
 
 [node name="Button" type="Button" parent="."]
-margin_right = 108.0
+modulate = Color( 1, 1, 1, 0 )
+margin_left = -12.0
+margin_right = 96.0
 margin_bottom = 13.0
 rect_min_size = Vector2( 90, 13 )
 custom_styles/pressed = ExtResource( 4 )

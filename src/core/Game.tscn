@@ -384,7 +384,6 @@ __meta__ = {
 anims/FlashTap = SubResource( 6 )
 
 [node name="DemoScreen" type="ColorRect" parent="."]
-visible = false
 margin_right = 108.0
 margin_bottom = 192.0
 color = Color( 0, 0, 0, 1 )
@@ -459,7 +458,7 @@ AC: Armor Class. Removed before HP. Resets after each fight.
 
 MP: Mana Points. Required by spells. Resets after each fight.
 
-AP: Action Points. Required by some weapons. Gain 1 each turn."
+ST: Stamina. Required by some weapons. Gain 1 each turn."
 autowrap = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -524,6 +523,7 @@ __meta__ = {
 }
 
 [node name="CharSelect" type="Node2D" parent="."]
+visible = false
 script = ExtResource( 10 )
 
 [node name="ColorRect" type="ColorRect" parent="CharSelect"]

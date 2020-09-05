@@ -2,7 +2,11 @@
 
 [ext_resource path="res://src/actions/res/action.gd" type="Script" id=1]
 [ext_resource path="res://assets/animations/Conjure.tscn" type="PackedScene" id=2]
-[ext_resource path="res://src/actions/res/conjure_manablade.gd" type="Script" id=3]
+[ext_resource path="res://src/actions/sorcerer/add/conjure_manablade.gd" type="Script" id=3]
+
+
+
+
 
 [resource]
 script = ExtResource( 1 )

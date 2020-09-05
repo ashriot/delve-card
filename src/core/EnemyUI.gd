@@ -39,7 +39,7 @@ func initialize(_actor: Actor) -> void:
 
 func take_hit(action: Action, damage: int, crit: bool) -> void:
 	if action.name == "Executioner":
-		if hp < 8:
+		if hp < 11:
 			self.hp = 0
 	else:
 		var floating_text = FloatingText.instance()

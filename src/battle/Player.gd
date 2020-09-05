@@ -107,10 +107,18 @@ func add_to_deck(action_name: String, qty: int) -> void:
 	emit_signal("add_to_deck", action_name, qty)
 
 func gain_buff(buff: Buff, amt: int) -> void:
+	var floating_text = FloatingText.instance()
+	floating_text.display_text("+" + buff.name)
+	floating_text.position = Vector2(54, 67)
+	get_parent().add_child(floating_text)
 	print("Gaining ", buff.name)
 	for b in buffs.keys():
 		if b == buff.name.to_lower():
 			buffs[b].stacks += amt
+			if buff.name == "Might":
+				added_damage += buffs[buff.name.to_lower()].stacks
+				print("MIGHT: adding " + str(added_damage) + " damage.")
+				get_tree().call_group("action_button", "update_data")
 			return
 	var buffUI = BuffUI.instance()
 	buffUI.initialize(buff, amt)

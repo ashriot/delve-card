@@ -2,10 +2,13 @@
 
 [ext_resource path="res://src/actions/res/action.gd" type="Script" id=1]
 
+
+
+
 [resource]
 script = ExtResource( 1 )
 name = "Ready Weapon"
-description = "Gain %damage AP and draw a weapon."
+description = "Gain %damage ST and draw a weapon."
 rarity = 2
 upgraded = false
 action_type = 3

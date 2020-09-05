@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=11 format=2]
+[gd_resource type="Resource" load_steps=12 format=2]
 
 [ext_resource path="res://src/player/actor.gd" type="Script" id=1]
 [ext_resource path="res://src/actions/sorcerer/1/mana_shell.tres" type="Resource" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://src/potions/magic_mushroom.tres" type="Resource" id=8]
 [ext_resource path="res://src/potions/roast_meat.tres" type="Resource" id=9]
 [ext_resource path="res://src/potions/large_apple.tres" type="Resource" id=10]
+[ext_resource path="res://src/actions/sorcerer/3/conjure_illusions.tres" type="Resource" id=11]
 
 [resource]
 script = ExtResource( 1 )
@@ -22,4 +23,4 @@ initial_ac = 0
 initial_mp = 4
 gold = 0
 potions = [ ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ) ]
-actions = [ ExtResource( 5 ), ExtResource( 5 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 3 ), ExtResource( 3 ), ExtResource( 3 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 6 ) ]
+actions = [ ExtResource( 11 ), ExtResource( 5 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 4 ), ExtResource( 3 ), ExtResource( 3 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 6 ) ]

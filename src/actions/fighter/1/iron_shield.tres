@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource( 1 )
 name = "Iron Shield"
-description = "Gain %damage Armor."
+description = "Gain %damage AC."
 rarity = 1
 upgraded = false
 action_type = 0

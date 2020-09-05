@@ -1,29 +1,26 @@
 [gd_resource type="Resource" load_steps=3 format=2]
 
 [ext_resource path="res://src/actions/res/action.gd" type="Script" id=1]
-[ext_resource path="res://assets/animations/Cast.tscn" type="PackedScene" id=2]
-
-
-
+[ext_resource path="res://src/actions/thief/add/dodge_1.gd" type="Script" id=2]
 
 [resource]
 script = ExtResource( 1 )
-name = "Stoneskin"
-description = "Gain %damage Armor."
-rarity = 2
+name = "Mirror Image"
+description = "Gain 1 Dodge."
+rarity = 1
 upgraded = false
 action_type = 1
 target_type = 0
-cost_type = 2
-cost = 4
-healing = true
-damage_type = 1
-damage = 10
+cost_type = 3
+cost = 0
+healing = false
+damage_type = 0
+damage = 0
 hits = 1
 crit_chance = 0.0
 drawX = 0
 draw_type = 7
 drop = false
-consume = false
+consume = true
 frame_id = 46
-fx = ExtResource( 2 )
+extra_action = ExtResource( 2 )

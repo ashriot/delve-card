@@ -1,13 +1,13 @@
 [gd_resource type="Resource" load_steps=4 format=2]
 
 [ext_resource path="res://src/actions/res/action.gd" type="Script" id=1]
-[ext_resource path="res://src/actions/sorcerer/add/conjure_food.gd" type="Script" id=2]
+[ext_resource path="res://src/actions/sorcerer/add/mirror_images.gd" type="Script" id=2]
 [ext_resource path="res://assets/animations/Conjure.tscn" type="PackedScene" id=3]
 
 [resource]
 script = ExtResource( 1 )
-name = "Conjure Food"
-description = "Add 2 `Mana Manna` actions to your deck."
+name = "Conjure Illusions"
+description = "Add 2 `Mirror Image` actions to your deck."
 rarity = 3
 upgraded = false
 action_type = 1

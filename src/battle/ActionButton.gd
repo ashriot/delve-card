@@ -63,6 +63,9 @@ func show() -> void:
 	update_data()
 	played = false
 
+func gain() -> void:
+	$Button.modulate.a = 0
+
 func discard() -> void:
 	AudioController.play_sfx("draw")
 	animationPlayer.play("Discard")
@@ -103,9 +106,6 @@ func update_data() -> void:
 	$Button/Damage.bbcode_text = text
 
 func playable() -> bool:
-	if action.name == "Executioner":
-		if enemy.hp > 7:
-			return false
 	if ap_cost > player.ap:
 		return false
 	if mp_cost > player.mp:
@@ -115,9 +115,6 @@ func playable() -> bool:
 	return true
 
 func get_error() -> String:
-	if action.name == "Executioner":
-		if enemy.hp > 7:
-			return "Enemy HP too high!"
 	if ap_cost > player.ap:
 		return "Not Enough ST!"
 	if mp_cost > player.mp:
@@ -143,8 +140,6 @@ func play() -> void:
 	execute()
 	yield(animationPlayer, "animation_finished")
 	emit_signal("played", self)
-	if action.drop or action.consume:
-		queue_free()
 
 func display_error() -> void:
 	var floating_text = FloatingText.instance()
@@ -199,6 +194,8 @@ func execute() -> void:
 				player.take_healing(damage, "MP")
 		emit_signal("action_finished", action)
 		yield(self, "anim_finished")
+	if action.drop or action.consume:
+		queue_free()
 
 func inflict_hit() -> void:
 	emit_signal("inflict_hit")

@@ -5,10 +5,10 @@
 [resource]
 script = ExtResource( 1 )
 name = "Muster"
-description = "Gain %damage AP."
+description = "Gain %damage ST."
 rarity = 1
 upgraded = false
-action_type = 0
+action_type = 3
 target_type = 0
 cost_type = 3
 cost = 0
