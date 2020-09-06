@@ -2,7 +2,7 @@
 
 [ext_resource path="res://assets/images/ui/fill_texture.png" type="Texture" id=1]
 [ext_resource path="res://src/potions/PotionCard.gd" type="Script" id=2]
-[ext_resource path="res://assets/images/sheets/icons.png" type="Texture" id=3]
+[ext_resource path="res://assets/images/sheets/icons2.png" type="Texture" id=3]
 
 [sub_resource type="Animation" id=1]
 resource_name = "FadeIn"
@@ -102,9 +102,9 @@ modulate = Color( 0.792157, 0.780392, 0.721569, 1 )
 position = Vector2( 2, 2 )
 texture = ExtResource( 3 )
 centered = false
-vframes = 10
-hframes = 13
-frame = 74
+vframes = 30
+hframes = 10
+frame = 60
 
 [node name="Title" type="Label" parent="Panel"]
 anchor_right = 1.0

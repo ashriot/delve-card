@@ -22,5 +22,5 @@ drawX = 0
 draw_type = 7
 drop = false
 consume = false
-frame_id = 44
+frame_id = 83
 fx = ExtResource( 2 )

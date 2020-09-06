@@ -7,4 +7,4 @@ script = ExtResource( 1 )
 name = "Voltaic Barrier"
 description = "Deal 3 damage to attackers. 50% crit chance."
 fades_per_turn = true
-frame_id = 82
+frame_id = 93

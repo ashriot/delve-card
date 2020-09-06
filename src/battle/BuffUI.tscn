@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://src/battle/BuffUI.gd" type="Script" id=1]
-[ext_resource path="res://assets/images/sheets/icons.png" type="Texture" id=2]
+[ext_resource path="res://assets/images/sheets/icons2.png" type="Texture" id=2]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
@@ -31,9 +31,9 @@ __meta__ = {
 modulate = Color( 0.792157, 0.780392, 0.721569, 1 )
 texture = ExtResource( 2 )
 centered = false
-vframes = 10
-hframes = 13
-frame = 28
+vframes = 30
+hframes = 10
+frame = 90
 
 [node name="StacksShadow" type="Label" parent="."]
 margin_left = 2.0

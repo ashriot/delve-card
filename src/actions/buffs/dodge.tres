@@ -7,4 +7,4 @@ script = ExtResource( 1 )
 name = "Dodge"
 description = "50% chance to avoid next attack."
 fades_per_turn = true
-frame_id = 25
+frame_id = 120

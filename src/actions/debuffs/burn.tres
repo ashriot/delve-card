@@ -7,4 +7,4 @@ script = ExtResource( 1 )
 name = "Burn"
 description = "Take X damage at the beginning of your turn."
 fades_per_turn = false
-frame_id = 78
+frame_id = 102

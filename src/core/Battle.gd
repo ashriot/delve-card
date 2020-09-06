@@ -31,7 +31,7 @@ func start(_enemy: Actor, auto: bool) -> void:
 	emit_signal("start_turn")
 
 func _on_Actions_ended_turn():
-	yield(get_tree().create_timer(0.2), "timeout")
+	yield(get_tree().create_timer(0.6), "timeout")
 	enemyUI.act()
 	yield(enemyUI, "ended_turn")
 	if playerUI.dead:

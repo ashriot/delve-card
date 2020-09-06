@@ -124,6 +124,8 @@ tracks/1/keys = {
 [node name="Game" type="Node"]
 script = ExtResource( 3 )
 player = ExtResource( 4 )
+mute = true
+skip_intro = true
 
 [node name="Battle" parent="." instance=ExtResource( 1 )]
 
@@ -485,7 +487,6 @@ __meta__ = {
 }
 
 [node name="DemoStart" type="Button" parent="DemoScreen"]
-visible = false
 margin_right = 109.0
 margin_bottom = 192.0
 custom_styles/hover = SubResource( 9 )
@@ -557,6 +558,7 @@ text = "Version 0.3.0"
 align = 1
 
 [node name="CharSelect" type="Node2D" parent="."]
+visible = false
 script = ExtResource( 10 )
 
 [node name="ColorRect" type="ColorRect" parent="CharSelect"]

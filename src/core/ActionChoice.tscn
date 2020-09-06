@@ -2,8 +2,8 @@
 
 [ext_resource path="res://src/core/ActionChoice.gd" type="Script" id=1]
 [ext_resource path="res://assets/images/ui/diamond2.png" type="Texture" id=2]
-[ext_resource path="res://assets/images/sheets/icons.png" type="Texture" id=3]
 [ext_resource path="res://assets/theming/button.tres" type="StyleBox" id=4]
+[ext_resource path="res://assets/images/sheets/icons2.png" type="Texture" id=5]
 
 [node name="ActionChoice" type="Control"]
 margin_right = 108.0
@@ -29,10 +29,10 @@ __meta__ = {
 [node name="Sprite" type="Sprite" parent="Button"]
 modulate = Color( 0.792157, 0.780392, 0.721569, 1 )
 position = Vector2( 2, 2 )
-texture = ExtResource( 3 )
+texture = ExtResource( 5 )
 centered = false
-vframes = 10
-hframes = 13
+vframes = 30
+hframes = 10
 frame = 26
 
 [node name="Chosen" type="ColorRect" parent="Button"]
@@ -61,10 +61,10 @@ align = 1
 [node name="HighlightSprite" type="Sprite" parent="Button/Chosen"]
 modulate = Color( 0.145098, 0.145098, 0.133333, 1 )
 position = Vector2( 1, 1 )
-texture = ExtResource( 3 )
+texture = ExtResource( 5 )
 centered = false
-vframes = 10
-hframes = 13
+vframes = 30
+hframes = 10
 frame = 26
 
 [node name="Damage" type="RichTextLabel" parent="Button"]

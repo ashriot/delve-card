@@ -263,13 +263,16 @@ func block_input(block: bool) -> void:
 		input_blocker.hide()
 		print("Hand Count: ", hand_count, " AE: ", auto_end)
 		if hand_count == 0 && auto_end:
-			_on_EndTurn_button_up()
+			end_turn()
 
 func used_potion(potion: Action) -> void:
 	print("Using: ", potion.name)
 
 func _on_EndTurn_button_up():
 	AudioController.click()
+	end_turn()
+
+func end_turn() -> void:
 	input_blocker.show()
 	end_turn.hide()
 	weapons_played = 0

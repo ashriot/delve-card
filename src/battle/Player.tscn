@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://assets/images/ui/Shield.png" type="Texture" id=1]
 [ext_resource path="res://assets/images/ui/Heart.png" type="Texture" id=2]
@@ -6,7 +6,6 @@
 [ext_resource path="res://assets/images/ui/Staff.png" type="Texture" id=4]
 [ext_resource path="res://assets/images/ui/stamina.png" type="Texture" id=5]
 [ext_resource path="res://src/battle/Player.gd" type="Script" id=6]
-[ext_resource path="res://assets/images/sheets/icons.png" type="Texture" id=7]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Shake"
@@ -294,53 +293,6 @@ stretch_mode = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="Status" type="Control" parent="."]
-visible = false
-margin_left = -27.0
-margin_top = 11.0
-margin_right = 31.0
-margin_bottom = 19.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Status"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_right = -3.8147e-06
-margin_bottom = 1.0
-custom_constants/separation = 0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Icon" type="Control" parent="Status/HBoxContainer"]
-margin_right = 9.0
-margin_bottom = 9.0
-rect_min_size = Vector2( 9, 9 )
-
-[node name="Sprite" type="Sprite" parent="Status/HBoxContainer/Icon"]
-modulate = Color( 0.792157, 0.780392, 0.721569, 1 )
-texture = ExtResource( 7 )
-centered = false
-vframes = 10
-hframes = 13
-frame = 38
-
-[node name="Icon2" type="Control" parent="Status/HBoxContainer"]
-margin_left = 9.0
-margin_right = 18.0
-margin_bottom = 9.0
-rect_min_size = Vector2( 9, 9 )
-
-[node name="Sprite" type="Sprite" parent="Status/HBoxContainer/Icon2"]
-modulate = Color( 0.792157, 0.780392, 0.721569, 1 )
-texture = ExtResource( 7 )
-centered = false
-vframes = 10
-hframes = 13
-frame = 53
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Shake = SubResource( 1 )

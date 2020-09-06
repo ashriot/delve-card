@@ -23,6 +23,6 @@ drawX = 0
 draw_type = 7
 drop = false
 consume = false
-frame_id = 46
+frame_id = 80
 fx = ExtResource( 3 )
 extra_action = ExtResource( 2 )

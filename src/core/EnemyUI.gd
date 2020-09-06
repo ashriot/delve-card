@@ -59,7 +59,7 @@ func act() -> void:
 			AudioController.play_sfx("fire")
 			take_hit(Burn, debuffs["Burn"].stacks, false)
 			reduce_debuff("Burn")
-			yield(get_tree().create_timer(0.75), "timeout")
+			yield(get_tree().create_timer(0.8), "timeout")
 	if self.dead:
 		emit_signal("ended_turn")
 		return

@@ -7,4 +7,4 @@ script = ExtResource( 1 )
 name = "Flame Shield"
 description = "Add Burn to attackers."
 fades_per_turn = true
-frame_id = 79
+frame_id = 92

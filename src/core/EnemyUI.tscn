@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://assets/images/enemies/devil.png" type="Texture" id=1]
 [ext_resource path="res://src/core/EnemyUI.gd" type="Script" id=2]
@@ -6,8 +6,7 @@
 [ext_resource path="res://assets/images/ui/fill_texture.png" type="Texture" id=4]
 [ext_resource path="res://assets/audio/sfx/hit.wav" type="AudioStream" id=5]
 [ext_resource path="res://assets/audio/sfx/wind_up.wav" type="AudioStream" id=6]
-[ext_resource path="res://assets/images/ui/cursor.png" type="Texture" id=7]
-[ext_resource path="res://assets/images/sheets/icons.png" type="Texture" id=8]
+[ext_resource path="res://assets/images/sheets/icons2.png" type="Texture" id=7]
 [ext_resource path="res://assets/audio/sfx/crit.wav" type="AudioStream" id=9]
 
 [sub_resource type="Animation" id=1]
@@ -180,12 +179,6 @@ script = ExtResource( 2 )
 
 [node name="Enemy" type="Node2D" parent="."]
 
-[node name="Cursor" type="Sprite" parent="Enemy"]
-visible = false
-modulate = Color( 0.145098, 0.145098, 0.133333, 1 )
-position = Vector2( 0, -35 )
-texture = ExtResource( 7 )
-
 [node name="Level" type="Label" parent="Enemy"]
 margin_left = -11.0
 margin_top = -35.0
@@ -241,19 +234,20 @@ nine_patch_stretch = true
 
 [node name="Attack" type="Control" parent="Enemy"]
 margin_left = -10.0
-margin_top = 17.0
+margin_top = 16.0
 margin_right = 16.0
-margin_bottom = 26.0
+margin_bottom = 25.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Sprite" type="Sprite" parent="Enemy/Attack"]
 modulate = Color( 0.6, 0.584314, 0.521569, 1 )
-texture = ExtResource( 8 )
+position = Vector2( 1, -1 )
+texture = ExtResource( 7 )
 centered = false
-vframes = 10
-hframes = 13
+vframes = 30
+hframes = 10
 frame = 2
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Enemy/Attack"]

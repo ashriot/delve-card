@@ -7,4 +7,4 @@ script = ExtResource( 1 )
 name = "Mage Armor"
 description = "Damage is absorbed by MP."
 fades_per_turn = true
-frame_id = 81
+frame_id = 90

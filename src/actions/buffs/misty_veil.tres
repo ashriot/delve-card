@@ -7,4 +7,4 @@ script = ExtResource( 1 )
 name = "Misty Veil"
 description = "Heal 4 HP when hit."
 fades_per_turn = true
-frame_id = 80
+frame_id = 91
