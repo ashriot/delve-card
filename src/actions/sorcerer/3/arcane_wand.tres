@@ -7,7 +7,7 @@
 [resource]
 script = ExtResource( 1 )
 name = "Arcane Wand"
-description = "Deal %damage damage and gain 4 MP."
+description = "Deal %damage damage and gain 6 MP."
 rarity = 3
 upgraded = false
 action_type = 0

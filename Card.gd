@@ -95,8 +95,8 @@ func update_data() -> void:
 	var text = "[right]" + prepend + str(damage) + drown + hit_text + type
 	if action.damage == 0:
 		text = ""
-	if action.name == "Glowing Crystal":
-		text = "[right]+?MP"
+	if action.name == "Brilliant Crystal":
+		text = "[right]+2xMP"
 	$Panel/Damage.bbcode_text = text
 
 func close() -> void:

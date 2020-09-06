@@ -4,10 +4,6 @@
 [ext_resource path="res://assets/animations/Conjure.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/actions/sorcerer/add/conjure_manablade.gd" type="Script" id=3]
 
-
-
-
-
 [resource]
 script = ExtResource( 1 )
 name = "Conjure Weapons"
@@ -17,7 +13,7 @@ upgraded = false
 action_type = 1
 target_type = 0
 cost_type = 2
-cost = 4
+cost = 5
 healing = false
 damage_type = 0
 damage = 0

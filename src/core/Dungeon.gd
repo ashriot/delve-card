@@ -8,6 +8,7 @@ onready var buttons = $ColorRect/Buttons
 var progress: = 1
 
 func initialize() -> void:
+	$ColorRect/Dimmer.hide()
 	for button in buttons.get_children():
 		button.connect("button_up", self, "button_up", [button])
 
@@ -28,3 +29,13 @@ func reset() -> void:
 	for button in buttons.get_children():
 		button.disabled = true
 	buttons.get_child(progress).disabled = false
+
+func _on_Settings_button_up():
+	if !$ColorRect/Dimmer.visible:
+		AudioController.click()
+		$ColorRect/Dimmer.show()
+		$Settings.text = "Close"
+	else:
+		AudioController.back()
+		$ColorRect/Dimmer.hide()
+		$Settings.text = "Settings"

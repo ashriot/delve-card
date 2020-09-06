@@ -17,7 +17,8 @@ __meta__ = {
 }
 
 [node name="Panel" type="Panel" parent="."]
-margin_right = 108.0
+margin_left = 10.0
+margin_right = 99.0
 margin_bottom = 60.0
 __meta__ = {
 "_edit_use_anchors_": false
@@ -45,6 +46,7 @@ position = Vector2( 54, 33 )
 position = Vector2( 0, 3 )
 [connection signal="start_turn" from="." to="Actions" method="_on_Battle_start_turn"]
 [connection signal="add_to_deck" from="Player" to="Actions" method="_on_Player_add_to_deck"]
+[connection signal="apply_debuff" from="Player" to="Actions" method="_on_Player_apply_debuff"]
 [connection signal="block_input" from="Enemy" to="." method="_on_Enemy_block_input"]
 [connection signal="died" from="Enemy" to="." method="_on_Enemy_died"]
 [connection signal="used_action" from="Enemy" to="." method="_on_Enemy_used_action"]

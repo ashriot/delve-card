@@ -115,12 +115,8 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"clips": [ {
-"end_offset": 0.0,
-"start_offset": 0.0,
-"stream": ExtResource( 9 )
-} ],
-"times": PoolRealArray( 0 )
+"clips": [  ],
+"times": PoolRealArray(  )
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("Sprite:position")
@@ -283,6 +279,28 @@ anims/Attack = SubResource( 1 )
 anims/Died = SubResource( 2 )
 anims/Hit = SubResource( 3 )
 anims/Idle = SubResource( 4 )
+
+[node name="BuffBar" type="VBoxContainer" parent="Enemy"]
+margin_left = 17.0
+margin_top = -22.0
+margin_right = 32.0
+margin_bottom = 19.0
+rect_min_size = Vector2( 15, 0 )
+custom_constants/separation = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DebuffBar" type="VBoxContainer" parent="Enemy"]
+margin_left = -29.0
+margin_top = -22.0
+margin_right = -14.0
+margin_bottom = 19.0
+rect_min_size = Vector2( 15, 0 )
+custom_constants/separation = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 9 )

@@ -87,7 +87,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.2, 0.35 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 0.145098, 0.145098, 0.133333, 1 ) ]
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 0.145098, 0.145098, 0.133333, 0 ) ]
 }
 
 [sub_resource type="Animation" id=4]
@@ -155,10 +155,9 @@ __meta__ = {
 }
 
 [node name="Button" type="Button" parent="."]
-modulate = Color( 1, 1, 1, 0 )
-margin_left = -12.0
-margin_right = 96.0
-margin_bottom = 13.0
+margin_top = 2.0
+margin_right = 108.0
+margin_bottom = 15.0
 rect_min_size = Vector2( 90, 13 )
 custom_styles/pressed = ExtResource( 4 )
 text = "Action Button"

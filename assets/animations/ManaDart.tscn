@@ -81,11 +81,11 @@ tracks/4/keys = {
 [node name="ManaDart" instance=ExtResource( 1 )]
 
 [node name="Sprite" parent="." index="0"]
-modulate = Color( 1, 1, 1, 0 )
-position = Vector2( 0, 5 )
+modulate = Color( 1, 1, 1, 0.75 )
+position = Vector2( 0, 9.90909 )
 texture = ExtResource( 2 )
 hframes = 10
-frame = 9
+frame = 7
 
 [node name="AnimationPlayer" parent="." index="1"]
 autoplay = "Animate"

@@ -1,12 +1,12 @@
 [gd_resource type="Resource" load_steps=3 format=2]
 
 [ext_resource path="res://src/actions/res/action.gd" type="Script" id=1]
-[ext_resource path="res://src/actions/thief/add/dodge_1.gd" type="Script" id=2]
+[ext_resource path="res://src/actions/thief/add/dodge2.gd" type="Script" id=2]
 
 [resource]
 script = ExtResource( 1 )
 name = "Mirror Image"
-description = "Gain 1 Dodge."
+description = "Gain 2 Dodge."
 rarity = 1
 upgraded = false
 action_type = 1

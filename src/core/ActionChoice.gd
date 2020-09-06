@@ -66,6 +66,8 @@ func update_data() -> void:
 		type = "ST"
 	var prepend = "+" if action.healing else ""
 	var text = "[right]" + prepend + str(damage) + hit_text + type
+	if action.name == "Brilliant Crystal":
+		text = "[right]+2xMP"
 	if action.damage == 0:
 		text = ""
 	$Button/Damage.bbcode_text = text

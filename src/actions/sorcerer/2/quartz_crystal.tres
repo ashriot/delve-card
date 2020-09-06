@@ -1,23 +1,21 @@
-[gd_resource type="Resource" load_steps=2 format=2]
+[gd_resource type="Resource" load_steps=3 format=2]
 
 [ext_resource path="res://src/actions/res/action.gd" type="Script" id=1]
-
-
-
+[ext_resource path="res://src/actions/sorcerer/add/ac_gain2.gd" type="Script" id=2]
 
 [resource]
 script = ExtResource( 1 )
-name = "Prismatic Crystal"
-description = "Gain %damage MP."
-rarity = 4
+name = "Quartz Crystal"
+description = "Gain 4 MP and 2 AC."
+rarity = 2
 upgraded = false
 action_type = 2
 target_type = 0
-cost_type = 3
+cost_type = 2
 cost = 0
 healing = true
 damage_type = 2
-damage = 10
+damage = 4
 hits = 1
 crit_chance = 0.0
 drawX = 0
@@ -25,3 +23,4 @@ draw_type = 7
 drop = false
 consume = false
 frame_id = 61
+extra_action = ExtResource( 2 )

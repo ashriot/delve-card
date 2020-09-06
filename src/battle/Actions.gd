@@ -26,9 +26,11 @@ onready var pos4: = $Hand/Pos4
 onready var pos5: = $Hand/Pos5
 onready var deck: = $Deck
 onready var graveyard: = $Graveyard
+onready var limbo: = $Limbo
 onready var item_belt: = $ItemBelt
 onready var end_turn: = $EndTurn
 
+var auto_end: = false
 var hand_count: = 0
 var deck_count setget set_deck_count
 var graveyard_count setget set_graveyard_count
@@ -40,15 +42,19 @@ var weapons_played: = 0
 
 var initialized: = false
 
-func initialize(_player: Player, _enemyUI: Enemy) -> void:
+func initialize(_player: Player, _enemyUI: Enemy, auto: bool) -> void:
 	self.deck_count = 0
 	input_blocker.show()
+	auto_end = auto	
 	player = _player
 	enemyUI = _enemyUI
 	actions = player.actor.actions
 #	setup_item_belt()
 	fill_deck()
 	initialized = true
+
+func reset(auto: bool) -> void:
+	auto_end = auto
 
 func shuffle_deck() -> void:
 	self.deck_count = deck.get_child_count()
@@ -100,8 +106,6 @@ func fill_deck() -> void:
 			deck.remove_child(child)
 			child.queue_free()
 		self.deck_count = deck.get_child_count()
-		print("Deck Count: ", self.deck_count \
-			, " Action Count: ", str(player.actor.actions.size()))
 	for action in actions:
 		var action_button = _ActionButton.instance() as ActionButton
 		initialize_button(action_button, action)
@@ -122,14 +126,14 @@ func reset_deck() -> void:
 	hand_count = 0
 	self.graveyard_count = 0
 	weapons_played = 0
-	print("Weapons played: ", weapons_played)
 	fill_deck()
 	shuffle_deck()
 
 func initialize_button(action_button: ActionButton, action: Action) -> void:
-	action_button.connect("played", self, "played_action")
+	action_button.connect("unblock", self, "block_input")
+	action_button.connect("draw_cards", self, "draw_cards")
 	action_button.connect("action_finished", self, "action_finished")
-	action_button.connect("button_pressed", self, "block_input")
+	action_button.connect("button_pressed", self, "button_pressed")
 	action_button.connect("show_card", self, "show_card")
 	action_button.connect("hide_card", self, "hide_card")
 	connect("weapons_played", action_button, "weapons_played")
@@ -184,20 +188,20 @@ func add_to_deck(actions_to_add) -> void:
 	shuffle_deck()
 	emit_signal("done_adding_to_deck")
 
-func draw(value: int, type) -> void:
-	input_blocker.show()
-	for _i in range(0, value):
+func draw_cards(src: Action) -> void:
+	block_input(true)
+	for _i in range(0, src.drawX):
 		if deck.get_child_count() == 0:
 			if graveyard_count > 0:
 				yield(get_tree().create_timer(0.1), "timeout")
 				recover_graveyard()
 				yield(self, "graveyard_done")
 			else: return
-		if type != Action.ActionType.ANY:
+		if src.draw_type != Action.ActionType.ANY:
 			pass
-		var action = find_card_by_type(type)
+		var action = find_card_by_type(src.draw_type)
 		if action == null:
-			input_blocker.hide()
+			block_input(false)
 			return
 		deck.remove_child(action)
 		self.deck_count = deck.get_child_count()
@@ -207,7 +211,7 @@ func draw(value: int, type) -> void:
 			set_pos(action)
 			action.show()
 		yield(get_tree().create_timer(0.12), "timeout")
-	input_blocker.hide()
+	block_input(false)
 	emit_signal("done_drawing")
 
 func find_card_by_type(type) -> ActionButton:
@@ -224,34 +228,42 @@ func discard_hand() -> void:
 		for i in hand.get_children():
 			if i.get_child_count() > 0:
 				var child = i.get_child(0)
-				child.discard()
-				yield(child, "discarded")
-				remove_pos(child)
-				graveyard.add_child(child)
-				self.graveyard_count += 1
+				if child.played:
+					continue
+				else:
+					child.discard()
+					yield(child, "discarded")
+					remove_pos(child)
+					graveyard.add_child(child)
+					self.graveyard_count += 1
+	yield(get_tree().create_timer(0.2), "timeout")
 	emit_signal("done_discarding")
 
-func played_action(action_button: ActionButton) -> void:
+func action_finished(action_button: ActionButton) -> void:
 	if action_button.action.action_type == Action.ActionType.WEAPON:
 		weapons_played += 1
 		emit_signal("weapons_played", weapons_played)
-		print("Weapons Played: ", weapons_played)
-	remove_pos(action_button)
-	if action_button.action.drawX > 0:
-		draw(action_button.action.drawX, action_button.action.draw_type)
-		yield(self, "done_drawing")
+	
+	limbo.remove_child(action_button)
 	if !action_button.action.drop and !action_button.action.consume:
 		graveyard.add_child(action_button)
 		self.graveyard_count += 1
+	else:
+		action_button.queue_free()
 
-func action_finished(action_button: ActionButton) -> void:
-	block_input(false)
+func button_pressed(action_button: ActionButton) -> void:
+	print("Adding ", action_button.action.name, " to limbo.")
+	remove_pos(action_button)
+	limbo.add_child(action_button)
 
 func block_input(block: bool) -> void:
 	if block:
 		input_blocker.show()
 	else:
 		input_blocker.hide()
+		print("Hand Count: ", hand_count, " AE: ", auto_end)
+		if hand_count == 0 && auto_end:
+			_on_EndTurn_button_up()
 
 func used_potion(potion: Action) -> void:
 	print("Using: ", potion.name)
@@ -303,3 +315,6 @@ func _on_Player_add_to_deck(action_name: String, qty: int):
 		btns.append(action_button)
 	add_to_deck(btns)
 	yield(self,"done_adding_to_deck")
+
+func _on_Player_apply_debuff(debuff: Buff, qty: int):
+	enemyUI.gain_debuff(debuff, qty)

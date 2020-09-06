@@ -6,6 +6,7 @@ var BuffUI = preload("res://src/battle/BuffUI.tscn")
 var BuffCard = preload("res://src/battle/BuffCard.tscn")
 
 signal add_to_deck(action_name, qty)
+signal apply_debuff(debuff, qty)
 
 onready var hp_value = $Player/Panel/HP/Value
 onready var hp_percent = $Player/Panel/HP/TextureProgress
@@ -13,6 +14,7 @@ onready var ac_value = $Player/Panel/AC/Value
 onready var mp_value = $Player/Panel/MP/Value
 
 onready var buff_bar = $BuffBar
+onready var debuff_bar = $DebuffBar
 
 var hp: int setget set_hp
 var ac: int setget set_ac
@@ -69,6 +71,13 @@ func take_hit(damage: int) -> void:
 		damage = 0
 	var blocked_dmg = 0
 	var hp_dmg = 0
+	if buffs.has("Mage Armor"):
+		if mp > damage:
+			self.mp -= damage
+			damage = 0
+		else:
+			damage -= mp
+			self.mp = 0
 	if ac > 0:
 		if ac > damage:
 			self.ac -= damage
@@ -111,42 +120,39 @@ func gain_buff(buff: Buff, amt: int) -> void:
 	floating_text.display_text("+" + buff.name)
 	floating_text.position = Vector2(54, 67)
 	get_parent().add_child(floating_text)
-	print("Gaining ", buff.name)
 	for b in buffs.keys():
-		if b == buff.name.to_lower():
+		if b == buff.name:
 			buffs[b].stacks += amt
 			if buff.name == "Might":
-				added_damage += buffs[buff.name.to_lower()].stacks
-				print("MIGHT: adding " + str(added_damage) + " damage.")
+				added_damage += buffs[buff.name].stacks
 				get_tree().call_group("action_button", "update_data")
 			return
 	var buffUI = BuffUI.instance()
 	buffUI.initialize(buff, amt)
 	buff_bar.add_child(buffUI)
-	buffs[buff.name.to_lower()] = buffUI
+	buffs[buff.name] = buffUI
 	if buff.name == "Might":
-		added_damage += buffs[buff.name.to_lower()].stacks
-		print("MIGHT: adding " + str(added_damage) + " damage.")
+		added_damage += buffs[buff.name].stacks
 		get_tree().call_group("action_button", "update_data")
 	buffUI.connect("remove_buff", self, "remove_buff")
 	buffUI.connect("show_card", self, "show_buff_card")
 	buffUI.connect("hide_card", self, "hide_buff_card")
 
+func apply_debuff(debuff: Buff, qty: int) -> void:
+	emit_signal("apply_debuff", debuff, qty)
+
 func reduce_buff(buff_name: String) -> void:
-	print("Reducing ", buff_name)
 	for child in buff_bar.get_children():
-		if child.buff_name.to_lower() == buff_name.to_lower():
+		if child.buff_name == buff_name:
 			if buff_name == "Might":
 				added_damage -= 1
 				get_tree().call_group("action_button", "update_data")
-				print("reducing added dmg: ", added_damage)
 			child.stacks -= 1
 
 func remove_buff(buff_name: String) -> void:
-	print("Removing ", buff_name)
-	var child = buffs[buff_name.to_lower()]
+	var child = buffs[buff_name]
 	buff_bar.remove_child(child)
-	buffs.erase(buff_name.to_lower())
+	buffs.erase(buff_name)
 	child.queue_free()
 
 func has_buff(buff_name: String) -> bool:

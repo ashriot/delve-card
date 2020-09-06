@@ -3,9 +3,6 @@
 [ext_resource path="res://src/actions/res/action.gd" type="Script" id=1]
 [ext_resource path="res://assets/animations/Cast.tscn" type="PackedScene" id=2]
 
-
-
-
 [resource]
 script = ExtResource( 1 )
 name = "Stoneskin"
@@ -15,7 +12,7 @@ upgraded = false
 action_type = 1
 target_type = 0
 cost_type = 2
-cost = 4
+cost = 5
 healing = true
 damage_type = 1
 damage = 10

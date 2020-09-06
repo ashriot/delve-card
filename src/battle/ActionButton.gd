@@ -6,10 +6,12 @@ var FloatingText = preload("res://assets/animations/FloatingText.tscn")
 signal inflict_hit
 signal inflict_effect
 signal anim_finished
-signal action_finished
-signal button_pressed(block)
-signal played(action_button)
+signal action_finished(action_button)
+signal execute_finished
+signal button_pressed(button)
+signal unblock(value)
 signal discarded(action_button)
+signal draw_cards(action)
 
 signal show_card(action_button)
 signal hide_card
@@ -101,8 +103,9 @@ func update_data() -> void:
 		+ drown + hit_text + type
 	if action.damage == 0:
 		text = ""
-	if action.name == "Glowing Crystal":
-		text = "[right]+?MP"
+	if action.name == "Brilliant Crystal":
+		var glow = min(player.mp, 30)
+		text = str(glow) + "MP"
 	$Button/Damage.bbcode_text = text
 
 func playable() -> bool:
@@ -129,7 +132,7 @@ func play() -> void:
 		display_error()
 		return
 	played = true
-	emit_signal("button_pressed", true)
+	emit_signal("button_pressed", self)
 	if action.drop or action.consume:
 		animationPlayer.play("Drop")
 	else:
@@ -138,8 +141,9 @@ func play() -> void:
 	player.mp -= mp_cost
 	player.hp -= hp_cost
 	execute()
-	yield(animationPlayer, "animation_finished")
-	emit_signal("played", self)
+	yield(self, "execute_finished")
+	print("Action finished!")
+	emit_signal("action_finished", self)
 
 func display_error() -> void:
 	var floating_text = FloatingText.instance()
@@ -148,15 +152,14 @@ func display_error() -> void:
 	add_child(floating_text)
 
 func execute() -> void:
-#	var hit = Hit.new() as Hit
-#	hit.initialize(Player.player, target.enemy, action)
 	if action.target_type == Action.TargetType.OPPONENT:
 		for hit in action.hits:
-			create_effect(enemy.global_position)
+			create_effect(enemy.global_position, "hit")
 			yield(self, "inflict_hit")
-			if action.extra_action != null:
-				action.extra_action.execute(player)
-			emit_signal("action_finished", action)
+			if action.drawX > 0:
+				emit_signal("draw_cards", action)
+			else:
+				emit_signal("unblock", false)
 			var crit = randf() < action.crit_chance
 			var damage = (action.damage + added_damage + player.added_damage) * \
 				(1 + damage_multiplier + player.damage_multiplier)
@@ -167,13 +170,19 @@ func execute() -> void:
 				var healing = damage
 				player.take_healing(damage, "HP")
 			enemy.take_hit(action, damage, crit)
+			if action.extra_action != null:
+				action.extra_action.execute(player)
 			yield(self, "anim_finished")
 		if player.has_buff("lifesteal"):
 			player.reduce_buff("lifesteal")
 	else:
-		if action.fx != null:
-			create_effect(player.global_position)
-			yield(self, "inflict_effect")
+		create_effect(player.global_position, "effect")
+		yield(self, "inflict_effect")
+		if action.drawX > 0:
+			print("drawing!")
+			emit_signal("draw_cards", action)
+		else:
+			emit_signal("unblock", false)	
 		if action.extra_action != null:
 			action.extra_action.execute(player)
 		if action.damage > 0:
@@ -188,14 +197,14 @@ func execute() -> void:
 				player.take_healing(action.damage, "AC")
 			elif action.damage_type == Action.DamageType.MP:
 				var damage = action.damage
-				if action.name == "Glowing Crystal":
+				if action.name == "Brilliant Crystal":
 					damage = min(player.mp, 30)
 				AudioController.play_sfx("mp_gain")
 				player.take_healing(damage, "MP")
-		emit_signal("action_finished", action)
 		yield(self, "anim_finished")
-	if action.drop or action.consume:
-		queue_free()
+	get_tree().call_group("action_button", "update_data")
+	print("Execute finished")
+	emit_signal("execute_finished")
 
 func inflict_hit() -> void:
 	emit_signal("inflict_hit")
@@ -203,11 +212,14 @@ func inflict_hit() -> void:
 func inflict_effect() -> void:
 	emit_signal("inflict_effect")
 
-func create_effect(position: Vector2) -> void:
+func create_effect(position: Vector2, type: String) -> void:
 	if action.fx == null:
 		yield(get_tree().create_timer(0.1), "timeout")
-		emit_signal("inflict_hit")
-		yield(get_tree().create_timer(0.1), "timeout")
+		if type == "hit":
+			emit_signal("inflict_hit")
+		else:
+			emit_signal("inflict_effect")
+		yield(get_tree().create_timer(0.2), "timeout")
 		emit_signal("anim_finished")
 	else:
 		var effect = action.fx.instance()

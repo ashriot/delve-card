@@ -346,12 +346,24 @@ frame = 53
 anims/Shake = SubResource( 1 )
 
 [node name="BuffBar" type="HBoxContainer" parent="."]
-margin_left = -52.0
-margin_top = 11.0
-margin_right = 53.0
-margin_bottom = 19.0
+margin_left = -54.0
+margin_top = 10.0
+margin_right = 18.0
+margin_bottom = 18.0
 rect_min_size = Vector2( 72, 8 )
-custom_constants/separation = 3
+custom_constants/separation = -3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DebuffBar" type="HBoxContainer" parent="."]
+margin_left = -29.0
+margin_top = 10.0
+margin_right = 56.0
+margin_bottom = 18.0
+rect_min_size = Vector2( 72, 8 )
+custom_constants/separation = -2
+alignment = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }

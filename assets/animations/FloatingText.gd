@@ -28,7 +28,7 @@ func _ready() -> void:
 	
 	tween.interpolate_callback(self, 1.0, "queue_free")
 	
-	velocity = Vector2(rand_range(-30, 30), -80)
+	velocity = Vector2(rand_range(-40, 40), -80)
 	
 	tween.start()
 

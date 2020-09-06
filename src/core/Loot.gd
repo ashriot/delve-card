@@ -94,7 +94,7 @@ func set_mp(value: int) -> void:
 	mp_value.bbcode_text = text
 
 func set_ap(value: int) -> void:
-	ap.rect_size = Vector2(6 * value, 7)
+	ap.rect_size = Vector2(5 * value, 7)
 
 func choose(choice: ActionChoice) -> void:
 	for child in choices.get_children():
@@ -110,22 +110,10 @@ func choose(choice: ActionChoice) -> void:
 				finished.text = "Skip Reward"
 		else:
 			child.chosen = false
-
-func create_loot_list(progress: int) -> Array:
-	var level = (1 + progress / 3) as int
-	var loot_list = []
-	for i in range(3):
-		var common = min(level, 4)
-		var rare = min(level + 1, 4)
-		var rand = randf()
-		var chance = 0.25 * i
-		var rank = rare if rand < chance else common
-		var pick = pick_loot(rank)
-		loot_list.append(pick)
-	return loot_list
 	
 func new_picker(progress: int) -> Array:
-	var level = (1 + progress / 3) as int
+	var level = (2 + progress / 6) as int
+	print(level)
 	var loot_list = []
 	var pick1 = loot1.duplicate(true)
 	pick1.shuffle()
@@ -140,7 +128,7 @@ func new_picker(progress: int) -> Array:
 		var common = min(level, 4)
 		var rare = min(level + 1, 4)
 		var rand = randf()
-		var chance = 0.25 * i
+		var chance = 0.2 * i
 		var rank = rare if rand < chance else common
 		if rank == 4:
 			if pick4.size() > 0:
@@ -173,7 +161,6 @@ func pick_loot(rank: int) -> String:
 	if rank == 4:
 		table = loot4
 	if table.size() == 0:
-		print("table is empty: " + str(rank))
 		return ""
 	var rand = randi() % table.size()
 	var item = table[rand]
@@ -186,19 +173,15 @@ func remove_loot(item: String) -> void:
 	var path = "res://src/actions/" + player.name.to_lower() + "/"
 	if loot1.has(path + "1/" + item):
 		loot1.remove(loot1.find(path + "1/" + item))
-		print("found in table 1")
 		return
 	if loot2.has(path + "2/" + item):
 		loot2.remove(loot2.find(path + "2/" + item))
-		print("found in table 2")
 		return
 	if loot3.has(path + "3/" + item):
 		loot3.remove(loot3.find(path + "3/" + item))
-		print("found in table 3")
 		return
 	if loot4.has(path + "4/" + item):
 		loot4.remove(loot4.find(path + "4/" + item))
-		print("found in table 4")
 		return
 
 func get_loot(rank: int) -> Array:

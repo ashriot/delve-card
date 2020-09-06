@@ -81,9 +81,10 @@ tracks/4/keys = {
 
 [node name="Sprite" parent="." index="0"]
 modulate = Color( 1, 1, 1, 0.862745 )
-position = Vector2( 0, 17 )
+position = Vector2( 0, 8.16667 )
 texture = ExtResource( 2 )
 hframes = 5
+frame = 4
 
 [node name="AnimationPlayer" parent="." index="1"]
 autoplay = "Animate"

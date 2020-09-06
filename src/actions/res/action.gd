@@ -52,6 +52,8 @@ func execute() -> void:
 func get_description() -> Array:
 	var dmg = str(damage) + ("x" + str(hits) if hits > 1 else "")
 	var text = description.replace("%damage", dmg)
+	var dmg2 = str(damage * 2) + ("x" + str(hits) if hits > 1 else "")	
+	text = text.replace("%dx2", dmg2)
 	text = text.replace("%drawX", str(drawX))
 	if crit_chance > 0:
 		text += " " + str(crit_chance* 100) + "% Crit chance."

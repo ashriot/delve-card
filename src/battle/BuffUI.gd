@@ -28,7 +28,9 @@ func set_stacks(value: int) -> void:
 	if stacks == 0:
 		emit_signal("remove_buff", buff_name)
 	else:
-		$Stacks.text = str(stacks)
+		var text = str(stacks) if stacks > 1 else ""
+		$Stacks.text = text
+		$StacksShadow.text = text
 
 func get_description() -> String:
 	description = buff.description

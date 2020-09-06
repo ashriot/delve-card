@@ -17,6 +17,8 @@ onready var fade = $Fade/AnimationPlayer
 onready var demo = $DemoScreen
 onready var char_select = $CharSelect
 
+var auto_end: = true
+
 func _ready() -> void:
 	$Title/AnimationPlayer.play("FlashTap")
 	randomize()
@@ -28,6 +30,7 @@ func _ready() -> void:
 	dungeon.hide()
 	end_game.hide()
 	demo.hide()
+	$DemoScreen/Notes.hide()
 	char_select.hide()
 	if skip_intro:
 		_on_DemoStart_button_up()
@@ -53,7 +56,7 @@ func _on_Dungeon_start_battle(enemy: Actor) -> void:
 		dungeon.advance()
 
 func start_game() -> void:
-	battle.initialize(player)
+	battle.initialize(player, auto_end)
 	loot.initialize(player)
 	dungeon.show()
 	fade.play("FadeIn")
@@ -65,7 +68,7 @@ func start_battle(scene_to_hide: Node2D, enemy: Actor) -> void:
 	yield(fade, "animation_finished")
 	scene_to_hide.hide()
 	battle.show()
-	battle.start(enemy)
+	battle.start(enemy, auto_end)
 	fade.play("FadeIn")
 	yield(fade, "animation_finished")
 	yield(battle, "battle_finished")
@@ -75,6 +78,7 @@ func start_battle(scene_to_hide: Node2D, enemy: Actor) -> void:
 		return
 	AudioController.play_bgm("victory")
 	yield(fade, "animation_finished")
+	battle.hide()
 	loot.setup(dungeon.progress)
 	loot.show()
 	fade.play("FadeIn")
@@ -112,7 +116,8 @@ func _on_DemoStart_button_up():
 	fade.play("FadeOut")
 	yield(fade, "animation_finished")
 	demo.hide()
-	start_game()
+	char_select.show()
+	fade.play("FadeIn")
 
 func _on_CharSelect_chose_class(name: String) -> void:
 	var n = name.to_lower()
@@ -123,10 +128,24 @@ func _on_CharSelect_chose_class(name: String) -> void:
 	char_select.hide()
 	start_game()
 
-func _on_TextureButton_button_up():
+func _on_Patch_button_up():
 	AudioController.click()
+	$DemoScreen/Notes.show()
+
+func _on_PatchBack_button_up():
+	AudioController.back()
+	$DemoScreen/Notes.hide()
+
+func _on_Fire_button_up():
+	AudioController.click()	
+	var n = "fire_sorc"
+	var player_res = load("res://src/actions/sorcerer/" + n + ".tres")
+	player = player_res
 	fade.play("FadeOut")
 	yield(fade, "animation_finished")
-	title.hide()
-	char_select.show()
-	fade.play("FadeIn")
+	char_select.hide()
+	start_game()
+
+func _on_AutoEnd_toggled(button_pressed):
+	auto_end = button_pressed
+	print(button_pressed)
