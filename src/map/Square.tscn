@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://assets/images/map/tile_clear.png" type="Texture" id=1]
+[ext_resource path="res://assets/images/map/clear.png" type="Texture" id=1]
 [ext_resource path="res://src/map/Square.gd" type="Script" id=2]
 
 [node name="Square" type="TextureButton"]
@@ -11,5 +11,8 @@ script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Timer" type="Timer" parent="."]
 [connection signal="button_down" from="." to="." method="_on_Square_button_down"]
 [connection signal="button_up" from="." to="." method="_on_Square_button_up"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

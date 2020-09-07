@@ -1,5 +1,8 @@
 extends Node2D
 
+signal show_card(btn, amt)
+signal hide_card
+
 onready var portrait: = $Portrait
 onready var hp_value = $Player/Panel/HP/Value
 onready var hp_percent = $Player/Panel/HP/TextureProgress
@@ -16,15 +19,21 @@ var player: Actor
 func initialize(_player: Actor) -> void:
 	player = _player
 	deck.initialize(player)
-	deck_label.text = str(player.actions.size())
+	deck.connect("show_card", self, "show_card")
+	deck.connect("hide_card", self, "hide_card")
+	job_title.text = player.name
+	portrait.frame = player.portrait_id
 	player.hp = player.max_hp
+	refresh()
+
+func refresh() -> void:
 	set_hp(player.hp)
 	set_ac(player.initial_ac)
 	set_ap(player.max_ap)
 	set_mp(player.initial_mp)
 	gold_label.text = comma_sep(player.gold)
-	job_title.text = player.name
-	portrait.frame = player.portrait_id
+	deck_label.text = str(player.actions.size())
+	deck.refresh()
 
 func comma_sep(n: int) -> String:
 	var result := ""
@@ -33,6 +42,10 @@ func comma_sep(n: int) -> String:
 		result = ",%03d%s" % [i % 1000, result]
 		i /= 1000
 	return "%s%s%s" % ["-" if n < 0 else "", i, result]
+
+func heal(amt: int) -> void:
+	player.hp += amt
+	set_hp(player.hp)
 
 func set_hp(value) -> void:
 	var zeros = 3 - str(value).length()
@@ -64,6 +77,12 @@ func set_mp(value: int) -> void:
 
 func set_ap(value: int) -> void:
 	ap.rect_size = Vector2(5 * value, 7)
+
+func show_card(btn, amt: int) -> void:
+	emit_signal("show_card", btn, amt)
+
+func hide_card() -> void:
+	emit_signal("hide_card")
 
 func _on_DeckButton_button_up():
 	AudioController.click()

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/chest_closed.png-2c74afc37f095a15bda517e1d9c1387d.stex"
+path="res://.import/x_dark.png-1390ab84a6b311309198b758ddb9259b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/map/chest_closed.png"
-dest_files=[ "res://.import/chest_closed.png-2c74afc37f095a15bda517e1d9c1387d.stex" ]
+source_file="res://assets/images/ui/x_dark.png"
+dest_files=[ "res://.import/x_dark.png-1390ab84a6b311309198b758ddb9259b.stex" ]
 
 [params]
 

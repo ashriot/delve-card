@@ -14,8 +14,7 @@
 [ext_resource path="res://assets/images/ui/stamina.png" type="Texture" id=12]
 [ext_resource path="res://src/core/Player.tscn" type="PackedScene" id=13]
 [ext_resource path="res://src/core/Dungeon.gd" type="Script" id=14]
-[ext_resource path="res://assets/images/ui/gear-dark.png" type="Texture" id=15]
-[ext_resource path="res://assets/images/ui/gear-darker.png" type="Texture" id=16]
+[ext_resource path="res://Card.tscn" type="PackedScene" id=15]
 [ext_resource path="res://assets/images/bgs/forest.png" type="Texture" id=17]
 [ext_resource path="res://assets/images/sheets/16x16_misc.png" type="Texture" id=18]
 [ext_resource path="res://src/core/Map.gd" type="Script" id=19]
@@ -73,9 +72,26 @@ tracks/0/keys = {
 
 [sub_resource type="StyleBoxEmpty" id=12]
 
-[sub_resource type="StyleBoxEmpty" id=13]
+[sub_resource type="Animation" id=13]
+resource_name = "Blink"
+length = 1.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.145098, 0.145098, 0.133333, 0 ), Color( 0.145098, 0.145098, 0.133333, 1 ), Color( 0.145098, 0.145098, 0.133333, 0 ) ]
+}
 
-[sub_resource type="Animation" id=14]
+[sub_resource type="StyleBoxEmpty" id=14]
+
+[sub_resource type="Animation" id=15]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:color")
@@ -102,7 +118,7 @@ tracks/1/keys = {
 "values": [ 2 ]
 }
 
-[sub_resource type="Animation" id=15]
+[sub_resource type="Animation" id=16]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:color")
@@ -136,10 +152,6 @@ mute = true
 skip_intro = true
 
 [node name="Battle" parent="." instance=ExtResource( 1 )]
-visible = false
-
-[node name="Loot" parent="." instance=ExtResource( 5 )]
-visible = false
 
 [node name="Dungeon" type="Node2D" parent="."]
 script = ExtResource( 14 )
@@ -153,10 +165,25 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ColorRect" type="ColorRect" parent="Dungeon/ColorRect"]
+[node name="TopBanner" type="ColorRect" parent="Dungeon/ColorRect"]
 anchor_right = 1.0
 margin_bottom = 12.0
 color = Color( 0.145098, 0.145098, 0.133333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FloorNum" type="Label" parent="Dungeon/ColorRect/TopBanner"]
+anchor_right = 1.0
+margin_left = -1.0
+margin_top = -1.0
+margin_right = -1.0
+margin_bottom = 13.0
+text = "Dark Forest Lv. 3"
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="DungeonBG" type="Sprite" parent="Dungeon/ColorRect"]
 position = Vector2( 54, 36 )
@@ -280,18 +307,6 @@ margin_bottom = 136.0
 rect_min_size = Vector2( 104, 0 )
 disabled = true
 text = "Encounter"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="FloorNum" type="Label" parent="Dungeon/ColorRect"]
-anchor_right = 1.0
-margin_left = -1.0
-margin_top = -1.0
-margin_right = -1.0
-margin_bottom = 13.0
-text = "Dark Forest Lv. 3"
-autowrap = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -552,6 +567,33 @@ margin_right = 78.0
 margin_left = 84.0
 margin_right = 92.0
 
+[node name="Tooltip" type="Panel" parent="Dungeon/ColorRect"]
+anchor_right = 0.611
+anchor_bottom = 0.068
+margin_right = 0.012001
+margin_bottom = -0.0560007
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Dungeon/ColorRect/Tooltip"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -1.0
+margin_bottom = -1.0
+text = "Treasure"
+align = 1
+
+[node name="PlayerBanner" type="ColorRect" parent="Dungeon/ColorRect"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -68.0
+color = Color( 0.145098, 0.145098, 0.133333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Title" type="Node2D" parent="."]
 visible = false
 
@@ -613,6 +655,63 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Banner" type="ColorRect" parent="DemoScreen"]
+anchor_right = 1.0
+margin_right = 7.62939e-06
+margin_bottom = 12.0
+color = Color( 0.145098, 0.145098, 0.133333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Choose" type="Label" parent="DemoScreen/Banner"]
+anchor_right = 1.0
+margin_left = -1.0
+margin_top = -1.0
+margin_right = -1.0
+margin_bottom = 13.0
+text = "DELVE Alpha Information"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StatsInfo" type="Label" parent="DemoScreen"]
+anchor_right = 1.0
+margin_left = 8.0
+margin_top = 13.0
+margin_right = 4.0
+margin_bottom = 118.0
+custom_constants/line_spacing = 1
+text = "HP: Hit Points. You do not heal after battle.
+
+AC: Armor Class. Removed before HP. Resets after each fight.
+
+MP: Mana Points. Required by spells. Resets after each fight.
+
+ST: Stamina. Required by some weapons. Gain 1 each turn."
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Shield" type="Sprite" parent="DemoScreen/StatsInfo"]
+modulate = Color( 0.792157, 0.780392, 0.721569, 1 )
+position = Vector2( -2, 29 )
+texture = ExtResource( 6 )
+
+[node name="Heart" type="Sprite" parent="DemoScreen/StatsInfo"]
+modulate = Color( 0.792157, 0.780392, 0.721569, 1 )
+position = Vector2( -2, 8 )
+texture = ExtResource( 8 )
+
+[node name="Staff" type="Sprite" parent="DemoScreen/StatsInfo/Heart"]
+position = Vector2( 0, 49 )
+texture = ExtResource( 7 )
+
+[node name="AP" type="Sprite" parent="DemoScreen/StatsInfo/Heart"]
+position = Vector2( 1, 76 )
+texture = ExtResource( 12 )
+
 [node name="Panel" type="Panel" parent="DemoScreen"]
 margin_left = 10.0
 margin_top = 129.0
@@ -634,55 +733,6 @@ autowrap = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="Label" type="Label" parent="DemoScreen"]
-anchor_right = 1.0
-margin_top = -2.0
-margin_bottom = 19.0
-custom_constants/line_spacing = 1
-text = "Thank you for playing the DELVE alpha test!"
-align = 1
-autowrap = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label3" type="Label" parent="DemoScreen"]
-anchor_right = 1.0
-margin_left = 8.0
-margin_top = 13.0
-margin_right = 4.0
-margin_bottom = 118.0
-custom_constants/line_spacing = 1
-text = "HP: Hit Points. You do not heal after battle.
-
-AC: Armor Class. Removed before HP. Resets after each fight.
-
-MP: Mana Points. Required by spells. Resets after each fight.
-
-ST: Stamina. Required by some weapons. Gain 1 each turn."
-autowrap = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Shield" type="Sprite" parent="DemoScreen/Label3"]
-modulate = Color( 0.792157, 0.780392, 0.721569, 1 )
-position = Vector2( -2, 29 )
-texture = ExtResource( 6 )
-
-[node name="Heart" type="Sprite" parent="DemoScreen/Label3"]
-modulate = Color( 0.792157, 0.780392, 0.721569, 1 )
-position = Vector2( -2, 8 )
-texture = ExtResource( 8 )
-
-[node name="Staff" type="Sprite" parent="DemoScreen/Label3/Heart"]
-position = Vector2( 0, 49 )
-texture = ExtResource( 7 )
-
-[node name="AP" type="Sprite" parent="DemoScreen/Label3/Heart"]
-position = Vector2( 1, 76 )
-texture = ExtResource( 12 )
 
 [node name="TapToStart2" type="Label" parent="DemoScreen"]
 anchor_top = 0.5
@@ -725,14 +775,13 @@ __meta__ = {
 }
 
 [node name="Patch" type="Button" parent="DemoScreen"]
-margin_left = 16.0
-margin_top = 168.0
-margin_right = 93.0
-margin_bottom = 187.0
+margin_left = 2.0
+margin_top = 177.0
+margin_right = 106.0
+margin_bottom = 190.0
 text = "Patch Notes"
 
 [node name="Notes" type="ColorRect" parent="DemoScreen"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0, 0, 0, 0.717647 )
@@ -740,24 +789,44 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Panel" type="Panel" parent="DemoScreen/Notes"]
-margin_left = 2.0
-margin_top = 2.0
-margin_right = 106.0
-margin_bottom = 190.0
+[node name="Banner" type="ColorRect" parent="DemoScreen/Notes"]
+anchor_right = 1.0
+margin_right = 7.62939e-06
+margin_bottom = 12.0
+color = Color( 0.145098, 0.145098, 0.133333, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="PatchBack" type="Button" parent="DemoScreen/Notes/Panel"]
+[node name="Choose" type="Label" parent="DemoScreen/Notes/Banner"]
+anchor_right = 1.0
+margin_left = -1.0
+margin_top = -1.0
+margin_right = -1.0
+margin_bottom = 13.0
+text = "v.0.3.1 Patch Notes"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PatchBack" type="Button" parent="DemoScreen/Notes"]
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 14.0
-margin_top = -22.0
-margin_right = -13.0
-margin_bottom = -3.0
+margin_left = 2.0
+margin_top = -15.0
+margin_right = -2.0
+margin_bottom = -2.0
 text = "Close"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="DemoScreen/Notes"]
+margin_left = 2.0
+margin_top = 14.0
+margin_right = 106.0
+margin_bottom = 175.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -765,9 +834,8 @@ __meta__ = {
 [node name="Label" type="Label" parent="DemoScreen/Notes/Panel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = 15.0
-margin_right = 2.0
-margin_bottom = -20.0
+margin_top = -1.0
+margin_bottom = -1.0
 custom_constants/line_spacing = 2
 text = "Added lots of new 2* and 3* Actions for the Mage including:
 Mage Armor, Misty Veil, Quartz Crystal, Quicksand, Storm Crystal, & Voltaic Barrier.
@@ -776,12 +844,9 @@ You can now only receive a minimum of 2* Actions as rewards. 1* Actions are star
 
 New Setting: Auto-End turn with an empty hand. Defaulted to ON."
 autowrap = true
-
-[node name="Label2" type="Label" parent="DemoScreen/Notes/Panel"]
-anchor_right = 1.0
-margin_bottom = 14.0
-text = "Version 0.3.0"
-align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="CharSelect" type="Node2D" parent="."]
 visible = false
@@ -795,26 +860,48 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ComingSoon" type="Label" parent="CharSelect/ColorRect"]
-visible = false
-margin_top = 119.0
-margin_right = 108.0
-margin_bottom = 133.0
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-custom_constants/shadow_offset_x = 0
-custom_constants/shadow_offset_y = 0
-custom_constants/shadow_as_outline = 0
-text = "Coming Soon"
-align = 1
+[node name="Banner" type="ColorRect" parent="CharSelect/ColorRect"]
+anchor_right = 1.0
+margin_right = 7.62939e-06
+margin_bottom = 12.0
+color = Color( 0.145098, 0.145098, 0.133333, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Choose" type="Label" parent="CharSelect/ColorRect/Banner"]
+anchor_right = 1.0
+margin_left = -1.0
+margin_top = -1.0
+margin_right = -1.0
+margin_bottom = 13.0
+text = "Choose a Class"
+uppercase = true
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="CharSelect/ColorRect/Banner/Choose"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 3.0
+margin_bottom = -4.0
+color = Color( 0.145098, 0.145098, 0.133333, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CharSelect/ColorRect/Banner/Choose/ColorRect"]
+autoplay = "Blink"
+anims/Blink = SubResource( 13 )
+
 [node name="VBoxContainer" type="VBoxContainer" parent="CharSelect/ColorRect"]
 anchor_right = 0.666667
-margin_top = 28.0
+margin_top = 17.0
 margin_right = 36.0
-margin_bottom = 192.0
+margin_bottom = 181.0
 rect_pivot_offset = Vector2( -261, 123 )
 __meta__ = {
 "_edit_group_": true,
@@ -932,18 +1019,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="CharSelect/ColorRect"]
-anchor_right = 1.0
-margin_top = 4.0
-margin_bottom = 18.0
-text = "Choose a Class"
-align = 1
-autowrap = true
-uppercase = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="Fire" type="Button" parent="CharSelect"]
 margin_left = 20.0
 margin_top = 175.0
@@ -953,6 +1028,12 @@ text = "Fire Sorc"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Loot" parent="." instance=ExtResource( 5 )]
+visible = false
+
+[node name="PlayerUI" parent="." instance=ExtResource( 13 )]
+visible = false
 
 [node name="Settings" type="Control" parent="."]
 margin_right = 108.0
@@ -1003,9 +1084,25 @@ margin_left = 70.0
 margin_top = -2.0
 margin_right = 94.0
 margin_bottom = 22.0
-custom_styles/focus = SubResource( 13 )
+custom_styles/focus = SubResource( 14 )
 pressed = true
 align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="Settings/Dimmer"]
+anchor_right = 1.0
+margin_right = 7.62939e-06
+margin_bottom = 12.0
+color = Color( 0.145098, 0.145098, 0.133333, 1 )
+
+[node name="Label" type="Label" parent="Settings/Dimmer/ColorRect"]
+margin_left = -1.0
+margin_top = -1.0
+margin_right = 7.0
+margin_bottom = 13.0
+text = "Settings"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -1016,13 +1113,9 @@ margin_top = 1.0
 margin_right = 107.0
 margin_bottom = 11.0
 texture_normal = ExtResource( 11 )
-texture_pressed = ExtResource( 15 )
-texture_disabled = ExtResource( 16 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="PlayerUI" parent="." instance=ExtResource( 13 )]
 
 [node name="EndGame" type="Panel" parent="."]
 visible = false
@@ -1061,6 +1154,9 @@ text = "* If you restart the game, you will keep your current actions!"
 align = 1
 autowrap = true
 
+[node name="Card" parent="." instance=ExtResource( 15 )]
+visible = false
+
 [node name="Fade" type="ColorRect" parent="."]
 margin_right = 108.0
 margin_bottom = 192.0
@@ -1072,15 +1168,23 @@ __meta__ = {
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Fade"]
-anims/FadeIn = SubResource( 14 )
-anims/FadeOut = SubResource( 15 )
+anims/FadeIn = SubResource( 15 )
+anims/FadeOut = SubResource( 16 )
+[connection signal="heal" from="Dungeon" to="." method="_on_Dungeon_heal"]
 [connection signal="start_battle" from="Dungeon" to="." method="_on_Dungeon_start_battle"]
+[connection signal="start_loot" from="Dungeon" to="." method="_on_Dungeon_start_loot"]
+[connection signal="heal" from="Dungeon/ColorRect/Map" to="Dungeon" method="_on_Map_heal"]
+[connection signal="hide_tooltip" from="Dungeon/ColorRect/Map" to="Dungeon" method="_on_Map_hide_tooltip"]
+[connection signal="show_tooltip" from="Dungeon/ColorRect/Map" to="Dungeon" method="_on_Map_show_tooltip"]
+[connection signal="start_battle" from="Dungeon/ColorRect/Map" to="Dungeon" method="_on_Map_start_battle"]
+[connection signal="start_loot" from="Dungeon/ColorRect/Map" to="Dungeon" method="_on_Map_start_loot"]
 [connection signal="button_up" from="Title/ColorRect/StartGame" to="." method="_on_StartGame_button_up"]
 [connection signal="button_up" from="DemoScreen/DemoStart" to="." method="_on_DemoStart_button_up"]
 [connection signal="button_up" from="DemoScreen/Patch" to="." method="_on_Patch_button_up"]
-[connection signal="button_up" from="DemoScreen/Notes/Panel/PatchBack" to="." method="_on_PatchBack_button_up"]
+[connection signal="button_up" from="DemoScreen/Notes/PatchBack" to="." method="_on_PatchBack_button_up"]
 [connection signal="chose_class" from="CharSelect" to="." method="_on_CharSelect_chose_class"]
 [connection signal="button_up" from="CharSelect/Fire" to="." method="_on_Fire_button_up"]
 [connection signal="toggled" from="Settings/Dimmer/AutoEnd/AutoEnd" to="." method="_on_AutoEnd_toggled"]
+[connection signal="button_down" from="Settings/Settings" to="." method="_on_Settings_button_down"]
 [connection signal="button_up" from="Settings/Settings" to="." method="_on_Settings_button_up"]
 [connection signal="button_up" from="EndGame/Restart" to="." method="_on_Restart_button_up"]

@@ -9,7 +9,7 @@ bg_color = Color( 0, 0, 0, 1 )
 
 [sub_resource type="Animation" id=2]
 resource_name = "Blink"
-length = 1.2
+length = 1.4
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:color")
@@ -18,10 +18,10 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.4, 0.8 ),
+"times": PoolRealArray( 0, 0.5, 1.2 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 0 ) ]
+"values": [ Color( 0.145098, 0.145098, 0.133333, 0 ), Color( 0.145098, 0.145098, 0.133333, 1 ), Color( 0.145098, 0.145098, 0.133333, 0 ) ]
 }
 
 [node name="Loot" type="Node2D"]
@@ -36,15 +36,22 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Banner" type="ColorRect" parent="Panel"]
+anchor_right = 1.0
+margin_right = 7.62939e-06
+margin_bottom = 12.0
+color = Color( 0.145098, 0.145098, 0.133333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Choose" type="Label" parent="Panel"]
 anchor_right = 1.0
 margin_left = -1.0
-margin_top = -3.0
+margin_top = -1.0
 margin_right = -1.0
-margin_bottom = 20.0
-text = "Victory!
-Choose a Reward"
-align = 1
+margin_bottom = 13.0
+text = "Choose a Reward"
 uppercase = true
 __meta__ = {
 "_edit_group_": true,
@@ -54,9 +61,10 @@ __meta__ = {
 [node name="ColorRect" type="ColorRect" parent="Panel/Choose"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = 2.0
 margin_top = 3.0
 margin_bottom = -4.0
-color = Color( 0, 0, 0, 0 )
+color = Color( 0.145098, 0.145098, 0.133333, 0 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -65,33 +73,21 @@ __meta__ = {
 autoplay = "Blink"
 anims/Blink = SubResource( 2 )
 
-[node name="Bar2" type="TextureRect" parent="Panel/Choose"]
-modulate = Color( 0.145098, 0.145098, 0.133333, 1 )
-anchor_right = 1.0
-margin_left = 4.0
-margin_top = 20.0
-margin_right = -2.0
-margin_bottom = 21.0
-texture = ExtResource( 9 )
-expand = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="Choices" type="VBoxContainer" parent="."]
-margin_top = 24.0
-margin_right = 108.0
-margin_bottom = 73.0
-custom_constants/separation = -1
+margin_left = 2.0
+margin_top = 14.0
+margin_right = 106.0
+margin_bottom = 69.0
+custom_constants/separation = 4
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Finished" type="Button" parent="."]
-margin_left = 16.0
-margin_top = 85.0
+margin_left = 17.0
+margin_top = 106.0
 margin_right = 91.0
-margin_bottom = 100.0
+margin_bottom = 121.0
 text = "Finished"
 __meta__ = {
 "_edit_use_anchors_": false

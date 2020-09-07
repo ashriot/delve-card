@@ -2,6 +2,10 @@ extends Node
 class_name Game
 
 signal battle_finished
+signal looting_finished
+
+var gear = preload("res://assets/images/ui/gear.png")
+var close = preload("res://assets/images/ui/x.png")
 
 export var player: Resource
 export var rooms: = 5
@@ -15,9 +19,11 @@ onready var loot: = $Loot
 onready var end_game: = $EndGame
 onready var fade = $Fade/AnimationPlayer
 onready var demo = $DemoScreen
+onready var card = $Card
 onready var char_select = $CharSelect
 onready var playerUI = $PlayerUI
 onready var settings = $Settings/Dimmer
+onready var settings_btn = $Settings/Settings
 
 # Settings
 var auto_end: = true
@@ -35,6 +41,7 @@ func _ready() -> void:
 	dungeon.hide()
 	end_game.hide()
 	demo.hide()
+	card.hide()
 	$DemoScreen/Notes.hide()
 	char_select.hide()
 	if skip_intro:
@@ -51,17 +58,11 @@ func _on_StartGame_button_up() -> void:
 	fade.play("FadeIn")
 	yield(fade, "animation_finished")
 
-func _on_Dungeon_start_battle(enemy: Actor) -> void:
-	start_battle(dungeon, enemy)
-	yield(self, "battle_finished")
-	if dungeon.progress == 9:
-		$EndGame/Label.text = "Thank you for playing!"
-		end_game.show()
-	else:
-		dungeon.advance()
-
 func start_game() -> void:
-	battle.initialize(player, auto_end)
+	battle.initialize(player)
+	battle.toggle_auto_end(true)
+	battle.connect("show_card", self, "show_card")
+	battle.connect("hide_card", self, "hide_card")
 	loot.initialize(player)
 	dungeon.show()
 	playerUI.show()
@@ -75,29 +76,35 @@ func start_battle(scene_to_hide: Node2D, enemy: Actor) -> void:
 	scene_to_hide.hide()
 	playerUI.hide()
 	battle.show()
-	battle.start(enemy, auto_end)
+	battle.start(enemy)
 	fade.play("FadeIn")
 	yield(fade, "animation_finished")
 	yield(battle, "battle_finished")
-	fade.play("FadeOut")
 	if battle.game_over:
 		game_over()
 		return
+	playerUI.refresh()
 	AudioController.play_bgm("victory")
+	start_loot()
+	yield(self, "looting_finished")
+	scene_to_hide.show()
+	AudioController.play_bgm("dungeon")
+	fade.play("FadeIn")
+	emit_signal("battle_finished")
+
+func start_loot() -> void:
+	fade.play("FadeOut")
 	yield(fade, "animation_finished")
-	battle.hide()
 	loot.setup(dungeon.progress)
 	playerUI.show()
 	loot.show()
 	fade.play("FadeIn")
 	yield(loot, "looting_finished")
+	playerUI.refresh()
 	fade.play("FadeOut")
 	yield(fade, "animation_finished")
 	loot.hide()
-	scene_to_hide.show()
-	AudioController.play_bgm("dungeon")	
-	fade.play("FadeIn")
-	emit_signal("battle_finished")
+	emit_signal("looting_finished")
 
 func game_over() -> void:
 	battle.hide()
@@ -136,6 +143,8 @@ func _on_CharSelect_chose_class(name: String) -> void:
 	player = player_res
 	refresh_dungeon()
 	playerUI.initialize(player)
+	playerUI.connect("show_card", self, "show_card")
+	playerUI.connect("hide_card", self, "hide_card")
 	fade.play("FadeOut")
 	yield(fade, "animation_finished")
 	char_select.hide()
@@ -159,14 +168,45 @@ func _on_Fire_button_up():
 	char_select.hide()
 	start_game()
 
+func show_card(btn, amt: int) -> void:
+	card.initialize(btn, amt)
+
+func hide_card() -> void:
+	card.hide()
+
 func _on_AutoEnd_toggled(button_pressed):
+	AudioController.click()
 	auto_end = button_pressed
-	print(button_pressed)
+	battle.toggle_auto_end(auto_end)
 
 func _on_Settings_button_up():
+	settings_btn.modulate.a = 1
 	if !settings.visible:
 		AudioController.click()
 		settings.show()
+		settings_btn.texture_normal = close
 	else:
+		settings_btn.texture_normal = gear
 		AudioController.back()
 		settings.hide()
+
+func _on_Dungeon_start_battle(enemy: Actor) -> void:
+	start_battle(dungeon, enemy)
+	yield(self, "battle_finished")
+	if dungeon.progress == 9:
+		$EndGame/Label.text = "Thank you for playing!"
+		end_game.show()
+	else:
+		dungeon.advance()
+
+func _on_Dungeon_start_loot():
+	start_loot()
+	yield(self, "looting_finished")
+	fade.play("FadeIn")
+
+func _on_Settings_button_down():
+	settings_btn.modulate.a = 0.66
+
+func _on_Dungeon_heal():
+	AudioController.play_sfx("heal")
+	playerUI.heal(5)

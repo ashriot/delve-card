@@ -23,7 +23,7 @@ onready var timer: = $Timer
 var action: Action
 var player: Player
 var enemy: Enemy
-var played: = false
+var played: = true
 
 var hp_cost: int
 var ap_cost: int
@@ -66,9 +66,11 @@ func show() -> void:
 	played = false
 
 func gain() -> void:
-	$Button.modulate.a = 0
+	$Button.modulate.a = 1
+	$Button.rect_position = Vector2.ZERO
 
 func discard() -> void:
+	played = true
 	AudioController.play_sfx("draw")
 	animationPlayer.play("Discard")
 	yield(animationPlayer, "animation_finished")
@@ -155,20 +157,20 @@ func execute() -> void:
 		for hit in action.hits:
 			create_effect(enemy.global_position, "hit")
 			yield(self, "inflict_hit")
-			if action.drawX > 0:
-				emit_signal("draw_cards", action)
-			else:
-				emit_signal("unblock", false)
 			var crit = randf() < action.crit_chance
 			var damage = (action.damage + added_damage + player.added_damage) * \
 				(1 + damage_multiplier + player.damage_multiplier)
 			if action.name == "Drown":
 				damage += clamp(player.mp, 0, 20)
 			damage *= (2 if crit else 1)
-			if player.has_buff("lifesteal"):
+			if player.has_buff("Lifesteal"):
 				var healing = damage
 				player.take_healing(damage, "HP")
 			enemy.take_hit(action, damage, crit)
+			if action.drawX > 0:
+				emit_signal("draw_cards", action)
+			else:
+				emit_signal("unblock", false)
 			if action.extra_action != null:
 				action.extra_action.execute(player)
 			yield(self, "anim_finished")
@@ -178,7 +180,6 @@ func execute() -> void:
 		create_effect(player.global_position, "effect")
 		yield(self, "inflict_effect")
 		if action.drawX > 0:
-			print("drawing!")
 			emit_signal("draw_cards", action)
 		else:
 			emit_signal("unblock", false)	
@@ -243,11 +244,11 @@ func set_damage_multiplier(value: float) -> void:
 func _on_Button_up() -> void:
 	modulate.a = 1
 	timer.stop()
-	if played: return
 	if hovering:
 		hovering = false
 		emit_signal("hide_card")
 		return
+	if played: return
 	play()
 
 func _on_Button_down():

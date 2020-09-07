@@ -155,11 +155,11 @@ func get_loot(rank: int) -> Array:
 	return list
 
 func _on_Finished_button_up():
+	AudioController.click()
 	if chosen_action != null:
 		remove_loot(chosen_action.name)
 		player.actions.append(chosen_action)
 		player.actions.sort()
-	AudioController.click()
 	skip_progress.rect_size.x = 0
 	emit_signal("looting_finished")
 

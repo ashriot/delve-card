@@ -13,18 +13,22 @@ signal done_discarding
 signal done_filling_hand
 signal done_drawing
 signal done_adding_to_deck
+signal done_pressing
+signal show_card(btn, qty)
+signal hide_card
 
 export var HAND_SIZE: = 5
 
 onready var input_blocker: = $Hand/InputBlocker
-onready var card = $Card
 onready var hand: = $Hand
 onready var pos1: = $Hand/Pos1
 onready var pos2: = $Hand/Pos2
 onready var pos3: = $Hand/Pos3
 onready var pos4: = $Hand/Pos4
 onready var pos5: = $Hand/Pos5
-onready var deck: = $Deck
+onready var deck_viewer: = $DeckViewer
+onready var deck_tween = $DeckViewer/Tween
+onready var deck: = $DeckViewer/InputBlock/ScrollContainer/Deck
 onready var graveyard: = $Graveyard
 onready var limbo: = $Limbo
 onready var item_belt: = $ItemBelt
@@ -33,6 +37,7 @@ onready var end_turn: = $EndTurn
 var auto_end: = false
 var hand_count: = 0
 var deck_count setget set_deck_count
+var deck_order: = []
 var graveyard_count setget set_graveyard_count
 var player: Player
 var enemyUI
@@ -42,10 +47,9 @@ var weapons_played: = 0
 
 var initialized: = false
 
-func initialize(_player: Player, _enemyUI: Enemy, auto: bool) -> void:
+func initialize(_player: Player, _enemyUI: Enemy) -> void:
 	self.deck_count = 0
 	input_blocker.show()
-	auto_end = auto	
 	player = _player
 	enemyUI = _enemyUI
 	actions = player.actor.actions
@@ -53,8 +57,8 @@ func initialize(_player: Player, _enemyUI: Enemy, auto: bool) -> void:
 	fill_deck()
 	initialized = true
 
-func reset(auto: bool) -> void:
-	auto_end = auto
+func reset() -> void:
+	pass
 
 func shuffle_deck() -> void:
 	self.deck_count = deck.get_child_count()
@@ -78,6 +82,7 @@ func recover_graveyard() -> void:
 		var action = graveyard.get_child(0)
 		graveyard.remove_child(action)
 		deck.add_child(action)
+		action.gain()
 		self.graveyard_count = graveyard.get_child_count()
 		self.deck_count = deck.get_child_count()
 		if i == 3:
@@ -158,6 +163,8 @@ func set_pos(node: Control) -> void:
 		if hand.get_child(i).get_child_count() == 0:
 			hand.get_child(i).add_child(node)
 			hand_count += 1
+			var p = hand.get_child(i) as Position2D
+			node.set_position(Vector2.ZERO)
 			return
 
 func remove_pos(node: Control) -> void:
@@ -206,7 +213,8 @@ func draw_cards(src: Action) -> void:
 		deck.remove_child(action)
 		self.deck_count = deck.get_child_count()
 		if hand_count == HAND_SIZE:
-			action.discard()
+			graveyard.add_child(action)
+			self.graveyard_count += 1
 		else:
 			set_pos(action)
 			action.show()
@@ -243,7 +251,6 @@ func action_finished(action_button: ActionButton) -> void:
 	if action_button.action.action_type == Action.ActionType.WEAPON:
 		weapons_played += 1
 		emit_signal("weapons_played", weapons_played)
-	
 	limbo.remove_child(action_button)
 	if !action_button.action.drop and !action_button.action.consume:
 		graveyard.add_child(action_button)
@@ -252,8 +259,11 @@ func action_finished(action_button: ActionButton) -> void:
 		action_button.queue_free()
 
 func button_pressed(action_button: ActionButton) -> void:
+	var pos = action_button.rect_global_position
+	limbo.set_global_position(pos)
 	remove_pos(action_button)
 	limbo.add_child(action_button)
+	emit_signal("done_pressing")
 
 func block_input(block: bool) -> void:
 	if block:
@@ -294,10 +304,10 @@ func show_card(action_button) -> void:
 		for a in actions:
 			if a.name == action_button.action.name:
 				count += 1
-	card.initialize(action_button, count)
+	emit_signal("show_card", action_button, count)
 
 func hide_card() -> void:
-	card.close()
+	emit_signal("hide_card")
 
 func _on_Battle_start_turn():
 	player.start_turn()
@@ -319,3 +329,35 @@ func _on_Player_add_to_deck(action_name: String, qty: int):
 
 func _on_Player_apply_debuff(debuff: Buff, qty: int):
 	enemyUI.gain_debuff(debuff, qty)
+
+func show_deck_viewer() -> void:
+	if deck_tween.is_active(): return	
+	AudioController.click()
+	for child in deck.get_children():
+		deck_order.append(child)
+	var sorted = deck_order.duplicate(true)
+	sorted.sort_custom(ActionSorter, "sort_btns")
+	for child in deck.get_children():
+		deck.move_child(child, sorted.find(child))
+	
+	deck_viewer.global_position = Vector2.ZERO
+	deck_tween.interpolate_property(deck_viewer, "modulate",
+		Color(modulate.r, modulate.g, modulate.b, 0),
+		Color(modulate.r, modulate.g, modulate.b, 1),
+		0.2, Tween.TRANS_LINEAR, Tween.EASE_OUT)
+	deck_tween.start()
+	yield(deck_tween, "tween_all_completed")
+
+func _on_Close_button_up():
+	if deck_tween.is_active(): return
+	AudioController.back()
+	deck_tween.interpolate_property(deck_viewer, "modulate",
+		Color(modulate.r, modulate.g, modulate.b, 1),
+		Color(modulate.r, modulate.g, modulate.b, 0),
+		0.2, Tween.TRANS_LINEAR, Tween.EASE_OUT)
+	deck_tween.start()
+	yield(deck_tween, "tween_all_completed")
+	for child in deck.get_children():
+		deck.move_child(child, deck_order.find(child))
+	deck_viewer.modulate.a = 0
+	deck_viewer.global_position = Vector2(-108, 0)

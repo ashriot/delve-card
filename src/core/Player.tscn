@@ -22,6 +22,91 @@ margin_top = 147.0
 margin_right = 106.0
 margin_bottom = 163.0
 
+[node name="Trinkets" type="HBoxContainer" parent="."]
+visible = false
+margin_left = 16.0
+margin_top = 128.0
+margin_right = 108.0
+margin_bottom = 144.0
+custom_constants/separation = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Trinket" type="Control" parent="Trinkets"]
+margin_right = 16.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 16, 16 )
+
+[node name="Sprite" type="Sprite" parent="Trinkets/Trinket"]
+modulate = Color( 0.792157, 0.780392, 0.721569, 1 )
+position = Vector2( -3, -3 )
+texture = ExtResource( 10 )
+centered = false
+vframes = 15
+hframes = 16
+frame = 14
+
+[node name="Trinket2" type="Control" parent="Trinkets"]
+margin_left = 19.0
+margin_right = 35.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 16, 16 )
+
+[node name="Sprite" type="Sprite" parent="Trinkets/Trinket2"]
+modulate = Color( 0.792157, 0.780392, 0.721569, 1 )
+position = Vector2( -3, -3 )
+texture = ExtResource( 10 )
+centered = false
+vframes = 15
+hframes = 16
+frame = 14
+
+[node name="Trinket3" type="Control" parent="Trinkets"]
+margin_left = 38.0
+margin_right = 54.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 16, 16 )
+
+[node name="Sprite" type="Sprite" parent="Trinkets/Trinket3"]
+modulate = Color( 0.792157, 0.780392, 0.721569, 1 )
+position = Vector2( -3, -3 )
+texture = ExtResource( 10 )
+centered = false
+vframes = 15
+hframes = 16
+frame = 14
+
+[node name="Trinket4" type="Control" parent="Trinkets"]
+margin_left = 57.0
+margin_right = 73.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 16, 16 )
+
+[node name="Sprite" type="Sprite" parent="Trinkets/Trinket4"]
+modulate = Color( 0.792157, 0.780392, 0.721569, 1 )
+position = Vector2( -3, -3 )
+texture = ExtResource( 10 )
+centered = false
+vframes = 15
+hframes = 16
+frame = 14
+
+[node name="Trinket5" type="Control" parent="Trinkets"]
+margin_left = 76.0
+margin_right = 92.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 16, 16 )
+
+[node name="Sprite" type="Sprite" parent="Trinkets/Trinket5"]
+modulate = Color( 0.792157, 0.780392, 0.721569, 1 )
+position = Vector2( -3, -3 )
+texture = ExtResource( 10 )
+centered = false
+vframes = 15
+hframes = 16
+frame = 14
+
 [node name="Player" type="Control" parent="."]
 margin_left = 35.0
 margin_top = 164.0
@@ -209,91 +294,6 @@ align = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="Trinkets" type="HBoxContainer" parent="."]
-visible = false
-margin_left = 16.0
-margin_top = 128.0
-margin_right = 108.0
-margin_bottom = 144.0
-custom_constants/separation = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Trinket" type="Control" parent="Trinkets"]
-margin_right = 16.0
-margin_bottom = 16.0
-rect_min_size = Vector2( 16, 16 )
-
-[node name="Sprite" type="Sprite" parent="Trinkets/Trinket"]
-modulate = Color( 0.792157, 0.780392, 0.721569, 1 )
-position = Vector2( -3, -3 )
-texture = ExtResource( 10 )
-centered = false
-vframes = 15
-hframes = 16
-frame = 14
-
-[node name="Trinket2" type="Control" parent="Trinkets"]
-margin_left = 19.0
-margin_right = 35.0
-margin_bottom = 16.0
-rect_min_size = Vector2( 16, 16 )
-
-[node name="Sprite" type="Sprite" parent="Trinkets/Trinket2"]
-modulate = Color( 0.792157, 0.780392, 0.721569, 1 )
-position = Vector2( -3, -3 )
-texture = ExtResource( 10 )
-centered = false
-vframes = 15
-hframes = 16
-frame = 14
-
-[node name="Trinket3" type="Control" parent="Trinkets"]
-margin_left = 38.0
-margin_right = 54.0
-margin_bottom = 16.0
-rect_min_size = Vector2( 16, 16 )
-
-[node name="Sprite" type="Sprite" parent="Trinkets/Trinket3"]
-modulate = Color( 0.792157, 0.780392, 0.721569, 1 )
-position = Vector2( -3, -3 )
-texture = ExtResource( 10 )
-centered = false
-vframes = 15
-hframes = 16
-frame = 14
-
-[node name="Trinket4" type="Control" parent="Trinkets"]
-margin_left = 57.0
-margin_right = 73.0
-margin_bottom = 16.0
-rect_min_size = Vector2( 16, 16 )
-
-[node name="Sprite" type="Sprite" parent="Trinkets/Trinket4"]
-modulate = Color( 0.792157, 0.780392, 0.721569, 1 )
-position = Vector2( -3, -3 )
-texture = ExtResource( 10 )
-centered = false
-vframes = 15
-hframes = 16
-frame = 14
-
-[node name="Trinket5" type="Control" parent="Trinkets"]
-margin_left = 76.0
-margin_right = 92.0
-margin_bottom = 16.0
-rect_min_size = Vector2( 16, 16 )
-
-[node name="Sprite" type="Sprite" parent="Trinkets/Trinket5"]
-modulate = Color( 0.792157, 0.780392, 0.721569, 1 )
-position = Vector2( -3, -3 )
-texture = ExtResource( 10 )
-centered = false
-vframes = 15
-hframes = 16
-frame = 14
 
 [node name="DeckButton" type="Button" parent="."]
 margin_top = 126.0

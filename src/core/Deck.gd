@@ -2,25 +2,30 @@ extends Node2D
 
 var _ActionChoice = preload("res://src/core/ActionChoice.tscn")
 
-onready var deck: = $InputBlock/DeckPanel/ScrollContainer/Deck
-onready var card: = $InputBlock/Card
+signal show_card(btn, count)
+signal hide_card
 
-var actions: Array
+onready var deck: = $InputBlock/ScrollContainer/Deck
+onready var banner: = $InputBlock/ColorRect/Banner
+
 var player: Actor
 var chosen_action: Action
 
 func initialize(_player: Actor) -> void:
 	hide()
 	player = _player
-	actions = player.actions
+	refresh()
+
+func refresh() -> void:
+	player.actions.sort_custom(ActionSorter, "sort")
+	banner.text = str(player.actions.size()) + " Equipped Actions"
 	fill_deck()
 
 func fill_deck() -> void:
 	for child in deck.get_children():
 		deck.remove_child(child)
 		child.queue_free()
-	for action in actions:
-		actions.sort()
+	for action in player.actions:
 		var action_button = _ActionChoice.instance() as ActionChoice
 		initialize_button(action_button, action)
 		deck.add_child(action_button)
@@ -46,17 +51,17 @@ func choose(choice: ActionChoice) -> void:
 
 func clear_choice() -> void:
 	for child in deck.get_children():
-			child.chosen = false
+		child.chosen = false
 
 func _on_show_card(btn: ActionChoice) -> void:
 	var count = 0
 	for a in player.actions:
 		if a.name == btn.action.name:
 			count += 1
-	card.initialize(btn, count)
+	emit_signal("show_card", btn, count)
 
 func _on_hide_card():
-	card.close()
+	emit_signal("hide_card")
 
 func _on_Close_button_up():
 	AudioController.back()

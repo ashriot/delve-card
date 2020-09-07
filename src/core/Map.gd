@@ -1,24 +1,23 @@
 extends Control
 
 signal start_battle
+signal start_loot
+signal heal
 
-var enemy = preload("res://assets/images/map/monster.png")
-var chest = preload("res://assets/images/map/chest_closed.png")
-var heal = preload("res://assets/images/map/shrine.png")
-var blank = preload("res://assets/images/map/tile_clear.png")
+signal show_tooltip(button)
+signal hide_tooltip
 
 var row_count: = 5
 var col_count: = 7
-
-onready var square_types = ["Enemy", "Chest", "Heal", "Blank"]
 
 func initialize() -> void:
 	generate_map()
 
 func generate_map() -> void:
 	var enemies = randi() % 5 + 5
-	var chests = randi() % 3 + 1
-	var heals = randi() % 4 + 2
+	var chests = randi() % 3 + 2
+	var heals = randi() % 2 + 1
+	var anvils = randi() % 2 + 1
 	print("Enemies: ", enemies)
 	print("Chests: ", chests)
 	print("Heals: ", heals)
@@ -33,31 +32,44 @@ func generate_map() -> void:
 		enemies -= 1
 		var x = randi() % row_count
 		var y = randi() % col_count
-		squares[x][y] = "Enemy"
+		squares[x][y] = "enemy"
 	while chests > -1:
 		chests -= 1
 		var x = randi() % row_count
 		var y = randi() % col_count
-		squares[x][y] = "Chest"
+		squares[x][y] = "chest"
 	while heals > -1:
 		heals -= 1
 		var x = randi() % row_count
 		var y = randi() % col_count
-		squares[x][y] = "Heal"
+		squares[x][y] = "heal"
+	while anvils > -1:
+		anvils -= 1
+		var x = randi() % row_count
+		var y = randi() % col_count
+		squares[x][y] = "anvil"
 	
 	for x in get_children():
 		for y in x.get_children():
 			var val = squares[x.get_index()][y.get_index()]
-			if val == "Enemy":
-				y.initialize(enemy, val)
-			elif val == "Chest":
-				y.initialize(chest, val)
-			elif val == "Heal":
-				y.initialize(heal, val)
-			else:
-				y.initialize(blank, "Blank")
+			if val == null:
+				val = ""
+			y.initialize(val)
 			y.connect("clicked", self, "square_clicked", [y])
+			y.connect("show_tooltip", self, "show_tooltip", [y])
+			y.connect("hide_tooltip", self, "hide_tooltip")
 
 func square_clicked(button: Square) -> void:
-	if button.type == "Enemy":
+	print("Signal received: ", button.type)
+	if button.type == "enemy":
 		emit_signal("start_battle")
+	elif button.type == "chest":
+		emit_signal("start_loot")
+	elif button.type == "heal":
+		emit_signal("heal")
+
+func show_tooltip(button: Square) -> void:
+	emit_signal("show_tooltip", button)
+
+func hide_tooltip() -> void:
+	emit_signal("hide_tooltip")

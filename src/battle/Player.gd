@@ -50,12 +50,6 @@ func reset() -> void:
 	for child in buff_bar.get_children():
 		child.queue_free()
 
-func set_deck_count(value: int) -> void:
-	$Deck/ColorRect/Label.text = str(value)
-
-func set_graveyard_count(value: int) -> void:
-	$Graveyard/Label.text = str(value)
-
 func start_turn() -> void:
 	self.ap += 1
 	for child in buff_bar.get_children():

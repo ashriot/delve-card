@@ -142,6 +142,7 @@ config/icon="res://icon.png"
 [autoload]
 
 AudioController="*res://src/core/AudioController.tscn"
+ActionSorter="*res://src/core/ActionSorter.gd"
 
 [debug]
 

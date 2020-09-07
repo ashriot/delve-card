@@ -60,7 +60,7 @@ func initialize(_action_button, have: int) -> void:
 		$Panel/Have.text = ""
 		$Panel/Damage.hide()
 	modulate.a = 0
-	var pos = Vector2(0, get_global_mouse_position().y - $Panel.rect_size.y - 27)
+	var pos = get_pos()
 	$Panel.rect_global_position = pos
 	pos = Vector2(pos.x, pos.y + $Panel.rect_size.y - 1)
 	$Drop.rect_global_position = pos
@@ -68,6 +68,13 @@ func initialize(_action_button, have: int) -> void:
 	show()
 	animation_player.play("FadeIn")
 	initialized = true
+
+func get_pos() -> Vector2:
+	var y = max(13, get_global_mouse_position().y - $Panel.rect_size.y - 15)
+	if y == 13:
+		y = get_global_mouse_position().y + 15
+	var pos = Vector2(0, y)
+	return pos
 
 func update_data() -> void:
 	if action.cost_type == Action.DamageType.AP and action.cost > 0:

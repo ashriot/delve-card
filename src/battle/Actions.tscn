@@ -7,17 +7,11 @@
 [node name="Actions" type="Node2D"]
 script = ExtResource( 2 )
 
-[node name="Deck" type="Node2D" parent="."]
-visible = false
-position = Vector2( 95, 1 )
-
 [node name="Limbo" type="Node2D" parent="."]
-visible = false
-position = Vector2( 115, 0 )
+position = Vector2( 19, 4 )
 
 [node name="Graveyard" type="Node2D" parent="."]
-visible = false
-position = Vector2( 109, 71 )
+position = Vector2( 108, 0 )
 
 [node name="EndTurn" type="Button" parent="."]
 margin_left = 71.0
@@ -30,7 +24,7 @@ __meta__ = {
 }
 
 [node name="Hand" type="YSort" parent="."]
-position = Vector2( 2, 90 )
+position = Vector2( 2, 93 )
 
 [node name="Pos1" type="Position2D" parent="Hand"]
 
@@ -62,7 +56,65 @@ margin_top = 173.0
 margin_right = 70.0
 margin_bottom = 189.0
 
+[node name="DeckViewer" type="Node2D" parent="."]
+position = Vector2( -108, 0 )
+
+[node name="InputBlock" type="ColorRect" parent="DeckViewer"]
+margin_right = 108.0
+margin_bottom = 192.0
+color = Color( 0, 0, 0, 0.882353 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Banner" type="ColorRect" parent="DeckViewer/InputBlock"]
+anchor_right = 1.0
+margin_right = 7.62939e-06
+margin_bottom = 12.0
+color = Color( 0.145098, 0.145098, 0.133333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Banner" type="Label" parent="DeckViewer/InputBlock/Banner"]
+margin_left = -1.0
+margin_top = -1.0
+margin_right = 54.0
+margin_bottom = 13.0
+text = "Current Deck (10)"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Close" type="Button" parent="DeckViewer/InputBlock"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = -17.0
+margin_right = 106.0
+margin_bottom = -2.0
+text = "Close"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScrollContainer" type="ScrollContainer" parent="DeckViewer/InputBlock"]
+margin_left = 2.0
+margin_top = 13.0
+margin_right = 114.0
+margin_bottom = 172.0
+scroll_horizontal_enabled = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Deck" type="VBoxContainer" parent="DeckViewer/InputBlock/ScrollContainer"]
+custom_constants/separation = 2
+
+[node name="Tween" type="Tween" parent="DeckViewer"]
+
 [node name="Card" parent="." instance=ExtResource( 1 )]
 visible = false
 mouse_filter = 2
 [connection signal="button_up" from="EndTurn" to="." method="_on_EndTurn_button_up"]
+[connection signal="button_up" from="DeckViewer/InputBlock/Close" to="." method="_on_Close_button_up"]
