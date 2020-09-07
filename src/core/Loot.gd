@@ -5,18 +5,9 @@ var _ActionChoice = preload("res://src/core/ActionChoice.tscn")
 
 signal looting_finished
 
-onready var playerUI = $Player
-onready var portrait: = $Panel/Portrait
-onready var hp_value = $Player/Player/Panel/HP/Value
-onready var hp_percent = $Player/Player/Panel/HP/TextureProgress
-onready var ac_value = $Player/Player/Panel/AC/Value
-onready var mp_value = $Player/Player/Panel/MP/Value
-onready var ap = $Player/Player/Panel/AP/Current
-onready var deck_label = $Player/Deck/ColorRect/Label
 onready var card = $Card
 onready var choices = $Choices
 onready var finished = $Finished
-onready var gold = $Gold
 onready var skip_progress = $Finished/TextureRect
 
 var player: Actor
@@ -29,14 +20,11 @@ var loot4: Array = []
 
 func initialize(_player: Actor) -> void:
 	player = _player
-	portrait.frame = player.portrait_id
 	loot1 = get_loot(1)
 	loot2 = get_loot(2)
 	loot3 = get_loot(3)
 	loot4 = get_loot(4)
-	
 	card.hide()
-	deck_label.text = str(player.actions.size())
 	
 	for _i in range(3):
 		var child = _ActionChoice.instance()
@@ -47,12 +35,6 @@ func initialize(_player: Actor) -> void:
 
 func setup(progress: int) -> void:
 	chosen_action = null
-	set_hp(player.hp)
-	set_ac(player.initial_ac)
-	set_ap(player.max_ap)
-	set_mp(player.initial_mp)
-	deck_label.text = str(player.actions.size())
-	gold.text = str(player.gold)
 	finished.text = "Skip Reward"
 	var actions = new_picker(progress)
 	actions.shuffle()
@@ -64,37 +46,6 @@ func setup(progress: int) -> void:
 			var action = load(actions.pop_front())
 			child.initialize(action, player)
 		child.chosen = false
-
-func set_hp(value) -> void:
-	var zeros = 3 - str(value).length()
-	var cur = str(value).pad_zeros(3)
-	var cur_sub = cur.substr(0, zeros)
-	zeros = 3 - str(player.max_hp).length()
-	cur = str(player.max_hp).pad_zeros(3)
-	var max_sub = cur.substr(0, zeros)
-	var text = "[color=#22cac7b8]" + cur_sub + "[/color]" + str(value) \
-		+ "/[color=#22cac7b8]" + max_sub + "[/color]" \
-		+ str(player.max_hp)
-	hp_value.bbcode_text = text
-	hp_percent.max_value = player.max_hp
-	hp_percent.value = value
-
-func set_ac(value: int) -> void:
-	var zeros = 3 - str(value).length()
-	var cur = str(value).pad_zeros(3)
-	var cur_sub = cur.substr(0, zeros)
-	var text = "[color=#22cac7b8]" + cur_sub + "[/color]" + str(value)
-	ac_value.bbcode_text = text
-
-func set_mp(value: int) -> void:
-	var zeros = 3 - str(value).length()
-	var cur = str(value).pad_zeros(3)
-	var cur_sub = cur.substr(0, zeros)
-	var text = "[color=#22cac7b8]" + cur_sub + "[/color]" + str(value)
-	mp_value.bbcode_text = text
-
-func set_ap(value: int) -> void:
-	ap.rect_size = Vector2(5 * value, 7)
 
 func choose(choice: ActionChoice) -> void:
 	for child in choices.get_children():

@@ -20,6 +20,6 @@ max_hp = 30
 max_ap = 2
 initial_ac = 0
 initial_mp = 6
-gold = 0
+gold = 50
 potions = [ ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ) ]
 actions = [ ExtResource( 5 ), ExtResource( 5 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 4 ), ExtResource( 3 ), ExtResource( 3 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 6 ) ]

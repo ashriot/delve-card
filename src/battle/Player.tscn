@@ -27,26 +27,13 @@ tracks/0/keys = {
 [node name="Player" type="Node2D"]
 script = ExtResource( 6 )
 
-[node name="ColorRect2" type="ColorRect" parent="."]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -54.0
-margin_top = -11.0
-margin_right = -39.0
-margin_bottom = 10.0
-mouse_filter = 2
-color = Color( 0.145098, 0.145098, 0.133333, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="Deck" type="Button" parent="."]
-margin_left = -54.0
+margin_left = -52.0
 margin_top = -10.0
-margin_right = -41.0
+margin_right = -39.0
 margin_bottom = 9.0
 __meta__ = {
+"_edit_group_": true,
 "_edit_use_anchors_": false
 }
 
@@ -75,26 +62,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ColorRect3" type="ColorRect" parent="."]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 39.0
-margin_top = -11.0
-margin_right = 54.0
-margin_bottom = 10.0
-mouse_filter = 2
-color = Color( 0.145098, 0.145098, 0.133333, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="Graveyard" type="Button" parent="."]
-margin_left = 41.0
+margin_left = 39.0
 margin_top = -10.0
-margin_right = 54.0
+margin_right = 52.0
 margin_bottom = 9.0
 __meta__ = {
+"_edit_group_": true,
 "_edit_use_anchors_": false
 }
 

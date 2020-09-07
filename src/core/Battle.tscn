@@ -17,8 +17,8 @@ __meta__ = {
 }
 
 [node name="Panel" type="Panel" parent="."]
-margin_left = 10.0
-margin_right = 99.0
+margin_left = 14.0
+margin_right = 95.0
 margin_bottom = 60.0
 __meta__ = {
 "_edit_use_anchors_": false
@@ -37,7 +37,7 @@ __meta__ = {
 }
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
-position = Vector2( 54, 71 )
+position = Vector2( 54, 72 )
 
 [node name="Enemy" parent="." instance=ExtResource( 1 )]
 position = Vector2( 54, 33 )

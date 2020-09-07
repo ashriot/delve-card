@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/potions/PotionButton.tscn" type="PackedScene" id=2]
+
+[node name="ItemBelt" type="HBoxContainer"]
+margin_right = 67.0
+margin_bottom = 16.0
+custom_constants/separation = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PotionButton" parent="." instance=ExtResource( 2 )]
+
+[node name="PotionButton2" parent="." instance=ExtResource( 2 )]
+margin_left = 18.0
+margin_right = 34.0
+
+[node name="PotionButton3" parent="." instance=ExtResource( 2 )]
+margin_left = 36.0
+margin_right = 52.0
+
+[node name="PotionButton4" parent="." instance=ExtResource( 2 )]
+margin_left = 54.0
+margin_right = 70.0

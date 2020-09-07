@@ -142,7 +142,6 @@ func play() -> void:
 	player.hp -= hp_cost
 	execute()
 	yield(self, "execute_finished")
-	print("Action finished!")
 	emit_signal("action_finished", self)
 
 func display_error() -> void:
@@ -203,7 +202,6 @@ func execute() -> void:
 				player.take_healing(damage, "MP")
 		yield(self, "anim_finished")
 	get_tree().call_group("action_button", "update_data")
-	print("Execute finished")
 	emit_signal("execute_finished")
 
 func inflict_hit() -> void:

@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Card.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/battle/Actions.gd" type="Script" id=2]
-[ext_resource path="res://src/potions/PotionButton.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/battle/ItemBelt.tscn" type="PackedScene" id=3]
 
 [node name="Actions" type="Node2D"]
 script = ExtResource( 2 )
@@ -30,7 +30,7 @@ __meta__ = {
 }
 
 [node name="Hand" type="YSort" parent="."]
-position = Vector2( 0, 90 )
+position = Vector2( 2, 90 )
 
 [node name="Pos1" type="Position2D" parent="Hand"]
 
@@ -56,32 +56,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ItemBelt" type="HBoxContainer" parent="."]
+[node name="ItemBelt" parent="." instance=ExtResource( 3 )]
 visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 1.0
 margin_top = 173.0
-margin_right = 68.0
+margin_right = 70.0
 margin_bottom = 189.0
-custom_constants/separation = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="PotionButton" parent="ItemBelt" instance=ExtResource( 4 )]
-
-[node name="PotionButton2" parent="ItemBelt" instance=ExtResource( 4 )]
-margin_left = 17.0
-margin_right = 33.0
-
-[node name="PotionButton3" parent="ItemBelt" instance=ExtResource( 4 )]
-margin_left = 34.0
-margin_right = 50.0
-
-[node name="PotionButton4" parent="ItemBelt" instance=ExtResource( 4 )]
-margin_left = 51.0
-margin_right = 67.0
 
 [node name="Card" parent="." instance=ExtResource( 1 )]
 visible = false

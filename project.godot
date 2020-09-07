@@ -103,6 +103,11 @@ _global_script_classes=[ {
 "class": "PotionCard",
 "language": "GDScript",
 "path": "res://src/potions/PotionCard.gd"
+}, {
+"base": "TextureButton",
+"class": "Square",
+"language": "GDScript",
+"path": "res://src/map/Square.gd"
 } ]
 _global_script_class_icons={
 "Action": "",
@@ -123,7 +128,8 @@ _global_script_class_icons={
 "Loot": "",
 "Player": "",
 "PotionButton": "",
-"PotionCard": ""
+"PotionCard": "",
+"Square": ""
 }
 
 [application]

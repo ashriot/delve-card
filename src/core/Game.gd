@@ -16,7 +16,10 @@ onready var end_game: = $EndGame
 onready var fade = $Fade/AnimationPlayer
 onready var demo = $DemoScreen
 onready var char_select = $CharSelect
+onready var playerUI = $PlayerUI
+onready var settings = $Settings/Dimmer
 
+# Settings
 var auto_end: = true
 
 func _ready() -> void:
@@ -25,6 +28,8 @@ func _ready() -> void:
 	AudioController.mute = mute
 	AudioController.play_bgm("title")
 	dungeon.initialize()
+	playerUI.hide()
+	settings.hide()
 	battle.hide()
 	loot.hide()
 	dungeon.hide()
@@ -59,6 +64,7 @@ func start_game() -> void:
 	battle.initialize(player, auto_end)
 	loot.initialize(player)
 	dungeon.show()
+	playerUI.show()
 	fade.play("FadeIn")
 	AudioController.play_bgm("dungeon")
 	yield(fade, "animation_finished")
@@ -67,6 +73,7 @@ func start_battle(scene_to_hide: Node2D, enemy: Actor) -> void:
 	fade.play("FadeOut")
 	yield(fade, "animation_finished")
 	scene_to_hide.hide()
+	playerUI.hide()
 	battle.show()
 	battle.start(enemy, auto_end)
 	fade.play("FadeIn")
@@ -80,6 +87,7 @@ func start_battle(scene_to_hide: Node2D, enemy: Actor) -> void:
 	yield(fade, "animation_finished")
 	battle.hide()
 	loot.setup(dungeon.progress)
+	playerUI.show()
 	loot.show()
 	fade.play("FadeIn")
 	yield(loot, "looting_finished")
@@ -99,6 +107,9 @@ func game_over() -> void:
 	$EndGame/Label.text = "Game Over"
 	end_game.show()
 	fade.play("FadeIn")
+
+func refresh_dungeon() -> void:
+	pass
 
 func _on_Restart_button_up():
 	AudioController.click()
@@ -123,6 +134,8 @@ func _on_CharSelect_chose_class(name: String) -> void:
 	var n = name.to_lower()
 	var player_res = load("res://src/actions/" + n + "/" + n + ".tres")
 	player = player_res
+	refresh_dungeon()
+	playerUI.initialize(player)
 	fade.play("FadeOut")
 	yield(fade, "animation_finished")
 	char_select.hide()
@@ -149,3 +162,11 @@ func _on_Fire_button_up():
 func _on_AutoEnd_toggled(button_pressed):
 	auto_end = button_pressed
 	print(button_pressed)
+
+func _on_Settings_button_up():
+	if !settings.visible:
+		AudioController.click()
+		settings.show()
+	else:
+		AudioController.back()
+		settings.hide()

@@ -252,7 +252,6 @@ func action_finished(action_button: ActionButton) -> void:
 		action_button.queue_free()
 
 func button_pressed(action_button: ActionButton) -> void:
-	print("Adding ", action_button.action.name, " to limbo.")
 	remove_pos(action_button)
 	limbo.add_child(action_button)
 
@@ -261,7 +260,6 @@ func block_input(block: bool) -> void:
 		input_blocker.show()
 	else:
 		input_blocker.hide()
-		print("Hand Count: ", hand_count, " AE: ", auto_end)
 		if hand_count == 0 && auto_end:
 			end_turn()
 
