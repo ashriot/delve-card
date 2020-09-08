@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=2]
+[gd_scene load_steps=38 format=2]
 
 [ext_resource path="res://src/core/Battle.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/images/bgs/title.png" type="Texture" id=2]
@@ -17,8 +17,26 @@
 [ext_resource path="res://Card.tscn" type="PackedScene" id=15]
 [ext_resource path="res://src/core/MapNode.gd" type="Script" id=16]
 [ext_resource path="res://assets/images/bgs/forest.png" type="Texture" id=17]
+[ext_resource path="res://assets/images/map/player.png" type="Texture" id=18]
 [ext_resource path="res://src/core/Map.gd" type="Script" id=19]
 [ext_resource path="res://src/map/Square.tscn" type="PackedScene" id=21]
+
+[sub_resource type="Animation" id=17]
+resource_name = "animate"
+length = 1.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.5, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 1, 2, 1, 0 ]
+}
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
@@ -395,7 +413,7 @@ margin_left = 84.0
 margin_right = 92.0
 
 [node name="MapNode" type="Node2D" parent="Dungeon/ColorRect"]
-position = Vector2( 54, 80 )
+position = Vector2( 9, 61 )
 script = ExtResource( 16 )
 
 [node name="Branches" type="Node2D" parent="Dungeon/ColorRect/MapNode"]
@@ -433,6 +451,16 @@ color = Color( 0.145098, 0.145098, 0.133333, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Sprite" type="Sprite" parent="Dungeon/ColorRect"]
+position = Vector2( 9, 61 )
+texture = ExtResource( 18 )
+hframes = 3
+frame = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Dungeon/ColorRect/Sprite"]
+autoplay = "animate"
+anims/animate = SubResource( 17 )
 
 [node name="Button" type="Button" parent="Dungeon"]
 margin_left = 34.0

@@ -16,7 +16,7 @@ onready var rooms = $Rooms
 
 var dungeon_generation: = preload("res://src/map/dungeon_generation.gd").new()
 
-var DIST = 16
+var DIST = 18
 
 var dungeon = {}
 var chest_max: = 3
@@ -27,15 +27,17 @@ var anvil_max: = 1
 var shrine_max: = 1
 
 func _ready():
+	randomize_maxes()
+	dungeon = dungeon_generation.generate(0)
+	load_map()
+
+func randomize_maxes() -> void:
 	chest_max = randi() % 2 + 1
 	heal_max = randi() % 3 + 1
 	enemy_max = randi() % 2 + 2
 	shop_max = randi() % 2
-	anvil_max = randi() % 2
-	shrine_max = randi() % 2
-	
-	dungeon = dungeon_generation.generate(0)
-	load_map()
+	anvil_max = 0
+	shrine_max = 0
 
 func load_map():
 	var map = []
@@ -47,7 +49,6 @@ func load_map():
 	print("Shops: ", shops)
 	var anvils = anvil_max
 	var shrines = shrine_max
-	var up = false
 
 	for i in range(0, rooms.get_child_count()):
 		rooms.get_child(i).queue_free()
@@ -56,7 +57,11 @@ func load_map():
 	
 	for k in dungeon.keys():
 		map.append([dungeon[k].connections, k])
+		
+	map.sort_custom(ActionSorter, "sort_vectors")
+	var down_pos = map.back()[1]
 	
+	print(down_pos)
 	map.sort_custom(ActionSorter, "sort_ascending")
 	
 	for i in map:
@@ -64,7 +69,9 @@ func load_map():
 		if i[1] == Vector2.ZERO:
 			temp.texture = up_sprite
 		else:
-			if dungeon[i[1]].connections == 1:
+			if i[1] == down_pos:
+				temp.texture = down_sprite
+			elif dungeon[i[1]].connections == 1:
 				if chests > 0:
 					chests -= 1
 					temp.texture = chest_sprite
@@ -82,7 +89,6 @@ func load_map():
 					temp.texture = heal_sprite
 			else:
 				if enemies > 0:
-					print("Adding enemy to: ", i)
 					enemies -= 1
 					temp.texture = enemy_sprite
 				elif chests > 0:
@@ -119,11 +125,6 @@ func load_map():
 			temp.position = i[1] * DIST + Vector2(-0.5, 10)
 
 func _on_Button_pressed():
-	chest_max = randi() % 2 + 1
-	heal_max = randi() % 3 + 1
-	enemy_max = randi() % 2 + 2
-	shop_max = randi() % 2
-	anvil_max = randi() % 2
-	shrine_max = randi() % 2
+	randomize_maxes()
 	dungeon = dungeon_generation.generate(rand_range(-1000, 1000))
 	load_map()
