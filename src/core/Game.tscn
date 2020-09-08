@@ -165,6 +165,14 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="ColorRect" type="ColorRect" parent="Dungeon/ColorRect"]
+margin_right = 108.0
+margin_bottom = 52.0
+color = Color( 0.145098, 0.145098, 0.133333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="TopBanner" type="ColorRect" parent="Dungeon/ColorRect"]
 anchor_right = 1.0
 margin_bottom = 12.0
@@ -186,7 +194,7 @@ __meta__ = {
 }
 
 [node name="DungeonBG" type="Sprite" parent="Dungeon/ColorRect"]
-position = Vector2( 54, 36 )
+position = Vector2( 54, 32 )
 texture = ExtResource( 17 )
 vframes = 7
 frame = 6
@@ -386,6 +394,14 @@ margin_right = 78.0
 margin_left = 84.0
 margin_right = 92.0
 
+[node name="MapNode" type="Node2D" parent="Dungeon/ColorRect"]
+position = Vector2( 54, 80 )
+script = ExtResource( 16 )
+
+[node name="Branches" type="Node2D" parent="Dungeon/ColorRect/MapNode"]
+
+[node name="Rooms" type="Node2D" parent="Dungeon/ColorRect/MapNode"]
+
 [node name="Tooltip" type="Panel" parent="Dungeon/ColorRect"]
 visible = false
 anchor_right = 0.611
@@ -417,11 +433,6 @@ color = Color( 0.145098, 0.145098, 0.133333, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="MapNode" type="Node2D" parent="Dungeon/ColorRect"]
-modulate = Color( 0.792157, 0.780392, 0.721569, 1 )
-position = Vector2( 53, 88 )
-script = ExtResource( 16 )
 
 [node name="Button" type="Button" parent="Dungeon"]
 margin_left = 34.0

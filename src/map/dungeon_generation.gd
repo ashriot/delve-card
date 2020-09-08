@@ -3,11 +3,11 @@ class_name DungeonGeneration
 
 var room = preload("res://src/map/Square.tscn")
 
-var min_number_rooms = 12
-var max_number_rooms = 18
+var min_number_rooms = 8
+var max_number_rooms = 15
 
 var max_x = 4
-var max_y = 3
+var max_y = 2
 
 func generate(room_seed):
 	seed(room_seed)
@@ -21,7 +21,6 @@ func generate(room_seed):
 		for i in dungeon.keys():
 			if dungeon[i].connections > 1:
 				if randf() < .95:
-					print (dungeon[i].connections)
 					continue
 			var roll = randi() % 4
 			var direction = Vector2.ZERO
@@ -38,7 +37,7 @@ func generate(room_seed):
 					direction = Vector2.DOWN
 				var pos = i + direction
 				if pos.x < max_x and pos.x > -max_x \
-					and pos.y < max_y and pos.y > -max_y:
+					and pos.y < max_y + 1 and pos.y > -max_y:
 						ok = true
 			var pos = i + direction
 			if !dungeon.has(pos):

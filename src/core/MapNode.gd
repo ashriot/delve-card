@@ -1,38 +1,58 @@
 extends Node2D
 
-var dungeon = {}
 var node_sprite = load("res://assets/images/map/clear.png")
 var enemy_sprite = load("res://assets/images/map/enemy.png")
 var chest_sprite = load("res://assets/images/map/chest.png")
 var heal_sprite = load("res://assets/images/map/heal.png")
+var shop_sprite = load("res://assets/images/map/shop.png")
+var anvil_sprite = load("res://assets/images/map/anvil.png")
+var shrine_sprite = load("res://assets/images/map/shrine.png")
 var branch_sprite = load("res://assets/images/map/connector.png")
+var up_sprite = load("res://assets/images/map/stairs_up.png")
+var down_sprite = load("res://assets/images/map/stairs_down.png")
+
+onready var branches = $Branches
+onready var rooms = $Rooms
 
 var dungeon_generation: = preload("res://src/map/dungeon_generation.gd").new()
 
-var DIST = 13
+var DIST = 16
 
-var chest_chance: = 1.0
-var chest_falloff: = 0.5
-var heal_chance: = 1.0
-var heal_falloff: = 0.7
+var dungeon = {}
+var chest_max: = 3
 var heal_max: = 3
-var enemy_chance: = 1.5
-var enemy_falloff: = 0.7
-var enemy_max: = 4
+var enemy_max: = 5
+var shop_max: = 2
+var anvil_max: = 1
+var shrine_max: = 1
 
 func _ready():
+	chest_max = randi() % 2 + 1
+	heal_max = randi() % 3 + 1
+	enemy_max = randi() % 2 + 2
+	shop_max = randi() % 2
+	anvil_max = randi() % 2
+	shrine_max = randi() % 2
+	
 	dungeon = dungeon_generation.generate(0)
 	load_map()
 
 func load_map():
 	var map = []
-	var chest = chest_chance
-	var heal = heal_chance
+	var chests = chest_max
 	var heals = heal_max
-	var enemy = enemy_chance
 	var enemies = enemy_max
-	for i in range(0, get_child_count()):
-		get_child(i).queue_free()
+	print("Enemies: ", enemies)
+	var shops = shop_max
+	print("Shops: ", shops)
+	var anvils = anvil_max
+	var shrines = shrine_max
+	var up = false
+
+	for i in range(0, rooms.get_child_count()):
+		rooms.get_child(i).queue_free()
+	for i in range(0, branches.get_child_count()):
+		branches.get_child(i).queue_free()
 	
 	for k in dungeon.keys():
 		map.append([dungeon[k].connections, k])
@@ -42,47 +62,68 @@ func load_map():
 	for i in map:
 		var temp = Sprite.new()
 		if i[1] == Vector2.ZERO:
-			temp.texture = node_sprite
+			temp.texture = up_sprite
 		else:
 			if dungeon[i[1]].connections == 1:
-				if randf() < chest:
-					chest *= chest_falloff
+				if chests > 0:
+					chests -= 1
 					temp.texture = chest_sprite
+				elif shops > 0:
+					shops -= 1
+					temp.texture = shop_sprite
+				elif anvils > 0:
+					anvils -= 1
+					temp.texture = anvil_sprite
+				elif shrines > 0:
+					shrines -= 1
+					temp.texture = shrine_sprite
 				else:
-					heal *= heal_falloff
 					heals -= 1
 					temp.texture = heal_sprite
 			else:
-				if randf() < enemy and enemies > 0:
-					enemy *= enemy_falloff
+				if enemies > 0:
+					print("Adding enemy to: ", i)
 					enemies -= 1
-					print("Enemy: ", enemy)
 					temp.texture = enemy_sprite
-				elif randf() < heal and heals > 0:
+				elif chests > 0:
+					chests -= 1
+					temp.texture = chest_sprite
+				elif shops > 0:
+					shops -= 1
+					temp.texture = shop_sprite
+				elif anvils > 0:
+					anvils -= 1
+					temp.texture = anvil_sprite
+				elif shrines > 0:
+					shrines -= 1
+					temp.texture = shrine_sprite
+				elif heals > 0:
 					heals -= 1
-					heal *= heal_falloff
 					temp.texture = heal_sprite
 				else:
 					temp.texture = node_sprite
-		add_child(temp)
-		temp.z_index = 1
+		rooms.add_child(temp)
 		temp.position = i[1] * DIST
 		var c_rooms = dungeon.get(i[1]).connected_rooms
 		if(c_rooms.get(Vector2(1, 0)) != null):
 			temp = Sprite.new()
 			temp.texture = branch_sprite
-			add_child(temp)
+			branches.add_child(temp)
 			temp.z_index = 0
-			temp.position = i[1] * DIST + Vector2(5, 0.5)
+			temp.position = i[1] * DIST + Vector2(10, 0.5)
 		if(c_rooms.get(Vector2(0, 1)) != null):
 			temp = Sprite.new()
 			temp.texture = branch_sprite
-			add_child(temp)
-			temp.z_index = 0
+			branches.add_child(temp)
 			temp.rotation_degrees = 90
-			temp.position = i[1] * DIST + Vector2(-0.5, 5)
+			temp.position = i[1] * DIST + Vector2(-0.5, 10)
 
 func _on_Button_pressed():
-	randomize()
+	chest_max = randi() % 2 + 1
+	heal_max = randi() % 3 + 1
+	enemy_max = randi() % 2 + 2
+	shop_max = randi() % 2
+	anvil_max = randi() % 2
+	shrine_max = randi() % 2
 	dungeon = dungeon_generation.generate(rand_range(-1000, 1000))
 	load_map()
