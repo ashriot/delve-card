@@ -38,8 +38,7 @@ __meta__ = {
 
 [node name="Banner" type="ColorRect" parent="Panel"]
 anchor_right = 1.0
-margin_right = 7.62939e-06
-margin_bottom = 12.0
+margin_bottom = 9.0
 color = Color( 0.145098, 0.145098, 0.133333, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -48,9 +47,9 @@ __meta__ = {
 [node name="Choose" type="Label" parent="Panel"]
 anchor_right = 1.0
 margin_left = -1.0
-margin_top = -1.0
+margin_top = -3.0
 margin_right = -1.0
-margin_bottom = 13.0
+margin_bottom = 11.0
 text = "Choose a Reward"
 uppercase = true
 __meta__ = {
@@ -63,7 +62,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 2.0
 margin_top = 3.0
-margin_bottom = -4.0
+margin_right = -9.0
+margin_bottom = -3.0
 color = Color( 0.145098, 0.145098, 0.133333, 0 )
 __meta__ = {
 "_edit_use_anchors_": false

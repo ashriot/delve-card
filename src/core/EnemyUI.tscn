@@ -180,6 +180,7 @@ script = ExtResource( 2 )
 [node name="Enemy" type="Node2D" parent="."]
 
 [node name="Level" type="Label" parent="Enemy"]
+visible = false
 margin_left = -11.0
 margin_top = -35.0
 margin_right = 12.0

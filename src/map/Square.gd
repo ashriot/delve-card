@@ -22,22 +22,17 @@ var connections: = 0
 
 func initialize(_type: String) -> void:
 	type = _type
-	if type == "":
-		clicked = true
-		modulate.a = 0
-	else:
-		texture_normal = load("res://assets/images/map/" + type + ".png")
-		clicked = false
-		modulate.a = 1
+	texture_normal = load("res://assets/images/map/" + type + ".png")
+	clicked = false
 
 func _on_Square_button_down():
 	timer.start(0.33)
 	if clicked: return
-	modulate.a = 0.66
+	modulate = Color.gray
 
 func _on_Square_button_up():
 	timer.stop()
-	modulate.a = 1
+	modulate = Color.white
 	if hovering:
 		emit_signal("hide_tooltip")
 		hovering = false

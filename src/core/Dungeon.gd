@@ -10,6 +10,7 @@ onready var tooltip = $ColorRect/Tooltip
 onready var tooltext = $ColorRect/Tooltip/Label
 
 onready var map = $ColorRect/Map
+onready var avatar = $ColorRect/Avatar
 
 var progress: = 0 setget set_progress
 
@@ -49,3 +50,6 @@ func _on_Map_show_tooltip(button):
 
 func _on_Map_hide_tooltip():
 	tooltip.hide()
+
+func _on_Map_move_to_square(square: Square):
+	avatar.global_position = square.rect_global_position - Vector2(3, 3)

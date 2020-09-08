@@ -4,8 +4,8 @@ class_name Game
 signal battle_finished
 signal looting_finished
 
-var gear = preload("res://assets/images/ui/gear.png")
-var close = preload("res://assets/images/ui/x.png")
+var gear = preload("res://assets/images/ui/gear_small.png")
+var close = preload("res://assets/images/ui/close_small.png")
 
 export var player: Resource
 export var rooms: = 5

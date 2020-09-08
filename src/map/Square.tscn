@@ -4,8 +4,8 @@
 [ext_resource path="res://src/map/Square.gd" type="Script" id=2]
 
 [node name="Square" type="TextureButton"]
-margin_right = 8.0
-margin_bottom = 8.0
+margin_right = 11.0
+margin_bottom = 11.0
 texture_normal = ExtResource( 1 )
 script = ExtResource( 2 )
 __meta__ = {

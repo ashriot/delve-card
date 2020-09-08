@@ -17,9 +17,9 @@ __meta__ = {
 }
 
 [node name="Panel" type="Panel" parent="."]
-margin_left = 14.0
-margin_right = 95.0
-margin_bottom = 60.0
+margin_left = 17.0
+margin_right = 91.0
+margin_bottom = 66.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -40,7 +40,7 @@ __meta__ = {
 position = Vector2( 54, 72 )
 
 [node name="Enemy" parent="." instance=ExtResource( 1 )]
-position = Vector2( 54, 33 )
+position = Vector2( 54, 37 )
 
 [node name="DeckBtn" type="Button" parent="."]
 margin_left = 2.0
@@ -101,6 +101,14 @@ __meta__ = {
 }
 
 [node name="Actions" parent="." instance=ExtResource( 6 )]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 108.0
+margin_bottom = 9.0
+color = Color( 0.145098, 0.145098, 0.133333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="start_turn" from="." to="Actions" method="_on_Battle_start_turn"]
 [connection signal="add_to_deck" from="Player" to="Actions" method="_on_Player_add_to_deck"]
 [connection signal="apply_debuff" from="Player" to="Actions" method="_on_Player_apply_debuff"]
