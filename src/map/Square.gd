@@ -11,6 +11,15 @@ var type: String
 var clicked: = false
 var hovering: = false
 
+var connected_rooms = {
+	Vector2.UP: null,
+	Vector2.DOWN: null,
+	Vector2.LEFT: null,
+	Vector2.RIGHT: null
+}
+
+var connections: = 0
+
 func initialize(_type: String) -> void:
 	type = _type
 	if type == "":

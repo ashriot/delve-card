@@ -15,8 +15,8 @@
 [ext_resource path="res://src/core/Player.tscn" type="PackedScene" id=13]
 [ext_resource path="res://src/core/Dungeon.gd" type="Script" id=14]
 [ext_resource path="res://Card.tscn" type="PackedScene" id=15]
+[ext_resource path="res://src/core/MapNode.gd" type="Script" id=16]
 [ext_resource path="res://assets/images/bgs/forest.png" type="Texture" id=17]
-[ext_resource path="res://assets/images/sheets/16x16_misc.png" type="Texture" id=18]
 [ext_resource path="res://src/core/Map.gd" type="Script" id=19]
 [ext_resource path="res://src/map/Square.tscn" type="PackedScene" id=21]
 
@@ -191,189 +191,8 @@ texture = ExtResource( 17 )
 vframes = 7
 frame = 6
 
-[node name="Buttons" type="VBoxContainer" parent="Dungeon/ColorRect"]
-visible = false
-margin_left = 2.0
-margin_top = 53.0
-margin_right = 106.0
-margin_bottom = 190.0
-custom_constants/separation = 4
-__meta__ = {
-"_edit_group_": true,
-"_edit_use_anchors_": false
-}
-
-[node name="Button" type="Button" parent="Dungeon/ColorRect/Buttons"]
-margin_right = 104.0
-margin_bottom = 10.0
-rect_min_size = Vector2( 104, 0 )
-disabled = true
-text = "Start"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Button2" type="Button" parent="Dungeon/ColorRect/Buttons"]
-margin_top = 14.0
-margin_right = 104.0
-margin_bottom = 24.0
-rect_min_size = Vector2( 104, 0 )
-text = "Encounter"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Button3" type="Button" parent="Dungeon/ColorRect/Buttons"]
-margin_top = 28.0
-margin_right = 104.0
-margin_bottom = 38.0
-rect_min_size = Vector2( 104, 0 )
-disabled = true
-text = "Encounter"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Button4" type="Button" parent="Dungeon/ColorRect/Buttons"]
-margin_top = 42.0
-margin_right = 104.0
-margin_bottom = 52.0
-rect_min_size = Vector2( 104, 0 )
-disabled = true
-text = "Encounter"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Button5" type="Button" parent="Dungeon/ColorRect/Buttons"]
-margin_top = 56.0
-margin_right = 104.0
-margin_bottom = 66.0
-rect_min_size = Vector2( 104, 0 )
-disabled = true
-text = "Encounter"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Button6" type="Button" parent="Dungeon/ColorRect/Buttons"]
-margin_top = 70.0
-margin_right = 104.0
-margin_bottom = 80.0
-rect_min_size = Vector2( 104, 0 )
-disabled = true
-text = "Encounter"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Button7" type="Button" parent="Dungeon/ColorRect/Buttons"]
-margin_top = 84.0
-margin_right = 104.0
-margin_bottom = 94.0
-rect_min_size = Vector2( 104, 0 )
-disabled = true
-text = "Encounter"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Button8" type="Button" parent="Dungeon/ColorRect/Buttons"]
-margin_top = 98.0
-margin_right = 104.0
-margin_bottom = 108.0
-rect_min_size = Vector2( 104, 0 )
-disabled = true
-text = "Encounter"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Button9" type="Button" parent="Dungeon/ColorRect/Buttons"]
-margin_top = 112.0
-margin_right = 104.0
-margin_bottom = 122.0
-rect_min_size = Vector2( 104, 0 )
-disabled = true
-text = "Encounter"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Button10" type="Button" parent="Dungeon/ColorRect/Buttons"]
-margin_top = 126.0
-margin_right = 104.0
-margin_bottom = 136.0
-rect_min_size = Vector2( 104, 0 )
-disabled = true
-text = "Encounter"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Left" type="Button" parent="Dungeon/ColorRect"]
-visible = false
-margin_left = 14.0
-margin_top = 61.0
-margin_right = 94.0
-margin_bottom = 78.0
-text = "Continue Forward"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Right" type="Button" parent="Dungeon/ColorRect"]
-visible = false
-margin_left = 14.0
-margin_top = 81.0
-margin_right = 76.0
-margin_bottom = 96.0
-text = "Make Camp"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Sprite" type="Sprite" parent="Dungeon/ColorRect"]
-visible = false
-modulate = Color( 0.792157, 0.780392, 0.721569, 1 )
-position = Vector2( 76, 78 )
-texture = ExtResource( 18 )
-centered = false
-vframes = 16
-hframes = 16
-frame = 39
-
-[node name="Shadow" type="Label" parent="Dungeon/ColorRect"]
-visible = false
-margin_left = 80.0
-margin_top = 86.0
-margin_right = 98.0
-margin_bottom = 100.0
-custom_colors/font_color = Color( 0.145098, 0.145098, 0.133333, 1 )
-text = "5"
-align = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="Dungeon/ColorRect"]
-visible = false
-margin_left = 81.0
-margin_top = 86.0
-margin_right = 99.0
-margin_bottom = 100.0
-custom_colors/font_color = Color( 0.792157, 0.780392, 0.721569, 1 )
-custom_colors/font_color_shadow = Color( 0.145098, 0.145098, 0.133333, 1 )
-custom_constants/shadow_offset_x = 1
-custom_constants/shadow_offset_y = 1
-custom_constants/shadow_as_outline = 1
-text = "5"
-align = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="Map" type="Control" parent="Dungeon/ColorRect"]
+visible = false
 modulate = Color( 0.792157, 0.780392, 0.721569, 1 )
 anchor_left = 0.5
 anchor_top = 0.5
@@ -568,10 +387,11 @@ margin_left = 84.0
 margin_right = 92.0
 
 [node name="Tooltip" type="Panel" parent="Dungeon/ColorRect"]
+visible = false
 anchor_right = 0.611
 anchor_bottom = 0.068
-margin_right = 0.012001
-margin_bottom = -0.0560007
+margin_right = -26.988
+margin_bottom = -2.056
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -579,10 +399,14 @@ __meta__ = {
 [node name="Label" type="Label" parent="Dungeon/ColorRect/Tooltip"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -1.0
-margin_bottom = -1.0
+margin_top = -2.0
+margin_right = 1.0
+margin_bottom = 1.0
 text = "Treasure"
 align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="PlayerBanner" type="ColorRect" parent="Dungeon/ColorRect"]
 anchor_top = 1.0
@@ -590,6 +414,21 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -68.0
 color = Color( 0.145098, 0.145098, 0.133333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MapNode" type="Node2D" parent="Dungeon/ColorRect"]
+modulate = Color( 0.792157, 0.780392, 0.721569, 1 )
+position = Vector2( 53, 88 )
+script = ExtResource( 16 )
+
+[node name="Button" type="Button" parent="Dungeon"]
+margin_left = 34.0
+margin_top = 125.0
+margin_right = 70.0
+margin_bottom = 135.0
+text = "Generate"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -1178,6 +1017,7 @@ anims/FadeOut = SubResource( 16 )
 [connection signal="show_tooltip" from="Dungeon/ColorRect/Map" to="Dungeon" method="_on_Map_show_tooltip"]
 [connection signal="start_battle" from="Dungeon/ColorRect/Map" to="Dungeon" method="_on_Map_start_battle"]
 [connection signal="start_loot" from="Dungeon/ColorRect/Map" to="Dungeon" method="_on_Map_start_loot"]
+[connection signal="pressed" from="Dungeon/Button" to="Dungeon/ColorRect/MapNode" method="_on_Button_pressed"]
 [connection signal="button_up" from="Title/ColorRect/StartGame" to="." method="_on_StartGame_button_up"]
 [connection signal="button_up" from="DemoScreen/DemoStart" to="." method="_on_DemoStart_button_up"]
 [connection signal="button_up" from="DemoScreen/Patch" to="." method="_on_Patch_button_up"]

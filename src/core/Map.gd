@@ -14,13 +14,10 @@ func initialize() -> void:
 	generate_map()
 
 func generate_map() -> void:
-	var enemies = randi() % 5 + 5
-	var chests = randi() % 3 + 2
+	var enemies = randi() % 3 + 4
+	var chests = randi() % 3 + 1
 	var heals = randi() % 2 + 1
-	var anvils = randi() % 2 + 1
-	print("Enemies: ", enemies)
-	print("Chests: ", chests)
-	print("Heals: ", heals)
+	var anvils = randi() % 2
 	
 	var squares = []
 	squares.resize(row_count)
@@ -28,26 +25,18 @@ func generate_map() -> void:
 		squares[x] = []
 		squares[x].resize(col_count)
 	
-	while enemies > -1:
+	while enemies > 0:
 		enemies -= 1
-		var x = randi() % row_count
-		var y = randi() % col_count
-		squares[x][y] = "enemy"
-	while chests > -1:
+		set_square(squares, "enemy")
+	while chests > 0:
 		chests -= 1
-		var x = randi() % row_count
-		var y = randi() % col_count
-		squares[x][y] = "chest"
-	while heals > -1:
+		set_square(squares, "chest")
+	while heals > 0:
 		heals -= 1
-		var x = randi() % row_count
-		var y = randi() % col_count
-		squares[x][y] = "heal"
-	while anvils > -1:
+		set_square(squares, "heal")
+	while anvils > 0:
 		anvils -= 1
-		var x = randi() % row_count
-		var y = randi() % col_count
-		squares[x][y] = "anvil"
+		set_square(squares, "anvil")
 	
 	for x in get_children():
 		for y in x.get_children():
@@ -58,6 +47,14 @@ func generate_map() -> void:
 			y.connect("clicked", self, "square_clicked", [y])
 			y.connect("show_tooltip", self, "show_tooltip", [y])
 			y.connect("hide_tooltip", self, "hide_tooltip")
+
+func set_square(squares, square) -> void:
+	var x = randi() % row_count
+	var y = randi() % col_count
+	while squares[x][y] != null:
+		x = randi() % row_count
+		y = randi() % col_count
+	squares[x][y] = square
 
 func square_clicked(button: Square) -> void:
 	print("Signal received: ", button.type)
