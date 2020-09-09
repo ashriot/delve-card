@@ -4,8 +4,9 @@ class_name Loot
 var _ActionChoice = preload("res://src/core/ActionChoice.tscn")
 
 signal looting_finished
+signal show_card(btn, qty)
+signal hide_card
 
-onready var card = $Card
 onready var choices = $Choices
 onready var finished = $Finished
 onready var skip_progress = $Finished/TextureRect
@@ -24,7 +25,6 @@ func initialize(_player: Actor) -> void:
 	loot2 = get_loot(2)
 	loot3 = get_loot(3)
 	loot4 = get_loot(4)
-	card.hide()
 	
 	for _i in range(3):
 		var child = _ActionChoice.instance()
@@ -63,7 +63,7 @@ func choose(choice: ActionChoice) -> void:
 			child.chosen = false
 	
 func new_picker(progress: int) -> Array:
-	var level = (2 + progress / 6) as int
+	var level = (1 + progress / 2) as int
 	print(level)
 	var loot_list = []
 	var pick1 = loot1.duplicate(true)
@@ -168,7 +168,7 @@ func _on_show_card(btn: ActionChoice) -> void:
 	for a in player.actions:
 		if a.name == btn.action.name:
 			count += 1
-	card.initialize(btn, count)
+	emit_signal("show_card", btn, count)
 
 func _on_hide_card():
-	card.close()
+	emit_signal("hide_card")

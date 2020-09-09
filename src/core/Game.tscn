@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=2]
+[gd_scene load_steps=38 format=2]
 
 [ext_resource path="res://src/core/Battle.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/images/bgs/title.png" type="Texture" id=2]
@@ -18,6 +18,8 @@
 [ext_resource path="res://src/core/MapNode.gd" type="Script" id=16]
 [ext_resource path="res://assets/images/bgs/forest.png" type="Texture" id=17]
 [ext_resource path="res://assets/images/map/player.png" type="Texture" id=18]
+[ext_resource path="res://src/core/Blacksmith.gd" type="Script" id=19]
+[ext_resource path="res://assets/images/map/anvil.png" type="Texture" id=20]
 
 [sub_resource type="Animation" id=1]
 resource_name = "animate"
@@ -221,7 +223,7 @@ script = ExtResource( 16 )
 
 [node name="Branches" type="Node2D" parent="Dungeon/ColorRect/Map"]
 
-[node name="Rooms" type="Node2D" parent="Dungeon/ColorRect/Map"]
+[node name="Squares" type="Node2D" parent="Dungeon/ColorRect/Map"]
 
 [node name="Tooltip" type="Panel" parent="Dungeon/ColorRect"]
 visible = false
@@ -266,7 +268,18 @@ frame = 1
 autoplay = "animate"
 anims/animate = SubResource( 1 )
 
+[node name="Blck" type="TextureButton" parent="Dungeon"]
+margin_left = 96.0
+margin_top = 53.0
+margin_right = 107.0
+margin_bottom = 64.0
+texture_normal = ExtResource( 20 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Button" type="Button" parent="Dungeon"]
+visible = false
 margin_left = 34.0
 margin_top = 125.0
 margin_right = 70.0
@@ -334,6 +347,7 @@ margin_right = 108.0
 margin_bottom = 192.0
 color = Color( 0, 0, 0, 1 )
 __meta__ = {
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
@@ -484,7 +498,7 @@ margin_left = -1.0
 margin_top = -3.0
 margin_right = -1.0
 margin_bottom = 11.0
-text = "v.0.3.1 Patch Notes"
+text = "v.0.4.0 Patch Notes"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -515,14 +529,16 @@ __meta__ = {
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -1.0
+margin_right = 2.0
 margin_bottom = -1.0
 custom_constants/line_spacing = 2
-text = "Added lots of new 2* and 3* Actions for the Mage including:
-Mage Armor, Misty Veil, Quartz Crystal, Quicksand, Storm Crystal, & Voltaic Barrier.
+text = "Completely revamped the dungeon exploration system.
 
-You can now only receive a minimum of 2* Actions as rewards. 1* Actions are starting actions only.
+* Currently, you can explore any tile you wish, but in the future, you must move along the path.
 
-New Setting: Auto-End turn with an empty hand. Defaulted to ON."
+Added healing points outside of combat.
+
+Added a Deck Viewer. Click on your deck to see the current Actions you have."
 autowrap = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -712,8 +728,108 @@ __meta__ = {
 [node name="Loot" parent="." instance=ExtResource( 5 )]
 visible = false
 
-[node name="PlayerUI" parent="." instance=ExtResource( 13 )]
+[node name="Blacksmith" type="Node2D" parent="."]
 visible = false
+script = ExtResource( 19 )
+
+[node name="ColorRect" type="ColorRect" parent="Blacksmith"]
+margin_right = 108.0
+margin_bottom = 192.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Banner" type="ColorRect" parent="Blacksmith/ColorRect"]
+anchor_right = 1.0
+margin_bottom = 9.0
+color = Color( 0.145098, 0.145098, 0.133333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Blacksmith/ColorRect/Banner"]
+margin_left = -1.0
+margin_top = -3.0
+margin_right = 46.0
+margin_bottom = 11.0
+text = "Blacksmith"
+
+[node name="Sprite" type="Sprite" parent="Blacksmith/ColorRect"]
+position = Vector2( 64, 5 )
+texture = ExtResource( 9 )
+centered = false
+flip_h = true
+vframes = 4
+hframes = 7
+frame = 14
+
+[node name="SpeakerName" type="Label" parent="Blacksmith/ColorRect"]
+margin_left = -1.0
+margin_top = 8.0
+margin_right = 31.0
+margin_bottom = 22.0
+text = "SMITHY"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ChatBox" type="Label" parent="Blacksmith/ColorRect"]
+margin_left = 2.0
+margin_top = 18.0
+margin_right = 76.0
+margin_bottom = 42.0
+custom_constants/line_spacing = 2
+text = "Welcome. What can I do for you?"
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Choices" type="VBoxContainer" parent="Blacksmith/ColorRect"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -42.0
+margin_top = -45.0
+margin_right = 43.0
+margin_bottom = 25.0
+custom_constants/separation = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Upgrade" type="Button" parent="Blacksmith/ColorRect/Choices"]
+margin_right = 85.0
+margin_bottom = 13.0
+rect_min_size = Vector2( 80, 13 )
+text = "Upgrade"
+
+[node name="Destroy" type="Button" parent="Blacksmith/ColorRect/Choices"]
+margin_top = 19.0
+margin_right = 85.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 80, 13 )
+text = "Destroy"
+
+[node name="Craft" type="Button" parent="Blacksmith/ColorRect/Choices"]
+margin_top = 38.0
+margin_right = 85.0
+margin_bottom = 51.0
+rect_min_size = Vector2( 80, 13 )
+disabled = true
+text = "Craft"
+
+[node name="Exit" type="Button" parent="Blacksmith/ColorRect/Choices"]
+margin_top = 57.0
+margin_right = 85.0
+margin_bottom = 70.0
+rect_min_size = Vector2( 80, 13 )
+text = "Exit"
+
+[node name="PlayerUI" parent="." instance=ExtResource( 13 )]
 
 [node name="Settings" type="Control" parent="."]
 margin_right = 108.0
@@ -787,11 +903,12 @@ __meta__ = {
 }
 
 [node name="Settings" type="TextureButton" parent="Settings"]
-margin_left = 100.0
-margin_top = 1.0
-margin_right = 107.0
-margin_bottom = 8.0
+margin_left = 97.0
+margin_right = 108.0
+margin_bottom = 9.0
 texture_normal = ExtResource( 11 )
+expand = true
+stretch_mode = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -849,10 +966,19 @@ __meta__ = {
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Fade"]
 anims/FadeIn = SubResource( 16 )
 anims/FadeOut = SubResource( 17 )
+[connection signal="advance" from="Dungeon" to="." method="_on_Dungeon_advance"]
+[connection signal="blacksmith" from="Dungeon" to="." method="_on_Dungeon_blacksmith"]
 [connection signal="heal" from="Dungeon" to="." method="_on_Dungeon_heal"]
 [connection signal="start_battle" from="Dungeon" to="." method="_on_Dungeon_start_battle"]
 [connection signal="start_loot" from="Dungeon" to="." method="_on_Dungeon_start_loot"]
+[connection signal="advance" from="Dungeon/ColorRect/Map" to="Dungeon" method="_on_Map_advance"]
+[connection signal="heal" from="Dungeon/ColorRect/Map" to="Dungeon" method="_on_Map_heal"]
+[connection signal="hide_tooltip" from="Dungeon/ColorRect/Map" to="Dungeon" method="_on_Map_hide_tooltip"]
 [connection signal="move_to_square" from="Dungeon/ColorRect/Map" to="Dungeon" method="_on_Map_move_to_square"]
+[connection signal="show_tooltip" from="Dungeon/ColorRect/Map" to="Dungeon" method="_on_Map_show_tooltip"]
+[connection signal="start_battle" from="Dungeon/ColorRect/Map" to="Dungeon" method="_on_Map_start_battle"]
+[connection signal="start_loot" from="Dungeon/ColorRect/Map" to="Dungeon" method="_on_Map_start_loot"]
+[connection signal="button_up" from="Dungeon/Blck" to="Dungeon" method="_on_Blck_button_up"]
 [connection signal="pressed" from="Dungeon/Button" to="Dungeon/ColorRect/Map" method="_on_Button_pressed"]
 [connection signal="button_up" from="Title/ColorRect/StartGame" to="." method="_on_StartGame_button_up"]
 [connection signal="button_up" from="DemoScreen/DemoStart" to="." method="_on_DemoStart_button_up"]
@@ -860,6 +986,10 @@ anims/FadeOut = SubResource( 17 )
 [connection signal="button_up" from="DemoScreen/Notes/PatchBack" to="." method="_on_PatchBack_button_up"]
 [connection signal="chose_class" from="CharSelect" to="." method="_on_CharSelect_chose_class"]
 [connection signal="button_up" from="CharSelect/Fire" to="." method="_on_Fire_button_up"]
+[connection signal="hide_card" from="Loot" to="." method="hide_card"]
+[connection signal="show_card" from="Loot" to="." method="show_card"]
+[connection signal="button_up" from="Blacksmith/ColorRect/Choices/Upgrade" to="Blacksmith" method="_on_Upgrade_button_up"]
+[connection signal="button_up" from="Blacksmith/ColorRect/Choices/Exit" to="Blacksmith" method="_on_Exit_button_up"]
 [connection signal="toggled" from="Settings/Dimmer/AutoEnd/AutoEnd" to="." method="_on_AutoEnd_toggled"]
 [connection signal="button_down" from="Settings/Settings" to="." method="_on_Settings_button_down"]
 [connection signal="button_up" from="Settings/Settings" to="." method="_on_Settings_button_up"]

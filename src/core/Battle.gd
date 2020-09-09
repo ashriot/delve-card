@@ -76,6 +76,7 @@ func hide_card() -> void:
 	emit_signal("hide_card")
 
 func _on_Enemy_block_input():
+	print('blocking')
 	actions.block_input(true)
 
 func _on_Enemy_died():

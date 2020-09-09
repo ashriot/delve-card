@@ -107,7 +107,7 @@ func update_data() -> void:
 		text = ""
 	if action.name == "Brilliant Crystal":
 		var glow = min(player.mp, 30)
-		text = str(glow) + "MP"
+		text = "[right]" + str(glow) + "MP"
 	$Button/Damage.bbcode_text = text
 
 func playable() -> bool:
@@ -170,7 +170,8 @@ func execute() -> void:
 			if action.drawX > 0:
 				emit_signal("draw_cards", action)
 			else:
-				emit_signal("unblock", false)
+				if !enemy.dead:
+					emit_signal("unblock", false)
 			if action.extra_action != null:
 				action.extra_action.execute(player)
 			yield(self, "anim_finished")
@@ -182,7 +183,7 @@ func execute() -> void:
 		if action.drawX > 0:
 			emit_signal("draw_cards", action)
 		else:
-			emit_signal("unblock", false)	
+			emit_signal("unblock", false)
 		if action.extra_action != null:
 			action.extra_action.execute(player)
 		if action.damage > 0:

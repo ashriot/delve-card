@@ -10,13 +10,20 @@ onready var banner: = $InputBlock/ColorRect/Banner
 
 var player: Actor
 var chosen_action: Action
+var clickable: bool
+var selection: int
 
 func initialize(_player: Actor) -> void:
 	hide()
 	player = _player
-	refresh()
+	refresh(0)
 
-func refresh() -> void:
+func refresh(amt: int) -> void:
+	selection = amt
+	if selection > 0:
+		clickable = true
+	else:
+		clickable = false
 	player.actions.sort_custom(ActionSorter, "sort")
 	banner.text = str(player.actions.size()) + " Equipped Actions"
 	fill_deck()
@@ -37,6 +44,7 @@ func initialize_button(action_button: ActionChoice, action: Action) -> void:
 	action_button.initialize(action, player)
 
 func choose(choice: ActionChoice) -> void:
+	if !clickable: return
 	for child in deck.get_children():
 		if child == choice:
 			child.chosen = !child.chosen

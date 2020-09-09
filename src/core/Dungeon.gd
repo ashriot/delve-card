@@ -1,9 +1,11 @@
 extends Node2D
 class_name Dungeon
 
+signal advance
 signal start_battle(enemy)
 signal start_loot
 signal heal
+signal blacksmith
 
 onready var floor_number = $ColorRect/TopBanner/FloorNum
 onready var tooltip = $ColorRect/Tooltip
@@ -23,14 +25,20 @@ func advance() -> void:
 	self.progress += 1
 
 func reset() -> void:
-	self.progress = 1
+	self.progress = 0
+	reset_avatar()
 
 func set_progress(value: int) -> void:
 	progress = value
-	floor_number.text = "Dark Forest Lv. " + str(progress)
+	floor_number.text = "Dark Forest Lv. " + str(progress) + " of 5"
+
+func reset_avatar() -> void:
+	self.progress += 1
+	avatar.global_position = map.position - Vector2(8, 8)
+	map.	load_map()
 
 func _on_Map_start_battle():
-	var level = (1 + progress / 3) as int
+	var level = (progress) as int
 	var enemy = load("res://src/enemies/devil" + str(level) + ".tres")
 	emit_signal("start_battle", enemy)
 
@@ -53,3 +61,9 @@ func _on_Map_hide_tooltip():
 
 func _on_Map_move_to_square(square: Square):
 	avatar.global_position = square.rect_global_position - Vector2(3, 3)
+
+func _on_Map_advance():
+	emit_signal("advance")
+
+func _on_Blck_button_up():
+	emit_signal("blacksmith")

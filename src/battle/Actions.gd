@@ -19,7 +19,7 @@ signal hide_card
 
 export var HAND_SIZE: = 5
 
-onready var input_blocker: = $Hand/InputBlocker
+onready var input_blocker: = $InputBlocker
 onready var hand: = $Hand
 onready var pos1: = $Hand/Pos1
 onready var pos2: = $Hand/Pos2
@@ -259,6 +259,7 @@ func action_finished(action_button: ActionButton) -> void:
 		action_button.queue_free()
 
 func button_pressed(action_button: ActionButton) -> void:
+	block_input(true)
 	var pos = action_button.rect_global_position
 	limbo.set_global_position(pos)
 	remove_pos(action_button)
@@ -360,4 +361,4 @@ func _on_Close_button_up():
 	for child in deck.get_children():
 		deck.move_child(child, deck_order.find(child))
 	deck_viewer.modulate.a = 0
-	deck_viewer.global_position = Vector2(-108, 0)
+	deck_viewer.global_position = Vector2(-112, 0)

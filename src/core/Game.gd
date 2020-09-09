@@ -16,6 +16,7 @@ onready var title: = $Title
 onready var battle: = $Battle
 onready var dungeon: = $Dungeon
 onready var loot: = $Loot
+onready var blacksmith = $Blacksmith
 onready var end_game: = $EndGame
 onready var fade = $Fade/AnimationPlayer
 onready var demo = $DemoScreen
@@ -38,6 +39,7 @@ func _ready() -> void:
 	settings.hide()
 	battle.hide()
 	loot.hide()
+	blacksmith.hide()
 	dungeon.hide()
 	end_game.hide()
 	demo.hide()
@@ -78,12 +80,15 @@ func start_battle(scene_to_hide: Node2D, enemy: Actor) -> void:
 	battle.show()
 	battle.start(enemy)
 	fade.play("FadeIn")
-	yield(fade, "animation_finished")
 	yield(battle, "battle_finished")
+	fade.play("FadeOut")
+	yield(fade, "animation_finished")
+	battle.hide()
+	playerUI.show()
+	playerUI.refresh()
 	if battle.game_over:
 		game_over()
 		return
-	playerUI.refresh()
 	AudioController.play_bgm("victory")
 	start_loot()
 	yield(self, "looting_finished")
@@ -93,8 +98,6 @@ func start_battle(scene_to_hide: Node2D, enemy: Actor) -> void:
 	emit_signal("battle_finished")
 
 func start_loot() -> void:
-	fade.play("FadeOut")
-	yield(fade, "animation_finished")
 	loot.setup(dungeon.progress)
 	playerUI.show()
 	loot.show()
@@ -107,9 +110,7 @@ func start_loot() -> void:
 	emit_signal("looting_finished")
 
 func game_over() -> void:
-	battle.hide()
 	AudioController.play_bgm("title")
-	yield(fade, "animation_finished")
 	player.hp = player.max_hp
 	$EndGame/Label.text = "Game Over"
 	end_game.show()
@@ -163,6 +164,10 @@ func _on_Fire_button_up():
 	var n = "fire_sorc"
 	var player_res = load("res://src/actions/sorcerer/" + n + ".tres")
 	player = player_res
+	refresh_dungeon()
+	playerUI.initialize(player)
+	playerUI.connect("show_card", self, "show_card")
+	playerUI.connect("hide_card", self, "hide_card")
 	fade.play("FadeOut")
 	yield(fade, "animation_finished")
 	char_select.hide()
@@ -193,11 +198,6 @@ func _on_Settings_button_up():
 func _on_Dungeon_start_battle(enemy: Actor) -> void:
 	start_battle(dungeon, enemy)
 	yield(self, "battle_finished")
-	if dungeon.progress == 9:
-		$EndGame/Label.text = "Thank you for playing!"
-		end_game.show()
-	else:
-		dungeon.advance()
 
 func _on_Dungeon_start_loot():
 	start_loot()
@@ -210,3 +210,22 @@ func _on_Settings_button_down():
 func _on_Dungeon_heal():
 	AudioController.play_sfx("heal")
 	playerUI.heal(5)
+
+func _on_Dungeon_advance():
+	fade.play("FadeOut")
+	AudioController.play_sfx("footsteps")
+	yield(fade, "animation_finished")
+	if dungeon.progress == 5:
+		$EndGame/Label.text = "Thank you for playing!"
+		end_game.show()
+	else:
+		dungeon.reset_avatar()
+	yield(get_tree().create_timer(0.5), "timeout")
+	fade.play("FadeIn")
+
+func _on_Dungeon_blacksmith():
+	fade.play("FadeOut")
+	AudioController.play_sfx("footsteps")
+	yield(fade, "animation_finished")
+	blacksmith.show()
+	fade.play("FadeIn")

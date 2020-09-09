@@ -108,7 +108,7 @@ hframes = 16
 frame = 14
 
 [node name="Player" type="Control" parent="."]
-margin_left = 35.0
+margin_left = 37.0
 margin_top = 164.0
 margin_right = 108.0
 margin_bottom = 183.0
@@ -120,6 +120,18 @@ __meta__ = {
 [node name="Panel" type="Panel" parent="Player"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="Player/Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_top = 1.0
+margin_right = -1.0
+margin_bottom = -1.0
+color = Color( 0, 0, 0, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -239,9 +251,9 @@ __meta__ = {
 [node name="AP" type="Control" parent="Player/Panel"]
 anchor_top = 1.0
 anchor_bottom = 1.0
-margin_left = 3.0
+margin_left = 2.0
 margin_top = -10.0
-margin_right = 46.0
+margin_right = 45.0
 margin_bottom = -1.0
 __meta__ = {
 "_edit_group_": true,
@@ -280,7 +292,7 @@ vframes = 4
 hframes = 7
 
 [node name="Gold" type="Sprite" parent="."]
-position = Vector2( 103, 185 )
+position = Vector2( 101, 185 )
 texture = ExtResource( 8 )
 centered = false
 

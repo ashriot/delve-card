@@ -3,16 +3,13 @@ class_name DungeonGeneration
 
 var room = preload("res://src/map/Square.tscn")
 
-var min_number_rooms = 6
-var max_number_rooms = 12
-
 var max_x = 6
 var max_y = 4
 
-func generate(room_seed):
+func generate(room_seed: int, room_range: Array):
 	seed(room_seed)
 	var dungeon = {}
-	var size = floor(rand_range(min_number_rooms, max_number_rooms))
+	var size = floor(rand_range(room_range[0], room_range[1]))
 	
 	dungeon[Vector2(0,0)] = room.instance()
 	size -= 1
@@ -43,15 +40,15 @@ func generate(room_seed):
 			if !dungeon.has(pos):
 				dungeon[pos] = room.instance()
 				size -= 1
-			if dungeon.get(i).connected_rooms.get(direction) == null:
+			if dungeon.get(i).connected_squares.get(direction) == null:
 				if dungeon.get(pos).connections > 1:
 					continue
 				connect_rooms(dungeon.get(i), dungeon.get(pos), direction)
 	return dungeon
 
 func connect_rooms(room1, room2, direction):
-	room1.connected_rooms[direction] = room2
-	room2.connected_rooms[-direction] = room1
+	room1.connected_squares[direction] = room2
+	room2.connected_squares[-direction] = room1
 	room1.connections += 1
 	room2.connections += 1
 

@@ -33,7 +33,10 @@ func refresh() -> void:
 	set_mp(player.initial_mp)
 	gold_label.text = comma_sep(player.gold)
 	deck_label.text = str(player.actions.size())
-	deck.refresh()
+	deck.refresh(0)
+
+func open_deck(selection_amt: int) -> void:
+	deck.refresh(selection_amt)
 
 func comma_sep(n: int) -> String:
 	var result := ""

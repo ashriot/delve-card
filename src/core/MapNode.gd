@@ -11,7 +11,7 @@ var branch_sprite = load("res://assets/images/map/connector.png")
 var up_sprite = load("res://assets/images/map/stairs_up.png")
 var down_sprite = load("res://assets/images/map/stairs_down.png")
 
-
+signal advance
 signal move_to_square
 signal start_battle
 signal start_loot
@@ -21,10 +21,10 @@ signal show_tooltip(button)
 signal hide_tooltip
 
 onready var branches = $Branches
-onready var rooms = $Rooms
+onready var squares = $Squares
 
 var dungeon_generation: = preload("res://src/map/dungeon_generation.gd").new()
-var _Room = preload("res://src/map/Square.tscn")
+var _Square = preload("res://src/map/Square.tscn")
 
 var DIST = 18
 
@@ -37,17 +37,20 @@ var anvil_max: = 1
 var shrine_max: = 1
 
 func initialize():
-	randomize_maxes()
-	dungeon = dungeon_generation.generate(0)
+	generate_dungeon()
 	load_map()
 
-func randomize_maxes() -> void:
+func generate_dungeon() -> void:
 	chest_max = randi() % 2 + 1
 	heal_max = randi() % 3 + 1
 	enemy_max = randi() % 2 + 2
-	shop_max = randi() % 2
+	shop_max = 0
 	anvil_max = 0
 	shrine_max = 0
+	var room_max = min(chest_max + heal_max + enemy_max + \
+		shop_max + anvil_max + shrine_max + 6, 24)
+	var room_min = room_max - 3
+	dungeon = dungeon_generation.generate(rand_range(-100, 100), [room_min, room_max])	
 
 func load_map():
 	var map = []
@@ -58,8 +61,8 @@ func load_map():
 	var anvils = anvil_max
 	var shrines = shrine_max
 
-	for i in range(0, rooms.get_child_count()):
-		rooms.get_child(i).queue_free()
+	for i in range(0, squares.get_child_count()):
+		squares.get_child(i).queue_free()
 	for i in range(0, branches.get_child_count()):
 		branches.get_child(i).queue_free()
 	
@@ -73,75 +76,76 @@ func load_map():
 	map.sort_custom(ActionSorter, "sort_ascending")
 	
 	for i in map:
-		var room = _Room.instance() as Square
+		var square = _Square.instance() as Square
 		if i[1] == Vector2.ZERO:
-			room.texture_normal = up_sprite
+			square.initialize(self, "Clear", node_sprite)
 		else:
 			if i[1] == down_pos:
-				room.texture_normal = down_sprite
+				square.initialize(self, "Down", down_sprite)
 			elif dungeon[i[1]].connections == 1:
 				if chests > 0:
 					chests -= 1
-					room.texture_normal = chest_sprite
+					square.initialize(self, "Chest", chest_sprite)
 				elif shops > 0:
 					shops -= 1
-					room.texture_normal = shop_sprite
+					square.initialize(self, "Shop", shop_sprite)
 				elif anvils > 0:
 					anvils -= 1
-					room.texture_normal = anvil_sprite
+					square.initialize(self, "Anvil", anvil_sprite)
 				elif shrines > 0:
 					shrines -= 1
-					room.texture_normal = shrine_sprite
+					square.initialize(self, "Shrine", shrine_sprite)
 				else:
 					heals -= 1
-					room.texture_normal = heal_sprite
+					square.initialize(self, "Rest", heal_sprite)
 			else:
 				if enemies > 0:
 					enemies -= 1
-					room.texture_normal = enemy_sprite
+					square.initialize(self, "Battle", enemy_sprite)
 				elif chests > 0:
 					chests -= 1
-					room.texture_normal = chest_sprite
+					square.initialize(self, "Chest", chest_sprite)
 				elif shops > 0:
 					shops -= 1
-					room.texture_normal = shop_sprite
+					square.initialize(self, "Shop", shop_sprite)
 				elif anvils > 0:
 					anvils -= 1
-					room.texture_normal = anvil_sprite
+					square.initialize(self, "Anvil", anvil_sprite)
 				elif shrines > 0:
 					shrines -= 1
-					room.texture_normal = shrine_sprite
+					square.initialize(self, "Shrine", shrine_sprite)
 				elif heals > 0:
 					heals -= 1
-					room.texture_normal = heal_sprite
+					square.initialize(self, "Rest", heal_sprite)
 				else:
-					room.texture_normal = node_sprite
-		rooms.add_child(room)
-		room.rect_position = i[1] * DIST - Vector2(5, 5)
-		var c_rooms = dungeon.get(i[1]).connected_rooms
-		if(c_rooms.get(Vector2(1, 0)) != null):
+					square.initialize(self, "Clear", node_sprite)
+		squares.add_child(square)
+		square.rect_position = i[1] * DIST - Vector2(5, 5)
+		var c_squares = dungeon.get(i[1]).connected_squares
+		if(c_squares.get(Vector2(1, 0)) != null):
 			var branch = Sprite.new()
 			branch.texture = branch_sprite
 			branches.add_child(branch)
 			branch.position = i[1] * DIST + Vector2(10, 0.5)
-		if(c_rooms.get(Vector2(0, 1)) != null):
+		if(c_squares.get(Vector2(0, 1)) != null):
 			var branch = Sprite.new()
 			branch.texture = branch_sprite
 			branches.add_child(branch)
 			branch.rotation_degrees = 90
 			branch.position = i[1] * DIST + Vector2(-0.5, 10)
-		room.connect("clicked", self, "square_clicked", [room])
-		room.connect("show_tooltip", self, "show_tooltip", [room])
-		room.connect("hide_tooltip", self, "hide_tooltip")
 
 func square_clicked(button: Square) -> void:
 	print("Signal received: ", button.type)
 	emit_signal("move_to_square", button)
-	if button.type == "enemy":
+	if button.type == "Down":
+		print("going down")
+		generate_dungeon()
+		emit_signal("advance")
+	if button.type == "Battle":
 		emit_signal("start_battle")
-	elif button.type == "chest":
+	elif button.type == "Chest":
 		emit_signal("start_loot")
-	elif button.type == "heal":
+	elif button.type == "Rest":
 		emit_signal("heal")
 
 func show_tooltip(button: Square) -> void:
@@ -151,6 +155,5 @@ func hide_tooltip() -> void:
 	emit_signal("hide_tooltip")
 
 func _on_Button_pressed():
-	randomize_maxes()
-	dungeon = dungeon_generation.generate(rand_range(-1000, 1000))
+	generate_dungeon()
 	load_map()

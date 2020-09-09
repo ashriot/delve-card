@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://src/core/Deck.gd" type="Script" id=1]
+[ext_resource path="res://assets/images/ui/coin.png" type="Texture" id=2]
 
 [node name="Deck" type="Node2D"]
 script = ExtResource( 1 )
@@ -9,6 +10,18 @@ script = ExtResource( 1 )
 margin_right = 108.0
 margin_bottom = 192.0
 color = Color( 0, 0, 0, 0.882353 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Action" type="Button" parent="InputBlock"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = -33.0
+margin_right = 81.0
+margin_bottom = -20.0
+text = "Action"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -26,10 +39,10 @@ __meta__ = {
 }
 
 [node name="ScrollContainer" type="ScrollContainer" parent="InputBlock"]
-margin_left = 2.0
+margin_left = 1.0
 margin_top = 13.0
-margin_right = 114.0
-margin_bottom = 172.0
+margin_right = 107.0
+margin_bottom = 157.0
 scroll_horizontal_enabled = false
 __meta__ = {
 "_edit_use_anchors_": false
@@ -56,4 +69,17 @@ text = "Your Deck (20 Actions)"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Sprite" type="Sprite" parent="InputBlock"]
+position = Vector2( 101, 162 )
+texture = ExtResource( 2 )
+centered = false
+
+[node name="Label" type="Label" parent="InputBlock"]
+margin_left = 81.0
+margin_top = 157.0
+margin_right = 104.0
+margin_bottom = 171.0
+text = "250"
+[connection signal="button_up" from="InputBlock/Action" to="." method="_on_Close_button_up"]
 [connection signal="button_up" from="InputBlock/Close" to="." method="_on_Close_button_up"]

@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://src/core/Loot.gd" type="Script" id=1]
 [ext_resource path="res://assets/images/ui/fill_texture.png" type="Texture" id=9]
-[ext_resource path="res://Card.tscn" type="PackedScene" id=12]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0, 0, 0, 1 )
@@ -106,7 +105,4 @@ expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="Card" parent="." instance=ExtResource( 12 )]
-visible = false
 [connection signal="button_up" from="Finished" to="." method="_on_Finished_button_up"]

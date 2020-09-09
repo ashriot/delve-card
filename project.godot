@@ -143,7 +143,7 @@ _global_script_class_icons={
 config/name="Delve"
 run/main_scene="res://src/core/Game.tscn"
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
-config/icon="res://icon.png"
+config/icon="res://assets/images/icon.png"
 
 [autoload]
 
