@@ -1,8 +1,9 @@
 extends Control
 
 signal start_battle
-signal start_loot
+signal start_loot(gold)
 signal heal
+signal blacksmith
 
 signal show_tooltip(button)
 signal hide_tooltip
@@ -61,9 +62,11 @@ func square_clicked(button: Square) -> void:
 	if button.type == "enemy":
 		emit_signal("start_battle")
 	elif button.type == "chest":
-		emit_signal("start_loot")
+		emit_signal("start_loot", 0)
 	elif button.type == "heal":
 		emit_signal("heal")
+	elif button.type == "blacksmith":
+		emit_signal("blacksmith")
 
 func show_tooltip(button: Square) -> void:
 	emit_signal("show_tooltip", button)

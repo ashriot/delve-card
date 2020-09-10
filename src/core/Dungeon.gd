@@ -3,7 +3,7 @@ class_name Dungeon
 
 signal advance
 signal start_battle(enemy)
-signal start_loot
+signal start_loot(gold)
 signal heal
 signal blacksmith
 
@@ -44,7 +44,7 @@ func _on_Map_start_battle():
 
 func _on_Map_start_loot():
 	print("Dungeon received loot signal")
-	emit_signal("start_loot")
+	emit_signal("start_loot", 0)
 
 func _on_Map_heal():
 	emit_signal("heal")
@@ -65,5 +65,5 @@ func _on_Map_move_to_square(square: Square):
 func _on_Map_advance():
 	emit_signal("advance")
 
-func _on_Blck_button_up():
+func _on_Map_blacksmith():
 	emit_signal("blacksmith")

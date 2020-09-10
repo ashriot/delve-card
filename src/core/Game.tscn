@@ -19,7 +19,7 @@
 [ext_resource path="res://assets/images/bgs/forest.png" type="Texture" id=17]
 [ext_resource path="res://assets/images/map/player.png" type="Texture" id=18]
 [ext_resource path="res://src/map/Blacksmith.tscn" type="PackedScene" id=19]
-[ext_resource path="res://assets/images/map/anvil.png" type="Texture" id=20]
+[ext_resource path="res://src/core/Deck.tscn" type="PackedScene" id=21]
 
 [sub_resource type="Animation" id=1]
 resource_name = "animate"
@@ -258,16 +258,6 @@ frame = 1
 autoplay = "animate"
 anims/animate = SubResource( 1 )
 
-[node name="Blck" type="TextureButton" parent="Dungeon"]
-margin_left = 96.0
-margin_top = 53.0
-margin_right = 107.0
-margin_bottom = 64.0
-texture_normal = ExtResource( 20 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="Button" type="Button" parent="Dungeon"]
 visible = false
 margin_left = 34.0
@@ -488,7 +478,7 @@ margin_left = -1.0
 margin_top = -3.0
 margin_right = -1.0
 margin_bottom = 11.0
-text = "v.0.4.0 Patch Notes"
+text = "v.0.4.1 Patch Notes"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -522,9 +512,11 @@ margin_top = -1.0
 margin_right = 2.0
 margin_bottom = -1.0
 custom_constants/line_spacing = 2
-text = "Completely revamped the dungeon exploration system.
+text = "New Dungeon Exploration.
 
 * Currently, you can explore any tile you wish, but in the future, you must move along the path.
+
+Added a Blacksmith! He can currently destroy unwanted actions for a cost...
 
 Added healing points outside of combat.
 
@@ -719,8 +711,13 @@ __meta__ = {
 visible = false
 
 [node name="Blacksmith" parent="." instance=ExtResource( 19 )]
+visible = false
 
 [node name="PlayerUI" parent="." instance=ExtResource( 13 )]
+visible = false
+
+[node name="Deck" parent="." instance=ExtResource( 21 )]
+visible = false
 
 [node name="Settings" type="Control" parent="."]
 margin_right = 108.0
@@ -863,13 +860,13 @@ anims/FadeOut = SubResource( 17 )
 [connection signal="start_battle" from="Dungeon" to="." method="_on_Dungeon_start_battle"]
 [connection signal="start_loot" from="Dungeon" to="." method="_on_Dungeon_start_loot"]
 [connection signal="advance" from="Dungeon/ColorRect/Map" to="Dungeon" method="_on_Map_advance"]
+[connection signal="blacksmith" from="Dungeon/ColorRect/Map" to="Dungeon" method="_on_Map_blacksmith"]
 [connection signal="heal" from="Dungeon/ColorRect/Map" to="Dungeon" method="_on_Map_heal"]
 [connection signal="hide_tooltip" from="Dungeon/ColorRect/Map" to="Dungeon" method="_on_Map_hide_tooltip"]
 [connection signal="move_to_square" from="Dungeon/ColorRect/Map" to="Dungeon" method="_on_Map_move_to_square"]
 [connection signal="show_tooltip" from="Dungeon/ColorRect/Map" to="Dungeon" method="_on_Map_show_tooltip"]
 [connection signal="start_battle" from="Dungeon/ColorRect/Map" to="Dungeon" method="_on_Map_start_battle"]
 [connection signal="start_loot" from="Dungeon/ColorRect/Map" to="Dungeon" method="_on_Map_start_loot"]
-[connection signal="button_up" from="Dungeon/Blck" to="Dungeon" method="_on_Blck_button_up"]
 [connection signal="pressed" from="Dungeon/Button" to="Dungeon/ColorRect/Map" method="_on_Button_pressed"]
 [connection signal="button_up" from="Title/ColorRect/StartGame" to="." method="_on_StartGame_button_up"]
 [connection signal="button_up" from="DemoScreen/DemoStart" to="." method="_on_DemoStart_button_up"]

@@ -1,88 +1,99 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://src/core/Deck.gd" type="Script" id=1]
-[ext_resource path="res://assets/images/ui/coin.png" type="Texture" id=2]
+[ext_resource path="res://src/core/BaseControl.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/core/Deck.gd" type="Script" id=2]
+[ext_resource path="res://assets/images/ui/coin.png" type="Texture" id=3]
 
-[node name="Deck" type="Node2D"]
-script = ExtResource( 1 )
+[node name="Deck" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
 
-[node name="InputBlock" type="ColorRect" parent="."]
-margin_right = 108.0
-margin_bottom = 184.0
-color = Color( 0, 0, 0, 0.882353 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="BG" parent="." index="0"]
+margin_bottom = -7.0
 
-[node name="Action" type="Button" parent="InputBlock"]
+[node name="BG2" type="ColorRect" parent="BG" index="0"]
 anchor_top = 1.0
-anchor_bottom = 1.0
-margin_left = 2.0
-margin_top = -26.0
-margin_right = 81.0
-margin_bottom = -15.0
-text = "Action"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Close" type="Button" parent="InputBlock"]
-anchor_top = 1.0
-anchor_bottom = 1.0
-margin_left = 2.0
-margin_top = -13.0
-margin_right = 106.0
-margin_bottom = -2.0
-text = "Close"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ScrollContainer" type="ScrollContainer" parent="InputBlock"]
-margin_left = 1.0
-margin_top = 13.0
-margin_right = 107.0
-margin_bottom = 156.0
-scroll_horizontal_enabled = false
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Deck" type="VBoxContainer" parent="InputBlock/ScrollContainer"]
-custom_constants/separation = 2
-
-[node name="ColorRect" type="ColorRect" parent="InputBlock"]
 anchor_right = 1.0
-margin_right = 7.62939e-06
-margin_bottom = 12.0
+anchor_bottom = 1.0
+margin_top = -30.0
+margin_bottom = -2.0
 color = Color( 0.145098, 0.145098, 0.133333, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Banner" type="Label" parent="InputBlock/ColorRect"]
-margin_left = -1.0
-margin_top = -1.0
-margin_right = 54.0
-margin_bottom = 13.0
+[node name="Cost" type="Label" parent="BG" index="1"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -27.0
+margin_top = -30.0
+margin_right = -4.0
+margin_bottom = -16.0
+text = "250"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="BG/Cost" index="0"]
+position = Vector2( 20, 5 )
+texture = ExtResource( 3 )
+centered = false
+
+[node name="Action" type="Button" parent="BG" index="2"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = -28.0
+margin_right = 81.0
+margin_bottom = -17.0
+text = "Action"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Close" type="Button" parent="BG" index="3"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = -15.0
+margin_right = 106.0
+margin_bottom = -4.0
+text = "Close"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScrollContainer" type="ScrollContainer" parent="BG" index="4"]
+margin_left = 1.0
+margin_top = 11.0
+margin_right = 107.0
+margin_bottom = 154.0
+scroll_horizontal_enabled = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Deck" type="VBoxContainer" parent="BG/ScrollContainer" index="0"]
+custom_constants/separation = 2
+
+[node name="ColorRect" type="ColorRect" parent="BG" index="5"]
+anchor_right = 1.0
+margin_bottom = 10.0
+color = Color( 0.145098, 0.145098, 0.133333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Banner" type="Label" parent="BG/ColorRect" index="0"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -2.0
+margin_bottom = 2.0
 text = "Your Deck (20 Actions)"
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="Cost" type="Label" parent="InputBlock"]
-margin_left = 81.0
-margin_top = 156.0
-margin_right = 104.0
-margin_bottom = 170.0
-text = "250"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Sprite" type="Sprite" parent="InputBlock/Cost"]
-position = Vector2( 20, 5 )
-texture = ExtResource( 2 )
-centered = false
-[connection signal="button_up" from="InputBlock/Action" to="." method="_on_Close_button_up"]
-[connection signal="button_up" from="InputBlock/Close" to="." method="_on_Close_button_up"]
+[connection signal="button_up" from="BG/Action" to="." method="_on_Action_button_up"]
+[connection signal="button_up" from="BG/Close" to="." method="_on_Close_button_up"]

@@ -5,8 +5,8 @@ enum ActionType {
 	WEAPON,
 	SPELL,
 	CRYSTAL,
-	FEAT,
-	PASSIVE,
+	SKILL,
+	PERMANENT,
 	CURSE,
 	ITEM,
 	ANY

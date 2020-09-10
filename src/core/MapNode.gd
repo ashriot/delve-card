@@ -14,8 +14,9 @@ var down_sprite = load("res://assets/images/map/stairs_down.png")
 signal advance
 signal move_to_square
 signal start_battle
-signal start_loot
+signal start_loot(gold)
 signal heal
+signal blacksmith
 
 signal show_tooltip(button)
 signal hide_tooltip
@@ -45,7 +46,7 @@ func generate_dungeon() -> void:
 	heal_max = randi() % 3 + 1
 	enemy_max = randi() % 2 + 2
 	shop_max = 0
-	anvil_max = 0
+	anvil_max = 1
 	shrine_max = 0
 	var room_max = min(chest_max + heal_max + enemy_max + \
 		shop_max + anvil_max + shrine_max + 6, 24)
@@ -147,6 +148,8 @@ func square_clicked(button: Square) -> void:
 		emit_signal("start_loot")
 	elif button.type == "Rest":
 		emit_signal("heal")
+	elif button.type == "Anvil":
+		emit_signal("blacksmith")
 
 func show_tooltip(button: Square) -> void:
 	emit_signal("show_tooltip", button)

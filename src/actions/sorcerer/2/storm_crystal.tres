@@ -1,7 +1,7 @@
 [gd_resource type="Resource" load_steps=4 format=2]
 
 [ext_resource path="res://src/actions/res/action.gd" type="Script" id=1]
-[ext_resource path="res://src/actions/sorcerer/add/mp_gain_4.gd" type="Script" id=2]
+[ext_resource path="res://src/actions/sorcerer/add/mp_gain3.gd" type="Script" id=2]
 [ext_resource path="res://assets/animations/Storm_Crystal.tscn" type="PackedScene" id=3]
 
 [resource]

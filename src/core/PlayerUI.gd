@@ -1,6 +1,7 @@
 extends Node2D
 class_name PlayerUI
 
+signal open_deck(amt, type)
 signal show_card(btn, amt)
 signal hide_card
 
@@ -11,17 +12,16 @@ onready var ac_value = $Player/Panel/AC/Value
 onready var mp_value = $Player/Panel/MP/Value
 onready var ap = $Player/Panel/AP/Current
 onready var deck_label = $DeckButton/Label
-onready var deck = $Deck
 onready var job_title = $JobTitle
 onready var gold_label = $Gold/Label
 
 var player: Actor
 
-func initialize(_player: Actor) -> void:
-	player = _player
-	deck.initialize(player)
-	deck.connect("show_card", self, "show_card")
-	deck.connect("hide_card", self, "hide_card")
+func initialize(game) -> void:
+	player = game.player
+	connect("show_card", game, "show_card")
+	connect("hide_card", game, "hide_card")
+	connect("open_deck", game, "open_deck")
 	job_title.text = player.name
 	portrait.frame = player.portrait_id
 	player.hp = player.max_hp
@@ -34,24 +34,6 @@ func refresh() -> void:
 	set_mp(player.initial_mp)
 	gold_label.text = comma_sep(player.gold)
 	deck_label.text = str(player.actions.size())
-	deck.refresh(0)
-
-func open_deck(selection_amt: int, type: String) -> void:
-	print("Opening ", type)
-	if type == "Upgrade":
-		deck.upgrade(selection_amt)
-	elif type == "Destroy":
-		deck.destroy(selection_amt)
-	deck.refresh(selection_amt)
-	deck.show()
-
-func comma_sep(n: int) -> String:
-	var result := ""
-	var i: int = abs(n)
-	while i > 999:
-		result = ",%03d%s" % [i % 1000, result]
-		i /= 1000
-	return "%s%s%s" % ["-" if n < 0 else "", i, result]
 
 func heal(amt: int) -> void:
 	player.hp += amt
@@ -94,6 +76,14 @@ func show_card(btn, amt: int) -> void:
 func hide_card() -> void:
 	emit_signal("hide_card")
 
+func comma_sep(n: int) -> String:
+	var result := ""
+	var i: int = abs(n)
+	while i > 999:
+		result = ",%03d%s" % [i % 1000, result]
+		i /= 1000
+	return "%s%s%s" % ["-" if n < 0 else "", i, result]
+
 func _on_DeckButton_button_up():
 	AudioController.click()
-	deck.show()
+	emit_signal("open_deck")

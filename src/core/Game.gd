@@ -20,6 +20,7 @@ onready var blacksmith = $Blacksmith
 onready var end_game: = $EndGame
 onready var fade = $Fade/AnimationPlayer
 onready var demo = $DemoScreen
+onready var deck = $Deck
 onready var card = $Card
 onready var char_select = $CharSelect
 onready var playerUI = $PlayerUI
@@ -43,6 +44,7 @@ func _ready() -> void:
 	dungeon.hide()
 	end_game.hide()
 	demo.hide()
+	deck.hide()
 	card.hide()
 	$DemoScreen/Notes.hide()
 	char_select.hide()
@@ -65,7 +67,7 @@ func start_game() -> void:
 	battle.toggle_auto_end(true)
 	battle.connect("show_card", self, "show_card")
 	battle.connect("hide_card", self, "hide_card")
-	loot.initialize(player)
+	loot.initialize(self)
 	dungeon.show()
 	playerUI.show()
 	fade.play("FadeIn")
@@ -90,15 +92,15 @@ func start_battle(scene_to_hide: Node2D, enemy: Actor) -> void:
 		game_over()
 		return
 	AudioController.play_bgm("victory")
-	start_loot()
+	start_loot(enemy.gold)
 	yield(self, "looting_finished")
 	scene_to_hide.show()
 	AudioController.play_bgm("dungeon")
 	fade.play("FadeIn")
 	emit_signal("battle_finished")
 
-func start_loot() -> void:
-	loot.setup(dungeon.progress)
+func start_loot(gold) -> void:
+	loot.setup(dungeon.progress, gold)
 	playerUI.show()
 	loot.show()
 	fade.play("FadeIn")
@@ -118,6 +120,17 @@ func game_over() -> void:
 
 func refresh_dungeon() -> void:
 	pass
+
+func open_deck() -> void:
+	deck.refresh(0)
+	deck.show()
+
+func blacksmithing_deck(blacksmith: Blacksmith) -> void:
+	deck.smithing(blacksmith)
+	deck.show()
+
+func refresh_player() -> void:
+	playerUI.refresh()
 
 func _on_Restart_button_up():
 	AudioController.click()
@@ -143,9 +156,11 @@ func _on_CharSelect_chose_class(name: String) -> void:
 	var player_res = load("res://src/actions/" + n + "/" + n + ".tres")
 	player = player_res
 	refresh_dungeon()
-	playerUI.initialize(player)
-	playerUI.connect("show_card", self, "show_card")
-	playerUI.connect("hide_card", self, "hide_card")
+	playerUI.initialize(self)
+	blacksmith.initialize(self)
+	deck.initialize(self)
+	deck.connect("show_card", self, "show_card")
+	deck.connect("hide_card", self, "hide_card")
 	fade.play("FadeOut")
 	yield(fade, "animation_finished")
 	char_select.hide()
@@ -168,6 +183,7 @@ func _on_Fire_button_up():
 	playerUI.initialize(player)
 	playerUI.connect("show_card", self, "show_card")
 	playerUI.connect("hide_card", self, "hide_card")
+	blacksmith.initialize(self)
 	fade.play("FadeOut")
 	yield(fade, "animation_finished")
 	char_select.hide()
@@ -199,8 +215,8 @@ func _on_Dungeon_start_battle(enemy: Actor) -> void:
 	start_battle(dungeon, enemy)
 	yield(self, "battle_finished")
 
-func _on_Dungeon_start_loot():
-	start_loot()
+func _on_Dungeon_start_loot(gold):
+	start_loot(gold)
 	yield(self, "looting_finished")
 	fade.play("FadeIn")
 
@@ -224,7 +240,6 @@ func _on_Dungeon_advance():
 	fade.play("FadeIn")
 
 func _on_Dungeon_blacksmith():
-	blacksmith.initialize(playerUI)
 #	fade.play("FadeOut")
 	AudioController.play_sfx("footsteps")
 #	yield(fade, "animation_finished")

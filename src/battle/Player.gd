@@ -59,7 +59,8 @@ func start_turn() -> void:
 func take_hit(damage: int) -> void:
 	var floating_text = FloatingText.instance()
 	var miss = false
-	if buffs.has("dodge"):
+	if buffs.has("Dodge"):
+		print("trying to dodge")
 		miss = randf() < .5
 	if miss:
 		damage = 0

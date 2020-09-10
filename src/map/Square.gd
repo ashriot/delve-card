@@ -48,7 +48,7 @@ func _on_Square_button_up():
 	if type != "Down":
 		AudioController.click()
 	emit_signal("clicked")
-	if !cleared:
+	if !cleared and type != "Anvil":
 		clear()
 
 func _on_Timer_timeout():

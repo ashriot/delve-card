@@ -1,29 +1,14 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://src/core/Blacksmith.gd" type="Script" id=1]
+[ext_resource path="res://src/core/BaseControl.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/images/sheets/portraits.png" type="Texture" id=2]
+[ext_resource path="res://src/map/Blacksmith.gd" type="Script" id=3]
+[ext_resource path="res://assets/images/ui/coin.png" type="Texture" id=4]
 
-[node name="Blacksmith" type="Control"]
-margin_right = 108.0
-margin_bottom = 192.0
-script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="Blacksmith" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
 
-[node name="Node2D" type="Node2D" parent="."]
-position = Vector2( 109, 0 )
-
-[node name="ColorRect" type="ColorRect" parent="Node2D"]
-margin_right = 108.0
-margin_bottom = 192.0
-color = Color( 0, 0, 0, 1 )
-__meta__ = {
-"_edit_lock_": true,
-"_edit_use_anchors_": false
-}
-
-[node name="Banner" type="ColorRect" parent="Node2D/ColorRect"]
+[node name="Banner" type="ColorRect" parent="BG" index="0"]
 anchor_right = 1.0
 margin_bottom = 9.0
 color = Color( 0.145098, 0.145098, 0.133333, 1 )
@@ -31,7 +16,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="Node2D/ColorRect/Banner"]
+[node name="Label" type="Label" parent="BG/Banner" index="0"]
 margin_left = -1.0
 margin_top = -3.0
 margin_right = 46.0
@@ -41,7 +26,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Sprite" type="Sprite" parent="Node2D/ColorRect"]
+[node name="Sprite" type="Sprite" parent="BG" index="1"]
 position = Vector2( 64, 5 )
 texture = ExtResource( 2 )
 centered = false
@@ -50,7 +35,7 @@ vframes = 4
 hframes = 7
 frame = 14
 
-[node name="SpeakerName" type="Label" parent="Node2D/ColorRect"]
+[node name="SpeakerName" type="Label" parent="BG" index="2"]
 margin_left = -1.0
 margin_top = 8.0
 margin_right = 31.0
@@ -60,7 +45,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ChatBox" type="Label" parent="Node2D/ColorRect"]
+[node name="ChatBox" type="Label" parent="BG" index="3"]
 margin_left = 2.0
 margin_top = 18.0
 margin_right = 76.0
@@ -72,7 +57,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Choices" type="VBoxContainer" parent="Node2D/ColorRect"]
+[node name="Choices" type="VBoxContainer" parent="BG" index="4"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -86,20 +71,40 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Upgrade" type="Button" parent="Node2D/ColorRect/Choices"]
+[node name="Upgrade" type="Button" parent="BG/Choices" index="0"]
 margin_right = 85.0
 margin_bottom = 13.0
 rect_min_size = Vector2( 80, 13 )
 text = "Upgrade"
 
-[node name="Destroy" type="Button" parent="Node2D/ColorRect/Choices"]
+[node name="Destroy" type="Button" parent="BG/Choices" index="1"]
 margin_top = 19.0
 margin_right = 85.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 80, 13 )
 text = "Destroy"
 
-[node name="Craft" type="Button" parent="Node2D/ColorRect/Choices"]
+[node name="Cost" type="Label" parent="BG/Choices/Destroy" index="0"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -27.0
+margin_top = -7.5
+margin_right = -4.0
+margin_bottom = 6.5
+text = "35"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="BG/Choices/Destroy/Cost" index="0"]
+position = Vector2( 19, 5 )
+texture = ExtResource( 4 )
+centered = false
+
+[node name="Craft" type="Button" parent="BG/Choices" index="2"]
 margin_top = 38.0
 margin_right = 85.0
 margin_bottom = 51.0
@@ -107,12 +112,12 @@ rect_min_size = Vector2( 80, 13 )
 disabled = true
 text = "Craft"
 
-[node name="Exit" type="Button" parent="Node2D/ColorRect/Choices"]
+[node name="Exit" type="Button" parent="BG/Choices" index="3"]
 margin_top = 57.0
 margin_right = 85.0
 margin_bottom = 70.0
 rect_min_size = Vector2( 80, 13 )
 text = "Exit"
-
-[node name="Tween" type="Tween" parent="Node2D"]
-[connection signal="button_up" from="Node2D/ColorRect/Choices/Exit" to="." method="_on_Exit_button_up"]
+[connection signal="button_up" from="BG/Choices/Upgrade" to="." method="_on_Upgrade_button_up"]
+[connection signal="button_up" from="BG/Choices/Destroy" to="." method="_on_Destroy_button_up"]
+[connection signal="button_up" from="BG/Choices/Exit" to="." method="_on_Exit_button_up"]

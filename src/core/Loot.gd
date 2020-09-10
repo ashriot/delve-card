@@ -3,13 +3,14 @@ class_name Loot
 
 var _ActionChoice = preload("res://src/core/ActionChoice.tscn")
 
+signal refresh_player
 signal looting_finished
 signal show_card(btn, qty)
 signal hide_card
 
-onready var choices = $Choices
-onready var finished = $Finished
-onready var skip_progress = $Finished/TextureRect
+onready var gold = $BG/Gold
+onready var choices = $BG/Choices
+onready var finished = $BG/Finished
 
 var player: Actor
 var chosen_action: Action
@@ -19,8 +20,9 @@ var loot2: Array = []
 var loot3: Array = []
 var loot4: Array = []
 
-func initialize(_player: Actor) -> void:
-	player = _player
+func initialize(game) -> void:
+	connect("refresh_player", game, "refresh_player")
+	player = game.player
 	loot1 = get_loot(1)
 	loot2 = get_loot(2)
 	loot3 = get_loot(3)
@@ -33,8 +35,15 @@ func initialize(_player: Actor) -> void:
 		child.connect("chosen", self, "choose")
 		choices.add_child(child)
 
-func setup(progress: int) -> void:
+func setup(progress: int, gold_amt: int) -> void:
 	chosen_action = null
+	if gold_amt == 0:
+		gold.hide()
+	else:
+		gold.show()
+		gold.text = "+" + str(gold_amt)
+		player.gold += gold_amt
+		emit_signal("refresh_player")
 	finished.text = "Skip Reward"
 	var actions = new_picker(progress)
 	actions.shuffle()
@@ -101,22 +110,6 @@ func new_picker(progress: int) -> Array:
 			loot_list.append("")
 	return loot_list
 
-func pick_loot(rank: int) -> String:
-	var table: Array
-	if rank == 1:
-		table = loot1
-	if rank == 2:
-		table = loot2
-	if rank == 3:
-		table = loot3
-	if rank == 4:
-		table = loot4
-	if table.size() == 0:
-		return ""
-	var rand = randi() % table.size()
-	var item = table[rand]
-	return item
-
 func remove_loot(item: String) -> void:
 	item = item.to_lower()
 	item = item.replace(" ", "_")
@@ -152,6 +145,8 @@ func get_loot(rank: int) -> Array:
 	
 	for loot in files:
 		list.append(path + loot)
+	
+	
 	return list
 
 func _on_Finished_button_up():
@@ -160,7 +155,6 @@ func _on_Finished_button_up():
 		remove_loot(chosen_action.name)
 		player.actions.append(chosen_action)
 		player.actions.sort()
-	skip_progress.rect_size.x = 0
 	emit_signal("looting_finished")
 
 func _on_show_card(btn: ActionChoice) -> void:

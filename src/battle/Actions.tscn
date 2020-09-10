@@ -15,16 +15,16 @@ position = Vector2( 108, 0 )
 
 [node name="EndTurn" type="Button" parent="."]
 margin_left = 71.0
-margin_top = 172.0
+margin_top = 174.0
 margin_right = 108.0
-margin_bottom = 189.0
+margin_bottom = 191.0
 text = "End Turn"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Hand" type="YSort" parent="."]
-position = Vector2( 2, 93 )
+position = Vector2( 5, 93 )
 
 [node name="Pos1" type="Position2D" parent="Hand"]
 

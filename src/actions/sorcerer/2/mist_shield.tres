@@ -6,7 +6,7 @@
 
 [resource]
 script = ExtResource( 1 )
-name = "Misty Veil"
+name = "Mist Shield"
 description = "Gain %damage Armor. Gain 3 HP when hit."
 rarity = 2
 upgraded = false

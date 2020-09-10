@@ -20,3 +20,13 @@ func initialize() -> void:
 
 func set_hp(value) -> void:
 	hp = clamp(value, 0, max_hp)
+
+func remove_action(action: Action) -> void:
+	var index = actions.find(action)
+	actions.remove(index)
+
+func spend_gold(amt: int) -> void:
+	gold -= amt
+
+func have_enough_gold(amt: int) -> bool:
+	return gold >= amt

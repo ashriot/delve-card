@@ -175,8 +175,8 @@ func execute() -> void:
 			if action.extra_action != null:
 				action.extra_action.execute(player)
 			yield(self, "anim_finished")
-		if player.has_buff("lifesteal"):
-			player.reduce_buff("lifesteal")
+		if player.has_buff("Lifesteal"):
+			player.reduce_buff("Lifesteal")
 	else:
 		create_effect(player.global_position, "effect")
 		yield(self, "inflict_effect")

@@ -4,21 +4,21 @@
 
 [resource]
 script = ExtResource( 1 )
-name = "Arcane Crystal"
-description = "Gain %damage MP and draw a Spell."
-rarity = 3
+name = "2 Manaberries"
+description = "Increases your maximum MP by 2."
+rarity = 1
 upgraded = false
-action_type = 2
+action_type = 4
 target_type = 0
 cost_type = 3
 cost = 0
-healing = true
+healing = false
 damage_type = 2
-damage = 6
-hits = 1
+damage = 2
+hits = 0
 crit_chance = 0.0
-drawX = 1
-draw_type = 1
+drawX = 0
+draw_type = 7
 drop = false
 consume = false
-frame_id = 89
+frame_id = 0
