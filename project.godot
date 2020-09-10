@@ -99,6 +99,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/battle/Player.gd"
 }, {
+"base": "Node2D",
+"class": "PlayerUI",
+"language": "GDScript",
+"path": "res://src/core/PlayerUI.gd"
+}, {
 "base": "Control",
 "class": "PotionButton",
 "language": "GDScript",
@@ -133,6 +138,7 @@ _global_script_class_icons={
 "Game": "",
 "Loot": "",
 "Player": "",
+"PlayerUI": "",
 "PotionButton": "",
 "PotionCard": "",
 "Square": ""

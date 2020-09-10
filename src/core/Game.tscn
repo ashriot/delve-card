@@ -18,7 +18,7 @@
 [ext_resource path="res://src/core/MapNode.gd" type="Script" id=16]
 [ext_resource path="res://assets/images/bgs/forest.png" type="Texture" id=17]
 [ext_resource path="res://assets/images/map/player.png" type="Texture" id=18]
-[ext_resource path="res://src/core/Blacksmith.gd" type="Script" id=19]
+[ext_resource path="res://src/map/Blacksmith.tscn" type="PackedScene" id=19]
 [ext_resource path="res://assets/images/map/anvil.png" type="Texture" id=20]
 
 [sub_resource type="Animation" id=1]
@@ -243,16 +243,6 @@ margin_right = 1.0
 margin_bottom = 1.0
 text = "Treasure"
 align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="PlayerBanner" type="ColorRect" parent="Dungeon/ColorRect"]
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = -68.0
-color = Color( 0.145098, 0.145098, 0.133333, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -728,106 +718,7 @@ __meta__ = {
 [node name="Loot" parent="." instance=ExtResource( 5 )]
 visible = false
 
-[node name="Blacksmith" type="Node2D" parent="."]
-visible = false
-script = ExtResource( 19 )
-
-[node name="ColorRect" type="ColorRect" parent="Blacksmith"]
-margin_right = 108.0
-margin_bottom = 192.0
-color = Color( 0, 0, 0, 1 )
-__meta__ = {
-"_edit_lock_": true,
-"_edit_use_anchors_": false
-}
-
-[node name="Banner" type="ColorRect" parent="Blacksmith/ColorRect"]
-anchor_right = 1.0
-margin_bottom = 9.0
-color = Color( 0.145098, 0.145098, 0.133333, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="Blacksmith/ColorRect/Banner"]
-margin_left = -1.0
-margin_top = -3.0
-margin_right = 46.0
-margin_bottom = 11.0
-text = "Blacksmith"
-
-[node name="Sprite" type="Sprite" parent="Blacksmith/ColorRect"]
-position = Vector2( 64, 5 )
-texture = ExtResource( 9 )
-centered = false
-flip_h = true
-vframes = 4
-hframes = 7
-frame = 14
-
-[node name="SpeakerName" type="Label" parent="Blacksmith/ColorRect"]
-margin_left = -1.0
-margin_top = 8.0
-margin_right = 31.0
-margin_bottom = 22.0
-text = "SMITHY"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ChatBox" type="Label" parent="Blacksmith/ColorRect"]
-margin_left = 2.0
-margin_top = 18.0
-margin_right = 76.0
-margin_bottom = 42.0
-custom_constants/line_spacing = 2
-text = "Welcome. What can I do for you?"
-autowrap = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Choices" type="VBoxContainer" parent="Blacksmith/ColorRect"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -42.0
-margin_top = -45.0
-margin_right = 43.0
-margin_bottom = 25.0
-custom_constants/separation = 6
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Upgrade" type="Button" parent="Blacksmith/ColorRect/Choices"]
-margin_right = 85.0
-margin_bottom = 13.0
-rect_min_size = Vector2( 80, 13 )
-text = "Upgrade"
-
-[node name="Destroy" type="Button" parent="Blacksmith/ColorRect/Choices"]
-margin_top = 19.0
-margin_right = 85.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 80, 13 )
-text = "Destroy"
-
-[node name="Craft" type="Button" parent="Blacksmith/ColorRect/Choices"]
-margin_top = 38.0
-margin_right = 85.0
-margin_bottom = 51.0
-rect_min_size = Vector2( 80, 13 )
-disabled = true
-text = "Craft"
-
-[node name="Exit" type="Button" parent="Blacksmith/ColorRect/Choices"]
-margin_top = 57.0
-margin_right = 85.0
-margin_bottom = 70.0
-rect_min_size = Vector2( 80, 13 )
-text = "Exit"
+[node name="Blacksmith" parent="." instance=ExtResource( 19 )]
 
 [node name="PlayerUI" parent="." instance=ExtResource( 13 )]
 
@@ -988,8 +879,6 @@ anims/FadeOut = SubResource( 17 )
 [connection signal="button_up" from="CharSelect/Fire" to="." method="_on_Fire_button_up"]
 [connection signal="hide_card" from="Loot" to="." method="hide_card"]
 [connection signal="show_card" from="Loot" to="." method="show_card"]
-[connection signal="button_up" from="Blacksmith/ColorRect/Choices/Upgrade" to="Blacksmith" method="_on_Upgrade_button_up"]
-[connection signal="button_up" from="Blacksmith/ColorRect/Choices/Exit" to="Blacksmith" method="_on_Exit_button_up"]
 [connection signal="toggled" from="Settings/Dimmer/AutoEnd/AutoEnd" to="." method="_on_AutoEnd_toggled"]
 [connection signal="button_down" from="Settings/Settings" to="." method="_on_Settings_button_down"]
 [connection signal="button_up" from="Settings/Settings" to="." method="_on_Settings_button_up"]

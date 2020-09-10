@@ -343,5 +343,4 @@ __meta__ = {
 }
 
 [node name="Deck" parent="." instance=ExtResource( 11 )]
-visible = false
 [connection signal="button_up" from="DeckButton" to="." method="_on_DeckButton_button_up"]

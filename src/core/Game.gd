@@ -224,8 +224,9 @@ func _on_Dungeon_advance():
 	fade.play("FadeIn")
 
 func _on_Dungeon_blacksmith():
-	fade.play("FadeOut")
+	blacksmith.initialize(playerUI)
+#	fade.play("FadeOut")
 	AudioController.play_sfx("footsteps")
-	yield(fade, "animation_finished")
+#	yield(fade, "animation_finished")
 	blacksmith.show()
-	fade.play("FadeIn")
+#	fade.play("FadeIn")

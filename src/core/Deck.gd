@@ -6,11 +6,14 @@ signal show_card(btn, count)
 signal hide_card
 
 onready var deck: = $InputBlock/ScrollContainer/Deck
+onready var action: = $InputBlock/Action
 onready var banner: = $InputBlock/ColorRect/Banner
 
 var player: Actor
 var chosen_action: Action
 var clickable: bool
+var upgrading: bool
+var destroying: bool
 var selection: int
 
 func initialize(_player: Actor) -> void:
@@ -27,6 +30,13 @@ func refresh(amt: int) -> void:
 	player.actions.sort_custom(ActionSorter, "sort")
 	banner.text = str(player.actions.size()) + " Equipped Actions"
 	fill_deck()
+
+func upgrade(amt: int) -> void:
+	action.text = "Upgrade"
+	refresh(amt)
+
+func destroy(amt: int) -> void:
+	pass
 
 func fill_deck() -> void:
 	for child in deck.get_children():

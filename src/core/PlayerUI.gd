@@ -1,4 +1,5 @@
 extends Node2D
+class_name PlayerUI
 
 signal show_card(btn, amt)
 signal hide_card
@@ -35,8 +36,14 @@ func refresh() -> void:
 	deck_label.text = str(player.actions.size())
 	deck.refresh(0)
 
-func open_deck(selection_amt: int) -> void:
+func open_deck(selection_amt: int, type: String) -> void:
+	print("Opening ", type)
+	if type == "Upgrade":
+		deck.upgrade(selection_amt)
+	elif type == "Destroy":
+		deck.destroy(selection_amt)
 	deck.refresh(selection_amt)
+	deck.show()
 
 func comma_sep(n: int) -> String:
 	var result := ""
