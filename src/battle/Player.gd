@@ -23,7 +23,8 @@ var ap: int setget set_ap
 var dead: bool setget , get_dead
 
 var added_damage: = 0
-var damage_multiplier: = 0.0
+var weapon_multiplier: = 0.0
+var spell_multiplier: = 0.0
 
 var actor: Actor
 var buffs: Dictionary
@@ -45,13 +46,14 @@ func reset() -> void:
 	self.ac = actor.initial_ac
 	self.mp = actor.initial_mp
 	added_damage = 0
-	damage_multiplier = 0.0
+	weapon_multiplier = 0.0
+	spell_multiplier = 0.0
 	buffs.clear()
 	for child in buff_bar.get_children():
 		child.queue_free()
 
 func start_turn() -> void:
-	self.ap += 1
+	self.ap = actor.max_ap
 	for child in buff_bar.get_children():
 		if child.fades_per_turn:
 			reduce_buff(child.buff_name)
@@ -118,7 +120,7 @@ func gain_buff(buff: Buff, amt: int) -> void:
 	for b in buffs.keys():
 		if b == buff.name:
 			buffs[b].stacks += amt
-			if buff.name == "Might":
+			if buff.name == "Power":
 				added_damage += buffs[buff.name].stacks
 				get_tree().call_group("action_button", "update_data")
 			return
@@ -126,7 +128,7 @@ func gain_buff(buff: Buff, amt: int) -> void:
 	buffUI.initialize(buff, amt)
 	buff_bar.add_child(buffUI)
 	buffs[buff.name] = buffUI
-	if buff.name == "Might":
+	if buff.name == "Power":
 		added_damage += buffs[buff.name].stacks
 		get_tree().call_group("action_button", "update_data")
 	buffUI.connect("remove_buff", self, "remove_buff")
@@ -139,7 +141,7 @@ func apply_debuff(debuff: Buff, qty: int) -> void:
 func reduce_buff(buff_name: String) -> void:
 	for child in buff_bar.get_children():
 		if child.buff_name == buff_name:
-			if buff_name == "Might":
+			if buff_name == "Power":
 				added_damage -= 1
 				get_tree().call_group("action_button", "update_data")
 			child.stacks -= 1
@@ -196,7 +198,7 @@ func set_mp(value: int) -> void:
 	mp_value.bbcode_text = text
 
 func set_ap(value: int) -> void:
-	ap = clamp(value, 0, actor.max_ap)
+	ap = value
 	$Player/Panel/AP/Current.rect_size = Vector2(5 * ap, 7)
 
 func get_dead() -> bool:

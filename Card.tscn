@@ -47,7 +47,6 @@ __meta__ = {
 }
 
 [node name="Drop" type="Panel" parent="."]
-visible = false
 margin_top = 60.0
 margin_right = 108.0
 margin_bottom = 78.0
@@ -65,6 +64,26 @@ margin_right = 1.0
 bbcode_enabled = true
 bbcode_text = "Drop. [color=#88cac7b8]Remove for remainder of the battle."
 text = "Drop. Remove for remainder of the battle."
+scroll_active = false
+
+[node name="Fade" type="Panel" parent="."]
+margin_top = 60.0
+margin_right = 108.0
+margin_bottom = 78.0
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="RichTextLabel" parent="Fade"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 2.0
+margin_right = 1.0
+bbcode_enabled = true
+bbcode_text = "Fade. [color=#88cac7b8]Drop at the end of your turn."
+text = "Fade. Drop at the end of your turn."
 scroll_active = false
 
 [node name="Consume" type="Panel" parent="."]

@@ -29,6 +29,7 @@ var action_to_use: Action
 var dead: bool setget , get_dead
 
 var damage_multiplier = 0.0 as float
+var damage_reduction = 0.0 as float
 
 var hp: int setget set_hp
 #var ac: int setget set_ac
@@ -44,6 +45,7 @@ func initialize(_actor: Actor) -> void:
 	$Enemy/Sprite.modulate.a = 1
 	$Enemy/Level.text = "Lv." + str(actor.level)
 	damage_multiplier = 0
+	damage_reduction = 0
 	hp_panel.show()
 	atk_panel.show()
 	buff_bar.show()
@@ -81,6 +83,7 @@ func take_hit(action: Action, damage: int, crit: bool) -> void:
 		if action.name == "Fireball":
 			if debuffs.has("Burn"):
 				damage *= 2
+		damage *= (1 - damage_reduction)
 		if damage > 0:
 			var floating_text = FloatingText.instance()
 			floating_text.initialize(damage, crit)
@@ -120,10 +123,15 @@ func gain_debuff(debuff: Buff, qty: int) -> void:
 		pass
 	elif debuff.name == "Weak":
 		damage_multiplier -= 0.25
+	elif debuff.name == "Sunder":
+		damage_reduction -= 0.25
 	debuffUI.connect("remove_debuff", self, "remove_debuff")
 #	debuffUI.connect("show_card", self, "show_buff_card")
 #	debuffUI.connect("hide_card", self, "hide_buff_card")
 	update_atk_value()
+
+func has_debuff(title: String) -> bool:
+	return debuffs.has(title)
 
 func reduce_debuffs() -> void:
 	for child in debuff_bar.get_children():
@@ -139,6 +147,8 @@ func reduce_debuff(debuff_name: String) -> void:
 func remove_debuff(debuff_name: String) -> void:
 	if debuff_name == "Weak":
 		damage_multiplier += 0.25
+	elif debuff_name == "Sunder":
+		damage_reduction += 0.25
 	var child = debuffs[debuff_name]
 	debuff_bar.remove_child(child)
 	debuffs.erase(debuff_name)

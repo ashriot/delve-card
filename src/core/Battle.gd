@@ -56,6 +56,7 @@ func _on_Actions_ended_turn():
 func _on_Enemy_used_action(action: Action):
 	var damage = action.damage * (1 + enemyUI.damage_multiplier)
 	playerUI.take_hit(damage)
+	print(playerUI.buffs)
 	if playerUI.buffs.has("Flame Shield"):
 		yield(get_tree().create_timer(0.2), "timeout")
 		var burn_debuff = load("res://src/actions/debuffs/burn.tres")

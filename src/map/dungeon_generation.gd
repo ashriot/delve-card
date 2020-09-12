@@ -15,6 +15,7 @@ func generate(room_seed: int, room_range: Array):
 	size -= 1
 	
 	while(size > 0):
+		var index = 0
 		for i in dungeon.keys():
 			if dungeon[i].connections > 1:
 				if randf() < .3 * dungeon[i].connections:
@@ -40,6 +41,7 @@ func generate(room_seed: int, room_range: Array):
 			if !dungeon.has(pos):
 				dungeon[pos] = room.instance()
 				size -= 1
+			index += 1
 			if dungeon.get(i).connected_squares.get(direction) == null:
 				if dungeon.get(pos).connections > 1:
 					continue

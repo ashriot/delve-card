@@ -73,7 +73,6 @@ func choose(choice: ActionChoice) -> void:
 	
 func new_picker(progress: int) -> Array:
 	var level = (1 + progress / 2) as int
-	print(level)
 	var loot_list = []
 	var pick1 = loot1.duplicate(true)
 	pick1.shuffle()
@@ -146,15 +145,21 @@ func get_loot(rank: int) -> Array:
 	for loot in files:
 		list.append(path + loot)
 	
-	
 	return list
 
 func _on_Finished_button_up():
 	AudioController.click()
 	if chosen_action != null:
-		remove_loot(chosen_action.name)
-		player.actions.append(chosen_action)
-		player.actions.sort()
+		if chosen_action.action_type == Action.ActionType.PERMANENT:
+			if chosen_action.damage_type == Action.DamageType.HP:
+				player.max_hp += chosen_action.damage
+				player.hp += chosen_action.damage
+			elif chosen_action.damage_type == Action.DamageType.MP:
+				player.initial_mp += chosen_action.damage
+		else:
+#			remove_loot(chosen_action.name)
+			player.actions.append(chosen_action)
+			player.actions.sort()
 	emit_signal("looting_finished")
 
 func _on_show_card(btn: ActionChoice) -> void:

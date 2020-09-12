@@ -20,5 +20,6 @@ crit_chance = 0.0
 drawX = 0
 draw_type = 7
 drop = false
+fade = false
 consume = false
 frame_id = 60

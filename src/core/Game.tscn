@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://src/core/Battle.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/images/bgs/title.png" type="Texture" id=2]
@@ -13,30 +13,12 @@
 [ext_resource path="res://assets/images/ui/gear_small.png" type="Texture" id=11]
 [ext_resource path="res://assets/images/ui/stamina.png" type="Texture" id=12]
 [ext_resource path="res://src/core/Player.tscn" type="PackedScene" id=13]
-[ext_resource path="res://src/core/Dungeon.gd" type="Script" id=14]
+[ext_resource path="res://src/core/Dungeon.tscn" type="PackedScene" id=14]
 [ext_resource path="res://Card.tscn" type="PackedScene" id=15]
-[ext_resource path="res://src/core/MapNode.gd" type="Script" id=16]
-[ext_resource path="res://assets/images/bgs/forest.png" type="Texture" id=17]
-[ext_resource path="res://assets/images/map/player.png" type="Texture" id=18]
 [ext_resource path="res://src/map/Blacksmith.tscn" type="PackedScene" id=19]
 [ext_resource path="res://src/core/Deck.tscn" type="PackedScene" id=21]
 
-[sub_resource type="Animation" id=1]
-resource_name = "animate"
-length = 1.2
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.4, 0.5 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 1, 2, 1, 0 ]
-}
+[sub_resource type="StyleBoxEmpty" id=1]
 
 [sub_resource type="StyleBoxEmpty" id=2]
 
@@ -46,9 +28,7 @@ tracks/0/keys = {
 
 [sub_resource type="StyleBoxEmpty" id=5]
 
-[sub_resource type="StyleBoxEmpty" id=6]
-
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=6]
 length = 1.2
 loop = true
 tracks/0/type = "value"
@@ -64,7 +44,7 @@ tracks/0/keys = {
 "values": [ Color( 0.145098, 0.145098, 0.133333, 0 ), Color( 0.145098, 0.145098, 0.133333, 1 ), Color( 0.145098, 0.145098, 0.133333, 0 ) ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=7]
 length = 1.2
 loop = true
 tracks/0/type = "value"
@@ -80,6 +60,8 @@ tracks/0/keys = {
 "values": [ Color( 0.145098, 0.145098, 0.133333, 0 ), Color( 0, 0, 0, 1 ), Color( 0.145098, 0.145098, 0.133333, 0 ) ]
 }
 
+[sub_resource type="StyleBoxEmpty" id=8]
+
 [sub_resource type="StyleBoxEmpty" id=9]
 
 [sub_resource type="StyleBoxEmpty" id=10]
@@ -88,9 +70,7 @@ tracks/0/keys = {
 
 [sub_resource type="StyleBoxEmpty" id=12]
 
-[sub_resource type="StyleBoxEmpty" id=13]
-
-[sub_resource type="Animation" id=14]
+[sub_resource type="Animation" id=13]
 length = 1.4
 loop = true
 tracks/0/type = "value"
@@ -106,9 +86,9 @@ tracks/0/keys = {
 "values": [ Color( 0.145098, 0.145098, 0.133333, 0 ), Color( 0.145098, 0.145098, 0.133333, 1 ), Color( 0.145098, 0.145098, 0.133333, 0 ) ]
 }
 
-[sub_resource type="StyleBoxEmpty" id=15]
+[sub_resource type="StyleBoxEmpty" id=14]
 
-[sub_resource type="Animation" id=16]
+[sub_resource type="Animation" id=15]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:color")
@@ -135,7 +115,7 @@ tracks/1/keys = {
 "values": [ 2 ]
 }
 
-[sub_resource type="Animation" id=17]
+[sub_resource type="Animation" id=16]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:color")
@@ -171,103 +151,7 @@ skip_intro = true
 [node name="Battle" parent="." instance=ExtResource( 1 )]
 visible = false
 
-[node name="Dungeon" type="Node2D" parent="."]
-script = ExtResource( 14 )
-
-[node name="ColorRect" type="ColorRect" parent="Dungeon"]
-margin_right = 108.0
-margin_bottom = 192.0
-color = Color( 0, 0, 0, 1 )
-__meta__ = {
-"_edit_lock_": true,
-"_edit_use_anchors_": false
-}
-
-[node name="ColorRect" type="ColorRect" parent="Dungeon/ColorRect"]
-margin_right = 108.0
-margin_bottom = 52.0
-color = Color( 0.145098, 0.145098, 0.133333, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="DungeonBG" type="Sprite" parent="Dungeon/ColorRect"]
-position = Vector2( 54, 29 )
-texture = ExtResource( 17 )
-vframes = 7
-frame = 6
-
-[node name="TopBanner" type="ColorRect" parent="Dungeon/ColorRect"]
-anchor_right = 1.0
-margin_bottom = 9.0
-color = Color( 0.145098, 0.145098, 0.133333, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="FloorNum" type="Label" parent="Dungeon/ColorRect/TopBanner"]
-anchor_right = 1.0
-margin_left = -1.0
-margin_top = -3.0
-margin_right = -1.0
-margin_bottom = 11.0
-text = "Dark Forest Lv. 3"
-autowrap = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Map" type="Node2D" parent="Dungeon/ColorRect"]
-position = Vector2( 9, 61 )
-script = ExtResource( 16 )
-
-[node name="Branches" type="Node2D" parent="Dungeon/ColorRect/Map"]
-
-[node name="Squares" type="Node2D" parent="Dungeon/ColorRect/Map"]
-
-[node name="Tooltip" type="Panel" parent="Dungeon/ColorRect"]
-visible = false
-anchor_right = 0.611
-anchor_bottom = 0.068
-margin_right = -26.988
-margin_bottom = -2.056
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="Dungeon/ColorRect/Tooltip"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = -2.0
-margin_right = 1.0
-margin_bottom = 1.0
-text = "Treasure"
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Avatar" type="Sprite" parent="Dungeon/ColorRect"]
-position = Vector2( 1, 53 )
-texture = ExtResource( 18 )
-centered = false
-hframes = 3
-frame = 1
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Dungeon/ColorRect/Avatar"]
-autoplay = "animate"
-anims/animate = SubResource( 1 )
-
-[node name="Button" type="Button" parent="Dungeon"]
-visible = false
-margin_left = 34.0
-margin_top = 125.0
-margin_right = 70.0
-margin_bottom = 135.0
-text = "Generate"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="Dungeon" parent="." instance=ExtResource( 14 )]
 
 [node name="Title" type="Node2D" parent="."]
 visible = false
@@ -309,17 +193,17 @@ __meta__ = {
 [node name="StartGame" type="Button" parent="Title/ColorRect"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_styles/hover = SubResource( 2 )
-custom_styles/pressed = SubResource( 3 )
-custom_styles/focus = SubResource( 4 )
-custom_styles/disabled = SubResource( 5 )
-custom_styles/normal = SubResource( 6 )
+custom_styles/hover = SubResource( 1 )
+custom_styles/pressed = SubResource( 2 )
+custom_styles/focus = SubResource( 3 )
+custom_styles/disabled = SubResource( 4 )
+custom_styles/normal = SubResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Title"]
-anims/FlashTap = SubResource( 7 )
+anims/FlashTap = SubResource( 6 )
 
 [node name="DemoScreen" type="ColorRect" parent="."]
 visible = false
@@ -424,7 +308,7 @@ __meta__ = {
 
 [node name="AnimationPlayer2" type="AnimationPlayer" parent="DemoScreen/TapToStart2"]
 autoplay = "FlashTap"
-anims/FlashTap = SubResource( 8 )
+anims/FlashTap = SubResource( 7 )
 
 [node name="ColorRect" type="ColorRect" parent="DemoScreen/TapToStart2"]
 modulate = Color( 0, 0, 0, 1 )
@@ -440,11 +324,11 @@ __meta__ = {
 [node name="DemoStart" type="Button" parent="DemoScreen"]
 margin_right = 109.0
 margin_bottom = 192.0
-custom_styles/hover = SubResource( 9 )
-custom_styles/pressed = SubResource( 10 )
-custom_styles/focus = SubResource( 11 )
-custom_styles/disabled = SubResource( 12 )
-custom_styles/normal = SubResource( 13 )
+custom_styles/hover = SubResource( 8 )
+custom_styles/pressed = SubResource( 9 )
+custom_styles/focus = SubResource( 10 )
+custom_styles/disabled = SubResource( 11 )
+custom_styles/normal = SubResource( 12 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -573,7 +457,7 @@ __meta__ = {
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CharSelect/ColorRect/Banner/Choose/ColorRect"]
 autoplay = "Blink"
-anims/Blink = SubResource( 14 )
+anims/Blink = SubResource( 13 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CharSelect/ColorRect"]
 anchor_right = 0.666667
@@ -768,7 +652,7 @@ margin_left = 70.0
 margin_top = -2.0
 margin_right = 94.0
 margin_bottom = 22.0
-custom_styles/focus = SubResource( 15 )
+custom_styles/focus = SubResource( 14 )
 pressed = true
 align = 2
 __meta__ = {
@@ -852,22 +736,13 @@ __meta__ = {
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Fade"]
-anims/FadeIn = SubResource( 16 )
-anims/FadeOut = SubResource( 17 )
+anims/FadeIn = SubResource( 15 )
+anims/FadeOut = SubResource( 16 )
 [connection signal="advance" from="Dungeon" to="." method="_on_Dungeon_advance"]
 [connection signal="blacksmith" from="Dungeon" to="." method="_on_Dungeon_blacksmith"]
 [connection signal="heal" from="Dungeon" to="." method="_on_Dungeon_heal"]
 [connection signal="start_battle" from="Dungeon" to="." method="_on_Dungeon_start_battle"]
 [connection signal="start_loot" from="Dungeon" to="." method="_on_Dungeon_start_loot"]
-[connection signal="advance" from="Dungeon/ColorRect/Map" to="Dungeon" method="_on_Map_advance"]
-[connection signal="blacksmith" from="Dungeon/ColorRect/Map" to="Dungeon" method="_on_Map_blacksmith"]
-[connection signal="heal" from="Dungeon/ColorRect/Map" to="Dungeon" method="_on_Map_heal"]
-[connection signal="hide_tooltip" from="Dungeon/ColorRect/Map" to="Dungeon" method="_on_Map_hide_tooltip"]
-[connection signal="move_to_square" from="Dungeon/ColorRect/Map" to="Dungeon" method="_on_Map_move_to_square"]
-[connection signal="show_tooltip" from="Dungeon/ColorRect/Map" to="Dungeon" method="_on_Map_show_tooltip"]
-[connection signal="start_battle" from="Dungeon/ColorRect/Map" to="Dungeon" method="_on_Map_start_battle"]
-[connection signal="start_loot" from="Dungeon/ColorRect/Map" to="Dungeon" method="_on_Map_start_loot"]
-[connection signal="pressed" from="Dungeon/Button" to="Dungeon/ColorRect/Map" method="_on_Button_pressed"]
 [connection signal="button_up" from="Title/ColorRect/StartGame" to="." method="_on_StartGame_button_up"]
 [connection signal="button_up" from="DemoScreen/DemoStart" to="." method="_on_DemoStart_button_up"]
 [connection signal="button_up" from="DemoScreen/Patch" to="." method="_on_Patch_button_up"]

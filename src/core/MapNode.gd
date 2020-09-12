@@ -1,15 +1,15 @@
 extends Node2D
 
-var node_sprite = load("res://assets/images/map/clear.png")
-var enemy_sprite = load("res://assets/images/map/enemy.png")
-var chest_sprite = load("res://assets/images/map/chest.png")
-var heal_sprite = load("res://assets/images/map/heal.png")
-var shop_sprite = load("res://assets/images/map/shop.png")
-var anvil_sprite = load("res://assets/images/map/anvil.png")
-var shrine_sprite = load("res://assets/images/map/shrine.png")
-var branch_sprite = load("res://assets/images/map/connector.png")
-var up_sprite = load("res://assets/images/map/stairs_up.png")
-var down_sprite = load("res://assets/images/map/stairs_down.png")
+var node_sprite = preload("res://assets/images/map/clear.png")
+var enemy_sprite = preload("res://assets/images/map/enemy.png")
+var chest_sprite = preload("res://assets/images/map/chest.png")
+var heal_sprite = preload("res://assets/images/map/heal.png")
+var shop_sprite = preload("res://assets/images/map/shop.png")
+var anvil_sprite = preload("res://assets/images/map/anvil.png")
+var shrine_sprite = preload("res://assets/images/map/shrine.png")
+var branch_sprite = preload("res://assets/images/map/connector.png")
+var up_sprite = preload("res://assets/images/map/stairs_up.png")
+var down_sprite = preload("res://assets/images/map/stairs_down.png")
 
 signal advance
 signal move_to_square
@@ -24,10 +24,13 @@ signal hide_tooltip
 onready var branches = $Branches
 onready var squares = $Squares
 
-var dungeon_generation: = preload("res://src/map/dungeon_generation.gd").new()
+var generator: = preload("res://src/map/dungeon_generation.gd").new()
 var _Square = preload("res://src/map/Square.tscn")
+var astar: AStar2D
 
 var DIST = 18
+var max_x = 6
+var max_y = 4
 
 var dungeon = {}
 var chest_max: = 3
@@ -37,11 +40,17 @@ var shop_max: = 2
 var anvil_max: = 1
 var shrine_max: = 1
 
-func initialize():
+var parent: Dungeon
+
+func initialize(dun: Dungeon) -> Square:
+	parent = dun
 	generate_dungeon()
-	load_map()
+	var origin = load_map()
+	connect_squares()
+	return origin
 
 func generate_dungeon() -> void:
+	astar = AStar2D.new()
 	chest_max = randi() % 2 + 1
 	heal_max = randi() % 3 + 1
 	enemy_max = randi() % 2 + 2
@@ -51,9 +60,9 @@ func generate_dungeon() -> void:
 	var room_max = min(chest_max + heal_max + enemy_max + \
 		shop_max + anvil_max + shrine_max + 6, 24)
 	var room_min = room_max - 3
-	dungeon = dungeon_generation.generate(rand_range(-100, 100), [room_min, room_max])	
+	dungeon = generator.generate(rand_range(-100, 100), [room_min, room_max])
 
-func load_map():
+func load_map() -> Square:
 	var map = []
 	var chests = chest_max
 	var heals = heal_max
@@ -61,6 +70,8 @@ func load_map():
 	var shops = shop_max
 	var anvils = anvil_max
 	var shrines = shrine_max
+	
+	var origin: Square
 
 	for i in range(0, squares.get_child_count()):
 		squares.get_child(i).queue_free()
@@ -73,13 +84,14 @@ func load_map():
 	map.sort_custom(ActionSorter, "sort_vectors")
 	var down_pos = map.back()[1]
 	
-	print(down_pos)
 	map.sort_custom(ActionSorter, "sort_ascending")
 	
 	for i in map:
-		var square = _Square.instance() as Square
+		var square = dungeon.get(i[1])
+		
 		if i[1] == Vector2.ZERO:
 			square.initialize(self, "Clear", node_sprite)
+			origin = square
 		else:
 			if i[1] == down_pos:
 				square.initialize(self, "Down", down_sprite)
@@ -122,6 +134,9 @@ func load_map():
 					square.initialize(self, "Clear", node_sprite)
 		squares.add_child(square)
 		square.rect_position = i[1] * DIST - Vector2(5, 5)
+		astar.add_point(square.get_index(), square.rect_position)
+		if square.type == "Battle":
+			astar.set_point_disabled(square.get_index())
 		var c_squares = dungeon.get(i[1]).connected_squares
 		if(c_squares.get(Vector2(1, 0)) != null):
 			var branch = Sprite.new()
@@ -134,15 +149,30 @@ func load_map():
 			branches.add_child(branch)
 			branch.rotation_degrees = 90
 			branch.position = i[1] * DIST + Vector2(-0.5, 10)
+	return origin
+
+func connect_squares() -> void:
+	for i in dungeon:
+		var square = dungeon.get(i) as Square
+		var conn = square.connected_squares
+		for c in conn:
+			var sq = conn.get(c)
+			if sq != null:
+				astar.connect_points(square.get_index(), sq.get_index())
+
+func get_pos(index: int) -> Vector2:
+	print(astar.get_point_position(index))
+	return astar.get_point_position(index)
 
 func square_clicked(button: Square) -> void:
-	print("Signal received: ", button.type)
 	emit_signal("move_to_square", button)
+	yield(parent, "done_pathing")
 	if button.type == "Down":
 		print("going down")
 		generate_dungeon()
 		emit_signal("advance")
 	if button.type == "Battle":
+		astar.set_point_disabled(button.get_index(), false)
 		emit_signal("start_battle")
 	elif button.type == "Chest":
 		emit_signal("start_loot")
@@ -150,6 +180,8 @@ func square_clicked(button: Square) -> void:
 		emit_signal("heal")
 	elif button.type == "Anvil":
 		emit_signal("blacksmith")
+	if !button.cleared and button.type != "Anvil":
+		button.clear()
 
 func show_tooltip(button: Square) -> void:
 	emit_signal("show_tooltip", button)

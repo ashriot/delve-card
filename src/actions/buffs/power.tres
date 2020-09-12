@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource( 1 )
-name = "Might"
-description = "Weapon damage increased by X."
+name = "Power"
+description = "Damage increased by X."
 fades_per_turn = true
-frame_id = 1
+frame_id = 121

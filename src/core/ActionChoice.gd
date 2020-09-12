@@ -57,11 +57,15 @@ func update_data() -> void:
 		$Button/MP.show()
 	
 	var hit_text = "" if hits < 2 else ("x" + str(hits))
-	var type = "HP" if action.healing else "dmg"
+	var type = ""
+	if action.action_type == Action.ActionType.PERMANENT:
+		type = " max"
+	if action.damage_type == Action.DamageType.HP:
+		type += "HP" if action.healing else "dmg"
 	if action.damage_type == Action.DamageType.AC:
 		type = "AC"
 	elif action.damage_type == Action.DamageType.MP:
-		type = "MP"
+		type += "MP"
 	elif action.damage_type == Action.DamageType.AP:
 		type = "ST"
 	var prepend = "+" if action.healing else ""

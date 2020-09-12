@@ -4,21 +4,22 @@
 
 [resource]
 script = ExtResource( 1 )
-name = "3 Lifeberries"
-description = "Increases your maximum HP by 3."
-rarity = 1
+name = "5 Lifeberries"
+description = "Increases your maximum HP by 5."
+rarity = 2
 upgraded = false
 action_type = 4
 target_type = 0
 cost_type = 3
 cost = 0
-healing = false
+healing = true
 damage_type = 0
-damage = 3
+damage = 5
 hits = 0
 crit_chance = 0.0
 drawX = 0
 draw_type = 7
 drop = false
+fade = false
 consume = false
-frame_id = 0
+frame_id = 62

@@ -7,7 +7,7 @@ enum ActionType {
 	CRYSTAL,
 	SKILL,
 	PERMANENT,
-	CURSE,
+	INJURY,
 	ITEM,
 	ANY
 }
@@ -41,6 +41,7 @@ export var crit_chance: = 0.0
 export var drawX: = 0
 export(ActionType) var draw_type: = ActionType.ANY
 export var drop: = false
+export var fade: = false
 export var consume: = false
 export var frame_id: = 0
 export var fx: PackedScene
@@ -59,6 +60,8 @@ func get_description() -> Array:
 		text += " " + str(crit_chance* 100) + "% Crit chance."
 	if drop:
 		text += " Drop."
+	if fade:
+		text += " Fade."
 	if consume:
 		text += " Consume."
 	var type = (ActionType.keys()	[action_type] as String).capitalize()

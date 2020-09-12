@@ -32,7 +32,8 @@ var damage: int
 var hits: int
 
 var added_damage: = 0 setget set_added_damage
-var damage_multiplier: = 0.0 setget set_damage_multiplier
+var weapon_multiplier: = 0.0 setget set_weapon_multiplier
+var spell_multiplier: = 0.0 setget set_spell_multiplier
 
 var hovering: = false
 var initialized: = false
@@ -72,7 +73,10 @@ func gain() -> void:
 func discard() -> void:
 	played = true
 	AudioController.play_sfx("draw")
-	animationPlayer.play("Discard")
+	if action.fade:
+		animationPlayer.play("Drop")
+	else:
+		animationPlayer.play("Discard")
 	yield(animationPlayer, "animation_finished")
 	emit_signal("discarded", self)
 
@@ -99,10 +103,16 @@ func update_data() -> void:
 	var drown = "+"
 	if action.name != "Drown":
 		drown = ""
-	var text = "[right]" + prepend + \
-		str((damage + added_damage + player.added_damage) * \
-		(1 + damage_multiplier + player.damage_multiplier)) \
-		+ drown + hit_text + type
+	var damage = action.damage
+	var multiplier = 1
+	if action.action_type == Action.ActionType.WEAPON:
+		multiplier += weapon_multiplier + player.weapon_multiplier
+	if action.action_type == Action.ActionType.SPELL:
+		multiplier += spell_multiplier + player.spell_multiplier
+	if action.target_type == Action.TargetType.OPPONENT:
+		damage = ((damage + added_damage + player.added_damage) * \
+			(multiplier - enemy.damage_reduction)) as int
+	var text = "[right]" + prepend + str(damage) + drown + hit_text + type
 	if action.damage == 0:
 		text = ""
 	if action.name == "Brilliant Crystal":
@@ -111,6 +121,8 @@ func update_data() -> void:
 	$Button/Damage.bbcode_text = text
 
 func playable() -> bool:
+	if action.action_type == Action.ActionType.INJURY:
+		return false
 	if ap_cost > player.ap:
 		return false
 	if mp_cost > player.mp:
@@ -120,6 +132,8 @@ func playable() -> bool:
 	return true
 
 func get_error() -> String:
+	if action.action_type == Action.ActionType.INJURY:
+		return "Cannot use!"
 	if ap_cost > player.ap:
 		return "Not Enough ST!"
 	if mp_cost > player.mp:
@@ -135,7 +149,7 @@ func play() -> void:
 		return
 	played = true
 	emit_signal("button_pressed", self)
-	if action.drop or action.consume:
+	if action.drop or action.fade or action.consume:
 		animationPlayer.play("Drop")
 	else:
 		animationPlayer.play("Use")
@@ -144,6 +158,7 @@ func play() -> void:
 	player.hp -= hp_cost
 	execute()
 	yield(self, "execute_finished")
+	get_tree().call_group("action_button", "update_data")
 	emit_signal("action_finished", self)
 
 func display_error() -> void:
@@ -157,9 +172,15 @@ func execute() -> void:
 		for hit in action.hits:
 			create_effect(enemy.global_position, "hit")
 			yield(self, "inflict_hit")
-			var crit = randf() < action.crit_chance
+			var roll = randf()
+			var crit_mod = 0
+			if player.has_buff("Aim"):
+				print("Aiming")
+				crit_mod = 0.5
+				player.reduce_buff("Aim")
+			var crit = roll < crit_mod + action.crit_chance
 			var damage = (action.damage + added_damage + player.added_damage) * \
-				(1 + damage_multiplier + player.damage_multiplier)
+				(1 + weapon_multiplier + player.weapon_multiplier)
 			if action.name == "Drown":
 				damage += clamp(player.mp, 0, 20)
 			damage *= (2 if crit else 1)
@@ -185,6 +206,7 @@ func execute() -> void:
 		else:
 			emit_signal("unblock", false)
 		if action.extra_action != null:
+			print("extra effect!")
 			action.extra_action.execute(player)
 		if action.damage > 0:
 			if action.damage_type == Action.DamageType.HP:
@@ -203,7 +225,6 @@ func execute() -> void:
 				AudioController.play_sfx("mp_gain")
 				player.take_healing(damage, "MP")
 		yield(self, "anim_finished")
-	get_tree().call_group("action_button", "update_data")
 	emit_signal("execute_finished")
 
 func inflict_hit() -> void:
@@ -231,15 +252,19 @@ func create_effect(position: Vector2, type: String) -> void:
 		emit_signal("anim_finished")
 
 func weapons_played(amt: int) -> void:
-	if action.name == "Shiv":
+	if action.name == "Sneak Attack":
 		self.added_damage = amt * action.damage
 
 func set_added_damage(value: int) -> void:
 	added_damage = value
 	update_data()
 	
-func set_damage_multiplier(value: float) -> void:
-	damage_multiplier = value
+func set_weapon_multiplier(value: float) -> void:
+	weapon_multiplier = value
+	update_data()
+
+func set_spell_multiplier(value: float) -> void:
+	spell_multiplier = value
 	update_data()
 
 func _on_Button_up() -> void:

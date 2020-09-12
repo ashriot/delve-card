@@ -37,6 +37,10 @@ func initialize(_action_button, have: int) -> void:
 		$Drop.show()
 	else:
 		$Drop.hide()
+	if action.fade:
+		$Fade.show()
+	else:
+		$Fade.hide()
 	if action.consume:
 		$Consume.show()
 	else:

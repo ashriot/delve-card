@@ -3,13 +3,10 @@
 [ext_resource path="res://src/actions/res/action.gd" type="Script" id=1]
 [ext_resource path="res://src/actions/thief/add/lifesteal.gd" type="Script" id=2]
 
-
-
-
 [resource]
 script = ExtResource( 1 )
 name = "Trollblood Oil"
-description = "Your next weapon has Lifesteal."
+description = "Your next weapon attack has Lifesteal."
 rarity = 1
 upgraded = false
 action_type = 3
@@ -24,6 +21,7 @@ crit_chance = 0.0
 drawX = 0
 draw_type = 7
 drop = false
+fade = false
 consume = false
 frame_id = 0
 extra_action = ExtResource( 2 )

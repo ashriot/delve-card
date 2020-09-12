@@ -242,8 +242,12 @@ func discard_hand() -> void:
 					child.discard()
 					yield(child, "discarded")
 					remove_pos(child)
-					graveyard.add_child(child)
-					self.graveyard_count += 1
+					if child.action.fade:
+						print("fading")
+						child.queue_free()
+					else:
+						graveyard.add_child(child)
+						self.graveyard_count += 1
 	yield(get_tree().create_timer(0.2), "timeout")
 	emit_signal("done_discarding")
 
@@ -252,7 +256,9 @@ func action_finished(action_button: ActionButton) -> void:
 		weapons_played += 1
 		emit_signal("weapons_played", weapons_played)
 	limbo.remove_child(action_button)
-	if !action_button.action.drop and !action_button.action.consume:
+	if !action_button.action.drop\
+	and !action_button.action.fade\
+	and !action_button.action.consume:
 		graveyard.add_child(action_button)
 		self.graveyard_count += 1
 	else:

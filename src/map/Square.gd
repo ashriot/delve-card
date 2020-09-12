@@ -19,7 +19,6 @@ var connected_squares = {
 }
 
 var connections: = 0
-
 func initialize(map, _type: String, texture: Texture) -> void:
 	cleared = false
 	type = _type
@@ -46,10 +45,8 @@ func _on_Square_button_up():
 		hovering = false
 		return
 	if type != "Down":
-		AudioController.click()
+		AudioController.steps()
 	emit_signal("clicked")
-	if !cleared and type != "Anvil":
-		clear()
 
 func _on_Timer_timeout():
 	timer.stop()

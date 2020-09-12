@@ -7,4 +7,4 @@ script = ExtResource( 1 )
 name = "Lifesteal"
 description = "Gain HP equal to the damage of your next attack."
 fades_per_turn = false
-frame_id = 128
+frame_id = 124
