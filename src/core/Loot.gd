@@ -35,7 +35,7 @@ func initialize(game) -> void:
 		child.connect("chosen", self, "choose")
 		choices.add_child(child)
 
-func setup(progress: int, gold_amt: int) -> void:
+func setup(progress: int, gold_amt: int, qty: int) -> void:
 	chosen_action = null
 	if gold_amt == 0:
 		gold.hide()
@@ -45,10 +45,12 @@ func setup(progress: int, gold_amt: int) -> void:
 		player.gold += gold_amt
 		emit_signal("refresh_player")
 	finished.text = "Skip Reward"
-	var actions = new_picker(progress)
+	var actions = new_picker(progress, qty)
 	actions.shuffle()
 	for child in choices.get_children():
-		if actions.front() == "":
+		if child.get_index() >= qty:
+			child.hide()
+		elif actions.front() == "":
 			child.hide()
 		else:
 			child.show()
@@ -71,7 +73,7 @@ func choose(choice: ActionChoice) -> void:
 		else:
 			child.chosen = false
 	
-func new_picker(progress: int) -> Array:
+func new_picker(progress: int, qty: int) -> Array:
 	var level = (1 + progress / 2) as int
 	var loot_list = []
 	var pick1 = loot1.duplicate(true)
@@ -83,12 +85,18 @@ func new_picker(progress: int) -> Array:
 	var pick4 = loot4.duplicate(true)
 	pick4.shuffle()
 	
-	for i in range(3):
-		var common = min(level, 4)
-		var rare = min(level + 1, 4)
+	for i in range(qty):
+		var uncommon = 1.25
+		var rare = 1.75
 		var rand = randf()
-		var chance = 0.2 * i
-		var rank = rare if rand < chance else common
+		var chance = 0.15 * i
+		var roll = rand + chance + level / 5.0
+		var rank = 2
+		if roll >= rare:
+			rank = 4
+		elif roll >= uncommon:
+			rank = 3
+		
 		if rank == 4:
 			if pick4.size() > 0:
 				loot_list.append(pick4.pop_front())

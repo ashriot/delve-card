@@ -110,11 +110,6 @@ align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
-[connection signal="advance" from="ColorRect/Map" to="." method="_on_Map_advance"]
-[connection signal="blacksmith" from="ColorRect/Map" to="." method="_on_Map_blacksmith"]
-[connection signal="heal" from="ColorRect/Map" to="." method="_on_Map_heal"]
 [connection signal="hide_tooltip" from="ColorRect/Map" to="." method="_on_Map_hide_tooltip"]
 [connection signal="move_to_square" from="ColorRect/Map" to="." method="_on_Map_move_to_square"]
 [connection signal="show_tooltip" from="ColorRect/Map" to="." method="_on_Map_show_tooltip"]
-[connection signal="start_battle" from="ColorRect/Map" to="." method="_on_Map_start_battle"]
-[connection signal="start_loot" from="ColorRect/Map" to="." method="_on_Map_start_loot"]

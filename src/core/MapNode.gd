@@ -11,13 +11,7 @@ var branch_sprite = preload("res://assets/images/map/connector.png")
 var up_sprite = preload("res://assets/images/map/stairs_up.png")
 var down_sprite = preload("res://assets/images/map/stairs_down.png")
 
-signal advance
 signal move_to_square
-signal start_battle
-signal start_loot(gold)
-signal heal
-signal blacksmith
-
 signal show_tooltip(button)
 signal hide_tooltip
 
@@ -40,10 +34,8 @@ var shop_max: = 2
 var anvil_max: = 1
 var shrine_max: = 1
 
-var parent: Dungeon
-
-func initialize(dun: Dungeon) -> Square:
-	parent = dun
+func initialize() -> Square:
+	dungeon = {}
 	generate_dungeon()
 	var origin = load_map()
 	connect_squares()
@@ -62,6 +54,13 @@ func generate_dungeon() -> void:
 	var room_min = room_max - 3
 	dungeon = generator.generate(rand_range(-100, 100), [room_min, room_max])
 
+func clear_map() -> void:
+	for child in squares.get_children():
+		child.queue_free()
+	for child in branches.get_children():
+		child.queue_free()
+	
+
 func load_map() -> Square:
 	var map = []
 	var chests = chest_max
@@ -72,11 +71,6 @@ func load_map() -> Square:
 	var shrines = shrine_max
 	
 	var origin: Square
-
-	for i in range(0, squares.get_child_count()):
-		squares.get_child(i).queue_free()
-	for i in range(0, branches.get_child_count()):
-		branches.get_child(i).queue_free()
 	
 	for k in dungeon.keys():
 		map.append([dungeon[k].connections, k])
@@ -161,27 +155,12 @@ func connect_squares() -> void:
 				astar.connect_points(square.get_index(), sq.get_index())
 
 func get_pos(index: int) -> Vector2:
-	print(astar.get_point_position(index))
 	return astar.get_point_position(index)
 
 func square_clicked(button: Square) -> void:
-	emit_signal("move_to_square", button)
-	yield(parent, "done_pathing")
-	if button.type == "Down":
-		print("going down")
-		generate_dungeon()
-		emit_signal("advance")
 	if button.type == "Battle":
 		astar.set_point_disabled(button.get_index(), false)
-		emit_signal("start_battle")
-	elif button.type == "Chest":
-		emit_signal("start_loot")
-	elif button.type == "Rest":
-		emit_signal("heal")
-	elif button.type == "Anvil":
-		emit_signal("blacksmith")
-	if !button.cleared and button.type != "Anvil":
-		button.clear()
+	emit_signal("move_to_square", button)
 
 func show_tooltip(button: Square) -> void:
 	emit_signal("show_tooltip", button)

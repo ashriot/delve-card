@@ -28,6 +28,10 @@ func destroy_card() -> void:
 	destroy_cost += destroy_increase
 	destroy_label.text = str(destroy_cost)
 
+func show() -> void:
+	AudioController.click()
+	.show()
+
 func _on_Upgrade_button_up():
 	AudioController.click()
 	upgrading = true

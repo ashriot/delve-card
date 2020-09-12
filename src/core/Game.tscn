@@ -145,8 +145,6 @@ tracks/1/keys = {
 [node name="Game" type="Node"]
 script = ExtResource( 3 )
 player = ExtResource( 4 )
-mute = true
-skip_intro = true
 
 [node name="Battle" parent="." instance=ExtResource( 1 )]
 visible = false
@@ -396,15 +394,17 @@ margin_top = -1.0
 margin_right = 2.0
 margin_bottom = -1.0
 custom_constants/line_spacing = 2
-text = "New Dungeon Exploration.
+text = "*New Dungeon Exploration with pathing!
 
-* Currently, you can explore any tile you wish, but in the future, you must move along the path.
+* Added a Blacksmith! He can currently destroy unwanted actions for a fee.
 
-Added a Blacksmith! He can currently destroy unwanted actions for a cost...
+* Added a Deck Viewer. Click on your deck to see the current Actions you have.
 
-Added healing points outside of combat.
+Changed loot algorithm.
 
-Added a Deck Viewer. Click on your deck to see the current Actions you have."
+Added new Sorc actions.
+
+Added new Fighter actions."
 autowrap = true
 __meta__ = {
 "_edit_use_anchors_": false

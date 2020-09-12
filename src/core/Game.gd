@@ -92,22 +92,22 @@ func start_battle(scene_to_hide: Node2D, enemy: Actor) -> void:
 		game_over()
 		return
 	AudioController.play_bgm("victory")
-	start_loot(enemy.gold)
+	start_loot(enemy.gold, 3)
 	yield(self, "looting_finished")
 	scene_to_hide.show()
 	AudioController.play_bgm("dungeon")
 	fade.play("FadeIn")
 	emit_signal("battle_finished")
 
-func start_loot(gold) -> void:
-	loot.setup(dungeon.progress, gold)
+func start_loot(gold: int, qty: int) -> void:
+	loot.setup(dungeon.progress, gold, qty)
 	playerUI.show()
 	loot.show()
 	fade.play("FadeIn")
 	yield(loot, "looting_finished")
-	playerUI.refresh()
 	fade.play("FadeOut")
 	yield(fade, "animation_finished")
+	playerUI.refresh()
 	loot.hide()
 	emit_signal("looting_finished")
 
@@ -216,7 +216,9 @@ func _on_Dungeon_start_battle(enemy: Actor) -> void:
 	yield(self, "battle_finished")
 
 func _on_Dungeon_start_loot(gold):
-	start_loot(gold)
+	fade.play("FadeOut")
+	yield(fade, "animation_finished")
+	start_loot(gold, 1)
 	yield(self, "looting_finished")
 	fade.play("FadeIn")
 
@@ -229,19 +231,14 @@ func _on_Dungeon_heal():
 
 func _on_Dungeon_advance():
 	fade.play("FadeOut")
-	AudioController.play_sfx("footsteps")
 	yield(fade, "animation_finished")
 	if dungeon.progress == 5:
 		$EndGame/Label.text = "Thank you for playing!"
 		end_game.show()
 	else:
 		dungeon.reset_avatar()
-	yield(get_tree().create_timer(0.5), "timeout")
+	yield(get_tree().create_timer(0.25), "timeout")
 	fade.play("FadeIn")
 
 func _on_Dungeon_blacksmith():
-#	fade.play("FadeOut")
-	AudioController.play_sfx("footsteps")
-#	yield(fade, "animation_finished")
 	blacksmith.show()
-#	fade.play("FadeIn")

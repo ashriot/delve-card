@@ -23,10 +23,7 @@ var progress: = 0 setget set_progress
 func initialize() -> void:
 	tooltip.hide()
 	self.progress = 1
-	current_square = map.initialize(self)
-
-func advance() -> void:
-	self.progress += 1
+	current_square = map.initialize()
 
 func reset() -> void:
 	self.progress = 0
@@ -39,11 +36,18 @@ func set_progress(value: int) -> void:
 func reset_avatar() -> void:
 	self.progress += 1
 	avatar.global_position = map.position - Vector2(8, 8)
-	current_square = map.load_map()
+	map.clear_map()
+	yield(get_tree().create_timer(0.2), "timeout")
+	current_square = map.initialize()
 
-func path(sq) -> void:
-	var path = map.astar.get_id_path(current_square.get_index(), \
-	sq.get_index()) as PoolIntArray
+func path(sq: Square) -> bool:
+	var from = current_square.get_index()
+	var to = sq.get_index()
+	var path = map.astar.get_id_path(from, to) as PoolIntArray
+	if path.size() < 2:
+		return false
+	current_square = sq
+	AudioController.steps()
 	for p in path:
 		avatar_tween.interpolate_property(avatar, "position",
 			avatar.position,
@@ -52,18 +56,27 @@ func path(sq) -> void:
 		avatar_tween.start()
 		yield(avatar_tween, "tween_all_completed")
 	emit_signal("done_pathing")
+	return true
 
-func _on_Map_start_battle():
-	var level = (progress) as int
-	var enemy = load("res://src/enemies/devil" + str(level) + ".tres")
-	emit_signal("start_battle", enemy)
-
-func _on_Map_start_loot():
-	print("Dungeon received loot signal")
-	emit_signal("start_loot", 0)
-
-func _on_Map_heal():
-	emit_signal("heal")
+func _on_Map_move_to_square(square: Square):
+	if not path(square):
+		return
+	yield(self, "done_pathing")
+	if square.type == "Down":
+		emit_signal("advance")
+	if square.type == "Battle":
+		var level = (progress) as int
+		var enemy = load("res://src/enemies/devil" + str(level) + ".tres")
+		emit_signal("start_battle", enemy)
+	elif square.type == "Chest":
+		print("Dungeon received loot signal")
+		emit_signal("start_loot", 0)
+	elif square.type == "Rest":
+		emit_signal("heal")
+	elif square.type == "Anvil":
+		emit_signal("blacksmith")
+	if !square.cleared and square.type != "Anvil":
+		square.clear()
 
 func _on_Map_show_tooltip(button):
 	tooltext.text = button.type.capitalize()
@@ -74,14 +87,3 @@ func _on_Map_show_tooltip(button):
 
 func _on_Map_hide_tooltip():
 	tooltip.hide()
-
-func _on_Map_move_to_square(square: Square):
-	path(square)
-	yield(self, "done_pathing")
-	current_square = square
-
-func _on_Map_advance():
-	emit_signal("advance")
-
-func _on_Map_blacksmith():
-	emit_signal("blacksmith")

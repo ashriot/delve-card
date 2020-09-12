@@ -44,8 +44,6 @@ func _on_Square_button_up():
 		emit_signal("hide_tooltip")
 		hovering = false
 		return
-	if type != "Down":
-		AudioController.steps()
 	emit_signal("clicked")
 
 func _on_Timer_timeout():
