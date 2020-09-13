@@ -14,6 +14,7 @@ onready var ap = $Player/Panel/AP/Current
 onready var deck_label = $DeckButton/Label
 onready var job_title = $JobTitle
 onready var gold_label = $Gold/Label
+onready var item_belt = $ItemAnchor/ItemBelt
 
 var player: Actor
 
@@ -25,6 +26,7 @@ func initialize(game) -> void:
 	job_title.text = player.name
 	portrait.frame = player.portrait_id
 	player.hp = player.max_hp
+	item_belt.init_ui(self)
 	refresh()
 
 func refresh() -> void:

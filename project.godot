@@ -119,10 +119,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/potions/PotionButton.gd"
 }, {
-"base": "ColorRect",
-"class": "PotionCard",
+"base": "Control",
+"class": "PotionViewer",
 "language": "GDScript",
-"path": "res://src/potions/PotionCard.gd"
+"path": "res://src/potions/PotionViewer.gd"
 }, {
 "base": "TextureButton",
 "class": "Square",
@@ -152,7 +152,7 @@ _global_script_class_icons={
 "Player": "",
 "PlayerUI": "",
 "PotionButton": "",
-"PotionCard": "",
+"PotionViewer": "",
 "Square": ""
 }
 

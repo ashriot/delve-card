@@ -29,7 +29,6 @@ func initialize(_player: Actor) -> void:
 
 func start(_enemy: Actor) -> void:
 	game_over = false
-	actions.reset_deck()
 	playerUI.reset()
 	actions.reset()
 	enemy = _enemy

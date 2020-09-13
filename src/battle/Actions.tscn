@@ -15,9 +15,9 @@ position = Vector2( 108, 0 )
 
 [node name="EndTurn" type="Button" parent="."]
 margin_left = 71.0
-margin_top = 174.0
+margin_top = 175.0
 margin_right = 108.0
-margin_bottom = 191.0
+margin_bottom = 192.0
 text = "End Turn"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -39,12 +39,6 @@ position = Vector2( 0, 48 )
 
 [node name="Pos5" type="Position2D" parent="Hand"]
 position = Vector2( 0, 64 )
-
-[node name="ItemBelt" parent="." instance=ExtResource( 3 )]
-visible = false
-margin_top = 173.0
-margin_right = 70.0
-margin_bottom = 189.0
 
 [node name="DeckViewer" type="Node2D" parent="."]
 position = Vector2( -122, 0 )
@@ -113,5 +107,13 @@ __meta__ = {
 [node name="Card" parent="." instance=ExtResource( 1 )]
 visible = false
 mouse_filter = 2
+
+[node name="ItemAnchor" type="Position2D" parent="."]
+position = Vector2( 0, 176 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="ItemBelt" parent="ItemAnchor" instance=ExtResource( 3 )]
 [connection signal="button_up" from="EndTurn" to="." method="_on_EndTurn_button_up"]
 [connection signal="button_up" from="DeckViewer/InputBlock/Close" to="." method="_on_Close_button_up"]

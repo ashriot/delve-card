@@ -10,6 +10,7 @@ onready var deck: = $BG/ScrollContainer/Deck
 onready var action: = $BG/Action
 onready var cost: = $BG/Cost
 onready var banner: = $BG/ColorRect/Banner
+onready var cover: = $BG/Cover
 
 var player: Actor
 var blacksmith: Blacksmith
@@ -26,6 +27,7 @@ func initialize(game) -> void:
 	refresh(0)
 
 func refresh(amt: int) -> void:
+	resize_cover()
 	selection = amt
 	if selection > 0:
 		clickable = true
@@ -52,6 +54,17 @@ func smithing(_blacksmith: Blacksmith) -> void:
 	upgrading = blacksmith.upgrading
 	destroying = blacksmith.destroying
 	refresh(1)
+
+func resize_cover() -> void:
+	print("resizing")
+	if upgrading or destroying:
+		$BG/ScrollContainer.rect_size.y = 145
+		cover.rect_size.y = 28
+		cover.rect_position.y = 155
+	else:
+		$BG/ScrollContainer.rect_size.y = 157
+		cover.rect_size.y = 15
+		cover.rect_position.y = 168
 
 func fill_deck() -> void:
 	for child in deck.get_children():
@@ -97,6 +110,8 @@ func disable_action() -> void:
 func clear_choice() -> void:
 	for child in deck.get_children():
 		child.chosen = false
+	upgrading = false
+	destroying = false
 
 func upgrade_card() -> void:
 	pass

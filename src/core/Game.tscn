@@ -600,7 +600,6 @@ visible = false
 visible = false
 
 [node name="PlayerUI" parent="." instance=ExtResource( 13 )]
-visible = false
 
 [node name="Deck" parent="." instance=ExtResource( 21 )]
 visible = false

@@ -180,7 +180,6 @@ func execute() -> void:
 				if player.has_buff("Aim"):
 					print("Aiming")
 					crit_mod = 0.5
-					player.reduce_buff("Aim")
 				var crit = roll < crit_mod + action.crit_chance
 				if action.name == "War Axe":
 					added_damage = player.added_damage * 2
@@ -208,6 +207,8 @@ func execute() -> void:
 			yield(self, "anim_finished")
 		if player.has_buff("Lifesteal"):
 			player.reduce_buff("Lifesteal")
+		if player.has_buff("Aim"):
+			player.reduce_buff("Aim")	
 	else:
 		create_effect(player.global_position, "effect")
 		yield(self, "inflict_effect")

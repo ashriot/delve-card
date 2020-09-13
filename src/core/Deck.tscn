@@ -10,7 +10,25 @@ script = ExtResource( 2 )
 [node name="BG" parent="." index="0"]
 margin_bottom = -7.0
 
-[node name="BG2" type="ColorRect" parent="BG" index="0"]
+[node name="ColorRect" type="ColorRect" parent="BG" index="0"]
+anchor_right = 1.0
+margin_bottom = 10.0
+color = Color( 0.145098, 0.145098, 0.133333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Banner" type="Label" parent="BG/ColorRect" index="0"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -2.0
+margin_bottom = 2.0
+text = "Your Deck (20 Actions)"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Cover" type="ColorRect" parent="BG" index="1"]
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -21,7 +39,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Cost" type="Label" parent="BG" index="1"]
+[node name="Cost" type="Label" parent="BG" index="2"]
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
@@ -41,7 +59,7 @@ position = Vector2( 20, 5 )
 texture = ExtResource( 3 )
 centered = false
 
-[node name="Action" type="Button" parent="BG" index="2"]
+[node name="Action" type="Button" parent="BG" index="3"]
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_left = 2.0
@@ -53,7 +71,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Close" type="Button" parent="BG" index="3"]
+[node name="Close" type="Button" parent="BG" index="4"]
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_left = 2.0
@@ -65,11 +83,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ScrollContainer" type="ScrollContainer" parent="BG" index="4"]
+[node name="ScrollContainer" type="ScrollContainer" parent="BG" index="5"]
 margin_left = 1.0
 margin_top = 11.0
 margin_right = 107.0
-margin_bottom = 154.0
+margin_bottom = 156.0
 scroll_horizontal_enabled = false
 __meta__ = {
 "_edit_use_anchors_": false
@@ -77,23 +95,5 @@ __meta__ = {
 
 [node name="Deck" type="VBoxContainer" parent="BG/ScrollContainer" index="0"]
 custom_constants/separation = 2
-
-[node name="ColorRect" type="ColorRect" parent="BG" index="5"]
-anchor_right = 1.0
-margin_bottom = 10.0
-color = Color( 0.145098, 0.145098, 0.133333, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Banner" type="Label" parent="BG/ColorRect" index="0"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = -2.0
-margin_bottom = 2.0
-text = "Your Deck (20 Actions)"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 [connection signal="button_up" from="BG/Action" to="." method="_on_Action_button_up"]
 [connection signal="button_up" from="BG/Close" to="." method="_on_Close_button_up"]

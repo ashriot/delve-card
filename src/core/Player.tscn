@@ -14,13 +14,6 @@
 [node name="PlayerUI" type="Node2D"]
 script = ExtResource( 6 )
 
-[node name="ItemBelt" parent="." instance=ExtResource( 9 )]
-visible = false
-margin_left = 36.0
-margin_top = 147.0
-margin_right = 106.0
-margin_bottom = 163.0
-
 [node name="Trinkets" type="HBoxContainer" parent="."]
 visible = false
 margin_left = 16.0
@@ -105,6 +98,11 @@ centered = false
 vframes = 15
 hframes = 16
 frame = 14
+
+[node name="ItemAnchor" type="Position2D" parent="."]
+position = Vector2( 37, 147 )
+
+[node name="ItemBelt" parent="ItemAnchor" instance=ExtResource( 9 )]
 
 [node name="Player" type="Control" parent="."]
 margin_left = 37.0

@@ -22,7 +22,7 @@ func initialize(_action_button, have: int) -> void:
 	$Panel/AP.hide()
 	$Panel/MP.hide()
 	if potion:
-		$Panel/Sprite.frame = 74
+		$Panel/Sprite.frame = 60
 	else:
 		$Panel/Sprite.frame = action.frame_id
 	$Panel/Title.text = action.name
@@ -74,7 +74,8 @@ func initialize(_action_button, have: int) -> void:
 	initialized = true
 
 func get_pos() -> Vector2:
-	var y = max(13, get_global_mouse_position().y - $Panel.rect_size.y - 15)
+	var y = max(13, get_global_mouse_position().y - $Panel.rect_size.y - 10 \
+	- (18 if action.consume else 0))
 	if y == 13:
 		y = get_global_mouse_position().y + 15
 	var pos = Vector2(0, y)

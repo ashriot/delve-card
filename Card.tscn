@@ -40,7 +40,7 @@ tracks/0/keys = {
 [node name="Card" type="ColorRect"]
 margin_right = 108.0
 margin_bottom = 192.0
-color = Color( 0.145098, 0.145098, 0.133333, 0.784314 )
+color = Color( 0, 0, 0, 0.784314 )
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false

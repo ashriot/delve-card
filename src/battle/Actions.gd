@@ -31,7 +31,7 @@ onready var deck_tween = $DeckViewer/Tween
 onready var deck: = $DeckViewer/InputBlock/ScrollContainer/Deck
 onready var graveyard: = $Graveyard
 onready var limbo: = $Limbo
-onready var item_belt: = $ItemBelt
+onready var item_belt: = $ItemAnchor/ItemBelt
 onready var end_turn: = $EndTurn
 
 var auto_end: = false
@@ -53,12 +53,27 @@ func initialize(_player: Player, _enemyUI: Enemy) -> void:
 	player = _player
 	enemyUI = _enemyUI
 	actions = player.actor.actions
-#	setup_item_belt()
+	item_belt.initialize(self, player.actor.potions)
 	fill_deck()
 	initialized = true
 
 func reset() -> void:
-	pass
+	item_belt.invis()
+	while graveyard.get_child_count() > 0:
+		var action = graveyard.get_child(0)
+		graveyard.remove_child(action)
+		action.queue_free()
+	if hand_count > 0:
+		for i in hand.get_children():
+			if i.get_child_count() > 0:
+				var child = i.get_child(0)
+				remove_pos(child)
+				child.queue_free()
+	hand_count = 0
+	self.graveyard_count = 0
+	weapons_played = 0
+	fill_deck()
+	shuffle_deck()
 
 func shuffle_deck() -> void:
 	self.deck_count = deck.get_child_count()
@@ -93,18 +108,6 @@ func recover_graveyard() -> void:
 	emit_signal("graveyard_done")
 	shuffle_deck()
 
-func setup_item_belt() -> void:
-	item_belt.show()
-	for child in item_belt.get_children():
-		var index = child.get_index()
-		if player.actor.potions.size() <= index:
-			return
-		child.show()
-		child.initialize(player.actor.potions[index])
-		child.connect("used_potion", self, "used_potion")
-		child.connect("show_card", self, "show_card")
-		child.connect("hide_card", self, "hide_card")
-
 func fill_deck() -> void:
 	if deck_count > 0:
 		for child in deck.get_children():
@@ -116,23 +119,6 @@ func fill_deck() -> void:
 		initialize_button(action_button, action)
 		deck.add_child(action_button)
 	self.deck_count = deck.get_child_count()
-
-func reset_deck() -> void:
-	while graveyard.get_child_count() > 0:
-		var action = graveyard.get_child(0)
-		graveyard.remove_child(action)
-		action.queue_free()
-	if hand_count > 0:
-		for i in hand.get_children():
-			if i.get_child_count() > 0:
-				var child = i.get_child(0)
-				remove_pos(child)
-				child.queue_free()
-	hand_count = 0
-	self.graveyard_count = 0
-	weapons_played = 0
-	fill_deck()
-	shuffle_deck()
 
 func initialize_button(action_button: ActionButton, action: Action) -> void:
 	action_button.connect("unblock", self, "block_input")
@@ -281,8 +267,9 @@ func block_input(block: bool) -> void:
 		if hand_count == 0 && auto_end:
 			end_turn()
 
-func used_potion(potion: Action) -> void:
-	print("Using: ", potion.name)
+func used_potion(button: PotionButton) -> void:
+	item_belt.consume(button)
+	button.execute()
 
 func _on_EndTurn_button_up():
 	AudioController.click()
@@ -290,6 +277,7 @@ func _on_EndTurn_button_up():
 
 func end_turn() -> void:
 	input_blocker.show()
+	item_belt.hide()
 	end_turn.hide()
 	weapons_played = 0
 	emit_signal("weapons_played", 0)
@@ -321,6 +309,7 @@ func _on_Battle_start_turn():
 	player.start_turn()
 	fill_hand()
 	yield(self, "done_filling_hand")
+	item_belt.show()
 	get_tree().call_group("action_button", "update_data")
 	AudioController.play_sfx("player_turn")
 	block_input(false)
