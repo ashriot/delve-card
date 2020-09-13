@@ -3,6 +3,7 @@ class_name Player
 
 var FloatingText = preload("res://assets/animations/FloatingText.tscn")
 var BuffUI = preload("res://src/battle/BuffUI.tscn")
+var DebuffUI = preload("res://src/battle/DebuffUI.tscn")
 var BuffCard = preload("res://src/battle/BuffCard.tscn")
 
 signal add_to_deck(action_name, qty)
@@ -24,10 +25,11 @@ var dead: bool setget , get_dead
 
 var added_damage: = 0
 var weapon_multiplier: = 0.0
-var spell_multiplier: = 0.0
+var damage_reduction: = 0.0
 
 var actor: Actor
 var buffs: Dictionary
+var debuffs: Dictionary
 
 func initialize(_actor: Actor) ->  void:
 #	randomize()
@@ -47,7 +49,7 @@ func reset() -> void:
 	self.mp = actor.initial_mp
 	added_damage = 0
 	weapon_multiplier = 0.0
-	spell_multiplier = 0.0
+	damage_reduction = 0.0
 	buffs.clear()
 	for child in buff_bar.get_children():
 		child.queue_free()
@@ -57,6 +59,9 @@ func start_turn() -> void:
 	for child in buff_bar.get_children():
 		if child.fades_per_turn:
 			reduce_buff(child.buff_name)
+	for child in debuff_bar.get_children():
+		if child.fades_per_turn:
+			reduce_debuff(child.buff_name)
 
 func take_hit(damage: int) -> void:
 	var floating_text = FloatingText.instance()
@@ -112,6 +117,9 @@ func take_healing(amount: int, type: String) -> void:
 func add_to_deck(action_name: String, qty: int) -> void:
 	emit_signal("add_to_deck", action_name, qty)
 
+func update_data() -> void:
+	get_tree().call_group("action_button", "update_data")
+
 func gain_buff(buff: Buff, amt: int) -> void:
 	var floating_text = FloatingText.instance()
 	floating_text.display_text("+" + buff.name)
@@ -121,22 +129,46 @@ func gain_buff(buff: Buff, amt: int) -> void:
 		if b == buff.name:
 			buffs[b].stacks += amt
 			if buff.name == "Power":
-				added_damage += buffs[buff.name].stacks
-				get_tree().call_group("action_button", "update_data")
+				added_damage = buffs[buff.name].stacks
+				update_data()
 			return
 	var buffUI = BuffUI.instance()
 	buffUI.initialize(buff, amt)
 	buff_bar.add_child(buffUI)
 	buffs[buff.name] = buffUI
 	if buff.name == "Power":
-		added_damage += buffs[buff.name].stacks
-		get_tree().call_group("action_button", "update_data")
+		added_damage = buffs[buff.name].stacks
+		update_data()
 	buffUI.connect("remove_buff", self, "remove_buff")
 	buffUI.connect("show_card", self, "show_buff_card")
 	buffUI.connect("hide_card", self, "hide_buff_card")
 
 func apply_debuff(debuff: Buff, qty: int) -> void:
 	emit_signal("apply_debuff", debuff, qty)
+
+func gain_debuff(debuff: Buff, qty: int) -> void:
+	var floating_text = FloatingText.instance()
+	floating_text.display_text("+" + debuff.name)
+	floating_text.position = Vector2(54, 67)
+	get_parent().add_child(floating_text)
+	for d in debuffs.keys():
+		if d == debuff.name:
+			debuffs[d].stacks += qty
+			return
+	var debuffUI = DebuffUI.instance()
+	debuffUI.initialize(debuff, qty)
+	debuff_bar.add_child(debuffUI)
+	debuffs[debuff.name] = debuffUI
+	if debuff.name == "Burn":
+		pass
+	elif debuff.name == "Weak":
+		weapon_multiplier -= 0.25
+	elif debuff.name == "Sunder":
+		damage_reduction -= 0.25
+	debuffUI.connect("remove_buff", self, "remove_debuff")
+#	debuffUI.connect("show_card", self, "show_buff_card")
+#	debuffUI.connect("hide_card", self, "hide_buff_card")
+	update_data()
 
 func reduce_buff(buff_name: String) -> void:
 	for child in buff_bar.get_children():
@@ -154,6 +186,31 @@ func remove_buff(buff_name: String) -> void:
 
 func has_buff(buff_name: String) -> bool:
 	return buffs.has(buff_name)
+
+func has_debuff(debuff_name: String) -> bool:
+	return debuffs.has(debuff_name)
+
+func reduce_debuffs() -> void:
+	for child in debuff_bar.get_children():
+		if child.fades_per_turn:
+			reduce_debuff(child.debuff_name)
+
+func reduce_debuff(debuff_name: String) -> void:
+	for child in debuff_bar.get_children():
+		if child.buff_name == debuff_name:
+			child.stacks -= 1
+	update_data()
+
+func remove_debuff(debuff_name: String) -> void:
+	if debuff_name == "Weak":
+		weapon_multiplier += 0.25
+	elif debuff_name == "Sunder":
+		damage_reduction += 0.25
+	var child = debuffs[debuff_name]
+	debuff_bar.remove_child(child)
+	debuffs.erase(debuff_name)
+	child.queue_free()
+	update_data()
 
 func show_buff_card(buff: Buff) -> void:
 	var buff_card = BuffCard.instance()

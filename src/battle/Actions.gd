@@ -157,6 +157,7 @@ func fill_hand() -> void:
 		action.show()
 		yield(get_tree().create_timer(0.12), "timeout")
 	emit_signal("done_filling_hand")
+	
 
 func set_pos(node: Control) -> void:
 	for i in hand.get_child_count():
@@ -320,6 +321,7 @@ func _on_Battle_start_turn():
 	player.start_turn()
 	fill_hand()
 	yield(self, "done_filling_hand")
+	get_tree().call_group("action_button", "update_data")
 	AudioController.play_sfx("player_turn")
 	block_input(false)
 	end_turn.show()

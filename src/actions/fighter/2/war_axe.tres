@@ -5,8 +5,8 @@
 
 [resource]
 script = ExtResource( 1 )
-name = "Hammer"
-description = "Deal %damage damage."
+name = "War Axe"
+description = "Deal %damage damage. Gains 3x benefit from Power."
 rarity = 2
 upgraded = false
 action_type = 0
@@ -15,13 +15,13 @@ cost_type = 3
 cost = 2
 healing = false
 damage_type = 0
-damage = 7
+damage = 12
 hits = 1
-crit_chance = 0.5
+crit_chance = 0.0
 drawX = 0
 draw_type = 7
 drop = false
 fade = false
 consume = false
-frame_id = 1
+frame_id = 36
 fx = ExtResource( 2 )

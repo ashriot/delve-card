@@ -4,8 +4,8 @@
 
 [resource]
 script = ExtResource( 1 )
-name = "Muster"
-description = "Gain %damage ST."
+name = "Attack"
+description = ""
 rarity = 1
 upgraded = false
 action_type = 3
@@ -13,8 +13,8 @@ target_type = 0
 cost_type = 3
 cost = 0
 healing = true
-damage_type = 3
-damage = 2
+damage_type = 1
+damage = 5
 hits = 1
 crit_chance = 0.0
 drawX = 0
@@ -22,4 +22,4 @@ draw_type = 7
 drop = false
 fade = false
 consume = false
-frame_id = 60
+frame_id = 58

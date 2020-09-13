@@ -6,5 +6,5 @@
 script = ExtResource( 1 )
 name = "Aim"
 description = "50% chance to Crit with next attack."
-fades_per_turn = true
+fades_per_turn = false
 frame_id = 122

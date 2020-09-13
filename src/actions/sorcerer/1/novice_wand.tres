@@ -2,18 +2,18 @@
 
 [ext_resource path="res://src/actions/res/action.gd" type="Script" id=1]
 [ext_resource path="res://assets/animations/Slash.tscn" type="PackedScene" id=2]
-[ext_resource path="res://src/actions/sorcerer/add/mp_gain_2.gd" type="Script" id=3]
+[ext_resource path="res://src/actions/sorcerer/add/mp_gain3.gd" type="Script" id=3]
 
 [resource]
 script = ExtResource( 1 )
 name = "Novice Wand"
-description = "Deal %damage damage and gain 2 MP."
+description = "Deal %damage damage and gain 3 MP."
 rarity = 1
 upgraded = false
 action_type = 0
 target_type = 1
 cost_type = 3
-cost = 0
+cost = 1
 healing = false
 damage_type = 0
 damage = 2

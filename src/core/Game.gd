@@ -49,7 +49,7 @@ func _ready() -> void:
 	$DemoScreen/Notes.hide()
 	char_select.hide()
 	if skip_intro:
-		_on_DemoStart_button_up()
+		skip_intro()
 	else:
 		title.show()
 
@@ -155,6 +155,18 @@ func _on_CharSelect_chose_class(name: String) -> void:
 	var n = name.to_lower()
 	var player_res = load("res://src/actions/" + n + "/" + n + ".tres")
 	player = player_res
+	refresh_dungeon()
+	playerUI.initialize(self)
+	blacksmith.initialize(self)
+	deck.initialize(self)
+	deck.connect("show_card", self, "show_card")
+	deck.connect("hide_card", self, "hide_card")
+	fade.play("FadeOut")
+	yield(fade, "animation_finished")
+	char_select.hide()
+	start_game()
+
+func skip_intro() -> void:
 	refresh_dungeon()
 	playerUI.initialize(self)
 	blacksmith.initialize(self)

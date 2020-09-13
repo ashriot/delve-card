@@ -22,4 +22,4 @@ draw_type = 7
 drop = false
 fade = false
 consume = false
-frame_id = 32
+frame_id = 2

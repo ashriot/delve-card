@@ -110,6 +110,8 @@ func update_data() -> void:
 	if action.action_type == Action.ActionType.SPELL:
 		multiplier += spell_multiplier + player.spell_multiplier
 	if action.target_type == Action.TargetType.OPPONENT:
+		if action.name == "War Axe":
+			added_damage = player.added_damage * 2
 		damage = ((damage + added_damage + player.added_damage) * \
 			(multiplier - enemy.damage_reduction)) as int
 	var text = "[right]" + prepend + str(damage) + drown + hit_text + type
@@ -172,29 +174,37 @@ func execute() -> void:
 		for hit in action.hits:
 			create_effect(enemy.global_position, "hit")
 			yield(self, "inflict_hit")
-			var roll = randf()
-			var crit_mod = 0
-			if player.has_buff("Aim"):
-				print("Aiming")
-				crit_mod = 0.5
-				player.reduce_buff("Aim")
-			var crit = roll < crit_mod + action.crit_chance
-			var damage = (action.damage + added_damage + player.added_damage) * \
-				(1 + weapon_multiplier + player.weapon_multiplier)
-			if action.name == "Drown":
-				damage += clamp(player.mp, 0, 20)
-			damage *= (2 if crit else 1)
-			if player.has_buff("Lifesteal"):
-				var healing = damage
-				player.take_healing(damage, "HP")
-			enemy.take_hit(action, damage, crit)
+			if action.damage > 0:
+				var roll = randf()
+				var crit_mod = 0
+				if player.has_buff("Aim"):
+					print("Aiming")
+					crit_mod = 0.5
+					player.reduce_buff("Aim")
+				var crit = roll < crit_mod + action.crit_chance
+				if action.name == "War Axe":
+					added_damage = player.added_damage * 2
+					print(added_damage)
+				var damage = (action.damage + added_damage + player.added_damage) * \
+					(1 + weapon_multiplier + player.weapon_multiplier)
+				if action.name == "Drown":
+					damage += clamp(player.mp, 0, 20)
+				damage *= (2 if crit else 1)
+				if player.has_buff("Lifesteal"):
+					var healing = damage
+					player.take_healing(damage, "HP")
+				enemy.take_hit(action, damage, crit)
 			if action.drawX > 0:
 				emit_signal("draw_cards", action)
 			else:
 				if !enemy.dead:
 					emit_signal("unblock", false)
 			if action.extra_action != null:
-				action.extra_action.execute(player)
+				if action.name == "Offensive Tactics" \
+				and enemy.get_intent() == "Attack":
+					action.extra_action.execute(player)
+				else:
+					action.extra_action.execute(player)
 			yield(self, "anim_finished")
 		if player.has_buff("Lifesteal"):
 			player.reduce_buff("Lifesteal")

@@ -4,21 +4,22 @@
 
 [resource]
 script = ExtResource( 1 )
-name = "Bandage"
-description = "Gain %damage HP."
-rarity = 1
+name = "Muster"
+description = "Gain %damage ST."
+rarity = 2
 upgraded = false
 action_type = 3
 target_type = 0
 cost_type = 3
-cost = 1
+cost = 0
 healing = true
-damage_type = 0
-damage = 3
+damage_type = 3
+damage = 2
 hits = 1
 crit_chance = 0.0
 drawX = 0
 draw_type = 7
 drop = false
+fade = false
 consume = false
 frame_id = 60

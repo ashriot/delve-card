@@ -2,10 +2,7 @@
 
 [ext_resource path="res://src/actions/res/action.gd" type="Script" id=1]
 [ext_resource path="res://assets/animations/Slash.tscn" type="PackedScene" id=2]
-[ext_resource path="res://src/actions/fighter/res/light_spear.gd" type="Script" id=3]
-
-
-
+[ext_resource path="res://src/actions/fighter/add/ap_gain1.gd" type="Script" id=3]
 
 [resource]
 script = ExtResource( 1 )
@@ -25,6 +22,7 @@ crit_chance = 0.0
 drawX = 0
 draw_type = 7
 drop = false
+fade = false
 consume = false
 frame_id = 1
 fx = ExtResource( 2 )
