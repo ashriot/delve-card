@@ -46,67 +46,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Drop" type="Panel" parent="."]
-margin_top = 60.0
-margin_right = 108.0
-margin_bottom = 78.0
-__meta__ = {
-"_edit_group_": true,
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="RichTextLabel" parent="Drop"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.0
-margin_top = 2.0
-margin_right = 1.0
-bbcode_enabled = true
-bbcode_text = "Drop. [color=#88cac7b8]Remove for remainder of the battle."
-text = "Drop. Remove for remainder of the battle."
-scroll_active = false
-
-[node name="Fade" type="Panel" parent="."]
-margin_top = 60.0
-margin_right = 108.0
-margin_bottom = 78.0
-__meta__ = {
-"_edit_group_": true,
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="RichTextLabel" parent="Fade"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.0
-margin_top = 2.0
-margin_right = 1.0
-bbcode_enabled = true
-bbcode_text = "Fade. [color=#88cac7b8]Drop at the end of your turn."
-text = "Fade. Drop at the end of your turn."
-scroll_active = false
-
-[node name="Consume" type="Panel" parent="."]
-visible = false
-margin_top = 60.0
-margin_right = 108.0
-margin_bottom = 78.0
-__meta__ = {
-"_edit_group_": true,
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="RichTextLabel" parent="Consume"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.0
-margin_top = 2.0
-margin_right = 1.0
-bbcode_enabled = true
-bbcode_text = "Consume. [color=#88cac7b8]Permanently remove."
-text = "Consume. Permanently remove."
-scroll_active = false
-
 [node name="Panel" type="Panel" parent="."]
 anchor_top = 0.318
 anchor_bottom = 0.318
@@ -114,6 +53,7 @@ margin_top = -58.056
 margin_right = 108.0
 margin_bottom = -0.0560036
 __meta__ = {
+"_edit_group_": true,
 "_edit_use_anchors_": false
 }
 
@@ -251,6 +191,119 @@ margin_right = 87.0
 margin_bottom = 59.0
 custom_colors/font_color = Color( 0.447059, 0.435294, 0.419608, 1 )
 align = 1
+
+[node name="Info" type="VBoxContainer" parent="Panel"]
+margin_top = 57.0
+margin_right = 108.0
+margin_bottom = 143.0
+custom_constants/separation = -1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Drop" type="Panel" parent="Panel/Info"]
+margin_right = 108.0
+margin_bottom = 18.0
+rect_min_size = Vector2( 108, 18 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="RichTextLabel" parent="Panel/Info/Drop"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 2.0
+margin_right = 1.0
+bbcode_enabled = true
+bbcode_text = "Drop. [color=#88cac7b8]Remove for remainder of the battle."
+text = "Drop. Remove for remainder of the battle."
+scroll_active = false
+
+[node name="Fade" type="Panel" parent="Panel/Info"]
+margin_top = 17.0
+margin_right = 108.0
+margin_bottom = 35.0
+rect_min_size = Vector2( 108, 18 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="RichTextLabel" parent="Panel/Info/Fade"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 2.0
+margin_right = 1.0
+bbcode_enabled = true
+bbcode_text = "Fade. [color=#88cac7b8]Drop at the end of your turn."
+text = "Fade. Drop at the end of your turn."
+scroll_active = false
+
+[node name="Consume" type="Panel" parent="Panel/Info"]
+margin_top = 34.0
+margin_right = 108.0
+margin_bottom = 52.0
+rect_min_size = Vector2( 108, 18 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="RichTextLabel" parent="Panel/Info/Consume"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 2.0
+margin_right = 1.0
+bbcode_enabled = true
+bbcode_text = "Consume. [color=#88cac7b8]Permanently remove."
+text = "Consume. Permanently remove."
+scroll_active = false
+
+[node name="Penetrate" type="Panel" parent="Panel/Info"]
+margin_top = 51.0
+margin_right = 108.0
+margin_bottom = 69.0
+rect_min_size = Vector2( 108, 18 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="RichTextLabel" parent="Panel/Info/Penetrate"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 2.0
+margin_right = 1.0
+bbcode_enabled = true
+bbcode_text = "Penetrate. [color=#88cac7b8]Damage ignores enemy AC."
+text = "Penetrate. Damage ignores enemy AC."
+scroll_active = false
+
+[node name="Impact" type="Panel" parent="Panel/Info"]
+margin_top = 68.0
+margin_right = 108.0
+margin_bottom = 86.0
+rect_min_size = Vector2( 108, 18 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="RichTextLabel" parent="Panel/Info/Impact"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 2.0
+margin_right = 1.0
+bbcode_enabled = true
+bbcode_text = "Impact x%imp [color=#88cac7b8]Gain %impx damage bonus from Power."
+text = "Impact x%imp Gain %impx damage bonus from Power."
+scroll_active = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/FadeIn = SubResource( 1 )

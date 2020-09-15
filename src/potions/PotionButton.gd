@@ -44,7 +44,6 @@ func execute() -> void:
 		else:
 			emit_signal("unblock", false)
 		if action.extra_action != null:
-			print("extra effect!")
 			action.extra_action.execute(player)
 		if action.damage > 0:
 			if action.damage_type == Action.DamageType.HP:
@@ -62,8 +61,9 @@ func execute() -> void:
 					damage = min(player.mp, 30)
 				AudioController.play_sfx("mp_gain")
 				player.take_healing(damage, "MP")
-		yield(self, "anim_finished")
+#		yield(self, "anim_finished")
 	emit_signal("execute_finished")
+	player.actor.potions.erase(action)
 	queue_free()
 
 func _on_Button_up():

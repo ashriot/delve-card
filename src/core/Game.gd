@@ -86,8 +86,8 @@ func start_battle(scene_to_hide: Node2D, enemy: Actor) -> void:
 	fade.play("FadeOut")
 	yield(fade, "animation_finished")
 	battle.hide()
-	playerUI.show()
 	playerUI.refresh()
+	playerUI.show()
 	if battle.game_over:
 		game_over()
 		return
@@ -155,16 +155,7 @@ func _on_CharSelect_chose_class(name: String) -> void:
 	var n = name.to_lower()
 	var player_res = load("res://src/actions/" + n + "/" + n + ".tres")
 	player = player_res
-	refresh_dungeon()
-	playerUI.initialize(self)
-	blacksmith.initialize(self)
-	deck.initialize(self)
-	deck.connect("show_card", self, "show_card")
-	deck.connect("hide_card", self, "hide_card")
-	fade.play("FadeOut")
-	yield(fade, "animation_finished")
-	char_select.hide()
-	start_game()
+	skip_intro()
 
 func skip_intro() -> void:
 	refresh_dungeon()
@@ -187,19 +178,16 @@ func _on_PatchBack_button_up():
 	$DemoScreen/Notes.hide()
 
 func _on_Fire_button_up():
-	AudioController.click()	
+	AudioController.click()
 	var n = "fire_sorc"
-	var player_res = load("res://src/actions/sorcerer/" + n + ".tres")
-	player = player_res
-	refresh_dungeon()
-	playerUI.initialize(player)
-	playerUI.connect("show_card", self, "show_card")
-	playerUI.connect("hide_card", self, "hide_card")
-	blacksmith.initialize(self)
-	fade.play("FadeOut")
-	yield(fade, "animation_finished")
-	char_select.hide()
-	start_game()
+	player = load("res://src/actions/sorcerer/" + n + ".tres")
+	skip_intro()
+
+func _on_Arcane_button_up():
+	AudioController.click()
+	var n = "arcane_sorc"
+	player = load("res://src/actions/sorcerer/" + n + ".tres")
+	skip_intro()
 
 func show_card(btn, amt: int) -> void:
 	card.initialize(btn, amt)
@@ -238,8 +226,7 @@ func _on_Settings_button_down():
 	settings_btn.modulate.a = 0.66
 
 func _on_Dungeon_heal():
-	AudioController.play_sfx("heal")
-	playerUI.heal(5)
+	playerUI.heal(5, "HP")
 
 func _on_Dungeon_advance():
 	fade.play("FadeOut")

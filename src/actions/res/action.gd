@@ -38,6 +38,8 @@ export(DamageType) var damage_type: = DamageType.HP
 export var damage: = 0
 export var hits: = 1
 export var crit_chance: = 0.0
+export var penetrate: = false
+export var impact: = 0
 export var drawX: = 0
 export(ActionType) var draw_type: = ActionType.ANY
 export var drop: = false
@@ -58,6 +60,10 @@ func get_description() -> Array:
 	text = text.replace("%drawX", str(drawX))
 	if crit_chance > 0:
 		text += " " + str(crit_chance* 100) + "% Crit chance."
+	if impact > 0:
+		text += " Impact x" + str(impact) + "."
+	if penetrate:
+		text += " Penetrate."
 	if drop:
 		text += " Drop."
 	if fade:

@@ -11,12 +11,13 @@ onready var sprite: = $Button/Sprite
 onready var timer: = $Timer
 
 var action: Resource
-var player: Player
+var player: PlayerUI
 var hovering: = false
 var initialized: = false
 
-func initialize(player: PlayerUI, _action: Action) -> void:
+func initialize(_player: PlayerUI, _action: Action) -> void:
 	action = _action
+	player = _player
 	sprite.frame = action.frame_id
 	initialized = true
 	connect("show_card", player, "show_card")
@@ -28,6 +29,13 @@ func _on_Button_up():
 	if hovering:
 		hovering = false
 		emit_signal("hide_card")
+	else:
+		if action.damage_type == Action.DamageType.HP \
+		and action.healing:
+			AudioController.click()
+			player.heal(action.damage, "HP")
+			player.player.potions.erase(action)
+			queue_free()
 
 func _on_Button_button_down():
 	sprite.modulate.a = 0.66

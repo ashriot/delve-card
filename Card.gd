@@ -34,17 +34,28 @@ func initialize(_action_button, have: int) -> void:
 		rarity += "*"
 	$Panel/Rarity.text = rarity
 	if action.drop:
-		$Drop.show()
+		$Panel/Info/Drop.show()
 	else:
-		$Drop.hide()
+		$Panel/Info/Drop.hide()
 	if action.fade:
-		$Fade.show()
+		$Panel/Info/Fade.show()
 	else:
-		$Fade.hide()
+		$Panel/Info/Fade.hide()
 	if action.consume:
-		$Consume.show()
+		$Panel/Info/Consume.show()
 	else:
-		$Consume.hide()
+		$Panel/Info/Consume.hide()
+	if action.penetrate:
+		$Panel/Info/Penetrate.show()
+	else:
+		$Panel/Info/Penetrate.hide()
+	if action.impact > 0:
+		$Panel/Info/Impact.show()
+		var text = "Impact x%imp [color=#88cac7b8]Gain %impx damage bonus from Power."
+		text = text.replace("%imp", str(action.impact))
+		$Panel/Info/Impact/Label.bbcode_text = text
+	else:
+		$Panel/Info/Impact.hide()
 	if !potion:
 		if have > 0:
 			$Panel/Have.text = "Have: " + str(have)
@@ -64,20 +75,16 @@ func initialize(_action_button, have: int) -> void:
 		$Panel/Have.text = ""
 		$Panel/Damage.hide()
 	modulate.a = 0
-	var pos = get_pos()
-	$Panel.rect_global_position = pos
-	pos = Vector2(pos.x, pos.y + $Panel.rect_size.y - 1)
-	$Drop.rect_global_position = pos
-	$Consume.rect_global_position = pos
 	show()
 	animation_player.play("FadeIn")
 	initialized = true
 
 func get_pos() -> Vector2:
-	var y = max(13, get_global_mouse_position().y - $Panel.rect_size.y - 10 \
-	- (18 if action.consume else 0))
+	var y = max(13, get_global_mouse_position().y - $Panel.rect_size.y - 10)
 	if y == 13:
 		y = get_global_mouse_position().y + 15
+	y += - 18 if (action.drop or action.consume or action.penetrate
+		or action.impact) else 0
 	var pos = Vector2(0, y)
 	return pos
 

@@ -59,6 +59,7 @@ func initialize(_player: Player, _enemyUI: Enemy) -> void:
 
 func reset() -> void:
 	item_belt.invis()
+	item_belt.initialize(self, player.actor.potions)	
 	while graveyard.get_child_count() > 0:
 		var action = graveyard.get_child(0)
 		graveyard.remove_child(action)
@@ -230,7 +231,6 @@ func discard_hand() -> void:
 					yield(child, "discarded")
 					remove_pos(child)
 					if child.action.fade:
-						print("fading")
 						child.queue_free()
 					else:
 						graveyard.add_child(child)
@@ -242,13 +242,15 @@ func action_finished(action_button: ActionButton) -> void:
 	if action_button.action.action_type == Action.ActionType.WEAPON:
 		weapons_played += 1
 		emit_signal("weapons_played", weapons_played)
-	limbo.remove_child(action_button)
-	if !action_button.action.drop\
-	and !action_button.action.fade\
+	print("action finished: Actions")
+	if !action_button.action.drop \
+	and !action_button.action.fade \
 	and !action_button.action.consume:
+		limbo.remove_child(action_button)
 		graveyard.add_child(action_button)
 		self.graveyard_count += 1
 	else:
+		yield(get_tree().create_timer(0.5), "timeout")
 		action_button.queue_free()
 
 func button_pressed(action_button: ActionButton) -> void:
@@ -268,7 +270,6 @@ func block_input(block: bool) -> void:
 			end_turn()
 
 func used_potion(button: PotionButton) -> void:
-	item_belt.consume(button)
 	button.execute()
 
 func _on_EndTurn_button_up():

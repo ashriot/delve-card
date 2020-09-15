@@ -36,8 +36,8 @@ func _process(delta) -> void:
 	velocity += gravity * mass * delta
 	position += velocity * delta
 
-func initialize(_text: int, _crit: bool) -> void:
-	self.text = _text
+func initialize(number: int, _crit: bool) -> void:
+	self.text = number
 	crit = _crit
 
 func display_text(value: String) -> void:

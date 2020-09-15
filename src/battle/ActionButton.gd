@@ -108,10 +108,10 @@ func update_data() -> void:
 	if action.action_type == Action.ActionType.WEAPON:
 		multiplier += weapon_multiplier + player.weapon_multiplier
 	if action.action_type == Action.ActionType.SPELL:
-		multiplier += spell_multiplier + player.spell_multiplier
+		multiplier += spell_multiplier + player.weapon_multiplier
 	if action.target_type == Action.TargetType.OPPONENT:
-		if action.name == "War Axe":
-			added_damage = player.added_damage * 2
+		if action.impact > 0:
+			added_damage = player.added_damage * (action.impact - 1)
 		damage = ((damage + added_damage + player.added_damage) * \
 			(multiplier - enemy.damage_reduction)) as int
 	var text = "[right]" + prepend + str(damage) + drown + hit_text + type
@@ -159,7 +159,8 @@ func play() -> void:
 	player.mp -= mp_cost
 	player.hp -= hp_cost
 	execute()
-	yield(self, "execute_finished")
+
+func finalize_execute() -> void:
 	get_tree().call_group("action_button", "update_data")
 	emit_signal("action_finished", self)
 
@@ -171,23 +172,34 @@ func display_error() -> void:
 
 func execute() -> void:
 	if action.target_type == Action.TargetType.OPPONENT:
-		for hit in action.hits:
+		var hits = get_action_hits()
+		for hit in hits:
+			if enemy.dead: break
+			if action.name == "Mana Storm" and hit > 0:
+				player.mp -= action.cost
 			create_effect(enemy.global_position, "hit")
 			yield(self, "inflict_hit")
+			if action.name == "Conflagration":
+				var conflag = load("res://src/actions/debuffs/burn.tres")
+				if enemy.has_debuff("Burn"):
+					print("already burning")
+					var stacks = enemy.get_debuff_stacks("Burn")
+					enemy.gain_debuff(conflag, (stacks + 5) * 2)
+				else:
+					enemy.gain_debuff(conflag, 10)
 			if action.damage > 0:
 				var roll = randf()
 				var crit_mod = 0
 				if player.has_buff("Aim"):
-					print("Aiming")
 					crit_mod = 0.5
 				var crit = roll < crit_mod + action.crit_chance
-				if action.name == "War Axe":
-					added_damage = player.added_damage * 2
+				if action.impact > 0:
+					added_damage = player.added_damage * (action.impact - 1)
 					print(added_damage)
 				var damage = (action.damage + added_damage + player.added_damage) * \
 					(1 + weapon_multiplier + player.weapon_multiplier)
 				if action.name == "Drown":
-					damage += clamp(player.mp, 0, 20)
+					damage += clamp(player.mp, 0, 30)
 				damage *= (2 if crit else 1)
 				if player.has_buff("Lifesteal"):
 					var healing = damage
@@ -204,10 +216,11 @@ func execute() -> void:
 					action.extra_action.execute(player)
 				else:
 					action.extra_action.execute(player)
-			yield(self, "anim_finished")
-		if player.has_buff("Lifesteal"):
+			if hits > 1 and hit == (hits -1):
+				yield(self, "anim_finished")
+		if player.has_buff("Lifesteal") and action.damage > 0:
 			player.reduce_buff("Lifesteal")
-		if player.has_buff("Aim"):
+		if player.has_buff("Aim") and action.damage > 0:
 			player.reduce_buff("Aim")	
 	else:
 		create_effect(player.global_position, "effect")
@@ -217,7 +230,6 @@ func execute() -> void:
 		else:
 			emit_signal("unblock", false)
 		if action.extra_action != null:
-			print("extra effect!")
 			action.extra_action.execute(player)
 		if action.damage > 0:
 			if action.damage_type == Action.DamageType.HP:
@@ -235,8 +247,15 @@ func execute() -> void:
 					damage = min(player.mp, 30)
 				AudioController.play_sfx("mp_gain")
 				player.take_healing(damage, "MP")
-		yield(self, "anim_finished")
-	emit_signal("execute_finished")
+	yield(self, "anim_finished")
+	finalize_execute()
+
+func get_action_hits() -> int:
+	hits = action.hits
+	if action.name == "Mana Storm":
+		hits = min(5, (player.mp + action.cost) / action.cost)
+		print("Mana storm hits: ", hits)
+	return hits
 
 func inflict_hit() -> void:
 	emit_signal("inflict_hit")

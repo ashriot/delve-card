@@ -2,7 +2,7 @@
 
 [ext_resource path="res://src/player/actor.gd" type="Script" id=1]
 [ext_resource path="res://src/actions/enemy/attack2.tres" type="Resource" id=2]
-[ext_resource path="res://src/actions/enemy/attack1.tres" type="Resource" id=3]
+[ext_resource path="res://src/actions/enemy/attack_weak2.tres" type="Resource" id=3]
 [ext_resource path="res://src/actions/enemy/attack3.tres" type="Resource" id=4]
 
 [resource]
@@ -16,4 +16,4 @@ initial_ac = 0
 initial_mp = 0
 gold = 25
 potions = [  ]
-actions = [ ExtResource( 3 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 4 ), ExtResource( 4 ) ]
+actions = [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 4 ) ]

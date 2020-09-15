@@ -1,7 +1,7 @@
 [gd_resource type="Resource" load_steps=5 format=2]
 
 [ext_resource path="res://src/player/actor.gd" type="Script" id=1]
-[ext_resource path="res://src/actions/enemy/attack2.tres" type="Resource" id=2]
+[ext_resource path="res://src/actions/enemy/attack_weak2.tres" type="Resource" id=2]
 [ext_resource path="res://src/actions/enemy/attack1.tres" type="Resource" id=3]
 [ext_resource path="res://src/actions/enemy/attack3.tres" type="Resource" id=4]
 

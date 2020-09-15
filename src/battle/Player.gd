@@ -143,6 +143,23 @@ func gain_buff(buff: Buff, amt: int) -> void:
 	buffUI.connect("show_card", self, "show_buff_card")
 	buffUI.connect("hide_card", self, "hide_buff_card")
 
+func reduce_buff(buff_name: String) -> void:
+	for child in buff_bar.get_children():
+		if child.buff_name == buff_name:
+			if buff_name == "Power":
+				added_damage -= 1
+				get_tree().call_group("action_button", "update_data")
+			child.stacks -= 1
+
+func remove_buff(buff_name: String) -> void:
+	var child = buffs[buff_name]
+	buff_bar.remove_child(child)
+	buffs.erase(buff_name)
+	child.queue_free()
+
+func has_buff(buff_name: String) -> bool:
+	return buffs.has(buff_name)
+
 func apply_debuff(debuff: Buff, qty: int) -> void:
 	emit_signal("apply_debuff", debuff, qty)
 
@@ -169,23 +186,6 @@ func gain_debuff(debuff: Buff, qty: int) -> void:
 #	debuffUI.connect("show_card", self, "show_buff_card")
 #	debuffUI.connect("hide_card", self, "hide_buff_card")
 	update_data()
-
-func reduce_buff(buff_name: String) -> void:
-	for child in buff_bar.get_children():
-		if child.buff_name == buff_name:
-			if buff_name == "Power":
-				added_damage -= 1
-				get_tree().call_group("action_button", "update_data")
-			child.stacks -= 1
-
-func remove_buff(buff_name: String) -> void:
-	var child = buffs[buff_name]
-	buff_bar.remove_child(child)
-	buffs.erase(buff_name)
-	child.queue_free()
-
-func has_buff(buff_name: String) -> bool:
-	return buffs.has(buff_name)
 
 func has_debuff(debuff_name: String) -> bool:
 	return debuffs.has(debuff_name)

@@ -8,6 +8,7 @@ onready var items = $Items
 
 func initialize(actions: Actions, potions) -> void:
 	invis()
+	clear_items()
 	for potion in potions:
 		var child = _Button.instance() as PotionButton
 		items.add_child(child)
@@ -15,13 +16,19 @@ func initialize(actions: Actions, potions) -> void:
 
 func init_ui(player: PlayerUI) -> void:
 	items.modulate.a = 1
+	clear_items()
 	for potion in player.player.potions:
 		var child = _Viewer.instance() as PotionViewer
 		items.add_child(child)
 		child.initialize(player, potion)
 
-func consume(button: PotionButton) -> void:
-	items.remove_child(button)
+func clear_items() -> void:
+	for child in items.get_children():
+		child.queue_free()
+
+func consume(button) -> void:
+	pass
+#	items.remove_child(button)
 
 func show() -> void:
 	.show()

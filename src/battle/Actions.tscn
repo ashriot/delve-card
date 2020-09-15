@@ -13,18 +13,8 @@ position = Vector2( 19, 4 )
 [node name="Graveyard" type="Node2D" parent="."]
 position = Vector2( 108, 0 )
 
-[node name="EndTurn" type="Button" parent="."]
-margin_left = 71.0
-margin_top = 175.0
-margin_right = 108.0
-margin_bottom = 192.0
-text = "End Turn"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="Hand" type="YSort" parent="."]
-position = Vector2( 5, 93 )
+position = Vector2( 5, 95 )
 
 [node name="Pos1" type="Position2D" parent="Hand"]
 
@@ -115,5 +105,16 @@ __meta__ = {
 }
 
 [node name="ItemBelt" parent="ItemAnchor" instance=ExtResource( 3 )]
-[connection signal="button_up" from="EndTurn" to="." method="_on_EndTurn_button_up"]
+mouse_filter = 2
+
+[node name="EndTurn" type="Button" parent="."]
+margin_left = 71.0
+margin_top = 175.0
+margin_right = 108.0
+margin_bottom = 192.0
+text = "End Turn"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="button_up" from="DeckViewer/InputBlock/Close" to="." method="_on_Close_button_up"]
+[connection signal="button_up" from="EndTurn" to="." method="_on_EndTurn_button_up"]

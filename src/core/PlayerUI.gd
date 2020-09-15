@@ -1,6 +1,8 @@
 extends Node2D
 class_name PlayerUI
 
+var _FloatingText = preload("res://assets/animations/FloatingText.tscn")
+
 signal open_deck(amt, type)
 signal show_card(btn, amt)
 signal hide_card
@@ -15,6 +17,7 @@ onready var deck_label = $DeckButton/Label
 onready var job_title = $JobTitle
 onready var gold_label = $Gold/Label
 onready var item_belt = $ItemAnchor/ItemBelt
+onready var animation_player = $Player/AnimationPlayer
 
 var player: Actor
 
@@ -30,6 +33,7 @@ func initialize(game) -> void:
 	refresh()
 
 func refresh() -> void:
+	item_belt.init_ui(self)
 	set_hp(player.hp)
 	set_ac(player.initial_ac)
 	set_ap(player.max_ap)
@@ -37,9 +41,16 @@ func refresh() -> void:
 	gold_label.text = comma_sep(player.gold)
 	deck_label.text = str(player.actions.size())
 
-func heal(amt: int) -> void:
-	player.hp += amt
-	set_hp(player.hp)
+func heal(amt: int, type: String) -> void:
+	var ft = _FloatingText.instance()
+	ft.initialize(amt, false)
+	ft.position = Vector2(64, 164)
+	get_parent().add_child(ft)
+	if type == "HP":
+		AudioController.play_sfx("heal")
+		animation_player.play("Heal")
+		player.hp += amt
+		set_hp(player.hp)
 
 func set_hp(value) -> void:
 	var zeros = 3 - str(value).length()

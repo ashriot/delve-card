@@ -58,7 +58,6 @@ func set_square(squares, square) -> void:
 	squares[x][y] = square
 
 func square_clicked(button: Square) -> void:
-	print("Signal received: ", button.type)
 	if button.type == "enemy":
 		emit_signal("start_battle")
 	elif button.type == "chest":

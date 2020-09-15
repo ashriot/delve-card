@@ -56,7 +56,6 @@ func smithing(_blacksmith: Blacksmith) -> void:
 	refresh(1)
 
 func resize_cover() -> void:
-	print("resizing")
 	if upgrading or destroying:
 		$BG/ScrollContainer.rect_size.y = 145
 		cover.rect_size.y = 28
@@ -118,7 +117,6 @@ func upgrade_card() -> void:
 
 func destroy_card() -> void:
 	AudioController.play_sfx("destroy")
-	print("Destroying ", chosen_action.action.name)
 	player.remove_action(chosen_action.action)
 	player.spend_gold(blacksmith.cost)
 	chosen_action.queue_free()

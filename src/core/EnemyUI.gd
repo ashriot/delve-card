@@ -2,6 +2,7 @@ extends Node2D
 class_name Enemy
 
 var FloatingText = preload("res://assets/animations/FloatingText.tscn")
+var EBuffUI = preload("res://src/battle/EBuffUI.tscn")
 var EDebuffUI = preload("res://src/battle/EDebuffUI.tscn")
 var Burn = preload("res://src/actions/debuffs/burn_action.tres")
 
@@ -30,6 +31,7 @@ var actor: Actor
 var action_to_use: Action
 var dead: bool setget , get_dead
 
+var added_damage: = 0
 var damage_multiplier = 0.0 as float
 var damage_reduction = 0.0 as float
 
@@ -108,6 +110,7 @@ func take_effect(action: Action) -> void:
 		get_parent().add_child(floating_text)
 
 func take_hit(action: Action, damage: int, crit: bool) -> void:
+	if self.dead: return
 	if action.name == "Executioner":
 		if hp < 11:
 			self.hp = 0
@@ -120,13 +123,14 @@ func take_hit(action: Action, damage: int, crit: bool) -> void:
 			var floating_text = FloatingText.instance()
 			floating_text.initialize(damage, crit)
 			add_child(floating_text)
-			if ac > 0:
-				if ac > damage:
-					self.ac -= damage
-					damage = 0
-				else:
-					damage -= ac
-					self.ac = 0
+			if not action.penetrate:
+				if ac > 0:
+					if ac > damage:
+						self.ac -= damage
+						damage = 0
+					else:
+						damage -= ac
+						self.ac = 0
 			self.hp -= damage
 	if self.dead:
 		die()
@@ -144,6 +148,43 @@ func die() -> void:
 	animationPlayer.play("Died")
 	yield(animationPlayer, "animation_finished")
 	emit_signal("died")
+
+func gain_buff(buff: Buff, amt: int) -> void:
+	var floating_text = FloatingText.instance()
+	floating_text.display_text("+" + buff.name)
+	floating_text.position = Vector2(54, 67)
+	get_parent().add_child(floating_text)
+	for b in buffs.keys():
+		if b == buff.name:
+			buffs[b].stacks += amt
+			if buff.name == "Power":
+				added_damage = buffs[buff.name].stacks
+				update_data()
+			return
+	var buffUI = EBuffUI.instance()
+	buffUI.initialize(buff, amt)
+	buff_bar.add_child(buffUI)
+	buffs[buff.name] = buffUI
+	if buff.name == "Power":
+		added_damage = buffs[buff.name].stacks
+		update_data()
+	buffUI.connect("remove_buff", self, "remove_buff")
+	buffUI.connect("show_card", self, "show_buff_card")
+	buffUI.connect("hide_card", self, "hide_buff_card")
+
+func reduce_buff(buff_name: String) -> void:
+	for child in buff_bar.get_children():
+		if child.buff_name == buff_name:
+			if buff_name == "Power":
+				added_damage -= 1
+				get_tree().call_group("action_button", "update_data")
+			child.stacks -= 1
+
+func remove_buff(buff_name: String) -> void:
+	var child = buffs[buff_name]
+	buff_bar.remove_child(child)
+	buffs.erase(buff_name)
+	child.queue_free()
 
 func gain_debuff(debuff: Buff, qty: int) -> void:
 	var floating_text = FloatingText.instance()
@@ -167,7 +208,13 @@ func gain_debuff(debuff: Buff, qty: int) -> void:
 	debuffUI.connect("remove_debuff", self, "remove_debuff")
 #	debuffUI.connect("show_card", self, "show_buff_card")
 #	debuffUI.connect("hide_card", self, "hide_buff_card")
-	update_atk_value()
+	update_data()
+
+func get_debuff_stacks(title: String) -> int:
+	for child in debuff_bar.get_children():
+		if child.debuff_name == title:
+			return child.stacks
+	return 0
 
 func has_debuff(title: String) -> bool:
 	return debuffs.has(title)
@@ -181,7 +228,7 @@ func reduce_debuff(debuff_name: String) -> void:
 	for child in debuff_bar.get_children():
 		if child.debuff_name == debuff_name:
 			child.stacks -= 1
-	update_atk_value()
+	update_data()
 
 func remove_debuff(debuff_name: String) -> void:
 	if debuff_name == "Weak":
@@ -199,9 +246,9 @@ func update_atk_panel() -> void:
 	attack_icon.frame = action_to_use.frame_id
 	intent = "Attack" if action_to_use.action_type == Action.ActionType.WEAPON \
 		else "Skill"
-	update_atk_value()
+	update_data()
 
-func update_atk_value() -> void:
+func update_data() -> void:
 	var dmg = float(action_to_use.damage) * (1 + damage_multiplier)
 	var dmg_text: String
 	if action_to_use.healing:
@@ -209,7 +256,7 @@ func update_atk_value() -> void:
 	dmg_text += str(int(dmg))
 	if action_to_use.hits > 1:
 		dmg_text += "x" + str(action_to_use.hits)
-	attack_value.bbcode_text	 = dmg_text
+	attack_value.bbcode_text = dmg_text
 
 func get_intent() -> String:
 	return intent

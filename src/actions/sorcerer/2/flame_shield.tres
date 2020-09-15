@@ -7,7 +7,7 @@
 [resource]
 script = ExtResource( 1 )
 name = "Flame Shield"
-description = "Gain %damage Armor. Add 2 Burns to attackers when hit."
+description = "Gain %damage Armor. Add Burns to attackers when hit."
 rarity = 2
 upgraded = false
 action_type = 1
@@ -19,6 +19,8 @@ damage_type = 1
 damage = 6
 hits = 1
 crit_chance = 0.0
+penetrate = false
+impact = 0
 drawX = 0
 draw_type = 7
 drop = false

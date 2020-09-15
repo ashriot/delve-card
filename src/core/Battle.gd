@@ -58,7 +58,6 @@ func _on_Enemy_used_action(action: Action):
 		playerUI.take_hit(damage)
 		if action.extra_action != null:
 			action.extra_action.execute(playerUI)
-		print(playerUI.buffs)
 		if playerUI.buffs.has("Flame Shield"):
 			yield(get_tree().create_timer(0.2), "timeout")
 			var burn_debuff = load("res://src/actions/debuffs/burn.tres")
@@ -79,7 +78,6 @@ func hide_card() -> void:
 	emit_signal("hide_card")
 
 func _on_Enemy_block_input():
-	print('blocking')
 	actions.block_input(true)
 
 func _on_Enemy_died():

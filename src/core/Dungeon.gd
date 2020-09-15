@@ -69,7 +69,6 @@ func _on_Map_move_to_square(square: Square):
 		var enemy = load("res://src/enemies/devil" + str(level) + ".tres")
 		emit_signal("start_battle", enemy)
 	elif square.type == "Chest":
-		print("Dungeon received loot signal")
 		emit_signal("start_loot", 0)
 	elif square.type == "Rest":
 		emit_signal("heal")

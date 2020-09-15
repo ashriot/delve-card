@@ -1,18 +1,18 @@
 [gd_resource type="Resource" load_steps=3 format=2]
 
 [ext_resource path="res://src/actions/res/action.gd" type="Script" id=1]
-[ext_resource path="res://assets/animations/Slash.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/animations/ManaDart.tscn" type="PackedScene" id=2]
 
 [resource]
 script = ExtResource( 1 )
-name = "Long Sword"
-description = "Deal %damage damage."
+name = "Mana Storm"
+description = "Consume 3 MP to cast `Mana Dart.` Repeat up to 5 times."
 rarity = 1
 upgraded = false
 action_type = 0
 target_type = 1
-cost_type = 3
-cost = 1
+cost_type = 2
+cost = 3
 healing = false
 damage_type = 0
 damage = 6
@@ -25,5 +25,5 @@ draw_type = 7
 drop = false
 fade = false
 consume = false
-frame_id = 2
+frame_id = 80
 fx = ExtResource( 2 )
