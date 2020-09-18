@@ -16,6 +16,7 @@ signal done_adding_to_deck
 signal done_pressing
 signal show_card(btn, qty)
 signal hide_card
+signal endable
 
 export var HAND_SIZE: = 5
 
@@ -43,6 +44,8 @@ var player: Player
 var enemyUI
 var actions: Array
 
+var able_to_end: = true
+
 var weapons_played: = 0
 
 var initialized: = false
@@ -58,6 +61,7 @@ func initialize(_player: Player, _enemyUI: Enemy) -> void:
 	initialized = true
 
 func reset() -> void:
+	able_to_end = true
 	item_belt.invis()
 	item_belt.initialize(self, player.actor.potions)	
 	while graveyard.get_child_count() > 0:
@@ -132,6 +136,7 @@ func initialize_button(action_button: ActionButton, action: Action) -> void:
 	action_button.initialize(action, player, enemyUI)
 
 func fill_hand() -> void:
+	print("filling hand")
 	while (hand_count < HAND_SIZE):
 		if deck.get_child_count() == 0:
 			yield(get_tree().create_timer(0.1), "timeout")
@@ -142,7 +147,7 @@ func fill_hand() -> void:
 		self.deck_count = deck.get_child_count()
 		set_pos(action)
 		action.show()
-		yield(get_tree().create_timer(0.12), "timeout")
+		yield(get_tree().create_timer(0.08), "timeout")
 	emit_signal("done_filling_hand")
 	
 
@@ -242,7 +247,6 @@ func action_finished(action_button: ActionButton) -> void:
 	if action_button.action.action_type == Action.ActionType.WEAPON:
 		weapons_played += 1
 		emit_signal("weapons_played", weapons_played)
-	print("action finished: Actions")
 	if !action_button.action.drop \
 	and !action_button.action.fade \
 	and !action_button.action.consume:
@@ -252,9 +256,12 @@ func action_finished(action_button: ActionButton) -> void:
 	else:
 		yield(get_tree().create_timer(0.5), "timeout")
 		action_button.queue_free()
+	emit_signal("endable")
+	able_to_end = true
 
 func button_pressed(action_button: ActionButton) -> void:
 	block_input(true)
+	able_to_end = false
 	var pos = action_button.rect_global_position
 	limbo.set_global_position(pos)
 	remove_pos(action_button)
@@ -267,6 +274,7 @@ func block_input(block: bool) -> void:
 	else:
 		input_blocker.hide()
 		if hand_count == 0 && auto_end:
+			print("end turn")
 			end_turn()
 
 func used_potion(button: PotionButton) -> void:
@@ -277,7 +285,7 @@ func _on_EndTurn_button_up():
 	end_turn()
 
 func end_turn() -> void:
-	input_blocker.show()
+	block_input(true)
 	item_belt.hide()
 	end_turn.hide()
 	weapons_played = 0
@@ -285,6 +293,9 @@ func end_turn() -> void:
 	if hand_count > 0:
 		discard_hand()
 		yield(self, "done_discarding")
+	if !able_to_end:
+		print("Waiting to end")
+		yield(self, "endable")
 	emit_signal("ended_turn")
 
 func set_deck_count(value: int) -> void:
@@ -307,12 +318,13 @@ func hide_card() -> void:
 	emit_signal("hide_card")
 
 func _on_Battle_start_turn():
+	print("Actions: On battle start turn")
 	player.start_turn()
 	fill_hand()
 	yield(self, "done_filling_hand")
-	item_belt.show()
-	get_tree().call_group("action_button", "update_data")
 	AudioController.play_sfx("player_turn")
+	get_tree().call_group("action_button", "update_data")
+	item_belt.show()
 	block_input(false)
 	end_turn.show()
 

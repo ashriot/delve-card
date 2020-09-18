@@ -91,11 +91,11 @@ __meta__ = {
 [node name="Gold" type="Label" parent="BG"]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -22.0
+margin_left = -27.0
 margin_top = 8.0
-margin_right = 11.0
+margin_right = 6.0
 margin_bottom = 22.0
-text = "+35"
+text = "+3"
 align = 2
 __meta__ = {
 "_edit_use_anchors_": false

@@ -86,14 +86,6 @@ custom_constants/separation = 2
 
 [node name="Tween" type="Tween" parent="DeckViewer"]
 
-[node name="InputBlocker" type="ColorRect" parent="."]
-margin_right = 108.0
-margin_bottom = 192.0
-color = Color( 1, 1, 1, 0 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="Card" parent="." instance=ExtResource( 1 )]
 visible = false
 mouse_filter = 2
@@ -113,6 +105,14 @@ margin_top = 175.0
 margin_right = 108.0
 margin_bottom = 192.0
 text = "End Turn"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="InputBlocker" type="ColorRect" parent="."]
+margin_right = 108.0
+margin_bottom = 192.0
+color = Color( 0.717647, 0.25098, 0.25098, 0 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

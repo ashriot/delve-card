@@ -41,6 +41,7 @@ func toggle_auto_end(value: bool) -> void:
 	actions.auto_end = auto_end
 
 func _on_Actions_ended_turn():
+	print("on actions ended turn")
 	yield(get_tree().create_timer(0.3), "timeout")
 	enemyUI.act()
 	yield(enemyUI, "ended_turn")

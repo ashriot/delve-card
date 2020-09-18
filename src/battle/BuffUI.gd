@@ -31,6 +31,7 @@ func set_stacks(value: int) -> void:
 		var text = str(stacks) if stacks > 1 else ""
 		$Stacks.text = text
 		$StacksShadow.text = text
+		$StacksShadow2.text = text
 
 func get_description() -> String:
 	description = buff.description

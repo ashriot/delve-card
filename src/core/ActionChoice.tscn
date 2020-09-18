@@ -91,6 +91,25 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Rarity" type="Label" parent="Button"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -20.0
+margin_top = -8.0
+margin_right = 18.0
+margin_bottom = 6.0
+custom_colors/font_color_shadow = Color( 0.145098, 0.145098, 0.133333, 1 )
+custom_constants/shadow_offset_x = 1
+custom_constants/shadow_offset_y = 1
+custom_constants/shadow_as_outline = 1
+text = "*****"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="MP" type="RichTextLabel" parent="Button"]
 margin_left = 9.0
 margin_top = -3.0

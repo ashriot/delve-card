@@ -207,9 +207,6 @@ func execute() -> void:
 				enemy.take_hit(action, damage, crit)
 			if action.drawX > 0:
 				emit_signal("draw_cards", action)
-			else:
-				if !enemy.dead:
-					emit_signal("unblock", false)
 			if action.extra_action != null:
 				if action.name == "Offensive Tactics" \
 				and enemy.get_intent() == "Attack":
@@ -217,7 +214,11 @@ func execute() -> void:
 				else:
 					action.extra_action.execute(player)
 			if hits > 1 and hit == (hits -1):
+				if !enemy.dead:
+					emit_signal("unblock", false)
 				yield(self, "anim_finished")
+			else:
+				emit_signal("unblock", false)
 		if player.has_buff("Lifesteal") and action.damage > 0:
 			player.reduce_buff("Lifesteal")
 		if player.has_buff("Aim") and action.damage > 0:

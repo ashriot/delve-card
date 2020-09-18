@@ -27,6 +27,10 @@ func initialize(_action: Action, _player: Actor) -> void:
 	self.chosen = false
 	action = _action
 	player = _player
+	var rarity = ""
+	for _i in range(action.rarity):
+		rarity += "*"
+	$Button/Rarity.text = rarity
 	$Button/AP.hide()
 	$Button/MP.hide()
 	$Button/Sprite.frame = action.frame_id
