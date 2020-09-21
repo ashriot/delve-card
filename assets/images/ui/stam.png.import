@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/diamond2.png-831eb50462314aab1234727d2dc9ed8b.stex"
+path="res://.import/stam.png-4477fb838453d248b5f02e02e7015524.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/ui/diamond2.png"
-dest_files=[ "res://.import/diamond2.png-831eb50462314aab1234727d2dc9ed8b.stex" ]
+source_file="res://assets/images/ui/stam.png"
+dest_files=[ "res://.import/stam.png-4477fb838453d248b5f02e02e7015524.stex" ]
 
 [params]
 

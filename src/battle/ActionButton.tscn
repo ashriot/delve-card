@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://assets/images/ui/diamond2.png" type="Texture" id=1]
+[ext_resource path="res://assets/images/ui/stam.png" type="Texture" id=1]
 [ext_resource path="res://assets/images/sheets/icons2.png" type="Texture" id=2]
 [ext_resource path="res://src/battle/ActionButton.gd" type="Script" id=3]
 [ext_resource path="res://assets/theming/button.tres" type="StyleBox" id=4]

@@ -51,7 +51,7 @@ func initialize(_action: Action, _player: Actor) -> void:
 
 func update_data() -> void:
 	if action.cost_type == Action.DamageType.AP and action.cost > 0:
-		$Button/AP.rect_size = Vector2(4 * ap_cost, 7)
+		$Button/AP.rect_size = Vector2(5 * ap_cost, 7)
 		$Button/AP.show()
 	elif action.cost_type == Action.DamageType.MP and action.cost > 0:
 		$Button/MP.bbcode_text = " " + str(mp_cost) + "MP"

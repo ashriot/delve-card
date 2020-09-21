@@ -118,7 +118,7 @@ func get_pos() -> Vector2:
 
 func update_data() -> void:
 	if action.cost_type == Action.DamageType.AP and action.cost > 0:
-		$Panel/AP.rect_size = Vector2(4 * ap_cost, 7)
+		$Panel/AP.rect_size = Vector2(5 * ap_cost, 7)
 		$Panel/AP.show()
 	elif action.cost_type == Action.DamageType.MP and action.cost > 0:
 		$Panel/MP.bbcode_text = " " + str(mp_cost) + "MP"
