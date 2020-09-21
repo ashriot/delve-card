@@ -36,12 +36,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Player" parent="." instance=ExtResource( 2 )]
-position = Vector2( 54, 72 )
-
-[node name="Enemy" parent="." instance=ExtResource( 1 )]
-position = Vector2( 54, 35 )
-
 [node name="DeckBG" type="ColorRect" parent="."]
 margin_top = 61.0
 margin_right = 15.0
@@ -121,6 +115,12 @@ __meta__ = {
 
 [node name="Actions" parent="." instance=ExtResource( 6 )]
 
+[node name="Player" parent="." instance=ExtResource( 2 )]
+position = Vector2( 54, 72 )
+
+[node name="Enemy" parent="." instance=ExtResource( 1 )]
+position = Vector2( 54, 35 )
+
 [node name="ColorRect" type="ColorRect" parent="."]
 margin_right = 108.0
 margin_bottom = 9.0
@@ -129,10 +129,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 [connection signal="start_turn" from="." to="Actions" method="_on_Battle_start_turn"]
+[connection signal="button_up" from="DeckBtn" to="." method="_on_DeckBtn_button_up"]
+[connection signal="ended_turn" from="Actions" to="." method="_on_Actions_ended_turn"]
 [connection signal="add_to_deck" from="Player" to="Actions" method="_on_Player_add_to_deck"]
 [connection signal="apply_debuff" from="Player" to="Actions" method="_on_Player_apply_debuff"]
 [connection signal="block_input" from="Enemy" to="." method="_on_Enemy_block_input"]
 [connection signal="died" from="Enemy" to="." method="_on_Enemy_died"]
 [connection signal="used_action" from="Enemy" to="." method="_on_Enemy_used_action"]
-[connection signal="button_up" from="DeckBtn" to="." method="_on_DeckBtn_button_up"]
-[connection signal="ended_turn" from="Actions" to="." method="_on_Actions_ended_turn"]

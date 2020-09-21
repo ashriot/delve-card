@@ -5,22 +5,25 @@
 
 [resource]
 script = ExtResource( 1 )
-name = "Hatchet"
+name = "Bastard Sword"
 description = "Deal %damage damage."
-rarity = 2
+rarity = 3
 upgraded = false
 action_type = 0
 target_type = 1
 cost_type = 3
-cost = 0
+cost = 3
 healing = false
 damage_type = 0
-damage = 6
+damage = 24
 hits = 1
 crit_chance = 0.0
+penetrate = false
+impact = 0
 drawX = 0
 draw_type = 7
-drop = true
+drop = false
+fade = false
 consume = false
 frame_id = 1
 fx = ExtResource( 2 )

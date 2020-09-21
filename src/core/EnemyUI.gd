@@ -46,7 +46,7 @@ func initialize(_actor: Actor) -> void:
 	actor = _actor
 	animationPlayer.play("Idle")
 	hp_percent.max_value = actor.max_hp
-	actor.max_hp = 1
+#	actor.max_hp = 1
 	self.hp = actor.max_hp
 	self.ac = actor.initial_ac
 	$Enemy/Sprite.position = Vector2.ZERO

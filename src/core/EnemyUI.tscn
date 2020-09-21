@@ -302,10 +302,10 @@ nine_patch_stretch = true
 [node name="AC" type="Control" parent="Enemy"]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = 11.0
-margin_top = -23.0
-margin_right = 33.0
-margin_bottom = -16.0
+margin_left = -35.0
+margin_top = -19.0
+margin_right = -13.0
+margin_bottom = -12.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -347,14 +347,12 @@ texture = ExtResource( 7 )
 centered = false
 vframes = 30
 hframes = 10
-frame = 2
+frame = 10
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Enemy/Attack"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 10.0
-margin_top = -1.0
-margin_bottom = -1.0
 custom_colors/default_color = Color( 0.6, 0.584314, 0.521569, 1 )
 bbcode_enabled = true
 bbcode_text = "99"

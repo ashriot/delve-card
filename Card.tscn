@@ -119,7 +119,7 @@ __meta__ = {
 
 [node name="Title" type="Label" parent="Panel"]
 anchor_right = 1.0
-margin_left = 9.0
+margin_left = 3.0
 margin_right = -3.0
 margin_bottom = 14.0
 text = "Conjure Manablades"
@@ -160,7 +160,7 @@ __meta__ = {
 }
 
 [node name="Type" type="Label" parent="Panel"]
-margin_left = 76.0
+margin_left = 40.0
 margin_top = 45.0
 margin_right = 110.0
 margin_bottom = 59.0
@@ -172,25 +172,29 @@ __meta__ = {
 }
 
 [node name="Rarity" type="Label" parent="Panel"]
-anchor_top = 1.0
-anchor_bottom = 1.0
-margin_left = -1.0
-margin_top = -12.0
-margin_right = 37.0
-margin_bottom = 2.00001
-custom_colors/font_color = Color( 0.447059, 0.435294, 0.419608, 1 )
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -19.0
+margin_top = -7.0
+margin_right = 19.0
+margin_bottom = 7.00001
+custom_colors/font_color_shadow = Color( 0.145098, 0.145098, 0.133333, 1 )
+custom_constants/shadow_offset_x = 1
+custom_constants/shadow_offset_y = 1
+custom_constants/shadow_as_outline = 1
 text = "*****"
+align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Have" type="Label" parent="Panel"]
-margin_left = 25.0
+margin_left = -1.0
 margin_top = 45.0
-margin_right = 87.0
+margin_right = 61.0
 margin_bottom = 59.0
 custom_colors/font_color = Color( 0.447059, 0.435294, 0.419608, 1 )
-align = 1
+text = "New!"
 
 [node name="Info" type="VBoxContainer" parent="Panel"]
 margin_top = 57.0

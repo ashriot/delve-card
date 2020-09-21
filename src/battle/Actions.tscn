@@ -14,7 +14,7 @@ position = Vector2( 19, 4 )
 position = Vector2( 108, 0 )
 
 [node name="Hand" type="YSort" parent="."]
-position = Vector2( 5, 95 )
+position = Vector2( 5, 96 )
 
 [node name="Pos1" type="Position2D" parent="Hand"]
 

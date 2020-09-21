@@ -26,7 +26,7 @@ var enemy: Enemy
 var played: = true
 
 var hp_cost: int
-var ap_cost: int
+var ap_cost: int setget set_ap_cost
 var mp_cost: int
 var damage: int
 var hits: int
@@ -81,8 +81,10 @@ func discard() -> void:
 	emit_signal("discarded", self)
 
 func update_data() -> void:
+	if action.name == "Chakram":
+		pass
 	if action.cost_type == Action.DamageType.AP and action.cost > 0:
-		$Button/AP.rect_size = Vector2(6 * ap_cost, 7)
+		$Button/AP.rect_size = Vector2(4 * ap_cost, 7)
 		$Button/AP.show()
 	elif action.cost_type == Action.DamageType.MP and action.cost > 0:
 		$Button/MP.bbcode_text = " " + str(mp_cost) + "MP"
@@ -213,12 +215,10 @@ func execute() -> void:
 					action.extra_action.execute(player)
 				else:
 					action.extra_action.execute(player)
-			if hits > 1 and hit == (hits -1):
-				if !enemy.dead:
-					emit_signal("unblock", false)
-				yield(self, "anim_finished")
-			else:
+			if !enemy.dead:
 				emit_signal("unblock", false)
+			if hits > 1 and hit == (hits -1):
+				yield(self, "anim_finished")
 		if player.has_buff("Lifesteal") and action.damage > 0:
 			player.reduce_buff("Lifesteal")
 		if player.has_buff("Aim") and action.damage > 0:
@@ -285,6 +285,14 @@ func create_effect(position: Vector2, type: String) -> void:
 func weapons_played(amt: int) -> void:
 	if action.name == "Sneak Attack":
 		self.added_damage = amt * action.damage
+
+func weapons_in_hand(qty: int) -> void:
+	if action.name == "Chakram":
+		self.ap_cost = max(action.cost - qty, 0)
+
+func set_ap_cost(value: int) -> void:
+	ap_cost = value
+	update_data()
 
 func set_added_damage(value: int) -> void:
 	added_damage = value

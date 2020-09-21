@@ -128,6 +128,16 @@ _global_script_classes=[ {
 "class": "Square",
 "language": "GDScript",
 "path": "res://src/map/Square.gd"
+}, {
+"base": "Resource",
+"class": "Trinket",
+"language": "GDScript",
+"path": "res://src/trinkets/trinket.gd"
+}, {
+"base": "Control",
+"class": "TrinketButton",
+"language": "GDScript",
+"path": "res://src/trinkets/TrinketButton.gd"
 } ]
 _global_script_class_icons={
 "Action": "",
@@ -153,7 +163,9 @@ _global_script_class_icons={
 "PlayerUI": "",
 "PotionButton": "",
 "PotionViewer": "",
-"Square": ""
+"Square": "",
+"Trinket": "",
+"TrinketButton": ""
 }
 
 [application]

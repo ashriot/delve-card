@@ -12,6 +12,7 @@ export var gold: = 0
 
 var hp: int setget set_hp
 
+export(Array) var trinkets: = []
 export(Array) var potions: = []
 export(Array) var actions: = []
 

@@ -1,6 +1,7 @@
-[gd_resource type="Resource" load_steps=2 format=2]
+[gd_resource type="Resource" load_steps=3 format=2]
 
 [ext_resource path="res://src/actions/res/action.gd" type="Script" id=1]
+[ext_resource path="res://assets/animations/Shield.tscn" type="PackedScene" id=2]
 
 [resource]
 script = ExtResource( 1 )
@@ -8,7 +9,7 @@ name = "Iron Shield"
 description = "Gain %damage AC."
 rarity = 1
 upgraded = false
-action_type = 0
+action_type = 3
 target_type = 0
 cost_type = 3
 cost = 1
@@ -25,3 +26,4 @@ drop = false
 fade = false
 consume = false
 frame_id = 58
+fx = ExtResource( 2 )

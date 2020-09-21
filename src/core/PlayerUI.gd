@@ -16,6 +16,7 @@ onready var ap = $Player/Panel/AP/Current
 onready var deck_label = $DeckButton/Label
 onready var job_title = $JobTitle
 onready var gold_label = $Gold/Label
+onready var trinket_belt = $TrinketBelt
 onready var item_belt = $ItemAnchor/ItemBelt
 onready var animation_player = $Player/AnimationPlayer
 
@@ -30,6 +31,7 @@ func initialize(game) -> void:
 	portrait.frame = player.portrait_id
 	player.hp = player.max_hp
 	item_belt.init_ui(self)
+	trinket_belt.initialize(self)
 	refresh()
 
 func refresh() -> void:

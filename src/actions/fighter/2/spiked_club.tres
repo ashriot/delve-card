@@ -6,8 +6,8 @@
 
 [resource]
 script = ExtResource( 1 )
-name = "Wooden Club"
-description = "Deal %damage damage and apply Sunder."
+name = "Spiked Club"
+description = "Deal %damage damage and apply 2 Sunder."
 rarity = 2
 upgraded = false
 action_type = 0
@@ -16,9 +16,11 @@ cost_type = 3
 cost = 2
 healing = false
 damage_type = 0
-damage = 8
+damage = 10
 hits = 1
 crit_chance = 0.0
+penetrate = false
+impact = 0
 drawX = 0
 draw_type = 7
 drop = false

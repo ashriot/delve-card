@@ -91,11 +91,11 @@ func start_battle(scene_to_hide: Node2D, enemy: Actor) -> void:
 	if battle.game_over:
 		game_over()
 		return
-	AudioController.play_bgm("victory")
+#	AudioController.play_bgm("victory")
 	start_loot(enemy.gold, 3)
 	yield(self, "looting_finished")
 	scene_to_hide.show()
-	AudioController.play_bgm("dungeon")
+#	AudioController.play_bgm("dungeon")
 	fade.play("FadeIn")
 	emit_signal("battle_finished")
 

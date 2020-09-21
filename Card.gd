@@ -14,6 +14,9 @@ var action
 var initialized = false
 
 func initialize(_action_button, have: int) -> void:
+	if _action_button is TrinketButton:
+		init_trinket(_action_button.trinket)
+		return
 	action_button = _action_button
 	action = action_button.action
 	var potion = true if \
@@ -79,6 +82,31 @@ func initialize(_action_button, have: int) -> void:
 	animation_player.play("FadeIn")
 	initialized = true
 
+func init_trinket(trinket: Trinket) -> void:
+	$Panel/MP.hide()
+	$Panel/AP.hide()
+	$Panel/Damage.hide()
+	$Panel/Title.text = trinket.name
+	$Panel/Sprite.frame = 63
+	var description = trinket.description
+	$Panel/Type.text = description[0]
+	$Panel/Description.text = description[1]
+	var rarity: String
+	for _i in range(trinket.rarity):
+		rarity += "*"
+	$Panel/Rarity.text = rarity
+	
+	$Panel/Info/Drop.hide()
+	$Panel/Info/Fade.hide()
+	$Panel/Info/Consume.hide()
+	$Panel/Info/Penetrate.hide()
+	$Panel/Info/Impact.hide()
+	
+	modulate.a = 0
+	show()
+	animation_player.play("FadeIn")
+	initialized = true
+
 func get_pos() -> Vector2:
 	var y = max(13, get_global_mouse_position().y - $Panel.rect_size.y - 10)
 	if y == 13:
@@ -90,7 +118,7 @@ func get_pos() -> Vector2:
 
 func update_data() -> void:
 	if action.cost_type == Action.DamageType.AP and action.cost > 0:
-		$Panel/AP.rect_size = Vector2(6 * ap_cost, 7)
+		$Panel/AP.rect_size = Vector2(4 * ap_cost, 7)
 		$Panel/AP.show()
 	elif action.cost_type == Action.DamageType.MP and action.cost > 0:
 		$Panel/MP.bbcode_text = " " + str(mp_cost) + "MP"

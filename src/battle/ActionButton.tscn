@@ -219,7 +219,7 @@ __meta__ = {
 [node name="AP" type="TextureRect" parent="Button"]
 margin_left = 12.0
 margin_top = -3.0
-margin_right = 17.0
+margin_right = 20.0
 margin_bottom = 4.0
 mouse_filter = 2
 texture = ExtResource( 1 )
@@ -228,6 +228,12 @@ stretch_mode = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="ColorRect" type="ColorRect" parent="Button/AP"]
+margin_left = -1.0
+margin_top = 1.0
+margin_bottom = 5.0
+color = Color( 0.145098, 0.145098, 0.133333, 1 )
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true

@@ -7,6 +7,7 @@ var FloatingText = preload("res://assets/animations/FloatingText.tscn")
 signal deck_count(value)
 signal graveyard_count(value)
 signal weapons_played(amt)
+signal weapons_in_hand(qty)
 signal graveyard_done
 signal ended_turn
 signal done_discarding
@@ -47,6 +48,7 @@ var actions: Array
 var able_to_end: = true
 
 var weapons_played: = 0
+var weapons_in_hand: = 0
 
 var initialized: = false
 
@@ -77,6 +79,7 @@ func reset() -> void:
 	hand_count = 0
 	self.graveyard_count = 0
 	weapons_played = 0
+	weapons_in_hand = 0
 	fill_deck()
 	shuffle_deck()
 
@@ -133,6 +136,7 @@ func initialize_button(action_button: ActionButton, action: Action) -> void:
 	action_button.connect("show_card", self, "show_card")
 	action_button.connect("hide_card", self, "hide_card")
 	connect("weapons_played", action_button, "weapons_played")
+	connect("weapons_in_hand", action_button, "weapons_in_hand")
 	action_button.initialize(action, player, enemyUI)
 
 func fill_hand() -> void:
@@ -147,6 +151,9 @@ func fill_hand() -> void:
 		self.deck_count = deck.get_child_count()
 		set_pos(action)
 		action.show()
+		if action.action.action_type == Action.ActionType.WEAPON:
+			weapons_in_hand += 1
+			emit_signal("weapons_in_hand", weapons_in_hand)
 		yield(get_tree().create_timer(0.08), "timeout")
 	emit_signal("done_filling_hand")
 	
@@ -211,6 +218,10 @@ func draw_cards(src: Action) -> void:
 		else:
 			set_pos(action)
 			action.show()
+		if action.action.action_type == Action.ActionType.WEAPON:
+			print("its a weapon!")
+			weapons_in_hand += 1
+			emit_signal("weapons_in_hand", weapons_in_hand)
 		yield(get_tree().create_timer(0.12), "timeout")
 	block_input(false)
 	emit_signal("done_drawing")
@@ -246,7 +257,9 @@ func discard_hand() -> void:
 func action_finished(action_button: ActionButton) -> void:
 	if action_button.action.action_type == Action.ActionType.WEAPON:
 		weapons_played += 1
+		weapons_in_hand -= 1
 		emit_signal("weapons_played", weapons_played)
+		emit_signal("weapons_in_hand", weapons_in_hand)
 	if !action_button.action.drop \
 	and !action_button.action.fade \
 	and !action_button.action.consume:
@@ -289,7 +302,9 @@ func end_turn() -> void:
 	item_belt.hide()
 	end_turn.hide()
 	weapons_played = 0
+	weapons_in_hand = 0
 	emit_signal("weapons_played", 0)
+	emit_signal("weapons_in_hand", 0)
 	if hand_count > 0:
 		discard_hand()
 		yield(self, "done_discarding")
