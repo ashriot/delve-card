@@ -74,7 +74,7 @@ func start_game() -> void:
 	AudioController.play_bgm("dungeon")
 	yield(fade, "animation_finished")
 
-func start_battle(scene_to_hide: Node2D, enemy: Actor) -> void:
+func start_battle(scene_to_hide: Node2D, enemy: EnemyActor) -> void:
 	fade.play("FadeOut")
 	yield(fade, "animation_finished")
 	scene_to_hide.hide()
@@ -211,7 +211,7 @@ func _on_Settings_button_up():
 		AudioController.back()
 		settings.hide()
 
-func _on_Dungeon_start_battle(enemy: Actor) -> void:
+func _on_Dungeon_start_battle(enemy: EnemyActor) -> void:
 	start_battle(dungeon, enemy)
 	yield(self, "battle_finished")
 

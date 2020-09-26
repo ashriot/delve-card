@@ -6,7 +6,7 @@ signal battle_finished(won)
 signal show_card(btn, amt)
 signal hide_card
 
-var enemy: Actor
+var enemy: EnemyActor
 
 onready var actions = $Actions as Actions
 onready var enemyUI = $Enemy
@@ -27,7 +27,7 @@ func initialize(_player: Actor) -> void:
 	actions.initialize(playerUI, enemyUI)
 	initialized = true
 
-func start(_enemy: Actor) -> void:
+func start(_enemy: EnemyActor) -> void:
 	game_over = false
 	playerUI.reset()
 	actions.reset()

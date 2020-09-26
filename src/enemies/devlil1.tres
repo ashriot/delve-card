@@ -1,0 +1,17 @@
+[gd_resource type="Resource" load_steps=4 format=2]
+
+[ext_resource path="res://src/enemies/enemy_actor.gd" type="Script" id=1]
+[ext_resource path="res://assets/images/enemies/devil.png" type="Texture" id=2]
+[ext_resource path="res://src/actions/enemy/attack1.tres" type="Resource" id=3]
+
+[resource]
+script = ExtResource( 1 )
+name = "Dev'lil"
+level = 1
+max_hp = 20
+max_ap = 3
+initial_ac = 0
+initial_mp = 0
+gold = 0
+texture = ExtResource( 2 )
+actions = [ ExtResource( 3 ) ]

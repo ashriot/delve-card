@@ -11,11 +11,14 @@ signal ended_turn
 signal block_input
 signal died
 
+onready var sprite: = $Enemy/Sprite
 onready var animationPlayer: = $Enemy/AnimationPlayer
 onready var hp_value = $Enemy/HP/Value
 onready var hp_percent = $Enemy/HP/TextureProgress
 onready var ac_panel = $Enemy/AC
 onready var ac_value = $Enemy/AC/Value
+onready var mp_panel = $Enemy/MP
+onready var mp_value = $Enemy/MP/Value
 onready var attack_icon = $Enemy/Attack/Sprite
 onready var attack_value = $Enemy/Attack/RichTextLabel
 onready var hp_panel = $Enemy/HP
@@ -27,7 +30,7 @@ onready var debuff_bar = $Enemy/DebuffBar
 var buffs: Dictionary
 var debuffs: Dictionary
 
-var actor: Actor
+var actor: EnemyActor
 var action_to_use: Action
 var dead: bool setget , get_dead
 
@@ -39,16 +42,18 @@ var intent: String
 
 var hp: int setget set_hp
 var ac: int setget set_ac
-#var mp: int setget set_mp
+var mp: int setget set_mp
 #var ap: int setget set_ap
 
-func initialize(_actor: Actor) -> void:
+func initialize(_actor: EnemyActor) -> void:
 	actor = _actor
+	sprite.texture = actor.texture
 	animationPlayer.play("Idle")
 	hp_percent.max_value = actor.max_hp
 #	actor.max_hp = 1
 	self.hp = actor.max_hp
 	self.ac = actor.initial_ac
+	self.mp = actor.initial_mp
 	$Enemy/Sprite.position = Vector2.ZERO
 	$Enemy/Sprite.modulate.a = 1
 	$Enemy/Level.text = "Lv." + str(actor.level)
@@ -277,7 +282,7 @@ func set_hp(value: int) -> void:
 	hp_percent.value = hp
 
 func set_ac(value: int) -> void:
-	value = clamp(value, 0, actor.max_hp)
+	value = max(value, 0)
 	ac = value
 	if ac == 0:
 		ac_panel.hide()
@@ -286,10 +291,21 @@ func set_ac(value: int) -> void:
 	var zeros = 3 - str(value).length()
 	var cur = str(value).pad_zeros(3)
 	var cur_sub = cur.substr(0, zeros)
-	zeros = 3 - str(actor.max_hp).length()
-	cur = str(actor.max_hp).pad_zeros(3)
 	var text = "[color=#22252522]" + cur_sub + "[/color]" + str(value)
 	ac_value.bbcode_text = text
+
+func set_mp(value: int) -> void:
+	value = max(value, 0)
+	mp = value
+	if mp == 0:
+		mp_panel.hide()
+	else:
+		mp_panel.show()
+	var zeros = 3 - str(value).length()
+	var cur = str(value).pad_zeros(3)
+	var cur_sub = cur.substr(0, zeros)
+	var text = "[color=#22252522]" + cur_sub + "[/color]" + str(value)
+	mp_value.bbcode_text = text
 
 func get_dead() -> bool:
 	return hp == 0
