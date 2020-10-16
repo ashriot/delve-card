@@ -88,9 +88,9 @@ __meta__ = {
 }
 
 [node name="Player" type="Control" parent="."]
-margin_left = -36.0
+margin_left = -37.0
 margin_top = -11.0
-margin_right = 39.0
+margin_right = 38.0
 margin_bottom = 10.0
 __meta__ = {
 "_edit_group_": true,
