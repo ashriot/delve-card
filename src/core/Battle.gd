@@ -13,6 +13,7 @@ onready var enemyUI = $Enemy
 onready var playerUI = $Player
 onready var deck_val = $DeckBtn/ColorRect/Label
 onready var graveyard_val = $GraveyardBtn/Label
+onready var enemy_label = $Banner/Label
 
 var auto_end: bool
 var game_over: = false
@@ -32,6 +33,7 @@ func start(_enemy: EnemyActor) -> void:
 	playerUI.reset()
 	actions.reset()
 	enemy = _enemy
+	enemy_label.text = "Lv." + str(enemy.level) + " " + enemy.name
 	enemyUI.initialize(enemy)
 	yield(get_tree().create_timer(0.2), "timeout")
 	emit_signal("start_turn")
@@ -55,7 +57,8 @@ func _on_Actions_ended_turn():
 
 func _on_Enemy_used_action(action: Action):
 	if action.target_type == Action.TargetType.OPPONENT:
-		var damage = action.damage * (1 + enemyUI.damage_multiplier)
+		var damage = action.damage * (1 + enemyUI.damage_multiplier) \
+			+ (enemyUI.added_damage)
 		playerUI.take_hit(damage)
 		if action.extra_action != null:
 			action.extra_action.execute(playerUI)

@@ -57,8 +57,12 @@ func initialize(_actor: EnemyActor) -> void:
 	$Enemy/Sprite.position = Vector2.ZERO
 	$Enemy/Sprite.modulate.a = 1
 	$Enemy/Level.text = "Lv." + str(actor.level)
-	damage_multiplier = 0
-	damage_reduction = 0
+	added_damage = 0
+	damage_multiplier = 0.0
+	damage_reduction = 0.0
+	buffs.clear()
+	for child in buff_bar.get_children():
+		child.queue_free()
 	hp_panel.show()
 	atk_panel.show()
 	buff_bar.show()
@@ -78,6 +82,9 @@ func act() -> void:
 	if self.dead:
 		emit_signal("ended_turn")
 		return
+	if buffs.size() > 0:
+		for buff in buffs:
+			reduce_buff(buff)
 	if intent == "Attack":
 		animationPlayer.play("Attack")
 	else:
@@ -95,6 +102,8 @@ func inflict_hit() -> void:
 		take_effect(action_to_use)
 
 func take_effect(action: Action) -> void:
+	if action.extra_action != null:
+		action.extra_action.execute(self)
 	var amount = action.damage
 	if action.healing:
 		var type = action.damage_type
@@ -117,7 +126,7 @@ func take_effect(action: Action) -> void:
 
 func take_hit(action: Action, damage: int, crit: bool) -> void:
 	if self.dead: return
-	if action.name == "Executioner":
+	if action.name == "Executioner Axe":
 		if hp < 11:
 			self.hp = 0
 	else:
@@ -183,7 +192,6 @@ func reduce_buff(buff_name: String) -> void:
 		if child.buff_name == buff_name:
 			if buff_name == "Power":
 				added_damage -= 1
-				get_tree().call_group("action_button", "update_data")
 			child.stacks -= 1
 
 func remove_buff(buff_name: String) -> void:
@@ -255,13 +263,16 @@ func update_atk_panel() -> void:
 	update_data()
 
 func update_data() -> void:
-	var dmg = float(action_to_use.damage) * (1 + damage_multiplier)
+	var dmg = float(action_to_use.damage) * (1 + damage_multiplier) \
+		+ added_damage
 	var dmg_text: String
 	if action_to_use.healing:
 		dmg_text += "+"
 	dmg_text += str(int(dmg))
 	if action_to_use.hits > 1:
 		dmg_text += "x" + str(action_to_use.hits)
+	if action_to_use.damage == 0:
+		dmg_text = ""
 	attack_value.bbcode_text = dmg_text
 
 func get_intent() -> String:

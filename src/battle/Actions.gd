@@ -94,8 +94,9 @@ func shuffle_deck() -> void:
 
 func display_message(value: String) -> void:
 	var floating_text = FloatingText.instance()
+	floating_text.position = Vector2(54, 60)
 	floating_text.display_text(value)
-	player.add_child(floating_text)
+	self.add_child(floating_text)
 
 func recover_graveyard() -> void:
 	display_message("Shuffling...")
@@ -357,11 +358,12 @@ func _on_Player_apply_debuff(debuff: Buff, qty: int):
 	enemyUI.gain_debuff(debuff, qty)
 
 func show_deck_viewer() -> void:
-	if deck_tween.is_active(): return	
+	if deck_tween.is_active(): return
 	AudioController.click()
+	deck_order.clear()
 	for child in deck.get_children():
 		deck_order.append(child)
-	var sorted = deck_order.duplicate(true)
+	var sorted = deck.get_children().duplicate(true)
 	sorted.sort_custom(ActionSorter, "sort_btns")
 	for child in deck.get_children():
 		deck.move_child(child, sorted.find(child))

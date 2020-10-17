@@ -311,9 +311,9 @@ nine_patch_stretch = true
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -29.0
-margin_top = -25.0
+margin_top = -24.0
 margin_right = -15.0
-margin_bottom = -18.0
+margin_bottom = -17.0
 __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
@@ -344,9 +344,9 @@ __meta__ = {
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = 19.0
-margin_top = -25.0
+margin_top = -24.0
 margin_right = 33.0
-margin_bottom = -18.0
+margin_bottom = -17.0
 __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
