@@ -81,8 +81,6 @@ func discard() -> void:
 	emit_signal("discarded", self)
 
 func update_data() -> void:
-	if action.name == "Chakram":
-		pass
 	if action.cost_type == Action.DamageType.AP and action.cost > 0:
 		$Button/AP.rect_size = Vector2(5 * ap_cost, 7)
 		$Button/AP.show()
@@ -288,7 +286,7 @@ func weapons_played(amt: int) -> void:
 
 func weapons_in_hand(qty: int) -> void:
 	if action.name == "Chakram":
-		self.ap_cost = max(action.cost - qty, 0)
+		self.ap_cost = max(action.cost - qty + 1, 0)
 
 func set_ap_cost(value: int) -> void:
 	ap_cost = value

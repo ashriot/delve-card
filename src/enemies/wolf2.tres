@@ -9,7 +9,7 @@
 script = ExtResource( 1 )
 name = "Wulf"
 level = 1
-max_hp = 25
+max_hp = 35
 max_ap = 3
 initial_ac = 0
 initial_mp = 0
