@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/map_nodes3.png-48979163e8529272c7abec96bc94c459.stex"
+path="res://.import/bear.png-4e2435788ba9fdfea42c22f5d6f89ab1.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://map_nodes3.png"
-dest_files=[ "res://.import/map_nodes3.png-48979163e8529272c7abec96bc94c459.stex" ]
+source_file="res://assets/images/enemies/bear.png"
+dest_files=[ "res://.import/bear.png-4e2435788ba9fdfea42c22f5d6f89ab1.stex" ]
 
 [params]
 
