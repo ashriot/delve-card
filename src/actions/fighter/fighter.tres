@@ -4,10 +4,10 @@
 [ext_resource path="res://src/actions/fighter/1/battle_shout.tres" type="Resource" id=2]
 [ext_resource path="res://src/actions/fighter/1/iron_shield.tres" type="Resource" id=3]
 [ext_resource path="res://src/actions/fighter/2/falchion.tres" type="Resource" id=4]
-[ext_resource path="res://src/actions/fighter/1/long_sword.tres" type="Resource" id=5]
+[ext_resource path="res://src/actions/fighter/1/longsword.tres" type="Resource" id=5]
 [ext_resource path="res://src/actions/fighter/1/short_sword.tres" type="Resource" id=6]
 [ext_resource path="res://src/actions/fighter/2/chakram.tres" type="Resource" id=7]
-[ext_resource path="res://src/actions/fighter/3/executioner_axe.tres" type="Resource" id=8]
+[ext_resource path="res://src/actions/fighter/2/whip.tres" type="Resource" id=8]
 [ext_resource path="res://src/potions/small_apple.tres" type="Resource" id=9]
 
 [resource]

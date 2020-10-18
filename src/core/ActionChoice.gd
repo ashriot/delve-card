@@ -59,7 +59,7 @@ func update_data() -> void:
 	elif action.cost_type == Action.DamageType.HP and action.cost > 0:
 		$Button/MP.bbcode_text = " -" + str(hp_cost) + "HP"
 		$Button/MP.show()
-	
+
 	var hit_text = "" if hits < 2 else ("x" + str(hits))
 	var type = ""
 	if action.action_type == Action.ActionType.PERMANENT:

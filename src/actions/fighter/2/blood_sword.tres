@@ -1,7 +1,7 @@
 [gd_resource type="Resource" load_steps=4 format=2]
 
 [ext_resource path="res://src/actions/res/action.gd" type="Script" id=1]
-[ext_resource path="res://assets/animations/Slash.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/animations/Sword.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/actions/fighter/res/blood_sword.gd" type="Script" id=3]
 
 [resource]

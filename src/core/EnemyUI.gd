@@ -56,7 +56,6 @@ func initialize(_actor: EnemyActor) -> void:
 	self.mp = actor.initial_mp
 	$Enemy/Sprite.position = Vector2.ZERO
 	$Enemy/Sprite.modulate.a = 1
-	$Enemy/Level.text = "Lv." + str(actor.level)
 	added_damage = 0
 	damage_multiplier = 0.0
 	damage_reduction = 0.0
