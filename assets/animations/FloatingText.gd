@@ -20,16 +20,16 @@ func _ready() -> void:
 		Vector2(0.1, 0.1),
 		Vector2(1.0, 1.0) * Vector2(2.0, 2.0) if crit else Vector2(1.0, 1.0),
 		0.3, Tween.TRANS_QUART, Tween.EASE_OUT)
-	
+
 	tween.interpolate_property(self, "scale",
 		Vector2(1.0, 1.0),
 		Vector2(0.4, 0.4),
 		1.0, Tween.TRANS_LINEAR, Tween.EASE_OUT, 1.0)
-	
+
 	tween.interpolate_callback(self, 1.0, "queue_free")
-	
+
 	velocity = Vector2(rand_range(-40, 40), -80)
-	
+
 	tween.start()
 
 func _process(delta) -> void:
