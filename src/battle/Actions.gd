@@ -65,7 +65,7 @@ func initialize(_player: Player, _enemyUI: Enemy) -> void:
 func reset() -> void:
 	able_to_end = true
 	item_belt.invis()
-	item_belt.initialize(self, player.actor.potions)	
+	item_belt.initialize(self, player.actor.potions)
 	while graveyard.get_child_count() > 0:
 		var action = graveyard.get_child(0)
 		graveyard.remove_child(action)
@@ -157,7 +157,7 @@ func fill_hand() -> void:
 			emit_signal("weapons_in_hand", weapons_in_hand)
 		yield(get_tree().create_timer(0.08), "timeout")
 	emit_signal("done_filling_hand")
-	
+
 
 func set_pos(node: Control) -> void:
 	for i in hand.get_child_count():
@@ -186,13 +186,13 @@ func add_to_deck(actions_to_add) -> void:
 		action.gain()
 		action.rect_position = Vector2(0, 64)
 		action.animationPlayer.play("Gain")
-		yield(get_tree().create_timer(0.65), "timeout")	
+		yield(get_tree().create_timer(0.65), "timeout")
 		player.get_parent().remove_child(action)
 		action.rect_position = Vector2.ZERO
 		deck.add_child(action)
 		self.deck_count = deck.get_child_count()
 		AudioController.play_sfx("draw")
-	yield(get_tree().create_timer(0.1), "timeout")	
+	yield(get_tree().create_timer(0.1), "timeout")
 	shuffle_deck()
 	emit_signal("done_adding_to_deck")
 
@@ -367,7 +367,7 @@ func show_deck_viewer() -> void:
 	sorted.sort_custom(ActionSorter, "sort_btns")
 	for child in deck.get_children():
 		deck.move_child(child, sorted.find(child))
-	
+
 	deck_viewer.global_position = Vector2.ZERO
 	deck_tween.interpolate_property(deck_viewer, "modulate",
 		Color(modulate.r, modulate.g, modulate.b, 0),

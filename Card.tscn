@@ -97,6 +97,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="ColorRect" type="ColorRect" parent="Panel/AP"]
+margin_left = -1.0
+margin_top = 1.0
+margin_bottom = 6.0
+color = Color( 0.145098, 0.145098, 0.133333, 1 )
+
 [node name="Damage" type="RichTextLabel" parent="Panel"]
 anchor_left = 1.0
 anchor_right = 1.0

@@ -90,7 +90,7 @@ func update_data() -> void:
 	elif action.cost_type == Action.DamageType.HP and action.cost > 0:
 		$Button/MP.bbcode_text = " -" + str(hp_cost) + "HP"
 		$Button/MP.show()
-	
+
 	var hit_text = "" if hits < 2 else ("x" + str(hits))
 	var type = "HP" if action.healing else "dmg"
 	if action.damage_type == Action.DamageType.AC:
@@ -220,7 +220,7 @@ func execute() -> void:
 		if player.has_buff("Lifesteal") and action.damage > 0:
 			player.reduce_buff("Lifesteal")
 		if player.has_buff("Aim") and action.damage > 0:
-			player.reduce_buff("Aim")	
+			player.reduce_buff("Aim")
 	else:
 		create_effect(player.global_position, "effect")
 		yield(self, "inflict_effect")
@@ -258,7 +258,7 @@ func get_action_hits() -> int:
 
 func inflict_hit() -> void:
 	emit_signal("inflict_hit")
-	
+
 func inflict_effect() -> void:
 	emit_signal("inflict_effect")
 
@@ -295,7 +295,7 @@ func set_ap_cost(value: int) -> void:
 func set_added_damage(value: int) -> void:
 	added_damage = value
 	update_data()
-	
+
 func set_weapon_multiplier(value: float) -> void:
 	weapon_multiplier = value
 	update_data()

@@ -95,13 +95,13 @@ func init_trinket(trinket: Trinket) -> void:
 	for _i in range(trinket.rarity):
 		rarity += "*"
 	$Panel/Rarity.text = rarity
-	
+
 	$Panel/Info/Drop.hide()
 	$Panel/Info/Fade.hide()
 	$Panel/Info/Consume.hide()
 	$Panel/Info/Penetrate.hide()
 	$Panel/Info/Impact.hide()
-	
+
 	modulate.a = 0
 	show()
 	animation_player.play("FadeIn")
@@ -126,7 +126,7 @@ func update_data() -> void:
 	elif action.cost_type == Action.DamageType.HP and action.cost > 0:
 		$Panel/MP.bbcode_text = " -" + str(hp_cost) + "HP"
 		$Panel/MP.show()
-	
+
 	var hit_text = "" if hits < 2 else ("x" + str(hits))
 	var type = "HP" if action.healing else "dmg"
 	if action.damage_type == Action.DamageType.AC:
