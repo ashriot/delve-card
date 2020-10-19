@@ -66,7 +66,7 @@ func _on_Map_move_to_square(square: Square):
 		emit_signal("advance")
 	if square.type == "Battle":
 		var level = (progress) as int
-		var enemy = load("res://src/enemies/wolf" + ".tres")
+		var enemy = load("res://src/enemies/tiger" + ".tres")
 		emit_signal("start_battle", enemy)
 	elif square.type == "Chest":
 		emit_signal("start_loot", 0)

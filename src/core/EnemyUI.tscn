@@ -34,7 +34,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.3, 0.4, 0.5, 0.8, 1 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 0, -16 ), Vector2( 0, 16 ), Vector2( 0, 16 ), Vector2( 0, -6 ), Vector2( 0, 0 ) ]
+"values": [ Vector2( 0, 0 ), Vector2( 0, -16 ), Vector2( 0, 16 ), Vector2( 0, 20 ), Vector2( 0, -6 ), Vector2( 0, 0 ) ]
 }
 tracks/2/type = "audio"
 tracks/2/path = NodePath("../AudioStreamPlayer")
@@ -145,7 +145,7 @@ tracks/4/keys = {
 "values": [ 3, 4, 3, 4, 2, 1, 0 ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=3]
 resource_name = "Attack3"
 length = 1.8
 tracks/0/type = "value"
@@ -213,7 +213,7 @@ tracks/4/keys = {
 "values": [ 3, 4, 3, 4, 3, 4, 2, 1, 0 ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=4]
 step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:position")
@@ -284,7 +284,7 @@ tracks/4/keys = {
 "values": [ 0, 1, 2, 6, 2, 1, 0 ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=5]
 length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:modulate")
@@ -333,7 +333,7 @@ tracks/3/keys = {
 "times": PoolRealArray(  )
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=6]
 length = 0.25
 step = 0.05
 tracks/0/type = "value"
@@ -361,7 +361,7 @@ tracks/1/keys = {
 "values": [ 5, 0 ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=7]
 length = 1.2
 loop = true
 step = 0.05
@@ -525,16 +525,15 @@ __meta__ = {
 [node name="Sprite" type="Sprite" parent="Enemy"]
 texture = ExtResource( 1 )
 hframes = 7
-frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Enemy"]
 anims/Attack1 = SubResource( 1 )
 anims/Attack2 = SubResource( 2 )
-anims/Attack3 = SubResource( 7 )
-anims/Cast = SubResource( 3 )
-anims/Died = SubResource( 4 )
-anims/Hit = SubResource( 5 )
-anims/Idle = SubResource( 6 )
+anims/Attack3 = SubResource( 3 )
+anims/Cast = SubResource( 4 )
+anims/Died = SubResource( 5 )
+anims/Hit = SubResource( 6 )
+anims/Idle = SubResource( 7 )
 
 [node name="BuffBar" type="VBoxContainer" parent="Enemy"]
 margin_left = 17.0
