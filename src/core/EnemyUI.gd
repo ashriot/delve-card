@@ -81,17 +81,16 @@ func act() -> void:
 	if self.dead:
 		emit_signal("ended_turn")
 		return
-	if buffs.size() > 0:
-		for buff in buffs:
-			reduce_buff(buff)
 	if intent == "Attack":
-		animationPlayer.play("Attack")
+		animationPlayer.play(intent + str(action_to_use.hits))
 	else:
 		animationPlayer.play("Cast")
 	yield(animationPlayer, "animation_finished")
 	animationPlayer.play("Idle")
-	update_atk_panel()
+	print("Damage bonus: ", added_damage)
 	reduce_debuffs()
+	reduce_buffs()
+	update_atk_panel()
 	emit_signal("ended_turn")
 
 func inflict_hit() -> void:
@@ -186,6 +185,11 @@ func gain_buff(buff: Buff, amt: int) -> void:
 	buffUI.connect("show_card", self, "show_buff_card")
 	buffUI.connect("hide_card", self, "hide_buff_card")
 
+func reduce_buffs() -> void:
+	if buffs.size() > 0:
+		for buff in buffs:
+			reduce_buff(buff)
+
 func reduce_buff(buff_name: String) -> void:
 	for child in buff_bar.get_children():
 		if child.buff_name == buff_name:
@@ -202,7 +206,7 @@ func remove_buff(buff_name: String) -> void:
 func gain_debuff(debuff: Buff, qty: int) -> void:
 	var floating_text = FloatingText.instance()
 	floating_text.display_text("+" + debuff.name)
-	floating_text.position = Vector2(54, 37)
+	floating_text.position = Vector2(40, 37)
 	get_parent().add_child(floating_text)
 	for d in debuffs.keys():
 		if d == debuff.name:
@@ -262,8 +266,10 @@ func update_atk_panel() -> void:
 	update_data()
 
 func update_data() -> void:
-	var dmg = float(action_to_use.damage) * (1 + damage_multiplier) \
-		+ added_damage
+	var bonus = 0.0
+	if !action_to_use.healing:
+		bonus = float(action_to_use.damage) * (damage_multiplier) + added_damage
+	var dmg = float(action_to_use.damage) + bonus
 	var dmg_text: String
 	if action_to_use.healing:
 		dmg_text += "+"

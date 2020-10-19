@@ -161,6 +161,7 @@ func play() -> void:
 	execute()
 
 func finalize_execute() -> void:
+	print("Finalize execute")
 	get_tree().call_group("action_button", "update_data")
 	emit_signal("action_finished", self)
 
@@ -168,7 +169,7 @@ func display_error() -> void:
 	var floating_text = FloatingText.instance()
 	floating_text.display_text(get_error())
 	floating_text.position = Vector2(54, 0)
-	add_child(floating_text)
+	get_parent().add_child(floating_text)
 
 func execute() -> void:
 	if action.target_type == Action.TargetType.OPPONENT:
@@ -221,6 +222,7 @@ func execute() -> void:
 			player.reduce_buff("Lifesteal")
 		if player.has_buff("Aim") and action.damage > 0:
 			player.reduce_buff("Aim")
+		finalize_execute()
 	else:
 		create_effect(player.global_position, "effect")
 		yield(self, "inflict_effect")
@@ -246,8 +248,8 @@ func execute() -> void:
 					damage = min(player.mp, 30)
 				AudioController.play_sfx("mp_gain")
 				player.take_healing(damage, "MP")
-	yield(self, "anim_finished")
-	finalize_execute()
+		yield(self, "anim_finished")
+		finalize_execute()
 
 func get_action_hits() -> int:
 	hits = action.hits

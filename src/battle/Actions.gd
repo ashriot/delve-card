@@ -17,7 +17,6 @@ signal done_adding_to_deck
 signal done_pressing
 signal show_card(btn, qty)
 signal hide_card
-signal endable
 
 export var HAND_SIZE: = 5
 
@@ -45,8 +44,6 @@ var player: Player
 var enemyUI
 var actions: Array
 
-var able_to_end: = true
-
 var weapons_played: = 0
 var weapons_in_hand: = 0
 
@@ -63,7 +60,6 @@ func initialize(_player: Player, _enemyUI: Enemy) -> void:
 	initialized = true
 
 func reset() -> void:
-	able_to_end = true
 	item_belt.invis()
 	item_belt.initialize(self, player.actor.potions)
 	while graveyard.get_child_count() > 0:
@@ -256,6 +252,7 @@ func discard_hand() -> void:
 	emit_signal("done_discarding")
 
 func action_finished(action_button: ActionButton) -> void:
+	print("action finished")
 	if action_button.action.action_type == Action.ActionType.WEAPON:
 		weapons_played += 1
 		weapons_in_hand -= 1
@@ -270,12 +267,12 @@ func action_finished(action_button: ActionButton) -> void:
 	else:
 		yield(get_tree().create_timer(0.5), "timeout")
 		action_button.queue_free()
-	emit_signal("endable")
-	able_to_end = true
+	if hand_count == 0 && auto_end:
+		print("end turn")
+		end_turn()
 
 func button_pressed(action_button: ActionButton) -> void:
 	block_input(true)
-	able_to_end = false
 	var pos = action_button.rect_global_position
 	limbo.set_global_position(pos)
 	remove_pos(action_button)
@@ -287,9 +284,6 @@ func block_input(block: bool) -> void:
 		input_blocker.show()
 	else:
 		input_blocker.hide()
-		if hand_count == 0 && auto_end:
-			print("end turn")
-			end_turn()
 
 func used_potion(button: PotionButton) -> void:
 	button.execute()
@@ -309,9 +303,6 @@ func end_turn() -> void:
 	if hand_count > 0:
 		discard_hand()
 		yield(self, "done_discarding")
-	if !able_to_end:
-		print("Waiting to end")
-		yield(self, "endable")
 	emit_signal("ended_turn")
 
 func set_deck_count(value: int) -> void:

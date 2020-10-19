@@ -57,23 +57,23 @@ func _on_Actions_ended_turn():
 
 func _on_Enemy_used_action(action: Action):
 	if action.target_type == Action.TargetType.OPPONENT:
-		var damage = action.damage * (1 + enemyUI.damage_multiplier) \
-			+ (enemyUI.added_damage)
-		playerUI.take_hit(damage)
-		if action.extra_action != null:
-			action.extra_action.execute(playerUI)
-		if playerUI.buffs.has("Flame Shield"):
-			yield(get_tree().create_timer(0.2), "timeout")
-			var burn_debuff = load("res://src/actions/debuffs/burn.tres")
-			enemyUI.gain_debuff(burn_debuff, 1)
-		if playerUI.buffs.has("Static Shield"):
-			yield(get_tree().create_timer(0.2), "timeout")
-			var static_shield = load("res://src/actions/debuffs/static_shield.tres")
-			var crit = randf() < static_shield.crit_chance
-			enemyUI.take_hit(static_shield, static_shield.damage * (2 if crit else 1), crit)
-		if playerUI.buffs.has("Mist Shield"):
-			yield(get_tree().create_timer(0.2), "timeout")
-			playerUI.take_healing(3, "HP")
+		for x in action.hits:
+			var damage = action.damage * (1 + enemyUI.damage_multiplier) \
+				+ (enemyUI.added_damage)
+			playerUI.take_hit(damage)
+			if action.extra_action != null:
+				action.extra_action.execute(playerUI)
+			if playerUI.buffs.has("Flame Shield"):
+				var burn_debuff = load("res://src/actions/debuffs/burn.tres")
+				enemyUI.gain_debuff(burn_debuff, 1)
+			if playerUI.buffs.has("Static Shield"):
+				var static_shield = load("res://src/actions/debuffs/static_shield.tres")
+				var crit = randf() < static_shield.crit_chance
+				enemyUI.take_hit(static_shield, static_shield.damage * (2 if crit else 1), crit)
+			if playerUI.buffs.has("Mist Shield"):
+				playerUI.take_healing(3, "HP")
+			if x < action.hits:
+				yield(get_tree().create_timer(0.4), "timeout")
 
 func show_card(btn, amt: int) -> void:
 	emit_signal("show_card", btn, amt)

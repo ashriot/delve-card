@@ -92,11 +92,13 @@ func take_hit(damage: int) -> void:
 	self.hp -= damage
 	hp_dmg = damage
 	if miss:
+		AudioController.play_sfx("miss")
 		floating_text.display_text("Miss!")
 	else:
 		floating_text.initialize(damage, false)
+		AudioController.play_sfx("hit")
 		$AnimationPlayer.play("Shake")
-	floating_text.position = Vector2(54, 67)
+	floating_text.position = Vector2(58, 67)
 	get_parent().add_child(floating_text)
 
 func take_healing(amount: int, type: String) -> void:
@@ -111,7 +113,7 @@ func take_healing(amount: int, type: String) -> void:
 		self.mp += amount
 	var text = "+" + str(amount) + type
 	floating_text.display_text(text)
-	floating_text.position = Vector2(54, 67)
+	floating_text.position = Vector2(40, 67)
 	get_parent().add_child(floating_text)
 
 func add_to_deck(action_name: String, qty: int) -> void:
