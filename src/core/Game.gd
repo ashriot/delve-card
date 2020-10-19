@@ -63,6 +63,7 @@ func _on_StartGame_button_up() -> void:
 	yield(fade, "animation_finished")
 
 func start_game() -> void:
+	title.hide()
 	battle.initialize(player)
 	battle.toggle_auto_end(true)
 	battle.connect("show_card", self, "show_card")
