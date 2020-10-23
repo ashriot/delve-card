@@ -1,0 +1,1039 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://assets/images/ui/difficulty.png" type="Texture" id=2]
+[ext_resource path="res://assets/images/ui/profile.png" type="Texture" id=3]
+[ext_resource path="res://assets/images/ui/gem_btn.png" type="Texture" id=4]
+[ext_resource path="res://assets/images/ui/difficulty_pressed.png" type="Texture" id=5]
+[ext_resource path="res://assets/images/ui/profile_pressed.png" type="Texture" id=6]
+[ext_resource path="res://assets/images/ui/coffee_pressed.png" type="Texture" id=7]
+[ext_resource path="res://assets/images/ui/coffee.png" type="Texture" id=8]
+[ext_resource path="res://assets/images/ui/gem_btn_pressed.png" type="Texture" id=9]
+[ext_resource path="res://assets/images/ui/info.png" type="Texture" id=10]
+[ext_resource path="res://assets/images/ui/info_pressed.png" type="Texture" id=11]
+[ext_resource path="res://assets/images/ui/gem_tiny.png" type="Texture" id=12]
+
+[node name="WelcomeScreen" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Banner" type="ColorRect" parent="."]
+anchor_right = 1.0
+margin_bottom = 9.0
+color = Color( 0.145098, 0.145098, 0.133333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Banner"]
+anchor_right = 1.0
+margin_left = -1.0
+margin_top = -3.0
+margin_right = -1.0
+margin_bottom = 11.0
+text = "Welcome to Delve"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Gems" type="Sprite" parent="ColorRect"]
+position = Vector2( 97, 180 )
+texture = ExtResource( 12 )
+centered = false
+
+[node name="Desc" type="Label" parent="ColorRect/Gems"]
+margin_left = -53.0
+margin_top = -11.0
+margin_right = 10.0
+margin_bottom = 3.0
+custom_colors/font_color = Color( 0.447059, 0.435294, 0.419608, 0.701961 )
+text = "Spirit Gems"
+align = 2
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="ColorRect/Gems"]
+margin_left = -37.0
+margin_top = -5.0
+margin_right = 4.0
+margin_bottom = 9.0
+text = "999,999"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NewGame" type="Button" parent="ColorRect"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 8.0
+margin_top = -39.0
+margin_right = -8.0
+margin_bottom = -26.0
+text = "New Game"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ContinueGame" type="Button" parent="ColorRect"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 8.0
+margin_top = -18.0
+margin_right = -8.0
+margin_bottom = -5.0
+disabled = true
+text = "Continue Game"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Bestiary" type="Button" parent="ColorRect"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 8.0
+margin_top = 17.0
+margin_right = -8.0
+margin_bottom = 30.0
+text = "Bestiary"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Collection" type="Button" parent="ColorRect"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 8.0
+margin_top = 36.0
+margin_right = -8.0
+margin_bottom = 49.0
+text = "History"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ViewAchivements" type="Button" parent="ColorRect"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 8.0
+margin_top = 55.0
+margin_right = -8.0
+margin_bottom = 68.0
+text = "Achievements"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Shop" type="Button" parent="ColorRect"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 6.0
+margin_top = 77.0
+margin_right = -64.0
+margin_bottom = 90.0
+text = "Shop"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Profile" type="TextureButton" parent="ColorRect"]
+margin_left = 8.0
+margin_top = 16.0
+margin_right = 21.0
+margin_bottom = 29.0
+texture_normal = ExtResource( 3 )
+texture_pressed = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name" type="Label" parent="ColorRect/Profile"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -1.0
+margin_top = -4.5
+margin_right = 78.0
+margin_bottom = 9.5
+text = "Ash"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="ColorRect/Profile"]
+margin_left = 11.0
+margin_top = -4.0
+margin_right = 45.0
+margin_bottom = 10.0
+custom_colors/font_color = Color( 0.447059, 0.435294, 0.419608, 0.701961 )
+text = "Profile"
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Profile2" type="TextureButton" parent="ColorRect"]
+margin_left = 8.0
+margin_top = 36.0
+margin_right = 21.0
+margin_bottom = 49.0
+texture_normal = ExtResource( 2 )
+texture_pressed = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name" type="Label" parent="ColorRect/Profile2"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -1.0
+margin_top = -4.5
+margin_right = 79.0
+margin_bottom = 9.5
+text = "Normal"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="ColorRect/Profile2"]
+margin_left = 11.0
+margin_top = -4.0
+margin_right = 45.0
+margin_bottom = 10.0
+custom_colors/font_color = Color( 0.447059, 0.435294, 0.419608, 0.701961 )
+text = "Difficulty"
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Shop" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = -28.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Banner" type="ColorRect" parent="Shop"]
+anchor_right = 1.0
+margin_bottom = 9.0
+color = Color( 0.145098, 0.145098, 0.133333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Shop/Banner"]
+anchor_right = 1.0
+margin_left = -1.0
+margin_top = -3.0
+margin_right = -1.0
+margin_bottom = 11.0
+text = "Shop"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Desc" type="Label" parent="Shop"]
+anchor_right = 1.0
+margin_left = 1.0
+margin_top = 8.0
+margin_right = 1.0
+margin_bottom = 50.0
+custom_colors/font_color = Color( 0.6, 0.584314, 0.521569, 1 )
+custom_constants/line_spacing = 1
+text = "In-app purchases are not necessary and only serve to help speed things up or reward the developer of the game! Thank you!"
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Gems" type="Control" parent="Shop"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Gem" type="Sprite" parent="Shop/Gems"]
+position = Vector2( 74, 57 )
+texture = ExtResource( 12 )
+centered = false
+
+[node name="Gem2" type="Sprite" parent="Shop/Gems"]
+position = Vector2( 46, 57 )
+texture = ExtResource( 12 )
+centered = false
+
+[node name="Gem3" type="Sprite" parent="Shop/Gems"]
+position = Vector2( 39, 74 )
+texture = ExtResource( 12 )
+centered = false
+
+[node name="Gem4" type="Sprite" parent="Shop/Gems"]
+position = Vector2( 39, 91 )
+texture = ExtResource( 12 )
+centered = false
+
+[node name="Gem5" type="Sprite" parent="Shop/Gems"]
+position = Vector2( 39, 108 )
+texture = ExtResource( 12 )
+centered = false
+
+[node name="Gem6" type="Sprite" parent="Shop/Gems"]
+position = Vector2( 47, 125 )
+texture = ExtResource( 12 )
+centered = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Shop"]
+margin_left = 5.0
+margin_top = 50.0
+margin_right = 103.0
+margin_bottom = 215.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Control" parent="Shop/VBoxContainer"]
+margin_right = 98.0
+margin_bottom = 13.0
+rect_min_size = Vector2( 98, 13 )
+
+[node name="Button" type="TextureButton" parent="Shop/VBoxContainer/Button"]
+margin_right = 13.0
+margin_bottom = 13.0
+texture_normal = ExtResource( 8 )
+texture_pressed = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Desc" type="Label" parent="Shop/VBoxContainer/Button"]
+margin_left = 10.0
+margin_top = -4.0
+margin_right = 98.0
+margin_bottom = 10.0
+custom_colors/font_color = Color( 0.447059, 0.435294, 0.419608, 0.701961 )
+text = "Cup of Coffee"
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name" type="Label" parent="Shop/VBoxContainer/Button"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 11.0
+margin_top = -11.0
+margin_right = 99.0
+margin_bottom = 3.0
+text = "Find 2x   +800"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Price" type="Label" parent="Shop/VBoxContainer/Button"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -33.0
+margin_top = -4.0
+margin_right = 4.99999
+margin_bottom = 10.0
+text = "5.99"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Currency" type="Label" parent="Shop/VBoxContainer/Button"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -15.0
+margin_top = -11.0
+margin_right = 4.99998
+margin_bottom = 3.0
+text = "USD"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button2" type="Control" parent="Shop/VBoxContainer"]
+margin_top = 17.0
+margin_right = 98.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 98, 13 )
+
+[node name="Button" type="TextureButton" parent="Shop/VBoxContainer/Button2"]
+margin_right = 13.0
+margin_bottom = 13.0
+texture_normal = ExtResource( 4 )
+texture_pressed = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Desc" type="Label" parent="Shop/VBoxContainer/Button2"]
+margin_left = 10.0
+margin_top = -4.0
+margin_right = 98.0
+margin_bottom = 10.0
+custom_colors/font_color = Color( 0.447059, 0.435294, 0.419608, 0.701961 )
+text = "Gem Stash"
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name" type="Label" parent="Shop/VBoxContainer/Button2"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 11.0
+margin_top = -11.0
+margin_right = 99.0
+margin_bottom = 3.0
+text = "+100"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Price" type="Label" parent="Shop/VBoxContainer/Button2"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -33.0
+margin_top = -4.0
+margin_right = 4.99999
+margin_bottom = 10.0
+text = "0.99"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Currency" type="Label" parent="Shop/VBoxContainer/Button2"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -15.0
+margin_top = -11.0
+margin_right = 4.99998
+margin_bottom = 3.0
+text = "USD"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button3" type="Control" parent="Shop/VBoxContainer"]
+margin_top = 34.0
+margin_right = 98.0
+margin_bottom = 47.0
+rect_min_size = Vector2( 98, 13 )
+
+[node name="Button" type="TextureButton" parent="Shop/VBoxContainer/Button3"]
+margin_right = 13.0
+margin_bottom = 13.0
+texture_normal = ExtResource( 4 )
+texture_pressed = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Desc" type="Label" parent="Shop/VBoxContainer/Button3"]
+margin_left = 10.0
+margin_top = -4.0
+margin_right = 98.0
+margin_bottom = 10.0
+custom_colors/font_color = Color( 0.447059, 0.435294, 0.419608, 0.701961 )
+text = "Gem Box"
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name" type="Label" parent="Shop/VBoxContainer/Button3"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 11.0
+margin_top = -11.0
+margin_right = 99.0
+margin_bottom = 3.0
+text = "+240"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Price" type="Label" parent="Shop/VBoxContainer/Button3"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -33.0
+margin_top = -4.0
+margin_right = 4.99999
+margin_bottom = 10.0
+text = "1.99"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Currency" type="Label" parent="Shop/VBoxContainer/Button3"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -15.0
+margin_top = -11.0
+margin_right = 4.99998
+margin_bottom = 3.0
+text = "USD"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button4" type="Control" parent="Shop/VBoxContainer"]
+margin_top = 51.0
+margin_right = 98.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 98, 13 )
+
+[node name="Button" type="TextureButton" parent="Shop/VBoxContainer/Button4"]
+margin_right = 13.0
+margin_bottom = 13.0
+texture_normal = ExtResource( 4 )
+texture_pressed = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Desc" type="Label" parent="Shop/VBoxContainer/Button4"]
+margin_left = 10.0
+margin_top = -4.0
+margin_right = 98.0
+margin_bottom = 10.0
+custom_colors/font_color = Color( 0.447059, 0.435294, 0.419608, 0.701961 )
+text = "Gem Chest"
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name" type="Label" parent="Shop/VBoxContainer/Button4"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 11.0
+margin_top = -11.0
+margin_right = 99.0
+margin_bottom = 3.0
+text = "+700"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Price" type="Label" parent="Shop/VBoxContainer/Button4"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -33.0
+margin_top = -4.0
+margin_right = 4.99999
+margin_bottom = 10.0
+text = "4.99"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Currency" type="Label" parent="Shop/VBoxContainer/Button4"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -15.0
+margin_top = -11.0
+margin_right = 4.99998
+margin_bottom = 3.0
+text = "USD"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button5" type="Control" parent="Shop/VBoxContainer"]
+margin_top = 68.0
+margin_right = 98.0
+margin_bottom = 81.0
+rect_min_size = Vector2( 98, 13 )
+
+[node name="Button" type="TextureButton" parent="Shop/VBoxContainer/Button5"]
+margin_right = 13.0
+margin_bottom = 13.0
+texture_normal = ExtResource( 4 )
+texture_pressed = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Desc" type="Label" parent="Shop/VBoxContainer/Button5"]
+margin_left = 10.0
+margin_top = -4.0
+margin_right = 98.0
+margin_bottom = 10.0
+custom_colors/font_color = Color( 0.447059, 0.435294, 0.419608, 0.701961 )
+text = "Gem Hoard"
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name" type="Label" parent="Shop/VBoxContainer/Button5"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 11.0
+margin_top = -11.0
+margin_right = 99.0
+margin_bottom = 3.0
+text = "+1,600"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Price" type="Label" parent="Shop/VBoxContainer/Button5"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -33.0
+margin_top = -4.0
+margin_right = 4.99999
+margin_bottom = 10.0
+text = "9.99"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Currency" type="Label" parent="Shop/VBoxContainer/Button5"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -15.0
+margin_top = -11.0
+margin_right = 4.99998
+margin_bottom = 3.0
+text = "USD"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Donor" type="Button" parent="Shop"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = -10.0
+margin_right = -6.0
+margin_bottom = 3.0
+text = "Donor Bundles"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Back" type="Button" parent="Shop"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 9.0
+margin_right = 44.0
+margin_bottom = 22.0
+text = "Back"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DonorBundles" type="ColorRect" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = -23.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Banner" type="ColorRect" parent="DonorBundles"]
+anchor_right = 1.0
+margin_bottom = 9.0
+color = Color( 0.145098, 0.145098, 0.133333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="DonorBundles/Banner"]
+anchor_right = 1.0
+margin_left = -1.0
+margin_top = -3.0
+margin_right = -1.0
+margin_bottom = 11.0
+text = "Donor Bundles"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Desc" type="Label" parent="DonorBundles"]
+anchor_right = 1.0
+margin_left = 1.0
+margin_top = 8.0
+margin_right = 1.0
+margin_bottom = 64.0
+custom_colors/font_color = Color( 0.6, 0.584314, 0.521569, 1 )
+custom_constants/line_spacing = 1
+text = "If you are really enjoying the game and want to help development, consider a Donor Bundle! All Donor Bundle items can be found during normal gameplay. Tap the ? for more info."
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DonorBundles"]
+margin_left = 5.0
+margin_top = 67.0
+margin_right = 103.0
+margin_bottom = 168.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Control" parent="DonorBundles/VBoxContainer"]
+margin_right = 98.0
+margin_bottom = 13.0
+rect_min_size = Vector2( 98, 13 )
+
+[node name="Button" type="TextureButton" parent="DonorBundles/VBoxContainer/Button"]
+margin_right = 13.0
+margin_bottom = 13.0
+texture_normal = ExtResource( 8 )
+texture_pressed = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Info" type="TextureButton" parent="DonorBundles/VBoxContainer/Button"]
+margin_left = 63.0
+margin_right = 76.0
+margin_bottom = 13.0
+texture_normal = ExtResource( 10 )
+texture_pressed = ExtResource( 11 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Desc" type="Label" parent="DonorBundles/VBoxContainer/Button"]
+margin_left = 10.0
+margin_top = -4.0
+margin_right = 98.0
+margin_bottom = 10.0
+custom_colors/font_color = Color( 0.447059, 0.435294, 0.419608, 0.701961 )
+text = "Multi-Pack"
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name" type="Label" parent="DonorBundles/VBoxContainer/Button"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 11.0
+margin_top = -11.0
+margin_right = 99.0
+margin_bottom = 3.0
+text = "Fighter"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Price" type="Label" parent="DonorBundles/VBoxContainer/Button"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -33.0
+margin_top = -4.0
+margin_right = 4.99999
+margin_bottom = 10.0
+text = "19.99"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Currency" type="Label" parent="DonorBundles/VBoxContainer/Button"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -15.0
+margin_top = -11.0
+margin_right = 4.99998
+margin_bottom = 3.0
+text = "USD"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button2" type="Control" parent="DonorBundles/VBoxContainer"]
+margin_top = 17.0
+margin_right = 98.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 98, 13 )
+
+[node name="Button" type="TextureButton" parent="DonorBundles/VBoxContainer/Button2"]
+margin_right = 13.0
+margin_bottom = 13.0
+texture_normal = ExtResource( 4 )
+texture_pressed = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Desc" type="Label" parent="DonorBundles/VBoxContainer/Button2"]
+margin_left = 10.0
+margin_top = -4.0
+margin_right = 98.0
+margin_bottom = 10.0
+custom_colors/font_color = Color( 0.447059, 0.435294, 0.419608, 0.701961 )
+text = "Thief"
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name" type="Label" parent="DonorBundles/VBoxContainer/Button2"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 11.0
+margin_top = -11.0
+margin_right = 99.0
+margin_bottom = 3.0
+text = "Thief"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Price" type="Label" parent="DonorBundles/VBoxContainer/Button2"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -33.0
+margin_top = -4.0
+margin_right = 4.99999
+margin_bottom = 10.0
+text = "19.99"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Currency" type="Label" parent="DonorBundles/VBoxContainer/Button2"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -15.0
+margin_top = -11.0
+margin_right = 4.99998
+margin_bottom = 3.0
+text = "USD"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button3" type="Control" parent="DonorBundles/VBoxContainer"]
+margin_top = 34.0
+margin_right = 98.0
+margin_bottom = 47.0
+rect_min_size = Vector2( 98, 13 )
+
+[node name="Button" type="TextureButton" parent="DonorBundles/VBoxContainer/Button3"]
+margin_right = 13.0
+margin_bottom = 13.0
+texture_normal = ExtResource( 4 )
+texture_pressed = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Desc" type="Label" parent="DonorBundles/VBoxContainer/Button3"]
+margin_left = 10.0
+margin_top = -4.0
+margin_right = 98.0
+margin_bottom = 10.0
+custom_colors/font_color = Color( 0.447059, 0.435294, 0.419608, 0.701961 )
+text = "Sorcerer"
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name" type="Label" parent="DonorBundles/VBoxContainer/Button3"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 11.0
+margin_top = -11.0
+margin_right = 99.0
+margin_bottom = 3.0
+text = "Sorcerer"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Price" type="Label" parent="DonorBundles/VBoxContainer/Button3"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -33.0
+margin_top = -4.0
+margin_right = 4.99999
+margin_bottom = 10.0
+text = "19.99"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Currency" type="Label" parent="DonorBundles/VBoxContainer/Button3"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -15.0
+margin_top = -11.0
+margin_right = 4.99998
+margin_bottom = 3.0
+text = "USD"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button4" type="Control" parent="DonorBundles/VBoxContainer"]
+margin_top = 51.0
+margin_right = 98.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 98, 13 )
+
+[node name="Button" type="TextureButton" parent="DonorBundles/VBoxContainer/Button4"]
+margin_right = 13.0
+margin_bottom = 13.0
+texture_normal = ExtResource( 4 )
+texture_pressed = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Desc" type="Label" parent="DonorBundles/VBoxContainer/Button4"]
+margin_left = 10.0
+margin_top = -4.0
+margin_right = 98.0
+margin_bottom = 10.0
+custom_colors/font_color = Color( 0.447059, 0.435294, 0.419608, 0.701961 )
+text = "Priestess"
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name" type="Label" parent="DonorBundles/VBoxContainer/Button4"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 11.0
+margin_top = -11.0
+margin_right = 99.0
+margin_bottom = 3.0
+text = "Priestess"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Price" type="Label" parent="DonorBundles/VBoxContainer/Button4"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -33.0
+margin_top = -4.0
+margin_right = 4.99999
+margin_bottom = 10.0
+text = "19.99"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Currency" type="Label" parent="DonorBundles/VBoxContainer/Button4"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -15.0
+margin_top = -11.0
+margin_right = 4.99998
+margin_bottom = 3.0
+text = "USD"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Back" type="Button" parent="DonorBundles"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = 4.0
+margin_right = 44.0
+margin_bottom = 17.0
+text = "Back"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Popup" type="ColorRect" parent="DonorBundles"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.882353 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="DonorBundles/Popup"]
+anchor_right = 1.0
+margin_right = 2.0
+margin_bottom = 44.0
+text = "The Fighter Bundle includes:
+* 1,000 Gems
+* All Fighter actions
+* All Fighter trinkets
+* All Fighter bonuses"
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}

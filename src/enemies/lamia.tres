@@ -1,0 +1,21 @@
+[gd_resource type="Resource" load_steps=8 format=2]
+
+[ext_resource path="res://src/enemies/enemy_actor.gd" type="Script" id=1]
+[ext_resource path="res://assets/images/enemies/lamia.png" type="Texture" id=2]
+[ext_resource path="res://src/actions/enemy/attack1.tres" type="Resource" id=3]
+[ext_resource path="res://src/actions/enemy/gird5.tres" type="Resource" id=4]
+[ext_resource path="res://src/actions/enemy/roar.tres" type="Resource" id=5]
+[ext_resource path="res://src/actions/enemy/attack3.tres" type="Resource" id=6]
+[ext_resource path="res://src/actions/enemy/attack2.tres" type="Resource" id=7]
+
+[resource]
+script = ExtResource( 1 )
+name = "Lamia"
+level = 1
+max_hp = 50
+max_ap = 0
+initial_ac = 10
+initial_mp = 0
+gold = 30
+texture = ExtResource( 2 )
+actions = [ ExtResource( 3 ), ExtResource( 7 ), ExtResource( 6 ), ExtResource( 4 ), ExtResource( 5 ) ]
