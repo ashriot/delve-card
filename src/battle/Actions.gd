@@ -36,6 +36,8 @@ onready var item_belt: = $ItemAnchor/ItemBelt
 onready var end_turn: = $EndTurn
 
 var auto_end: = false
+var ended_turn: = false
+var actions_queued: = 0
 var hand_count: = 0
 var deck_count setget set_deck_count
 var deck_order: = []
@@ -76,6 +78,7 @@ func reset() -> void:
 	self.graveyard_count = 0
 	weapons_played = 0
 	weapons_in_hand = 0
+	actions_queued = 0
 	fill_deck()
 	shuffle_deck()
 
@@ -252,7 +255,6 @@ func discard_hand() -> void:
 	emit_signal("done_discarding")
 
 func action_finished(action_button: ActionButton) -> void:
-	print("action finished")
 	if action_button.action.action_type == Action.ActionType.WEAPON:
 		weapons_played += 1
 		weapons_in_hand -= 1
@@ -267,7 +269,8 @@ func action_finished(action_button: ActionButton) -> void:
 	else:
 		yield(get_tree().create_timer(0.5), "timeout")
 		action_button.queue_free()
-	if hand_count == 0 && auto_end:
+	actions_queued -= 1
+	if hand_count == 0 && auto_end && actions_queued == 0:
 		print("end turn")
 		end_turn()
 
@@ -277,6 +280,7 @@ func button_pressed(action_button: ActionButton) -> void:
 	limbo.set_global_position(pos)
 	remove_pos(action_button)
 	limbo.add_child(action_button)
+	actions_queued += 1
 	emit_signal("done_pressing")
 
 func block_input(block: bool) -> void:
@@ -293,6 +297,8 @@ func _on_EndTurn_button_up():
 	end_turn()
 
 func end_turn() -> void:
+	if ended_turn: return
+	ended_turn = true
 	block_input(true)
 	item_belt.hide()
 	end_turn.hide()
@@ -333,6 +339,7 @@ func _on_Battle_start_turn():
 	get_tree().call_group("action_button", "update_data")
 	item_belt.show()
 	block_input(false)
+	ended_turn = false
 	end_turn.show()
 
 func _on_Player_add_to_deck(action_name: String, qty: int):

@@ -161,7 +161,6 @@ func play() -> void:
 	execute()
 
 func finalize_execute() -> void:
-	print("Finalize execute")
 	get_tree().call_group("action_button", "update_data")
 	emit_signal("action_finished", self)
 

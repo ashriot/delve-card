@@ -56,7 +56,7 @@ tracks/3/keys = {
 "start_offset": 0.0,
 "stream": ExtResource( 3 )
 } ],
-"times": PoolRealArray( 0.1 )
+"times": PoolRealArray( 0.15 )
 }
 tracks/4/type = "method"
 tracks/4/path = NodePath(".")
