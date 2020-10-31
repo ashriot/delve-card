@@ -21,6 +21,7 @@ onready var squares = $Squares
 var generator: = preload("res://src/map/dungeon_generation.gd").new()
 var _Square = preload("res://src/map/Square.tscn")
 var astar: AStar2D
+var origin = null
 
 var DIST = 18
 var max_x = 6
@@ -34,34 +35,37 @@ var shop_max: = 2
 var anvil_max: = 1
 var shrine_max: = 1
 
-func initialize() -> Square:
-	dungeon = {}
-	generate_dungeon()
-	var origin = load_map()
-	connect_squares()
-	return origin
+var SAVE_KEY: String = "map"
 
-func generate_dungeon() -> void:
-	astar = AStar2D.new()
+func initialize() -> void:
+	dungeon = {}
 	chest_max = randi() % 2 + 1
 	heal_max = randi() % 3 + 1
 	enemy_max = randi() % 2 + 2
 	shop_max = 0
 	anvil_max = 1
 	shrine_max = 0
+	generate_dungeon()
+	load_map()
+	connect_squares()
+
+func get_origin() -> Square:
+	return origin as Square
+
+func generate_dungeon() -> void:
+	astar = AStar2D.new()
 	var room_max = min(chest_max + heal_max + enemy_max + \
 		shop_max + anvil_max + shrine_max + 6, 24)
 	var room_min = room_max - 3
-	dungeon = generator.generate(rand_range(-100, 100), [room_min, room_max])
+	dungeon = generator.generate([room_min, room_max])
 
 func clear_map() -> void:
 	for child in squares.get_children():
 		child.queue_free()
 	for child in branches.get_children():
 		child.queue_free()
-	
 
-func load_map() -> Square:
+func load_map() -> void:
 	var map = []
 	var chests = chest_max
 	var heals = heal_max
@@ -69,20 +73,18 @@ func load_map() -> Square:
 	var shops = shop_max
 	var anvils = anvil_max
 	var shrines = shrine_max
-	
-	var origin: Square
-	
+
 	for k in dungeon.keys():
 		map.append([dungeon[k].connections, k])
-		
+
 	map.sort_custom(ActionSorter, "sort_vectors")
 	var down_pos = map.back()[1]
-	
+
 	map.sort_custom(ActionSorter, "sort_ascending")
-	
+
 	for i in map:
 		var square = dungeon.get(i[1])
-		
+
 		if i[1] == Vector2.ZERO:
 			square.initialize(self, "Clear", node_sprite)
 			origin = square
@@ -143,7 +145,6 @@ func load_map() -> Square:
 			branches.add_child(branch)
 			branch.rotation_degrees = 90
 			branch.position = i[1] * DIST + Vector2(-0.5, 10)
-	return origin
 
 func connect_squares() -> void:
 	for i in dungeon:
@@ -167,6 +168,20 @@ func show_tooltip(button: Square) -> void:
 
 func hide_tooltip() -> void:
 	emit_signal("hide_tooltip")
+
+func save(save_game: Resource) -> void:
+	print("saving " + SAVE_KEY + " data")
+	save_game.data[SAVE_KEY] = {
+		"dungeon": dungeon
+	}
+
+func load(save_game: Resource):
+	print("load map")
+	var data: Dictionary = save_game.data[SAVE_KEY]
+	dungeon = data["dungeon"]
+	var origin = load_map()
+	connect_squares()
+	return origin
 
 func _on_Button_pressed():
 	generate_dungeon()

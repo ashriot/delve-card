@@ -129,6 +129,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/potions/PotionViewer.gd"
 }, {
+"base": "Resource",
+"class": "Profile",
+"language": "GDScript",
+"path": "res://src/player/profile.gd"
+}, {
+"base": "Resource",
+"class": "SaveGame",
+"language": "GDScript",
+"path": "res://src/utils/SaveGame.gd"
+}, {
 "base": "TextureButton",
 "class": "Square",
 "language": "GDScript",
@@ -169,6 +179,8 @@ _global_script_class_icons={
 "PlayerUI": "",
 "PotionButton": "",
 "PotionViewer": "",
+"Profile": "",
+"SaveGame": "",
 "Square": "",
 "Trinket": "",
 "TrinketButton": ""
@@ -180,6 +192,7 @@ config/name="Delve"
 run/main_scene="res://src/core/Game.tscn"
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://assets/images/icon.png"
+config/version="0.1.0"
 
 [autoload]
 

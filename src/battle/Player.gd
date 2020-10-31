@@ -32,7 +32,6 @@ var buffs: Dictionary
 var debuffs: Dictionary
 
 func initialize(_actor: Actor) ->  void:
-#	randomize()
 	assert(_actor is Actor)
 	actor = _actor as Actor
 	self.hp = actor.max_hp

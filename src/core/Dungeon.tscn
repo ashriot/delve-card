@@ -89,6 +89,16 @@ anims/animate = SubResource( 1 )
 
 [node name="Tween" type="Tween" parent="ColorRect/Map/Avatar"]
 
+[node name="Button" type="Button" parent="ColorRect/Map"]
+margin_left = 66.0
+margin_top = -20.0
+margin_right = 92.0
+margin_bottom = -10.0
+text = "Gen"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Tooltip" type="Panel" parent="ColorRect"]
 visible = false
 anchor_right = 0.611
@@ -113,3 +123,4 @@ __meta__ = {
 [connection signal="hide_tooltip" from="ColorRect/Map" to="." method="_on_Map_hide_tooltip"]
 [connection signal="move_to_square" from="ColorRect/Map" to="." method="_on_Map_move_to_square"]
 [connection signal="show_tooltip" from="ColorRect/Map" to="." method="_on_Map_show_tooltip"]
+[connection signal="pressed" from="ColorRect/Map/Button" to="ColorRect/Map" method="_on_Button_pressed"]

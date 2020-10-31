@@ -19,13 +19,13 @@ func generate_map() -> void:
 	var chests = randi() % 3 + 1
 	var heals = randi() % 2 + 1
 	var anvils = randi() % 2
-	
+
 	var squares = []
 	squares.resize(row_count)
 	for x in row_count:
 		squares[x] = []
 		squares[x].resize(col_count)
-	
+
 	while enemies > 0:
 		enemies -= 1
 		set_square(squares, "enemy")
@@ -38,7 +38,7 @@ func generate_map() -> void:
 	while anvils > 0:
 		anvils -= 1
 		set_square(squares, "anvil")
-	
+
 	for x in get_children():
 		for y in x.get_children():
 			var val = squares[x.get_index()][y.get_index()]

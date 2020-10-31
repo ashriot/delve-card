@@ -6,14 +6,13 @@ var room = preload("res://src/map/Square.tscn")
 var max_x = 6
 var max_y = 4
 
-func generate(room_seed: int, room_range: Array):
-	seed(room_seed)
+func generate(room_range: Array) -> Array:
 	var dungeon = {}
 	var size = floor(rand_range(room_range[0], room_range[1]))
-	
+
 	dungeon[Vector2(0,0)] = room.instance()
 	size -= 1
-	
+
 	while(size > 0):
 		var index = 0
 		for i in dungeon.keys():

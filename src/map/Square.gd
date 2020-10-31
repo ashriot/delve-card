@@ -19,10 +19,17 @@ var connected_squares = {
 }
 
 var connections: = 0
+var initialized: = false
+
 func initialize(map, _type: String, texture: Texture) -> void:
+	if initialized: return
 	cleared = false
 	type = _type
 	texture_normal = texture
+	setup(map)
+	initialized = true
+
+func setup(map) -> void:
 	connect("clicked", map, "square_clicked", [self])
 	connect("show_tooltip", map, "show_tooltip", [self])
 	connect("hide_tooltip", map, "hide_tooltip")
@@ -38,6 +45,7 @@ func _on_Square_button_down():
 	modulate = Color.gray
 
 func _on_Square_button_up():
+	print("clicked!")
 	timer.stop()
 	modulate = Color.white
 	if hovering:

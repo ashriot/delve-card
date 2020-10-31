@@ -12,7 +12,9 @@ export var rooms: = 5
 export var mute: = false
 export var skip_intro: = false
 
+onready var game_saver: = $GameSaver
 onready var title: = $Title
+onready var welcome: = $WelcomeScreen
 onready var battle: = $Battle
 onready var dungeon: = $Dungeon
 onready var loot: = $Loot
@@ -27,15 +29,20 @@ onready var playerUI = $PlayerUI
 onready var settings = $Settings/Dimmer
 onready var settings_btn = $Settings/Settings
 
+export var profile_id: int = 0
+
+var loading: = false
+var game_seed: String = "GODOT"
+
 # Settings
 var auto_end: = true
 
 func _ready() -> void:
 	$Title/AnimationPlayer.play("FlashTap")
-	randomize()
+	rand_seed(game_seed.hash())
 	AudioController.mute = mute
 	AudioController.play_bgm("title")
-	dungeon.initialize()
+	dungeon.initialize(self)
 	playerUI.hide()
 	settings.hide()
 	battle.hide()
@@ -46,12 +53,16 @@ func _ready() -> void:
 	demo.hide()
 	deck.hide()
 	card.hide()
+	welcome.initialize(game_saver)
 	$DemoScreen/Notes.hide()
 	char_select.hide()
 	if skip_intro:
 		skip_intro()
 	else:
 		title.show()
+
+func save_game() -> void:
+	welcome.game_saver.save(profile_id)
 
 func _on_StartGame_button_up() -> void:
 	AudioController.click()
@@ -64,16 +75,26 @@ func _on_StartGame_button_up() -> void:
 
 func start_game() -> void:
 	title.hide()
+	welcome.hide()
+	char_select.hide()
+	demo.hide()
+	refresh_dungeon()
+	blacksmith.initialize(self)
+	deck.initialize(self)
+	deck.connect("show_card", self, "show_card")
+	deck.connect("hide_card", self, "hide_card")
 	battle.initialize(player)
 	battle.toggle_auto_end(true)
 	battle.connect("show_card", self, "show_card")
 	battle.connect("hide_card", self, "hide_card")
 	loot.initialize(self)
 	dungeon.show()
+	playerUI.initialize(self)
 	playerUI.show()
 	fade.play("FadeIn")
 	AudioController.play_bgm("dungeon")
 	yield(fade, "animation_finished")
+	save_game()
 
 func start_battle(scene_to_hide: Node2D, enemy: EnemyActor) -> void:
 	fade.play("FadeOut")
@@ -111,6 +132,7 @@ func start_loot(gold: int, qty: int) -> void:
 	playerUI.refresh()
 	loot.hide()
 	emit_signal("looting_finished")
+	save_game()
 
 func game_over() -> void:
 	AudioController.play_bgm("title")
@@ -149,7 +171,7 @@ func _on_DemoStart_button_up():
 	fade.play("FadeOut")
 	yield(fade, "animation_finished")
 	demo.hide()
-	char_select.show()
+	welcome.show()
 	fade.play("FadeIn")
 
 func _on_CharSelect_chose_class(name: String) -> void:
@@ -159,12 +181,6 @@ func _on_CharSelect_chose_class(name: String) -> void:
 	skip_intro()
 
 func skip_intro() -> void:
-	refresh_dungeon()
-	playerUI.initialize(self)
-	blacksmith.initialize(self)
-	deck.initialize(self)
-	deck.connect("show_card", self, "show_card")
-	deck.connect("hide_card", self, "hide_card")
 	fade.play("FadeOut")
 	yield(fade, "animation_finished")
 	char_select.hide()
@@ -242,3 +258,12 @@ func _on_Dungeon_advance():
 
 func _on_Dungeon_blacksmith():
 	blacksmith.show()
+
+func _on_WelcomeScreen_done():
+	loading = true
+	player = playerUI.player
+	start_game()
+
+func _on_WelcomeScreen_new():
+	welcome.hide()
+	char_select.show()

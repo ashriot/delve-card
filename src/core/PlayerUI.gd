@@ -20,6 +20,8 @@ onready var trinket_belt = $TrinketBelt
 onready var item_belt = $ItemAnchor/ItemBelt
 onready var animation_player = $Player/AnimationPlayer
 
+var SAVE_KEY: String = "player"
+
 var player: Actor
 
 func initialize(game) -> void:
@@ -102,3 +104,24 @@ func comma_sep(n: int) -> String:
 func _on_DeckButton_button_up():
 	AudioController.click()
 	emit_signal("open_deck")
+
+func save(save_game: Resource) -> void:
+	print("saving player data")
+	save_game.data[SAVE_KEY] = {
+		"player": player,
+		"actions": player.actions,
+		"potions": player.potions,
+		"trinkets": player.trinkets,
+		"max_hp": player.max_hp,
+		"max_ap": player.max_ap,
+		"initial_ac": player.initial_ac,
+		"initial_mp": player.initial_mp,
+		"gold": player.gold
+	}
+
+func load(save_game: Resource) -> void:
+	print('loading player data')
+	var data: Dictionary = save_game.data[SAVE_KEY]
+	player = data["player"]
+	player.actions = data["actions"]
+

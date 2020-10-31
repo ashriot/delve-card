@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://assets/images/ui/difficulty.png" type="Texture" id=2]
 [ext_resource path="res://assets/images/ui/profile.png" type="Texture" id=3]
@@ -11,10 +11,218 @@
 [ext_resource path="res://assets/images/ui/info.png" type="Texture" id=10]
 [ext_resource path="res://assets/images/ui/info_pressed.png" type="Texture" id=11]
 [ext_resource path="res://assets/images/ui/gem_tiny.png" type="Texture" id=12]
+[ext_resource path="res://src/core/WelcomeScreen.gd" type="Script" id=13]
 
 [node name="WelcomeScreen" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+script = ExtResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BG" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NewGame" type="Button" parent="BG"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 4.0
+margin_top = -39.0
+margin_right = -4.0
+margin_bottom = -26.0
+text = "New Game"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ContinueGame" type="Button" parent="BG"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 4.0
+margin_top = -18.0
+margin_right = -4.0
+margin_bottom = -5.0
+disabled = true
+text = "Continue Game"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Bestiary" type="Button" parent="BG"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 4.0
+margin_top = 17.0
+margin_right = -4.0
+margin_bottom = 30.0
+text = "Bestiary"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Collection" type="Button" parent="BG"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 4.0
+margin_top = 36.0
+margin_right = -4.0
+margin_bottom = 49.0
+text = "History"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ViewAchivements" type="Button" parent="BG"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 4.0
+margin_top = 55.0
+margin_right = -4.0
+margin_bottom = 68.0
+text = "Achievements"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Shop" type="Button" parent="BG"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 4.0
+margin_top = 77.0
+margin_right = -62.0
+margin_bottom = 90.0
+text = "Shop"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Profile" type="TextureButton" parent="BG"]
+margin_left = 4.0
+margin_top = 16.0
+margin_right = 74.0
+margin_bottom = 29.0
+texture_normal = ExtResource( 3 )
+texture_pressed = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Desc" type="Label" parent="BG/Profile"]
+margin_left = 11.0
+margin_top = -4.0
+margin_right = 64.0
+margin_bottom = 10.0
+custom_colors/font_color = Color( 0.447059, 0.435294, 0.419608, 0.490196 )
+text = "Profile"
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name" type="Label" parent="BG/Profile"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 12.0
+margin_top = -11.0
+margin_right = 59.0
+margin_bottom = 3.0
+text = "Ash"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Difficulty" type="TextureButton" parent="BG"]
+margin_left = 4.0
+margin_top = 36.0
+margin_right = 74.0
+margin_bottom = 49.0
+texture_normal = ExtResource( 2 )
+texture_pressed = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Desc" type="Label" parent="BG/Difficulty"]
+margin_left = 11.0
+margin_top = -4.0
+margin_right = 66.0
+margin_bottom = 10.0
+custom_colors/font_color = Color( 0.447059, 0.435294, 0.419608, 0.490196 )
+text = "Difficulty"
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name" type="Label" parent="BG/Difficulty"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 12.0
+margin_top = -11.0
+margin_right = 71.0
+margin_bottom = 3.0
+text = "Normal"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SpiritGems" type="Control" parent="BG"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -48.0
+margin_top = -22.0
+margin_right = 2.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Gems" type="Sprite" parent="BG/SpiritGems"]
+position = Vector2( 38, 10 )
+texture = ExtResource( 12 )
+centered = false
+
+[node name="Desc" type="Label" parent="BG/SpiritGems/Gems"]
+margin_left = -52.0
+margin_top = -11.0
+margin_right = 11.0
+margin_bottom = 3.0
+custom_colors/font_color = Color( 0.447059, 0.435294, 0.419608, 0.490196 )
+text = "Spirit Gems"
+align = 2
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="BG/SpiritGems/Gems"]
+margin_left = -37.0
+margin_top = -5.0
+margin_right = 4.0
+margin_bottom = 9.0
+text = "999,999"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SpinBox" type="SpinBox" parent="BG"]
+margin_left = 51.0
+margin_top = 17.0
+margin_right = 107.0
+margin_bottom = 27.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -38,196 +246,8 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ColorRect" type="ColorRect" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-color = Color( 0, 0, 0, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Gems" type="Sprite" parent="ColorRect"]
-position = Vector2( 97, 180 )
-texture = ExtResource( 12 )
-centered = false
-
-[node name="Desc" type="Label" parent="ColorRect/Gems"]
-margin_left = -53.0
-margin_top = -11.0
-margin_right = 10.0
-margin_bottom = 3.0
-custom_colors/font_color = Color( 0.447059, 0.435294, 0.419608, 0.701961 )
-text = "Spirit Gems"
-align = 2
-uppercase = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="ColorRect/Gems"]
-margin_left = -37.0
-margin_top = -5.0
-margin_right = 4.0
-margin_bottom = 9.0
-text = "999,999"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="NewGame" type="Button" parent="ColorRect"]
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-margin_left = 8.0
-margin_top = -39.0
-margin_right = -8.0
-margin_bottom = -26.0
-text = "New Game"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ContinueGame" type="Button" parent="ColorRect"]
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-margin_left = 8.0
-margin_top = -18.0
-margin_right = -8.0
-margin_bottom = -5.0
-disabled = true
-text = "Continue Game"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Bestiary" type="Button" parent="ColorRect"]
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-margin_left = 8.0
-margin_top = 17.0
-margin_right = -8.0
-margin_bottom = 30.0
-text = "Bestiary"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Collection" type="Button" parent="ColorRect"]
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-margin_left = 8.0
-margin_top = 36.0
-margin_right = -8.0
-margin_bottom = 49.0
-text = "History"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ViewAchivements" type="Button" parent="ColorRect"]
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-margin_left = 8.0
-margin_top = 55.0
-margin_right = -8.0
-margin_bottom = 68.0
-text = "Achievements"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Shop" type="Button" parent="ColorRect"]
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-margin_left = 6.0
-margin_top = 77.0
-margin_right = -64.0
-margin_bottom = 90.0
-text = "Shop"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Profile" type="TextureButton" parent="ColorRect"]
-margin_left = 8.0
-margin_top = 16.0
-margin_right = 21.0
-margin_bottom = 29.0
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 6 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Name" type="Label" parent="ColorRect/Profile"]
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-margin_left = -1.0
-margin_top = -4.5
-margin_right = 78.0
-margin_bottom = 9.5
-text = "Ash"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="ColorRect/Profile"]
-margin_left = 11.0
-margin_top = -4.0
-margin_right = 45.0
-margin_bottom = 10.0
-custom_colors/font_color = Color( 0.447059, 0.435294, 0.419608, 0.701961 )
-text = "Profile"
-uppercase = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Profile2" type="TextureButton" parent="ColorRect"]
-margin_left = 8.0
-margin_top = 36.0
-margin_right = 21.0
-margin_bottom = 49.0
-texture_normal = ExtResource( 2 )
-texture_pressed = ExtResource( 5 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Name" type="Label" parent="ColorRect/Profile2"]
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-margin_left = -1.0
-margin_top = -4.5
-margin_right = 79.0
-margin_bottom = 9.5
-text = "Normal"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label2" type="Label" parent="ColorRect/Profile2"]
-margin_left = 11.0
-margin_top = -4.0
-margin_right = 45.0
-margin_bottom = 10.0
-custom_colors/font_color = Color( 0.447059, 0.435294, 0.419608, 0.701961 )
-text = "Difficulty"
-uppercase = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="Shop" type="ColorRect" parent="."]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_bottom = -28.0
@@ -272,6 +292,7 @@ __meta__ = {
 [node name="Gems" type="Control" parent="Shop"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_bottom = 8.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -674,7 +695,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="DonorBundles" type="ColorRect" parent="."]
+[node name="DonorBundles" type="ColorRect" parent="Shop"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -684,7 +705,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Banner" type="ColorRect" parent="DonorBundles"]
+[node name="Banner" type="ColorRect" parent="Shop/DonorBundles"]
 anchor_right = 1.0
 margin_bottom = 9.0
 color = Color( 0.145098, 0.145098, 0.133333, 1 )
@@ -692,7 +713,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="DonorBundles/Banner"]
+[node name="Label" type="Label" parent="Shop/DonorBundles/Banner"]
 anchor_right = 1.0
 margin_left = -1.0
 margin_top = -3.0
@@ -703,7 +724,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Desc" type="Label" parent="DonorBundles"]
+[node name="Desc" type="Label" parent="Shop/DonorBundles"]
 anchor_right = 1.0
 margin_left = 1.0
 margin_top = 8.0
@@ -717,7 +738,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VBoxContainer" type="VBoxContainer" parent="DonorBundles"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Shop/DonorBundles"]
 margin_left = 5.0
 margin_top = 67.0
 margin_right = 103.0
@@ -726,12 +747,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button" type="Control" parent="DonorBundles/VBoxContainer"]
+[node name="Button" type="Control" parent="Shop/DonorBundles/VBoxContainer"]
 margin_right = 98.0
 margin_bottom = 13.0
 rect_min_size = Vector2( 98, 13 )
 
-[node name="Button" type="TextureButton" parent="DonorBundles/VBoxContainer/Button"]
+[node name="Button" type="TextureButton" parent="Shop/DonorBundles/VBoxContainer/Button"]
 margin_right = 13.0
 margin_bottom = 13.0
 texture_normal = ExtResource( 8 )
@@ -740,7 +761,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Info" type="TextureButton" parent="DonorBundles/VBoxContainer/Button"]
+[node name="Info" type="TextureButton" parent="Shop/DonorBundles/VBoxContainer/Button"]
 margin_left = 63.0
 margin_right = 76.0
 margin_bottom = 13.0
@@ -750,7 +771,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Desc" type="Label" parent="DonorBundles/VBoxContainer/Button"]
+[node name="Desc" type="Label" parent="Shop/DonorBundles/VBoxContainer/Button"]
 margin_left = 10.0
 margin_top = -4.0
 margin_right = 98.0
@@ -762,7 +783,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Name" type="Label" parent="DonorBundles/VBoxContainer/Button"]
+[node name="Name" type="Label" parent="Shop/DonorBundles/VBoxContainer/Button"]
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_left = 11.0
@@ -774,7 +795,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Price" type="Label" parent="DonorBundles/VBoxContainer/Button"]
+[node name="Price" type="Label" parent="Shop/DonorBundles/VBoxContainer/Button"]
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -33.0
@@ -787,7 +808,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Currency" type="Label" parent="DonorBundles/VBoxContainer/Button"]
+[node name="Currency" type="Label" parent="Shop/DonorBundles/VBoxContainer/Button"]
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
@@ -802,13 +823,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button2" type="Control" parent="DonorBundles/VBoxContainer"]
+[node name="Button2" type="Control" parent="Shop/DonorBundles/VBoxContainer"]
 margin_top = 17.0
 margin_right = 98.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 98, 13 )
 
-[node name="Button" type="TextureButton" parent="DonorBundles/VBoxContainer/Button2"]
+[node name="Button" type="TextureButton" parent="Shop/DonorBundles/VBoxContainer/Button2"]
 margin_right = 13.0
 margin_bottom = 13.0
 texture_normal = ExtResource( 4 )
@@ -817,7 +838,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Desc" type="Label" parent="DonorBundles/VBoxContainer/Button2"]
+[node name="Desc" type="Label" parent="Shop/DonorBundles/VBoxContainer/Button2"]
 margin_left = 10.0
 margin_top = -4.0
 margin_right = 98.0
@@ -829,7 +850,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Name" type="Label" parent="DonorBundles/VBoxContainer/Button2"]
+[node name="Name" type="Label" parent="Shop/DonorBundles/VBoxContainer/Button2"]
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_left = 11.0
@@ -841,7 +862,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Price" type="Label" parent="DonorBundles/VBoxContainer/Button2"]
+[node name="Price" type="Label" parent="Shop/DonorBundles/VBoxContainer/Button2"]
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -33.0
@@ -854,7 +875,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Currency" type="Label" parent="DonorBundles/VBoxContainer/Button2"]
+[node name="Currency" type="Label" parent="Shop/DonorBundles/VBoxContainer/Button2"]
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
@@ -869,13 +890,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button3" type="Control" parent="DonorBundles/VBoxContainer"]
+[node name="Button3" type="Control" parent="Shop/DonorBundles/VBoxContainer"]
 margin_top = 34.0
 margin_right = 98.0
 margin_bottom = 47.0
 rect_min_size = Vector2( 98, 13 )
 
-[node name="Button" type="TextureButton" parent="DonorBundles/VBoxContainer/Button3"]
+[node name="Button" type="TextureButton" parent="Shop/DonorBundles/VBoxContainer/Button3"]
 margin_right = 13.0
 margin_bottom = 13.0
 texture_normal = ExtResource( 4 )
@@ -884,7 +905,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Desc" type="Label" parent="DonorBundles/VBoxContainer/Button3"]
+[node name="Desc" type="Label" parent="Shop/DonorBundles/VBoxContainer/Button3"]
 margin_left = 10.0
 margin_top = -4.0
 margin_right = 98.0
@@ -896,7 +917,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Name" type="Label" parent="DonorBundles/VBoxContainer/Button3"]
+[node name="Name" type="Label" parent="Shop/DonorBundles/VBoxContainer/Button3"]
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_left = 11.0
@@ -908,7 +929,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Price" type="Label" parent="DonorBundles/VBoxContainer/Button3"]
+[node name="Price" type="Label" parent="Shop/DonorBundles/VBoxContainer/Button3"]
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -33.0
@@ -921,7 +942,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Currency" type="Label" parent="DonorBundles/VBoxContainer/Button3"]
+[node name="Currency" type="Label" parent="Shop/DonorBundles/VBoxContainer/Button3"]
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
@@ -936,13 +957,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button4" type="Control" parent="DonorBundles/VBoxContainer"]
+[node name="Button4" type="Control" parent="Shop/DonorBundles/VBoxContainer"]
 margin_top = 51.0
 margin_right = 98.0
 margin_bottom = 64.0
 rect_min_size = Vector2( 98, 13 )
 
-[node name="Button" type="TextureButton" parent="DonorBundles/VBoxContainer/Button4"]
+[node name="Button" type="TextureButton" parent="Shop/DonorBundles/VBoxContainer/Button4"]
 margin_right = 13.0
 margin_bottom = 13.0
 texture_normal = ExtResource( 4 )
@@ -951,7 +972,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Desc" type="Label" parent="DonorBundles/VBoxContainer/Button4"]
+[node name="Desc" type="Label" parent="Shop/DonorBundles/VBoxContainer/Button4"]
 margin_left = 10.0
 margin_top = -4.0
 margin_right = 98.0
@@ -963,7 +984,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Name" type="Label" parent="DonorBundles/VBoxContainer/Button4"]
+[node name="Name" type="Label" parent="Shop/DonorBundles/VBoxContainer/Button4"]
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_left = 11.0
@@ -975,7 +996,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Price" type="Label" parent="DonorBundles/VBoxContainer/Button4"]
+[node name="Price" type="Label" parent="Shop/DonorBundles/VBoxContainer/Button4"]
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -33.0
@@ -988,7 +1009,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Currency" type="Label" parent="DonorBundles/VBoxContainer/Button4"]
+[node name="Currency" type="Label" parent="Shop/DonorBundles/VBoxContainer/Button4"]
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
@@ -1003,19 +1024,19 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Back" type="Button" parent="DonorBundles"]
+[node name="Back" type="Button" parent="Shop/DonorBundles"]
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_left = 6.0
-margin_top = 4.0
+margin_top = 32.0
 margin_right = 44.0
-margin_bottom = 17.0
+margin_bottom = 45.0
 text = "Back"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Popup" type="ColorRect" parent="DonorBundles"]
+[node name="Popup" type="ColorRect" parent="Shop/DonorBundles"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1024,7 +1045,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="DonorBundles/Popup"]
+[node name="Label" type="Label" parent="Shop/DonorBundles/Popup"]
 anchor_right = 1.0
 margin_right = 2.0
 margin_bottom = 44.0
@@ -1037,3 +1058,5 @@ autowrap = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
+[connection signal="button_up" from="BG/NewGame" to="." method="_on_NewGame_button_up"]
+[connection signal="button_up" from="BG/ContinueGame" to="." method="_on_ContinueGame_button_up"]
