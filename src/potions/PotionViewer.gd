@@ -4,7 +4,7 @@ class_name PotionViewer
 
 signal show_card(button)
 signal hide_card
-signal used_potion(button)
+#signal used_potion(button)
 
 onready var button: = $Button
 onready var sprite: = $Button/Sprite

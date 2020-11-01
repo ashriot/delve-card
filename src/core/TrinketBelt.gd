@@ -17,10 +17,6 @@ func clear_trinkets() -> void:
 	for child in trinkets.get_children():
 		child.queue_free()
 
-func consume(button) -> void:
-	pass
-#	trinkets.remove_child(button)
-
 func show() -> void:
 	.show()
 	tween.interpolate_property(trinkets, "modulate",

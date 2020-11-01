@@ -7,7 +7,6 @@ signal inflict_hit
 signal inflict_effect
 signal anim_finished
 signal action_finished(action_button)
-signal execute_finished
 signal button_pressed(button)
 signal unblock(value)
 signal discarded(action_button)
@@ -28,7 +27,7 @@ var played: = true
 var hp_cost: int
 var ap_cost: int setget set_ap_cost
 var mp_cost: int
-var damage: int
+#var damage: int
 var hits: int
 
 var added_damage: = 0 setget set_added_damage
@@ -52,7 +51,7 @@ func initialize(_action: Action, _player: Player, _enemy: Enemy) -> void:
 		ap_cost = action.cost
 	elif action.cost_type == Action.DamageType.MP:
 		mp_cost = action.cost
-	damage = action.damage
+#	damage = action.damage
 	hits = action.hits
 	update_data()
 	initialized = true
@@ -203,7 +202,7 @@ func execute() -> void:
 				damage *= (2 if crit else 1)
 				if player.has_buff("Lifesteal"):
 					var healing = damage
-					player.take_healing(damage, "HP")
+					player.take_healing(healing, "HP")
 				enemy.take_hit(action, damage, crit)
 			if action.drawX > 0:
 				emit_signal("draw_cards", action)

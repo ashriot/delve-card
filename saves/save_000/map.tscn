@@ -1,0 +1,408 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://assets/images/map/heal.png" type="Texture" id=1]
+[ext_resource path="res://assets/images/map/chest.png" type="Texture" id=2]
+[ext_resource path="res://assets/images/map/enemy.png" type="Texture" id=3]
+[ext_resource path="res://src/core/MapNode.gd" type="Script" id=4]
+[ext_resource path="res://assets/images/map/clear.png" type="Texture" id=5]
+[ext_resource path="res://assets/images/map/stairs_down.png" type="Texture" id=6]
+[ext_resource path="res://assets/images/map/connector.png" type="Texture" id=7]
+[ext_resource path="res://src/map/Square.tscn" type="PackedScene" id=8]
+[ext_resource path="res://assets/images/map/anvil.png" type="Texture" id=9]
+[ext_resource path="res://src/map/Square.gd" type="Script" id=10]
+
+[node name="@@@@Map@31@31@31@31" type="Node2D"]
+position = Vector2( 9, 61 )
+script = ExtResource( 4 )
+
+[node name="Branches" type="Node2D" parent="."]
+
+[node name="@@31" type="Sprite" parent="Branches"]
+position = Vector2( 0, 28 )
+rotation = 1.5708
+texture = ExtResource( 7 )
+
+[node name="@@37" type="Sprite" parent="Branches"]
+position = Vector2( 10, 1 )
+texture = ExtResource( 7 )
+
+[node name="@@38" type="Sprite" parent="Branches"]
+position = Vector2( 0, 10 )
+rotation = 1.5708
+texture = ExtResource( 7 )
+
+[node name="@@40" type="Sprite" parent="Branches"]
+position = Vector2( 28, 1 )
+texture = ExtResource( 7 )
+
+[node name="@@41" type="Sprite" parent="Branches"]
+position = Vector2( 18, 10 )
+rotation = 1.5708
+texture = ExtResource( 7 )
+
+[node name="@@43" type="Sprite" parent="Branches"]
+position = Vector2( 64, 19 )
+texture = ExtResource( 7 )
+
+[node name="@@45" type="Sprite" parent="Branches"]
+position = Vector2( 82, 19 )
+texture = ExtResource( 7 )
+
+[node name="@@47" type="Sprite" parent="Branches"]
+position = Vector2( 28, 19 )
+texture = ExtResource( 7 )
+
+[node name="@@48" type="Sprite" parent="Branches"]
+position = Vector2( 18, 28 )
+rotation = 1.5708
+texture = ExtResource( 7 )
+
+[node name="@@50" type="Sprite" parent="Branches"]
+position = Vector2( 10, 37 )
+texture = ExtResource( 7 )
+
+[node name="@@51" type="Sprite" parent="Branches"]
+position = Vector2( 0, 46 )
+rotation = 1.5708
+texture = ExtResource( 7 )
+
+[node name="@@53" type="Sprite" parent="Branches"]
+position = Vector2( 46, 1 )
+texture = ExtResource( 7 )
+
+[node name="@@54" type="Sprite" parent="Branches"]
+position = Vector2( 36, 10 )
+rotation = 1.5708
+texture = ExtResource( 7 )
+
+[node name="@@56" type="Sprite" parent="Branches"]
+position = Vector2( 46, 19 )
+texture = ExtResource( 7 )
+
+[node name="@@58" type="Sprite" parent="Branches"]
+position = Vector2( 28, 37 )
+texture = ExtResource( 7 )
+
+[node name="Squares" type="Node2D" parent="."]
+
+[node name="Square" type="TextureButton" parent="Squares" instance=ExtResource( 8 )]
+margin_left = -5.0
+margin_top = 13.0
+margin_right = 6.0
+margin_bottom = 24.0
+texture_normal = ExtResource( 2 )
+script = ExtResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+pos = Vector2( 0, 1 )
+origin = false
+type = "Chest"
+cleared = false
+hovering = false
+up = Vector2( 0, 0 )
+down = Vector2( 0, 2 )
+left = Vector2( 0, 0 )
+right = Vector2( 0, 0 )
+connected = true
+
+[node name="@Square@32" type="TextureButton" parent="Squares" instance=ExtResource( 8 )]
+margin_left = -5.0
+margin_top = 49.0
+margin_right = 6.0
+margin_bottom = 60.0
+texture_normal = ExtResource( 2 )
+script = ExtResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+pos = Vector2( 0, 3 )
+origin = false
+type = "Chest"
+cleared = false
+hovering = false
+up = Vector2( 0, 2 )
+down = Vector2( 0, 0 )
+left = Vector2( 0, 0 )
+right = Vector2( 0, 0 )
+connected = true
+
+[node name="@Square@33" type="TextureButton" parent="Squares" instance=ExtResource( 8 )]
+margin_left = 49.0
+margin_top = -5.0
+margin_right = 60.0
+margin_bottom = 6.0
+texture_normal = ExtResource( 9 )
+script = ExtResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+pos = Vector2( 3, 0 )
+origin = false
+type = "Anvil"
+cleared = false
+hovering = false
+up = Vector2( 0, 0 )
+down = Vector2( 0, 0 )
+left = Vector2( 2, 0 )
+right = Vector2( 0, 0 )
+connected = true
+
+[node name="@Square@34" type="TextureButton" parent="Squares" instance=ExtResource( 8 )]
+margin_left = 31.0
+margin_top = 31.0
+margin_right = 42.0
+margin_bottom = 42.0
+texture_normal = ExtResource( 1 )
+script = ExtResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+pos = Vector2( 2, 2 )
+origin = false
+type = "Rest"
+cleared = false
+hovering = false
+up = Vector2( 0, 0 )
+down = Vector2( 0, 0 )
+left = Vector2( 1, 2 )
+right = Vector2( 0, 0 )
+connected = true
+
+[node name="@Square@35" type="TextureButton" parent="Squares" instance=ExtResource( 8 )]
+margin_left = 85.0
+margin_top = 13.0
+margin_right = 96.0
+margin_bottom = 24.0
+texture_normal = ExtResource( 6 )
+script = ExtResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+pos = Vector2( 5, 1 )
+origin = false
+type = "Down"
+cleared = false
+hovering = false
+up = Vector2( 0, 0 )
+down = Vector2( 0, 0 )
+left = Vector2( 4, 1 )
+right = Vector2( 0, 0 )
+connected = true
+
+[node name="@Square@36" type="TextureButton" parent="Squares" instance=ExtResource( 8 )]
+margin_left = -5.0
+margin_top = -5.0
+margin_right = 6.0
+margin_bottom = 6.0
+texture_normal = ExtResource( 5 )
+script = ExtResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+pos = Vector2( 0, 0 )
+origin = true
+type = "Clear"
+cleared = false
+hovering = false
+up = Vector2( 0, 0 )
+down = Vector2( 0, 1 )
+left = Vector2( 0, 0 )
+right = Vector2( 1, 0 )
+connected = true
+
+[node name="@Square@39" type="TextureButton" parent="Squares" instance=ExtResource( 8 )]
+margin_left = 13.0
+margin_top = -5.0
+margin_right = 24.0
+margin_bottom = 6.0
+texture_normal = ExtResource( 5 )
+script = ExtResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+pos = Vector2( 1, 0 )
+origin = false
+type = "Clear"
+cleared = true
+hovering = false
+up = Vector2( 0, 0 )
+down = Vector2( 1, 1 )
+left = Vector2( 0, 0 )
+right = Vector2( 2, 0 )
+connected = true
+
+[node name="@Square@42" type="TextureButton" parent="Squares" instance=ExtResource( 8 )]
+margin_left = 49.0
+margin_top = 13.0
+margin_right = 60.0
+margin_bottom = 24.0
+texture_normal = ExtResource( 5 )
+script = ExtResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+pos = Vector2( 3, 1 )
+origin = false
+type = "Clear"
+cleared = true
+hovering = false
+up = Vector2( 0, 0 )
+down = Vector2( 0, 0 )
+left = Vector2( 2, 1 )
+right = Vector2( 4, 1 )
+connected = true
+
+[node name="@Square@44" type="TextureButton" parent="Squares" instance=ExtResource( 8 )]
+margin_left = 67.0
+margin_top = 13.0
+margin_right = 78.0
+margin_bottom = 24.0
+texture_normal = ExtResource( 3 )
+script = ExtResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+pos = Vector2( 4, 1 )
+origin = false
+type = "Battle"
+cleared = false
+hovering = false
+up = Vector2( 0, 0 )
+down = Vector2( 0, 0 )
+left = Vector2( 3, 1 )
+right = Vector2( 5, 1 )
+connected = true
+
+[node name="@Square@46" type="TextureButton" parent="Squares" instance=ExtResource( 8 )]
+margin_left = 13.0
+margin_top = 13.0
+margin_right = 24.0
+margin_bottom = 24.0
+texture_normal = ExtResource( 5 )
+script = ExtResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+pos = Vector2( 1, 1 )
+origin = false
+type = "Clear"
+cleared = false
+hovering = false
+up = Vector2( 1, 0 )
+down = Vector2( 1, 2 )
+left = Vector2( 0, 0 )
+right = Vector2( 2, 1 )
+connected = true
+
+[node name="@Square@49" type="TextureButton" parent="Squares" instance=ExtResource( 8 )]
+margin_left = -5.0
+margin_top = 31.0
+margin_right = 6.0
+margin_bottom = 42.0
+texture_normal = ExtResource( 5 )
+script = ExtResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+pos = Vector2( 0, 2 )
+origin = false
+type = "Clear"
+cleared = false
+hovering = false
+up = Vector2( 0, 1 )
+down = Vector2( 0, 3 )
+left = Vector2( 0, 0 )
+right = Vector2( 1, 2 )
+connected = true
+
+[node name="@Square@52" type="TextureButton" parent="Squares" instance=ExtResource( 8 )]
+margin_left = 31.0
+margin_top = -5.0
+margin_right = 42.0
+margin_bottom = 6.0
+texture_normal = ExtResource( 5 )
+script = ExtResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+pos = Vector2( 2, 0 )
+origin = false
+type = "Clear"
+cleared = false
+hovering = false
+up = Vector2( 0, 0 )
+down = Vector2( 2, 1 )
+left = Vector2( 1, 0 )
+right = Vector2( 3, 0 )
+connected = true
+
+[node name="@Square@55" type="TextureButton" parent="Squares" instance=ExtResource( 8 )]
+margin_left = 31.0
+margin_top = 13.0
+margin_right = 42.0
+margin_bottom = 24.0
+texture_normal = ExtResource( 5 )
+script = ExtResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+pos = Vector2( 2, 1 )
+origin = false
+type = "Clear"
+cleared = false
+hovering = false
+up = Vector2( 2, 0 )
+down = Vector2( 0, 0 )
+left = Vector2( 1, 1 )
+right = Vector2( 3, 1 )
+connected = true
+
+[node name="@Square@57" type="TextureButton" parent="Squares" instance=ExtResource( 8 )]
+margin_left = 13.0
+margin_top = 31.0
+margin_right = 24.0
+margin_bottom = 42.0
+texture_normal = ExtResource( 5 )
+script = ExtResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+pos = Vector2( 1, 2 )
+origin = false
+type = "Clear"
+cleared = false
+hovering = false
+up = Vector2( 1, 1 )
+down = Vector2( 0, 0 )
+left = Vector2( 0, 2 )
+right = Vector2( 2, 2 )
+connected = true
+[connection signal="button_down" from="Squares/Square" to="Squares/Square" method="_on_Square_button_down"]
+[connection signal="button_up" from="Squares/Square" to="Squares/Square" method="_on_Square_button_up"]
+[connection signal="button_down" from="Squares/@Square@32" to="Squares/@Square@32" method="_on_Square_button_down"]
+[connection signal="button_up" from="Squares/@Square@32" to="Squares/@Square@32" method="_on_Square_button_up"]
+[connection signal="button_down" from="Squares/@Square@33" to="Squares/@Square@33" method="_on_Square_button_down"]
+[connection signal="button_up" from="Squares/@Square@33" to="Squares/@Square@33" method="_on_Square_button_up"]
+[connection signal="button_down" from="Squares/@Square@34" to="Squares/@Square@34" method="_on_Square_button_down"]
+[connection signal="button_up" from="Squares/@Square@34" to="Squares/@Square@34" method="_on_Square_button_up"]
+[connection signal="button_down" from="Squares/@Square@35" to="Squares/@Square@35" method="_on_Square_button_down"]
+[connection signal="button_up" from="Squares/@Square@35" to="Squares/@Square@35" method="_on_Square_button_up"]
+[connection signal="button_down" from="Squares/@Square@36" to="Squares/@Square@36" method="_on_Square_button_down"]
+[connection signal="button_up" from="Squares/@Square@36" to="Squares/@Square@36" method="_on_Square_button_up"]
+[connection signal="button_down" from="Squares/@Square@39" to="Squares/@Square@39" method="_on_Square_button_down"]
+[connection signal="button_up" from="Squares/@Square@39" to="Squares/@Square@39" method="_on_Square_button_up"]
+[connection signal="button_down" from="Squares/@Square@42" to="Squares/@Square@42" method="_on_Square_button_down"]
+[connection signal="button_up" from="Squares/@Square@42" to="Squares/@Square@42" method="_on_Square_button_up"]
+[connection signal="button_down" from="Squares/@Square@44" to="Squares/@Square@44" method="_on_Square_button_down"]
+[connection signal="button_up" from="Squares/@Square@44" to="Squares/@Square@44" method="_on_Square_button_up"]
+[connection signal="button_down" from="Squares/@Square@46" to="Squares/@Square@46" method="_on_Square_button_down"]
+[connection signal="button_up" from="Squares/@Square@46" to="Squares/@Square@46" method="_on_Square_button_up"]
+[connection signal="button_down" from="Squares/@Square@49" to="Squares/@Square@49" method="_on_Square_button_down"]
+[connection signal="button_up" from="Squares/@Square@49" to="Squares/@Square@49" method="_on_Square_button_up"]
+[connection signal="button_down" from="Squares/@Square@52" to="Squares/@Square@52" method="_on_Square_button_down"]
+[connection signal="button_up" from="Squares/@Square@52" to="Squares/@Square@52" method="_on_Square_button_up"]
+[connection signal="button_down" from="Squares/@Square@55" to="Squares/@Square@55" method="_on_Square_button_down"]
+[connection signal="button_up" from="Squares/@Square@55" to="Squares/@Square@55" method="_on_Square_button_up"]
+[connection signal="button_down" from="Squares/@Square@57" to="Squares/@Square@57" method="_on_Square_button_down"]
+[connection signal="button_up" from="Squares/@Square@57" to="Squares/@Square@57" method="_on_Square_button_up"]

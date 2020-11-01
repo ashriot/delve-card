@@ -70,8 +70,8 @@ func take_hit(damage: int) -> void:
 		miss = randf() < .5
 	if miss:
 		damage = 0
-	var blocked_dmg = 0
-	var hp_dmg = 0
+#	var blocked_dmg = 0
+#	var hp_dmg = 0
 	if buffs.has("Mage Armor"):
 		if mp > damage:
 			self.mp -= damage
@@ -82,14 +82,14 @@ func take_hit(damage: int) -> void:
 	if ac > 0:
 		if ac > damage:
 			self.ac -= damage
-			blocked_dmg = damage
+#			blocked_dmg = damage
 			damage = 0
 		else:
 			damage -= ac
-			blocked_dmg = damage
+#			blocked_dmg = damage
 			self.ac = 0
 	self.hp -= damage
-	hp_dmg = damage
+#	hp_dmg = damage
 	if miss:
 		AudioController.play_sfx("miss")
 		floating_text.display_text("Miss!")

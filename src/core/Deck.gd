@@ -74,11 +74,11 @@ func fill_deck() -> void:
 		initialize_button(action_button, action)
 		deck.add_child(action_button)
 
-func initialize_button(action_button: ActionChoice, action: Action) -> void:
+func initialize_button(action_button: ActionChoice, act: Action) -> void:
 	action_button.connect("show_card", self, "_on_show_card")
 	action_button.connect("hide_card", self, "_on_hide_card")
 	action_button.connect("chosen", self, "choose")
-	action_button.initialize(action, player)
+	action_button.initialize(act, player)
 
 func choose(choice: ActionChoice) -> void:
 	if !clickable: return

@@ -6,15 +6,16 @@ var room = preload("res://src/map/Square.tscn")
 var max_x = 6
 var max_y = 4
 
+var dungeon = {}
+
 func generate(room_range: Array) -> Array:
-	var dungeon = {}
+	dungeon = {}
 	var size = floor(rand_range(room_range[0], room_range[1]))
 
 	dungeon[Vector2(0,0)] = room.instance()
 	size -= 1
 
 	while(size > 0):
-		var index = 0
 		for i in dungeon.keys():
 			if dungeon[i].connections > 1:
 				if randf() < .3 * dungeon[i].connections:
@@ -39,23 +40,17 @@ func generate(room_range: Array) -> Array:
 			var pos = i + direction
 			if !dungeon.has(pos):
 				dungeon[pos] = room.instance()
+				dungeon[pos].pos = pos
 				size -= 1
-			index += 1
-			if dungeon.get(i).connected_squares.get(direction) == null:
+			if dungeon.get(i).get_dir(direction) == Vector2.ZERO:
 				if dungeon.get(pos).connections > 1:
 					continue
 				connect_rooms(dungeon.get(i), dungeon.get(pos), direction)
 	return dungeon
 
 func connect_rooms(room1, room2, direction):
-	room1.connected_squares[direction] = room2
-	room2.connected_squares[-direction] = room1
-	room1.connections += 1
-	room2.connections += 1
+	room1.set_dir(direction, room2.pos)
+	room2.set_dir(-direction, room1.pos)
 
-func is_interesting(dungeon):
-	var room_with_three = 0
-	for i in dungeon.keys():
-		if(dungeon.get(i).connections >= 3):
-			room_with_three += 1
-	return room_with_three >= 2
+func get_dungeon() -> Array:
+	return dungeon

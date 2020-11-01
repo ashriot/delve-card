@@ -1,13 +1,7 @@
 extends Control
 class_name PotionButton
 
-signal inflict_hit
-signal inflict_effect
-signal anim_finished
-signal action_finished(button)
-signal execute_finished
 signal unblock(value)
-signal discarded(button)
 signal draw_cards(action)
 
 signal show_card(button)
@@ -26,7 +20,6 @@ var initialized: = false
 func initialize(actions, _action: Action) -> void:
 	connect("unblock", actions, "block_input")
 	connect("draw_cards", actions, "draw_cards")
-	connect("action_finished", actions, "action_finished")
 	connect("used_potion", actions, "used_potion")
 	connect("show_card", actions, "show_card")
 	connect("hide_card", actions, "hide_card")

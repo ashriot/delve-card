@@ -33,7 +33,7 @@ onready var deck: = $DeckViewer/InputBlock/ScrollContainer/Deck
 onready var graveyard: = $Graveyard
 onready var limbo: = $Limbo
 onready var item_belt: = $ItemAnchor/ItemBelt
-onready var end_turn: = $EndTurn
+onready var end_turn_btn: = $EndTurn
 
 var auto_end: = false
 var ended_turn: = false
@@ -163,7 +163,7 @@ func set_pos(node: Control) -> void:
 		if hand.get_child(i).get_child_count() == 0:
 			hand.get_child(i).add_child(node)
 			hand_count += 1
-			var p = hand.get_child(i) as Position2D
+#			var p = hand.get_child(i) as Position2D
 			node.set_position(Vector2.ZERO)
 			return
 
@@ -301,7 +301,7 @@ func end_turn() -> void:
 	ended_turn = true
 	block_input(true)
 	item_belt.hide()
-	end_turn.hide()
+	end_turn_btn.hide()
 	weapons_played = 0
 	weapons_in_hand = 0
 	emit_signal("weapons_played", 0)
@@ -340,7 +340,7 @@ func _on_Battle_start_turn():
 	item_belt.show()
 	block_input(false)
 	ended_turn = false
-	end_turn.show()
+	end_turn_btn.show()
 
 func _on_Player_add_to_deck(action_name: String, qty: int):
 	var btns = []

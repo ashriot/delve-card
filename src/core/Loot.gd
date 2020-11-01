@@ -27,7 +27,7 @@ func initialize(game) -> void:
 	loot2 = get_loot(2)
 	loot3 = get_loot(3)
 	loot4 = get_loot(4)
-	
+
 	for _i in range(3):
 		var child = _ActionChoice.instance()
 		child.connect("show_card", self, "_on_show_card")
@@ -72,7 +72,7 @@ func choose(choice: ActionChoice) -> void:
 				finished.text = "Skip Reward"
 		else:
 			child.chosen = false
-	
+
 func new_picker(progress: int, qty: int) -> Array:
 	var level = (1 + progress / 2) as int
 	var loot_list = []
@@ -84,7 +84,7 @@ func new_picker(progress: int, qty: int) -> Array:
 	pick3.shuffle()
 	var pick4 = loot4.duplicate(true)
 	pick4.shuffle()
-	
+
 	for i in range(qty):
 		var uncommon = 1.25
 		var rare = 1.75
@@ -96,7 +96,7 @@ func new_picker(progress: int, qty: int) -> Array:
 			rank = 4
 		elif roll >= uncommon:
 			rank = 3
-		
+
 		if rank == 4:
 			if pick4.size() > 0:
 				loot_list.append(pick4.pop_front())
@@ -149,10 +149,10 @@ func get_loot(rank: int) -> Array:
 		elif not file.begins_with("."):
 			files.append(file)
 	dir.list_dir_end()
-	
+
 	for loot in files:
 		list.append(path + loot)
-	
+
 	return list
 
 func _on_Finished_button_up():

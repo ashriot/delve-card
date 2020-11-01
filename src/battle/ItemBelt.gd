@@ -26,10 +26,6 @@ func clear_items() -> void:
 	for child in items.get_children():
 		child.queue_free()
 
-func consume(button) -> void:
-	pass
-#	items.remove_child(button)
-
 func show() -> void:
 	.show()
 	tween.interpolate_property(items, "modulate",

@@ -20,7 +20,7 @@ onready var squares = $Squares
 
 var generator: = preload("res://src/map/dungeon_generation.gd").new()
 var _Square = preload("res://src/map/Square.tscn")
-var astar: AStar2D
+var astar: = AStar2D.new()
 var origin = null
 
 var DIST = 18
@@ -35,29 +35,38 @@ var shop_max: = 2
 var anvil_max: = 1
 var shrine_max: = 1
 
-var SAVE_KEY: String = "map"
-
 func initialize() -> void:
-	dungeon = {}
 	chest_max = randi() % 2 + 1
 	heal_max = randi() % 3 + 1
 	enemy_max = randi() % 2 + 2
 	shop_max = 0
 	anvil_max = 1
 	shrine_max = 0
+	branches = $Branches
+	branches.set_owner(self)
+	squares.set_owner(self)
 	generate_dungeon()
 	load_map()
+	add_squares_to_astar()
 	connect_squares()
+	for child in branches.get_children():
+		child.set_owner(self)
+	for child in squares.get_children():
+		child.set_owner(self)
 
 func get_origin() -> Square:
+	if origin == null:
+		for child in squares.get_children():
+			if child.origin:
+				origin = child
 	return origin as Square
 
 func generate_dungeon() -> void:
-	astar = AStar2D.new()
 	var room_max = min(chest_max + heal_max + enemy_max + \
 		shop_max + anvil_max + shrine_max + 6, 24)
 	var room_min = room_max - 3
-	dungeon = generator.generate([room_min, room_max])
+	generator.generate([room_min, room_max])
+	dungeon = generator.get_dungeon()
 
 func clear_map() -> void:
 	for child in squares.get_children():
@@ -86,81 +95,98 @@ func load_map() -> void:
 		var square = dungeon.get(i[1])
 
 		if i[1] == Vector2.ZERO:
-			square.initialize(self, "Clear", node_sprite)
+			square.initialize("Clear", node_sprite)
 			origin = square
+			square.origin = true
 		else:
 			if i[1] == down_pos:
-				square.initialize(self, "Down", down_sprite)
+				square.initialize("Down", down_sprite)
 			elif dungeon[i[1]].connections == 1:
 				if chests > 0:
 					chests -= 1
-					square.initialize(self, "Chest", chest_sprite)
+					square.initialize("Chest", chest_sprite)
 				elif shops > 0:
 					shops -= 1
-					square.initialize(self, "Shop", shop_sprite)
+					square.initialize("Shop", shop_sprite)
 				elif anvils > 0:
 					anvils -= 1
-					square.initialize(self, "Anvil", anvil_sprite)
+					square.initialize("Anvil", anvil_sprite)
 				elif shrines > 0:
 					shrines -= 1
-					square.initialize(self, "Shrine", shrine_sprite)
+					square.initialize("Shrine", shrine_sprite)
 				else:
 					heals -= 1
-					square.initialize(self, "Rest", heal_sprite)
+					square.initialize("Rest", heal_sprite)
 			else:
 				if enemies > 0:
 					enemies -= 1
-					square.initialize(self, "Battle", enemy_sprite)
+					square.initialize("Battle", enemy_sprite)
 				elif chests > 0:
 					chests -= 1
-					square.initialize(self, "Chest", chest_sprite)
+					square.initialize("Chest", chest_sprite)
 				elif shops > 0:
 					shops -= 1
-					square.initialize(self, "Shop", shop_sprite)
+					square.initialize("Shop", shop_sprite)
 				elif anvils > 0:
 					anvils -= 1
-					square.initialize(self, "Anvil", anvil_sprite)
+					square.initialize("Anvil", anvil_sprite)
 				elif shrines > 0:
 					shrines -= 1
-					square.initialize(self, "Shrine", shrine_sprite)
+					square.initialize("Shrine", shrine_sprite)
 				elif heals > 0:
 					heals -= 1
-					square.initialize(self, "Rest", heal_sprite)
+					square.initialize("Rest", heal_sprite)
 				else:
-					square.initialize(self, "Clear", node_sprite)
+					square.initialize("Clear", node_sprite)
 		squares.add_child(square)
 		square.rect_position = i[1] * DIST - Vector2(5, 5)
-		astar.add_point(square.get_index(), square.rect_position)
-		if square.type == "Battle":
-			astar.set_point_disabled(square.get_index())
-		var c_squares = dungeon.get(i[1]).connected_squares
-		if(c_squares.get(Vector2(1, 0)) != null):
+		if(dungeon.get(i[1]).get_dir(Vector2(1, 0)) != Vector2.ZERO):
 			var branch = Sprite.new()
 			branch.texture = branch_sprite
 			branches.add_child(branch)
-			branch.position = i[1] * DIST + Vector2(10, 0.5)
-		if(c_squares.get(Vector2(0, 1)) != null):
+			branch.position = i[1] * DIST + Vector2(10, 1)
+		if(dungeon.get(i[1]).get_dir(Vector2(0, 1)) != Vector2.ZERO):
 			var branch = Sprite.new()
 			branch.texture = branch_sprite
 			branches.add_child(branch)
 			branch.rotation_degrees = 90
-			branch.position = i[1] * DIST + Vector2(-0.5, 10)
+			branch.position = i[1] * DIST + Vector2(0, 10)
+
+func add_squares_to_astar() -> void:
+	squares = $Squares
+	for square in squares.get_children():
+		print(square.get_instance_id())
+		astar.add_point(square.get_index(), square.rect_position)
+		if square.type == "Battle":
+			astar.set_point_disabled(square.get_index())
 
 func connect_squares() -> void:
-	for i in dungeon:
-		var square = dungeon.get(i) as Square
-		var conn = square.connected_squares
-		for c in conn:
-			var sq = conn.get(c)
-			if sq != null:
-				astar.connect_points(square.get_index(), sq.get_index())
+	for square in squares.get_children():
+		square.setup(self)
+		if square.up != Vector2.ZERO:
+			astar.connect_points(square.get_index(), get_index_by_pos(square.up))
+		if square.down != Vector2.ZERO:
+			astar.connect_points(square.get_index(), get_index_by_pos(square.down))
+		if square.left != Vector2.ZERO:
+			astar.connect_points(square.get_index(), get_index_by_pos(square.left))
+		if square.right != Vector2.ZERO:
+			astar.connect_points(square.get_index(), get_index_by_pos(square.right))
 
 func get_pos(index: int) -> Vector2:
 	return astar.get_point_position(index)
 
+func get_index_by_pos(pos) -> int:
+	for child in squares.get_children():
+		if child.pos == pos:
+			return child.get_index()
+	return -1
+
 func square_clicked(button: Square) -> void:
+	print("Square clicked! ", button.get_instance_id())
 	if button.type == "Battle":
-		astar.set_point_disabled(button.get_index(), false)
+		var index = button.get_index()
+		print(index)
+		astar.set_point_disabled(index, false)
 	emit_signal("move_to_square", button)
 
 func show_tooltip(button: Square) -> void:
@@ -168,20 +194,6 @@ func show_tooltip(button: Square) -> void:
 
 func hide_tooltip() -> void:
 	emit_signal("hide_tooltip")
-
-func save(save_game: Resource) -> void:
-	print("saving " + SAVE_KEY + " data")
-	save_game.data[SAVE_KEY] = {
-		"dungeon": dungeon
-	}
-
-func load(save_game: Resource):
-	print("load map")
-	var data: Dictionary = save_game.data[SAVE_KEY]
-	dungeon = data["dungeon"]
-	var origin = load_map()
-	connect_squares()
-	return origin
 
 func _on_Button_pressed():
 	generate_dungeon()

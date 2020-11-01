@@ -273,7 +273,7 @@ func update_data() -> void:
 	var dmg = float(action_to_use.damage) + bonus
 	var dmg_text: String
 	if action_to_use.healing:
-		dmg_text += "+"
+		dmg_text = "+"
 	dmg_text += str(int(dmg))
 	if action_to_use.hits > 1:
 		dmg_text += "x" + str(action_to_use.hits)

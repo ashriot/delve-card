@@ -12,9 +12,10 @@ onready var floor_number = $ColorRect/TopBanner/FloorNum
 onready var tooltip = $ColorRect/Tooltip
 onready var tooltext = $ColorRect/Tooltip/Label
 
-onready var map = $ColorRect/Map
-onready var avatar = $ColorRect/Map/Avatar as Sprite
-onready var avatar_tween = $ColorRect/Map/Avatar/Tween
+onready var map = $Map
+onready var avatar = $Avatar as Sprite
+onready var avatar_tween = $Avatar/Tween
+onready var colorRect = $ColorRect
 
 var SAVE_KEY: String = "dungeon"
 var current_square: Square
@@ -23,10 +24,12 @@ var game_seed: String
 var progress: = 0 setget set_progress
 
 func initialize(game) -> void:
+	print("init map")
 	game_seed = game.game_seed
 	tooltip.hide()
 	self.progress = 1
-	map.initialize()
+#	map.initialize()
+#	map.connect("move_to_square", self, "_on_Map_move_to_square", [], 2)
 	current_square = map.get_origin()
 
 func reset() -> void:
@@ -57,7 +60,7 @@ func path(sq: Square) -> bool:
 	for p in path:
 		avatar_tween.interpolate_property(avatar, "position",
 			avatar.position,
-			map.get_pos(p) - Vector2(3, 3),
+			map.get_pos(p) - Vector2(3, 3) + map.position,
 			0.1, Tween.TRANS_LINEAR, Tween.EASE_OUT)
 		avatar_tween.start()
 		yield(avatar_tween, "tween_all_completed")
@@ -71,7 +74,7 @@ func _on_Map_move_to_square(square: Square):
 	if square.type == "Down":
 		emit_signal("advance")
 	if square.type == "Battle":
-		var level = (progress) as int
+#		var level = (progress) as int
 		var enemy = load("res://src/enemies/mimic" + ".tres")
 		emit_signal("start_battle", enemy)
 	elif square.type == "Chest":

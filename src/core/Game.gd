@@ -10,7 +10,7 @@ var close = preload("res://assets/images/ui/close_small.png")
 export var player: Resource
 export var rooms: = 5
 export var mute: = false
-export var skip_intro: = false
+export var skipping_intro: = false
 
 onready var game_saver: = $GameSaver
 onready var title: = $Title
@@ -30,9 +30,13 @@ onready var settings = $Settings/Dimmer
 onready var settings_btn = $Settings/Settings
 
 export var profile_id: int = 0
-
 var loading: = false
-var game_seed: String = "GODOT"
+
+var SAVE_DIR = "res://saves/"
+var SAVE_NAME_TEMPLATE: String = "save_%03d"
+var SAVE_EXT = ".tres"
+
+var game_seed: String = "GODO1T"
 
 # Settings
 var auto_end: = true
@@ -53,16 +57,62 @@ func _ready() -> void:
 	demo.hide()
 	deck.hide()
 	card.hide()
-	welcome.initialize(game_saver)
+	welcome.initialize(self)
 	$DemoScreen/Notes.hide()
 	char_select.hide()
-	if skip_intro:
+	if skipping_intro:
 		skip_intro()
 	else:
 		title.show()
 
 func save_game() -> void:
-	welcome.game_saver.save(profile_id)
+	print("saving game!")
+	var dir = Directory.new()
+	if !dir.dir_exists(SAVE_DIR):
+		dir.make_dir_recursive(SAVE_DIR)
+
+	var save_path = SAVE_DIR.plus_file(SAVE_NAME_TEMPLATE % profile_id)
+
+	var directory: Directory = Directory.new()
+	if not directory.dir_exists(save_path):
+		directory.make_dir_recursive(save_path)
+
+	# SAVE PLAYER
+	var path = save_path.plus_file("player" + SAVE_EXT)
+	var error: int = ResourceSaver.save(path, player)
+	check_error(path, error)
+	# SAVE DUNGEON
+	path = save_path.plus_file("map.tscn")
+	var packed_scene = PackedScene.new()
+	packed_scene.pack(dungeon.map)
+	error = ResourceSaver.save(path, packed_scene)
+	check_error(path, error)
+
+func load_game() -> void:
+	print("loading game!")
+	var save_path = SAVE_DIR.plus_file(SAVE_NAME_TEMPLATE % profile_id)
+	var path = save_path.plus_file("player" + SAVE_EXT)
+	player = load(path)
+	path = save_path.plus_file("map.tscn")
+	dungeon.initialize(self)
+	var map = load(path).instance()
+	dungeon.map.queue_free()
+	map.add_squares_to_astar()
+	map.connect_squares()
+	map.connect("move_to_square", dungeon, "_on_Map_move_to_square")
+	dungeon.current_square = map.get_origin()
+	dungeon.add_child_below_node(dungeon.colorRect, map)
+	dungeon.map = map
+
+func check_error(path, error) -> void:
+	if error != OK:
+		print("There was an error writing the save %s to %s -> %s" % [profile_id, path, error])
+
+func save_exists() -> bool:
+	var file = File.new()
+	var save_path = SAVE_DIR.plus_file(SAVE_NAME_TEMPLATE % profile_id)
+	save_path = save_path.plus_file("player" + SAVE_EXT)
+	return file.file_exists(save_path)
 
 func _on_StartGame_button_up() -> void:
 	AudioController.click()
@@ -148,8 +198,8 @@ func open_deck() -> void:
 	deck.refresh(0)
 	deck.show()
 
-func blacksmithing_deck(blacksmith: Blacksmith) -> void:
-	deck.smithing(blacksmith)
+func blacksmithing_deck(smith: Blacksmith) -> void:
+	deck.smithing(smith)
 	deck.show()
 
 func refresh_player() -> void:
@@ -259,9 +309,10 @@ func _on_Dungeon_advance():
 func _on_Dungeon_blacksmith():
 	blacksmith.show()
 
-func _on_WelcomeScreen_done():
+func _on_WelcomeScreen_load_game():
 	loading = true
 	player = playerUI.player
+	load_game()
 	start_game()
 
 func _on_WelcomeScreen_new():
