@@ -12,7 +12,6 @@ export var rooms: = 5
 export var mute: = false
 export var skipping_intro: = false
 
-onready var game_saver: = $GameSaver
 onready var title: = $Title
 onready var welcome: = $WelcomeScreen
 onready var battle: = $Battle
@@ -29,14 +28,15 @@ onready var playerUI = $PlayerUI
 onready var settings = $Settings/Dimmer
 onready var settings_btn = $Settings/Settings
 
-export var profile_id: int = 0
+var profile_hash: int setget, get_profile_hash
+var core_data: Resource
 var loading: = false
 
-var SAVE_DIR = "res://saves/"
-var SAVE_NAME_TEMPLATE: String = "save_%03d"
-var SAVE_EXT = ".tres"
+var SAVE_DIR = "user://saves/"
+var SAVE_NAME_TEMPLATE: String = "save_%d"
+var game_data = GameData.new()
 
-var game_seed: String = "GODO1T"
+var game_seed: String = "GODOT"
 
 # Settings
 var auto_end: = true
@@ -46,6 +46,7 @@ func _ready() -> void:
 	rand_seed(game_seed.hash())
 	AudioController.mute = mute
 	AudioController.play_bgm("title")
+	init_dir()
 	dungeon.initialize(self)
 	playerUI.hide()
 	settings.hide()
@@ -58,6 +59,7 @@ func _ready() -> void:
 	deck.hide()
 	card.hide()
 	welcome.initialize(self)
+	welcome.connect("save_core_data", self, "save_core_data")
 	$DemoScreen/Notes.hide()
 	char_select.hide()
 	if skipping_intro:
@@ -65,20 +67,57 @@ func _ready() -> void:
 	else:
 		title.show()
 
+func init_dir() -> void:
+	var dir = Directory.new()
+	if !dir.dir_exists(SAVE_DIR + "/core"):
+		dir.make_dir_recursive(SAVE_DIR + "/core")
+
+	var save_path = SAVE_DIR.plus_file("core")
+	var directory: Directory = Directory.new()
+	if not directory.dir_exists(save_path):
+		directory.make_dir_recursive(save_path)
+
+	# CREATE DATA
+	if !core_exists():
+		core_data = CoreData.new()
+		core_data.game_version =  ProjectSettings.get_setting("application/config/version")
+		var path = save_path.plus_file("core.tres")
+		var error: int = ResourceSaver.save(path, core_data)
+		check_error(path, error)
+	else: # LOAD
+		print("loading core")
+		save_path = SAVE_DIR.plus_file("core")
+		var path = save_path.plus_file("core.tres")
+		core_data = load(path)
+
+func save_core_data() -> void:
+	print("saving the core -> ", core_data.profile_name)
+	var save_path = SAVE_DIR.plus_file("core")
+	var path = save_path.plus_file("core.tres")
+	var error: int = ResourceSaver.save(path, core_data)
+	check_error(path, error)
+
+func core_exists() -> bool:
+	var file = File.new()
+	var save_path = SAVE_DIR.plus_file("core")
+	save_path = save_path.plus_file("core.tres")
+	return file.file_exists(save_path)
+
 func save_game() -> void:
 	print("saving game!")
 	var dir = Directory.new()
 	if !dir.dir_exists(SAVE_DIR):
 		dir.make_dir_recursive(SAVE_DIR)
 
-	var save_path = SAVE_DIR.plus_file(SAVE_NAME_TEMPLATE % profile_id)
+	print(core_data.profile_name, "->", self.profile_hash)
+	var save_path = SAVE_DIR.plus_file(SAVE_NAME_TEMPLATE % self.profile_hash)
 
 	var directory: Directory = Directory.new()
 	if not directory.dir_exists(save_path):
 		directory.make_dir_recursive(save_path)
 
 	# SAVE PLAYER
-	var path = save_path.plus_file("player" + SAVE_EXT)
+	var path = save_path.plus_file("player.tres")
 	var error: int = ResourceSaver.save(path, player)
 	check_error(path, error)
 	# SAVE DUNGEON
@@ -87,12 +126,26 @@ func save_game() -> void:
 	packed_scene.pack(dungeon.map)
 	error = ResourceSaver.save(path, packed_scene)
 	check_error(path, error)
+	# SAVE GAME DATA
+	game_data.game_version = ProjectSettings.get_setting("application/config/version")
+	game_data.profile_name = core_data.profile_name
+	game_data.current_square = dungeon.current_square
+	game_data.upgrade_cost = blacksmith.upgrade_cost
+	game_data.destroy_cost = blacksmith.destroy_cost
+	path = save_path.plus_file("data.tres")
+	error = ResourceSaver.save(path, game_data)
+	check_error(path, error)
 
 func load_game() -> void:
+	loading = true
 	print("loading game!")
-	var save_path = SAVE_DIR.plus_file(SAVE_NAME_TEMPLATE % profile_id)
-	var path = save_path.plus_file("player" + SAVE_EXT)
+	var save_path = SAVE_DIR.plus_file(SAVE_NAME_TEMPLATE % self.profile_hash)
+	var path = save_path.plus_file("data.tres")
+	game_data = load(path)
+	# Player Data
+	path = save_path.plus_file("player.tres")
 	player = load(path)
+	# Map Data
 	path = save_path.plus_file("map.tscn")
 	dungeon.initialize(self)
 	var map = load(path).instance()
@@ -100,18 +153,19 @@ func load_game() -> void:
 	map.add_squares_to_astar()
 	map.connect_squares()
 	map.connect("move_to_square", dungeon, "_on_Map_move_to_square")
-	dungeon.current_square = map.get_origin()
 	dungeon.add_child_below_node(dungeon.colorRect, map)
 	dungeon.map = map
+	dungeon.current_square = game_data.current_square
+	dungeon.	avatar.global_position = dungeon.map.get_pos(game_data.current_square) - Vector2(3, 3) + map.position
 
 func check_error(path, error) -> void:
 	if error != OK:
-		print("There was an error writing the save %s to %s -> %s" % [profile_id, path, error])
+		print("There was an error writing the save %s to %s -> %s" % [core_data.profile_name, path, error])
 
 func save_exists() -> bool:
 	var file = File.new()
-	var save_path = SAVE_DIR.plus_file(SAVE_NAME_TEMPLATE % profile_id)
-	save_path = save_path.plus_file("player" + SAVE_EXT)
+	var save_path = SAVE_DIR.plus_file(SAVE_NAME_TEMPLATE % self.profile_hash)
+	save_path = save_path.plus_file("player.tres")
 	return file.file_exists(save_path)
 
 func _on_StartGame_button_up() -> void:
@@ -182,7 +236,6 @@ func start_loot(gold: int, qty: int) -> void:
 	playerUI.refresh()
 	loot.hide()
 	emit_signal("looting_finished")
-	save_game()
 
 func game_over() -> void:
 	AudioController.play_bgm("title")
@@ -288,12 +341,14 @@ func _on_Dungeon_start_loot(gold):
 	start_loot(gold, 1)
 	yield(self, "looting_finished")
 	fade.play("FadeIn")
+	save_game()
 
 func _on_Settings_button_down():
 	settings_btn.modulate.a = 0.66
 
 func _on_Dungeon_heal():
 	playerUI.heal(5, "HP")
+	save_game()
 
 func _on_Dungeon_advance():
 	fade.play("FadeOut")
@@ -305,9 +360,14 @@ func _on_Dungeon_advance():
 		dungeon.reset_avatar()
 	yield(get_tree().create_timer(0.25), "timeout")
 	fade.play("FadeIn")
+	save_game()
 
 func _on_Dungeon_blacksmith():
 	blacksmith.show()
+	save_game()
+
+func _on_Dungeon_blank():
+	save_game()
 
 func _on_WelcomeScreen_load_game():
 	loading = true
@@ -316,5 +376,19 @@ func _on_WelcomeScreen_load_game():
 	start_game()
 
 func _on_WelcomeScreen_new():
+	fade.play("FadeOut")
+	yield(fade, "animation_finished")
 	welcome.hide()
+	dungeon.new_map()
 	char_select.show()
+	fade.play("FadeIn")
+
+func _on_WelcomeScreen_profile_chose(username):
+	core_data.profile_name = username
+	if save_exists():
+		welcome.continue_button.disabled = false
+	else:
+		welcome.continue_button.disabled = true
+
+func get_profile_hash() -> int:
+	return core_data.profile_name.hash()

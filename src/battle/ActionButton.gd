@@ -252,6 +252,7 @@ func execute() -> void:
 func get_action_hits() -> int:
 	hits = action.hits
 	if action.name == "Mana Storm":
+		#warning-ignore:integer_division
 		hits = min(5, (player.mp + action.cost) / action.cost)
 		print("Mana storm hits: ", hits)
 	return hits

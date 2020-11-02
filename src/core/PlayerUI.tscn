@@ -1,0 +1,291 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://assets/images/ui/Shield.png" type="Texture" id=1]
+[ext_resource path="res://assets/images/ui/Heart.png" type="Texture" id=2]
+[ext_resource path="res://assets/images/ui/fill_texture.png" type="Texture" id=3]
+[ext_resource path="res://assets/images/ui/stamina.png" type="Texture" id=4]
+[ext_resource path="res://assets/images/ui/Staff.png" type="Texture" id=5]
+[ext_resource path="res://src/core/PlayerUI.gd" type="Script" id=6]
+[ext_resource path="res://assets/images/sheets/portraits.png" type="Texture" id=7]
+[ext_resource path="res://assets/images/ui/coin.png" type="Texture" id=8]
+[ext_resource path="res://src/battle/ItemBelt.tscn" type="PackedScene" id=9]
+[ext_resource path="res://src/core/TrinketBelt.tscn" type="PackedScene" id=10]
+
+[sub_resource type="Animation" id=1]
+resource_name = "Heal"
+length = 0.8
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Flash:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0.792157, 0.780392, 0.721569, 1 ), Color( 0.792157, 0.780392, 0.721569, 0 ) ]
+}
+
+[node name="PlayerUI" type="Node2D"]
+script = ExtResource( 6 )
+
+[node name="TrinketBelt" parent="." instance=ExtResource( 10 )]
+
+[node name="ItemAnchor" type="Position2D" parent="."]
+position = Vector2( 37, 147 )
+
+[node name="ItemBelt" parent="ItemAnchor" instance=ExtResource( 9 )]
+
+[node name="Player" type="Control" parent="."]
+margin_left = 37.0
+margin_top = 164.0
+margin_right = 108.0
+margin_bottom = 183.0
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="Player"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="Player/Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_top = 1.0
+margin_right = -1.0
+margin_bottom = -1.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HP" type="Control" parent="Player/Panel"]
+margin_left = 2.0
+margin_top = 1.0
+margin_right = 45.0
+margin_bottom = 10.0
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Icon" type="Sprite" parent="Player/Panel/HP"]
+modulate = Color( 0.792157, 0.780392, 0.721569, 1 )
+position = Vector2( 1, 1 )
+texture = ExtResource( 2 )
+centered = false
+
+[node name="Value" type="RichTextLabel" parent="Player/Panel/HP"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -34.0
+margin_right = 1.0
+margin_bottom = 7.0
+bbcode_enabled = true
+bbcode_text = "999/999"
+text = "999/999"
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureProgress" type="TextureProgress" parent="Player/Panel/HP"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 9.0
+margin_top = -2.0
+margin_right = -1.0
+margin_bottom = -1.0
+value = 50.0
+texture_under = ExtResource( 3 )
+texture_progress = ExtResource( 3 )
+tint_under = Color( 0.447059, 0.435294, 0.419608, 1 )
+tint_progress = Color( 0.792157, 0.780392, 0.721569, 1 )
+nine_patch_stretch = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AC" type="Control" parent="Player/Panel"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -26.0
+margin_top = 1.0
+margin_right = -2.0
+margin_bottom = 10.0
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Icon" type="Sprite" parent="Player/Panel/AC"]
+modulate = Color( 0.792157, 0.780392, 0.721569, 1 )
+position = Vector2( 1, 1 )
+texture = ExtResource( 1 )
+centered = false
+
+[node name="Value" type="RichTextLabel" parent="Player/Panel/AC"]
+margin_left = 9.0
+margin_top = 1.0
+margin_right = 24.0
+margin_bottom = 8.0
+bbcode_enabled = true
+bbcode_text = "999"
+text = "999"
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MP" type="Control" parent="Player/Panel"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -26.0
+margin_top = -10.0
+margin_right = -2.0
+margin_bottom = -1.0
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Icon" type="Sprite" parent="Player/Panel/MP"]
+modulate = Color( 0.792157, 0.780392, 0.721569, 1 )
+position = Vector2( 1, 1 )
+texture = ExtResource( 5 )
+centered = false
+
+[node name="Value" type="RichTextLabel" parent="Player/Panel/MP"]
+margin_left = 9.0
+margin_top = 1.0
+margin_right = 24.0
+margin_bottom = 8.0
+bbcode_enabled = true
+bbcode_text = "999"
+text = "999"
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AP" type="Control" parent="Player/Panel"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = -10.0
+margin_right = 45.0
+margin_bottom = -1.0
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Current" type="TextureRect" parent="Player/Panel/AP"]
+modulate = Color( 0.792157, 0.780392, 0.721569, 1 )
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 16.0
+margin_bottom = 8.0
+texture = ExtResource( 4 )
+expand = true
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Flash" type="ColorRect" parent="Player"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_top = 1.0
+margin_right = -1.0
+margin_bottom = -1.0
+color = Color( 0.792157, 0.780392, 0.721569, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Player"]
+anims/Heal = SubResource( 1 )
+
+[node name="JobTitle" type="Label" parent="."]
+margin_left = -2.0
+margin_top = 180.0
+margin_right = 81.0
+margin_bottom = 194.0
+text = "Jobtitle"
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Portrait" type="Sprite" parent="."]
+position = Vector2( -6, 141 )
+texture = ExtResource( 7 )
+centered = false
+vframes = 4
+hframes = 7
+
+[node name="Gold" type="Sprite" parent="."]
+position = Vector2( 101, 185 )
+texture = ExtResource( 8 )
+centered = false
+
+[node name="Label" type="Label" parent="Gold"]
+margin_left = -51.0
+margin_top = -5.0
+margin_right = 4.0
+margin_bottom = 9.0
+text = "9999"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DeckButton" type="Button" parent="."]
+margin_top = 126.0
+margin_right = 13.0
+margin_bottom = 145.0
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="DeckButton"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_top = 1.0
+margin_right = -1.0
+margin_bottom = -1.0
+mouse_filter = 2
+color = Color( 0.792157, 0.780392, 0.721569, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="DeckButton"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -2.0
+margin_top = 2.0
+margin_right = 3.0
+margin_bottom = 2.0
+custom_colors/font_color = Color( 0.145098, 0.145098, 0.133333, 1 )
+text = "99"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="button_up" from="DeckButton" to="." method="_on_DeckButton_button_up"]

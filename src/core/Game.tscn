@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://src/core/Battle.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/images/bgs/title.png" type="Texture" id=2]
@@ -12,11 +12,10 @@
 [ext_resource path="res://src/core/CharSelect.gd" type="Script" id=10]
 [ext_resource path="res://assets/images/ui/gear_small.png" type="Texture" id=11]
 [ext_resource path="res://assets/images/ui/stamina.png" type="Texture" id=12]
-[ext_resource path="res://src/core/Player.tscn" type="PackedScene" id=13]
+[ext_resource path="res://src/core/PlayerUI.tscn" type="PackedScene" id=13]
 [ext_resource path="res://src/core/Dungeon.tscn" type="PackedScene" id=14]
 [ext_resource path="res://Card.tscn" type="PackedScene" id=15]
 [ext_resource path="res://src/core/WelcomeScreen.tscn" type="PackedScene" id=16]
-[ext_resource path="res://src/utils/GameSaver.tscn" type="PackedScene" id=17]
 [ext_resource path="res://src/map/Blacksmith.tscn" type="PackedScene" id=19]
 [ext_resource path="res://src/core/Deck.tscn" type="PackedScene" id=21]
 
@@ -148,8 +147,6 @@ tracks/1/keys = {
 script = ExtResource( 3 )
 player = ExtResource( 4 )
 mute = true
-
-[node name="GameSaver" parent="." instance=ExtResource( 17 )]
 
 [node name="Battle" parent="." instance=ExtResource( 1 )]
 
@@ -622,6 +619,7 @@ visible = false
 visible = false
 
 [node name="Title" type="Node2D" parent="."]
+visible = false
 
 [node name="ColorRect" type="ColorRect" parent="Title"]
 margin_right = 108.0
@@ -837,6 +835,7 @@ anims/FadeIn = SubResource( 15 )
 anims/FadeOut = SubResource( 16 )
 [connection signal="advance" from="Dungeon" to="." method="_on_Dungeon_advance"]
 [connection signal="blacksmith" from="Dungeon" to="." method="_on_Dungeon_blacksmith"]
+[connection signal="blank" from="Dungeon" to="." method="_on_Dungeon_blank"]
 [connection signal="heal" from="Dungeon" to="." method="_on_Dungeon_heal"]
 [connection signal="start_battle" from="Dungeon" to="." method="_on_Dungeon_start_battle"]
 [connection signal="start_loot" from="Dungeon" to="." method="_on_Dungeon_start_loot"]
@@ -848,6 +847,7 @@ anims/FadeOut = SubResource( 16 )
 [connection signal="button_up" from="CharSelect/Arcane" to="." method="_on_Arcane_button_up"]
 [connection signal="load_game" from="WelcomeScreen" to="." method="_on_WelcomeScreen_load_game"]
 [connection signal="new" from="WelcomeScreen" to="." method="_on_WelcomeScreen_new"]
+[connection signal="profile_chose" from="WelcomeScreen" to="." method="_on_WelcomeScreen_profile_chose"]
 [connection signal="hide_card" from="Loot" to="." method="hide_card"]
 [connection signal="show_card" from="Loot" to="." method="show_card"]
 [connection signal="button_up" from="Title/ColorRect/StartGame" to="." method="_on_StartGame_button_up"]

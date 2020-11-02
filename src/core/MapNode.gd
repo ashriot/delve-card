@@ -155,7 +155,6 @@ func load_map() -> void:
 func add_squares_to_astar() -> void:
 	squares = $Squares
 	for square in squares.get_children():
-		print(square.get_instance_id())
 		astar.add_point(square.get_index(), square.rect_position)
 		if square.type == "Battle":
 			astar.set_point_disabled(square.get_index())
@@ -185,7 +184,6 @@ func square_clicked(button: Square) -> void:
 	print("Square clicked! ", button.get_instance_id())
 	if button.type == "Battle":
 		var index = button.get_index()
-		print(index)
 		astar.set_point_disabled(index, false)
 	emit_signal("move_to_square", button)
 

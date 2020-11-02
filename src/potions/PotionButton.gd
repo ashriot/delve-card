@@ -54,8 +54,6 @@ func execute() -> void:
 					damage = min(player.mp, 30)
 				AudioController.play_sfx("mp_gain")
 				player.take_healing(damage, "MP")
-#		yield(self, "anim_finished")
-	emit_signal("execute_finished")
 	player.actor.potions.erase(action)
 	queue_free()
 

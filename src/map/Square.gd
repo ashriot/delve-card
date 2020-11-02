@@ -75,15 +75,15 @@ func get_connections() -> int:
 		result += 1
 	return result
 
-func set_dir(dir: Vector2, pos: Vector2) -> void:
+func set_dir(dir: Vector2, _pos: Vector2) -> void:
 	if dir == Vector2.UP:
-		up = pos
+		up = _pos
 	elif dir == Vector2.DOWN:
-		down = pos
+		down = _pos
 	elif dir == Vector2.LEFT:
-		left = pos
+		left = _pos
 	else:
-		right = pos
+		right = _pos
 
 func get_dir(dir: Vector2) -> Vector2:
 	if dir == Vector2.UP:

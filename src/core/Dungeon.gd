@@ -1,6 +1,7 @@
 extends Node2D
 class_name Dungeon
 
+signal blank
 signal advance
 signal start_battle(enemy)
 signal start_loot(gold)
@@ -18,7 +19,7 @@ onready var avatar_tween = $Avatar/Tween
 onready var colorRect = $ColorRect
 
 var SAVE_KEY: String = "dungeon"
-var current_square: Square
+var current_square: int
 var game_seed: String
 
 var progress: = 0 setget set_progress
@@ -28,9 +29,12 @@ func initialize(game) -> void:
 	game_seed = game.game_seed
 	tooltip.hide()
 	self.progress = 1
-#	map.initialize()
-#	map.connect("move_to_square", self, "_on_Map_move_to_square", [], 2)
-	current_square = map.get_origin()
+
+func new_map() -> void:
+	map.initialize()
+	map.connect("move_to_square", self, "_on_Map_move_to_square", [], 2)
+	var origin = map.get_origin()
+	current_square = origin.get_index()
 
 func reset() -> void:
 	self.progress = 0
@@ -46,16 +50,18 @@ func reset_avatar() -> void:
 	map.clear_map()
 	yield(get_tree().create_timer(0.2), "timeout")
 	map.initialize()
-	current_square = map.get_origin()
+	var origin = map.get_origin()
+	current_square = origin.get_index()
 
 func path(sq: Square) -> bool:
-	var from = current_square.get_index()
+	var from = current_square
 	var to = sq.get_index()
 	var path = map.astar.get_id_path(from, to) as PoolIntArray
 	if path.size() < 2:
 		return false
-	current_square = sq
-	print(map.squares.get_child(sq.get_index()))
+	current_square = to
+	print(current_square)
+	print(map.squares.get_child(to))
 	AudioController.steps()
 	for p in path:
 		avatar_tween.interpolate_property(avatar, "position",
@@ -71,9 +77,11 @@ func _on_Map_move_to_square(square: Square):
 	if not path(square):
 		return
 	yield(self, "done_pathing")
-	if square.type == "Down":
+	if square.type == "Clear":
+		emit_signal("blank")
+	elif square.type == "Down":
 		emit_signal("advance")
-	if square.type == "Battle":
+	elif square.type == "Battle":
 #		var level = (progress) as int
 		var enemy = load("res://src/enemies/mimic" + ".tres")
 		emit_signal("start_battle", enemy)
@@ -95,16 +103,3 @@ func _on_Map_show_tooltip(button):
 
 func _on_Map_hide_tooltip():
 	tooltip.hide()
-
-func save(save_game: Resource) -> void:
-	print("saving " + SAVE_KEY + " data")
-	save_game.data[SAVE_KEY] = {
-		"progress": progress,
-		"map_pos": current_square.get_index()
-	}
-
-func load(save_game: Resource) -> void:
-	print("load dungeon")
-	var data: Dictionary = save_game.data[SAVE_KEY]
-	current_square = map.squares.get_child(data["map_pos"])
-	avatar.position = map.get_pos(current_square.get_index()) - Vector2(3, 3)

@@ -17,6 +17,9 @@ var destroying: = false
 var cost: int setget , get_cost
 
 func initialize(game) -> void:
+	if game.loading:
+		upgrade_cost = game.game_data.upgrade_cost
+		destroy_cost = game.game_data.destroy_cost
 	connect("open_deck", game, "blacksmithing_deck")
 	destroy_label.text = str(destroy_cost)
 	upgrade.disabled = true
@@ -28,9 +31,9 @@ func destroy_card() -> void:
 	destroy_cost += destroy_increase
 	destroy_label.text = str(destroy_cost)
 
-func show() -> void:
+func show(move: = true) -> void:
 	AudioController.click()
-	.show()
+	.show(move)
 
 func _on_Upgrade_button_up():
 	AudioController.click()

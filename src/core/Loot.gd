@@ -74,6 +74,7 @@ func choose(choice: ActionChoice) -> void:
 			child.chosen = false
 
 func new_picker(progress: int, qty: int) -> Array:
+	#warning-ignore:integer_division
 	var level = (1 + progress / 2) as int
 	var loot_list = []
 	var pick1 = loot1.duplicate(true)
