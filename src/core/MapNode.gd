@@ -153,6 +153,7 @@ func load_map() -> void:
 			branch.position = i[1] * DIST + Vector2(0, 10)
 
 func add_squares_to_astar() -> void:
+	print("Adding squares to astar")
 	squares = $Squares
 	for square in squares.get_children():
 		astar.add_point(square.get_index(), square.rect_position)
@@ -160,6 +161,7 @@ func add_squares_to_astar() -> void:
 			astar.set_point_disabled(square.get_index())
 
 func connect_squares() -> void:
+	print("connecting squares")
 	for square in squares.get_children():
 		square.setup(self)
 		if square.up != Vector2.ZERO:

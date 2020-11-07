@@ -147,7 +147,7 @@ func load_game() -> void:
 	player = load(path)
 	# Map Data
 	path = save_path.plus_file("map.tscn")
-	dungeon.initialize(self)
+#	dungeon.initialize(self)
 	var map = load(path).instance()
 	dungeon.map.queue_free()
 	map.add_squares_to_astar()

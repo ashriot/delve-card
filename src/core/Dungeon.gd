@@ -28,11 +28,11 @@ func initialize(game) -> void:
 	print("init map")
 	game_seed = game.game_seed
 	tooltip.hide()
+	map.connect("move_to_square", self, "_on_Map_move_to_square", [], 2)
 	self.progress = 1
 
 func new_map() -> void:
 	map.initialize()
-	map.connect("move_to_square", self, "_on_Map_move_to_square", [], 2)
 	var origin = map.get_origin()
 	current_square = origin.get_index()
 
@@ -44,12 +44,13 @@ func set_progress(value: int) -> void:
 	progress = value
 	floor_number.text = "Dark Forest Lv. " + str(progress) + " of 5"
 
+# Advance -> Stairs Down
 func reset_avatar() -> void:
 	self.progress += 1
 	avatar.global_position = map.position - Vector2(8, 8)
 	map.clear_map()
 	yield(get_tree().create_timer(0.2), "timeout")
-	map.initialize()
+	new_map()
 	var origin = map.get_origin()
 	current_square = origin.get_index()
 
