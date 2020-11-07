@@ -392,3 +392,7 @@ func _on_WelcomeScreen_profile_chose(username):
 
 func get_profile_hash() -> int:
 	return core_data.profile_name.hash()
+
+func _on_CharBack_pressed():
+	AudioController.back()
+	char_select.hide()
