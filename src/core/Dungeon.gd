@@ -74,9 +74,12 @@ func path(sq: Square) -> bool:
 	return true
 
 func _on_Map_move_to_square(square: Square):
-	if not path(square):
+	print("trying to move")
+	var moving = path(square)
+	if not moving and square.type != "Anvil":
 		return
-	yield(self, "done_pathing")
+	if moving:
+		yield(self, "done_pathing")
 	if square.type == "Clear":
 		emit_signal("blank")
 	elif square.type == "Down":
@@ -88,6 +91,7 @@ func _on_Map_move_to_square(square: Square):
 	elif square.type == "Chest":
 		emit_signal("start_loot", 0)
 	elif square.type == "Rest":
+		square.clear()
 		emit_signal("heal")
 	elif square.type == "Anvil":
 		emit_signal("blacksmith")

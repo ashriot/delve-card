@@ -257,6 +257,7 @@ func blacksmithing_deck(smith: Blacksmith) -> void:
 
 func refresh_player() -> void:
 	playerUI.refresh()
+	save_game()
 
 func _on_Restart_button_up():
 	AudioController.click()
@@ -348,7 +349,6 @@ func _on_Settings_button_down():
 
 func _on_Dungeon_heal():
 	playerUI.heal(5, "HP")
-	save_game()
 
 func _on_Dungeon_advance():
 	fade.play("FadeOut")
