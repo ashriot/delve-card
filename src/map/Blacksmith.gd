@@ -32,6 +32,7 @@ func destroy_card() -> void:
 	destroy_label.text = str(destroy_cost)
 
 func show(move: = true) -> void:
+	$BG/Choices/Exit.mouse_filter = Control.MOUSE_FILTER_STOP
 	AudioController.click()
 	.show(move)
 
@@ -48,5 +49,6 @@ func _on_Destroy_button_up():
 	emit_signal("open_deck", self)
 
 func _on_Exit_button_up():
+	$BG/Choices/Exit.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	AudioController.back()
 	hide()

@@ -18,6 +18,7 @@ onready var battle: = $Battle
 onready var dungeon: = $Dungeon
 onready var loot: = $Loot
 onready var blacksmith = $Blacksmith
+onready var shop = $Shop
 onready var end_game: = $EndGame
 onready var fade = $Fade/AnimationPlayer
 onready var demo = $DemoScreen
@@ -53,6 +54,7 @@ func _ready() -> void:
 	battle.hide()
 	loot.hide()
 	blacksmith.hide()
+	shop.hide()
 	dungeon.hide()
 	end_game.hide()
 	demo.hide()
@@ -183,6 +185,7 @@ func start_game() -> void:
 	demo.hide()
 	refresh_dungeon()
 	blacksmith.initialize(self)
+	shop.initialize(self)
 	deck.initialize(self)
 	deck.connect("show_card", self, "show_card")
 	deck.connect("hide_card", self, "hide_card")
@@ -202,7 +205,7 @@ func start_game() -> void:
 func start_battle(scene_to_hide: Node2D, enemy: EnemyActor) -> void:
 	fade.play("FadeOut")
 	yield(fade, "animation_finished")
-	scene_to_hide.hide()
+	if scene_to_hide != null: scene_to_hide.hide()
 	playerUI.hide()
 	battle.show()
 	battle.start(enemy)
@@ -219,7 +222,7 @@ func start_battle(scene_to_hide: Node2D, enemy: EnemyActor) -> void:
 #	AudioController.play_bgm("victory")
 	start_loot(enemy.gold, 3)
 	yield(self, "looting_finished")
-	scene_to_hide.show()
+	if scene_to_hide != null: scene_to_hide.show()
 #	AudioController.play_bgm("dungeon")
 	fade.play("FadeIn")
 	emit_signal("battle_finished")
@@ -336,10 +339,17 @@ func _on_Dungeon_start_battle(enemy: EnemyActor) -> void:
 	yield(self, "battle_finished")
 
 func _on_Dungeon_start_loot(gold):
-	fade.play("FadeOut")
-	yield(fade, "animation_finished")
-	start_loot(gold, 1)
-	yield(self, "looting_finished")
+	# Chance to fight a Mimic!!
+	var rand = randf()
+	if rand < 0.5:
+		var enemy = load("res://src/enemies/mimic.tres")
+		start_battle(dungeon, enemy)
+		yield(self, "battle_finished")
+	else:
+		fade.play("FadeOut")
+		yield(fade, "animation_finished")
+		start_loot(gold, 1)
+		yield(self, "looting_finished")
 	fade.play("FadeIn")
 	save_game()
 
@@ -395,3 +405,7 @@ func get_profile_hash() -> int:
 func _on_CharBack_pressed():
 	AudioController.back()
 	char_select.hide()
+
+func _on_Dungeon_shop():
+	shop.show()
+	save_game()

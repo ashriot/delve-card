@@ -46,7 +46,6 @@ margin_top = -3.0
 margin_right = -1.0
 margin_bottom = 11.0
 text = "Choose a Reward"
-uppercase = true
 __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false

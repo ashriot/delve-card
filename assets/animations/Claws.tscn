@@ -18,7 +18,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.15, 0.25 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 28, -24 ), Vector2( 28, -24 ), Vector2( 2, 20 ) ]
+"values": [ Vector2( 28, -24 ), Vector2( 26, -29 ), Vector2( -1, 20 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:rotation_degrees")
@@ -30,7 +30,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.15, 0.25 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ 25.0, 25.0, -25.0 ]
+"values": [ 50.0, 25.0, -50.0 ]
 }
 tracks/2/type = "audio"
 tracks/2/path = NodePath("AudioStreamPlayer")
@@ -44,7 +44,7 @@ tracks/2/keys = {
 "start_offset": 0.0,
 "stream": ExtResource( 3 )
 } ],
-"times": PoolRealArray( 0.25 )
+"times": PoolRealArray( 0.2 )
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("Sprite:modulate")
@@ -65,7 +65,7 @@ tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0.25 ),
+"times": PoolRealArray( 0.2 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [  ],
@@ -77,8 +77,8 @@ tracks/4/keys = {
 
 [node name="Sprite" parent="." index="0"]
 modulate = Color( 1, 1, 1, 0 )
-position = Vector2( 2, 20 )
-rotation = -0.436332
+position = Vector2( -1, 20 )
+rotation = -0.872665
 texture = ExtResource( 2 )
 
 [node name="AnimationPlayer" parent="." index="1"]

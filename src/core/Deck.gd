@@ -57,13 +57,13 @@ func smithing(_blacksmith: Blacksmith) -> void:
 
 func resize_cover() -> void:
 	if upgrading or destroying:
-		$BG/ScrollContainer.rect_size.y = 145
-		cover.rect_size.y = 28
-		cover.rect_position.y = 155
+		$BG/ScrollContainer.rect_size.y = 138
+		cover.rect_size.y = 32
+		cover.rect_position.y = 151
 	else:
-		$BG/ScrollContainer.rect_size.y = 157
-		cover.rect_size.y = 15
-		cover.rect_position.y = 168
+		$BG/ScrollContainer.rect_size.y = 154
+		cover.rect_size.y = 16
+		cover.rect_position.y = 167
 
 func fill_deck() -> void:
 	for child in deck.get_children():
@@ -137,9 +137,12 @@ func _on_hide_card():
 	emit_signal("hide_card")
 
 func _on_Close_button_up():
+	$BG/Close.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	AudioController.back()
 	clear_choice()
 	hide()
+	yield(self, "done")
+	$BG/Close.mouse_filter = Control.MOUSE_FILTER_STOP
 
 func _on_Action_button_up():
 	if upgrading:

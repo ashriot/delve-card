@@ -7,6 +7,7 @@ signal start_battle(enemy)
 signal start_loot(gold)
 signal heal
 signal blacksmith
+signal shop
 signal done_pathing
 
 onready var floor_number = $ColorRect/TopBanner/FloorNum
@@ -23,6 +24,7 @@ var current_square: int
 var game_seed: String
 
 var progress: = 0 setget set_progress
+var pathing: = false
 
 func initialize(game) -> void:
 	print("dungeon.initialize()")
@@ -61,9 +63,8 @@ func path(sq: Square) -> bool:
 	var path = map.astar.get_id_path(from, to) as PoolIntArray
 	if path.size() < 2:
 		return false
+	pathing = true
 	current_square = to
-	print(current_square)
-	print(map.squares.get_child(to))
 	AudioController.steps()
 	for p in path:
 		avatar_tween.interpolate_property(avatar, "position",
@@ -73,12 +74,14 @@ func path(sq: Square) -> bool:
 		avatar_tween.start()
 		yield(avatar_tween, "tween_all_completed")
 	emit_signal("done_pathing")
+	pathing = false
 	return true
 
 func _on_Map_move_to_square(square: Square):
+	if pathing: return
 	print("trying to move")
 	var moving = path(square)
-	if not moving and square.type != "Anvil":
+	if not moving and square.type != "Anvil" and square.type != "Shop":
 		return
 	if moving:
 		yield(self, "done_pathing")
@@ -88,7 +91,7 @@ func _on_Map_move_to_square(square: Square):
 		emit_signal("advance")
 	elif square.type == "Battle":
 #		var level = (progress) as int
-		var enemy = load("res://src/enemies/mimic" + ".tres")
+		var enemy = load("res://src/enemies/bear" + ".tres")
 		emit_signal("start_battle", enemy)
 	elif square.type == "Chest":
 		emit_signal("start_loot", 0)
@@ -97,7 +100,9 @@ func _on_Map_move_to_square(square: Square):
 		emit_signal("heal")
 	elif square.type == "Anvil":
 		emit_signal("blacksmith")
-	if !square.cleared and square.type != "Anvil":
+	elif square.type == "Shop":
+		emit_signal("shop")
+	if !square.cleared and square.type != "Anvil" and square.type != "Shop":
 		square.clear()
 
 func _on_Map_show_tooltip(button):

@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=2]
+[gd_scene load_steps=37 format=2]
 
 [ext_resource path="res://src/core/Battle.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/images/bgs/title.png" type="Texture" id=2]
@@ -17,6 +17,7 @@
 [ext_resource path="res://Card.tscn" type="PackedScene" id=15]
 [ext_resource path="res://src/core/WelcomeScreen.tscn" type="PackedScene" id=16]
 [ext_resource path="res://assets/images/ui/back.png" type="Texture" id=17]
+[ext_resource path="res://src/map/Shop.tscn" type="PackedScene" id=18]
 [ext_resource path="res://src/map/Blacksmith.tscn" type="PackedScene" id=19]
 [ext_resource path="res://src/core/Deck.tscn" type="PackedScene" id=21]
 
@@ -617,6 +618,8 @@ visible = false
 visible = false
 
 [node name="Blacksmith" parent="." instance=ExtResource( 19 )]
+
+[node name="Shop" parent="." instance=ExtResource( 18 )]
 visible = false
 
 [node name="PlayerUI" parent="." instance=ExtResource( 13 )]
@@ -843,6 +846,7 @@ anims/FadeOut = SubResource( 16 )
 [connection signal="blacksmith" from="Dungeon" to="." method="_on_Dungeon_blacksmith"]
 [connection signal="blank" from="Dungeon" to="." method="_on_Dungeon_blank"]
 [connection signal="heal" from="Dungeon" to="." method="_on_Dungeon_heal"]
+[connection signal="shop" from="Dungeon" to="." method="_on_Dungeon_shop"]
 [connection signal="start_battle" from="Dungeon" to="." method="_on_Dungeon_start_battle"]
 [connection signal="start_loot" from="Dungeon" to="." method="_on_Dungeon_start_loot"]
 [connection signal="button_up" from="DemoScreen/DemoStart" to="." method="_on_DemoStart_button_up"]
