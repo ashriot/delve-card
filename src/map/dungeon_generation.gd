@@ -4,7 +4,7 @@ class_name DungeonGeneration
 var room = preload("res://src/map/Square.tscn")
 
 var max_x = 6
-var max_y = 4
+var max_y = 6
 
 var dungeon = {}
 

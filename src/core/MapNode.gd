@@ -20,12 +20,10 @@ onready var squares = $Squares
 
 var generator: = preload("res://src/map/dungeon_generation.gd").new()
 var _Square = preload("res://src/map/Square.tscn")
-var astar: = AStar2D.new()
+var astar: AStar2D
 var origin = null
 
 var DIST = 18
-var max_x = 6
-var max_y = 4
 
 var dungeon = {}
 var chest_max: = 3
@@ -36,9 +34,10 @@ var anvil_max: = 1
 var shrine_max: = 1
 
 func initialize() -> void:
+	astar = AStar2D.new()
 	chest_max = randi() % 2 + 1
 	heal_max = randi() % 3 + 1
-	enemy_max = randi() % 2 + 2
+	enemy_max = randi() % 2 + 4
 	shop_max = 0
 	anvil_max = 1
 	shrine_max = 0
@@ -63,8 +62,8 @@ func get_origin() -> Square:
 
 func generate_dungeon() -> void:
 	var room_max = min(chest_max + heal_max + enemy_max + \
-		shop_max + anvil_max + shrine_max + 6, 24)
-	var room_min = room_max - 3
+		shop_max + anvil_max + shrine_max + 8, 36)
+	var room_min = room_max - 4
 	generator.generate([room_min, room_max])
 	dungeon = generator.get_dungeon()
 
@@ -93,7 +92,6 @@ func load_map() -> void:
 
 	for i in map:
 		var square = dungeon.get(i[1])
-
 		if i[1] == Vector2.ZERO:
 			square.initialize("Clear", node_sprite)
 			origin = square

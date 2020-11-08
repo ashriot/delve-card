@@ -358,6 +358,7 @@ __meta__ = {
 }
 
 [node name="CharSelect" type="Node2D" parent="."]
+visible = false
 script = ExtResource( 10 )
 
 [node name="ColorRect" type="ColorRect" parent="CharSelect"]
@@ -383,7 +384,6 @@ margin_top = -3.0
 margin_right = -1.0
 margin_bottom = 11.0
 text = "Choose a Class"
-uppercase = true
 __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
@@ -446,7 +446,6 @@ __meta__ = {
 [node name="Fighter" type="TextureButton" parent="CharSelect/ColorRect/VBoxContainer/Fighter"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = 1.99999
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -483,13 +482,11 @@ __meta__ = {
 [node name="Sorcerer" type="TextureButton" parent="CharSelect/ColorRect/VBoxContainer/Sorcerer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = 1.99999
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Thief" type="Control" parent="CharSelect/ColorRect/VBoxContainer"]
-modulate = Color( 1, 1, 1, 0.490196 )
 margin_top = 80.0
 margin_right = 108.0
 margin_bottom = 116.0
@@ -512,7 +509,7 @@ margin_right = 6.99999
 margin_bottom = 3.0
 custom_constants/line_spacing = 1
 text = "THIEF
-Only has a few actions right now."
+Focuses on quick, light attacks and powerful utility."
 autowrap = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -521,7 +518,6 @@ __meta__ = {
 [node name="Thief" type="TextureButton" parent="CharSelect/ColorRect/VBoxContainer/Thief"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = 1.99999
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -559,7 +555,6 @@ __meta__ = {
 [node name="Priestess" type="TextureButton" parent="CharSelect/ColorRect/VBoxContainer/Priest"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = 1.99999
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -568,9 +563,8 @@ __meta__ = {
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-margin_left = 1.0
-margin_top = 53.0
-margin_bottom = 67.0
+margin_top = 49.0
+margin_bottom = 63.0
 custom_colors/font_color = Color( 0.6, 0.584314, 0.521569, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 1
@@ -580,6 +574,7 @@ text = "Not Yet Implemented"
 align = 1
 uppercase = true
 __meta__ = {
+"_edit_group_": true,
 "_edit_use_anchors_": false
 }
 
@@ -625,7 +620,6 @@ visible = false
 visible = false
 
 [node name="PlayerUI" parent="." instance=ExtResource( 13 )]
-visible = false
 
 [node name="Deck" parent="." instance=ExtResource( 21 )]
 visible = false

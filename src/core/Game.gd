@@ -147,7 +147,6 @@ func load_game() -> void:
 	player = load(path)
 	# Map Data
 	path = save_path.plus_file("map.tscn")
-#	dungeon.initialize(self)
 	var map = load(path).instance()
 	dungeon.map.queue_free()
 	map.add_squares_to_astar()
@@ -156,7 +155,7 @@ func load_game() -> void:
 	dungeon.add_child_below_node(dungeon.colorRect, map)
 	dungeon.map = map
 	dungeon.current_square = game_data.current_square
-	dungeon.	avatar.global_position = dungeon.map.get_pos(game_data.current_square) - Vector2(3, 3) + map.position
+	dungeon.avatar.global_position = dungeon.map.get_pos(game_data.current_square) - Vector2(3, 3) + map.position
 
 func check_error(path, error) -> void:
 	if error != OK:

@@ -25,13 +25,14 @@ var game_seed: String
 var progress: = 0 setget set_progress
 
 func initialize(game) -> void:
-	print("init map")
+	print("dungeon.initialize()")
 	game_seed = game.game_seed
 	tooltip.hide()
 	map.connect("move_to_square", self, "_on_Map_move_to_square", [], 2)
 	self.progress = 1
 
 func new_map() -> void:
+	print("dungeon.new_map()")
 	map.initialize()
 	var origin = map.get_origin()
 	current_square = origin.get_index()
