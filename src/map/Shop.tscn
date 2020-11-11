@@ -129,7 +129,7 @@ margin_left = 2.0
 margin_top = 12.0
 margin_right = 100.0
 margin_bottom = 160.0
-custom_constants/separation = 5
+custom_constants/separation = 4
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -139,29 +139,29 @@ margin_left = 0.0
 
 [node name="ActionChoice2" parent="BG/ActionDialog/Actions" index="1" instance=ExtResource( 2 )]
 margin_left = 0.0
-margin_top = 20.0
-margin_bottom = 35.0
+margin_top = 19.0
+margin_bottom = 34.0
 
 [node name="ActionChoice3" parent="BG/ActionDialog/Actions" index="2" instance=ExtResource( 2 )]
 margin_left = 0.0
-margin_top = 40.0
-margin_bottom = 55.0
+margin_top = 38.0
+margin_bottom = 53.0
 
 [node name="ActionChoice4" parent="BG/ActionDialog/Actions" index="3" instance=ExtResource( 2 )]
 margin_left = 0.0
-margin_top = 60.0
-margin_bottom = 75.0
+margin_top = 57.0
+margin_bottom = 72.0
 
 [node name="ActionChoice5" parent="BG/ActionDialog/Actions" index="4" instance=ExtResource( 2 )]
 margin_left = 0.0
-margin_top = 80.0
-margin_bottom = 95.0
+margin_top = 76.0
+margin_bottom = 91.0
 
 [node name="Back" type="Button" parent="BG/ActionDialog" index="4"]
 margin_left = 1.0
-margin_top = 111.0
+margin_top = 108.0
 margin_right = 41.0
-margin_bottom = 124.0
+margin_bottom = 121.0
 text = "Back"
 icon = ExtResource( 5 )
 align = 0
@@ -171,9 +171,9 @@ __meta__ = {
 
 [node name="Buy" type="Button" parent="BG/ActionDialog" index="5"]
 margin_left = 46.0
-margin_top = 111.0
+margin_top = 108.0
 margin_right = 107.0
-margin_bottom = 124.0
+margin_bottom = 121.0
 disabled = true
 text = "Buy"
 icon = ExtResource( 6 )
@@ -246,7 +246,7 @@ __meta__ = {
 }
 
 [node name="PriceTag3" type="Sprite" parent="BG/ActionDialog" index="8"]
-position = Vector2( 79, 60 )
+position = Vector2( 79, 59 )
 texture = ExtResource( 8 )
 centered = false
 
