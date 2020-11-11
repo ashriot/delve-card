@@ -618,9 +618,9 @@ visible = false
 visible = false
 
 [node name="Blacksmith" parent="." instance=ExtResource( 19 )]
+visible = false
 
 [node name="Shop" parent="." instance=ExtResource( 18 )]
-visible = false
 
 [node name="PlayerUI" parent="." instance=ExtResource( 13 )]
 

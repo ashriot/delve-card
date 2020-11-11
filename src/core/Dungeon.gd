@@ -81,7 +81,7 @@ func _on_Map_move_to_square(square: Square):
 	if pathing: return
 	print("trying to move")
 	var moving = path(square)
-	if not moving and square.type != "Anvil" and square.type != "Shop":
+	if not moving and (square.type != "Anvil" and square.type != "Shop" or square.get_index() != current_square):
 		return
 	if moving:
 		yield(self, "done_pathing")
@@ -91,7 +91,7 @@ func _on_Map_move_to_square(square: Square):
 		emit_signal("advance")
 	elif square.type == "Battle":
 #		var level = (progress) as int
-		var enemy = load("res://src/enemies/bear" + ".tres")
+		var enemy = load("res://src/enemies/wolf" + ".tres")
 		emit_signal("start_battle", enemy)
 	elif square.type == "Chest":
 		emit_signal("start_loot", 0)

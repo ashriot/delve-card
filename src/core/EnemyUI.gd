@@ -53,8 +53,8 @@ func initialize(_actor: EnemyActor) -> void:
 	self.hp = actor.max_hp
 	self.ac = actor.initial_ac
 	self.mp = actor.initial_mp
-	self.hp = 1
-	self.ac = 0
+#	self.hp = 1
+#	self.ac = 0
 	$Enemy/Sprite.position = Vector2.ZERO
 	$Enemy/Sprite.modulate.a = 1
 	added_damage = 0
