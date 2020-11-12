@@ -125,6 +125,8 @@ func destroy_card() -> void:
 	chosen_action = null
 	action.disabled = true
 	emit_signal("refresh_player")
+	cost.hide()
+
 
 func _on_show_card(btn: ActionChoice) -> void:
 	var count = 0

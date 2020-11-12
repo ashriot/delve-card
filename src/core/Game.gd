@@ -29,6 +29,8 @@ onready var playerUI = $PlayerUI
 onready var settings = $Settings/Dimmer
 onready var settings_btn = $Settings/Settings
 
+var merchants: Dictionary
+
 var profile_hash: int setget, get_profile_hash
 var core_data: Resource
 var loading: = false
@@ -39,6 +41,8 @@ var game_data = GameData.new()
 
 var game_seed: String = "GODOT"
 
+var progress: int
+
 # Settings
 var auto_end: = true
 
@@ -47,6 +51,7 @@ func _ready() -> void:
 	rand_seed(game_seed.hash())
 	AudioController.mute = mute
 	AudioController.play_bgm("title")
+	progress = 0
 	init_dir()
 	dungeon.initialize(self)
 	playerUI.hide()
@@ -186,6 +191,8 @@ func start_game() -> void:
 	refresh_dungeon()
 	blacksmith.initialize(self)
 	shop.initialize(self)
+	shop.connect("show_card", self, "show_card")
+	shop.connect("hide_card", self, "hide_card")
 	deck.initialize(self)
 	deck.connect("show_card", self, "show_card")
 	deck.connect("hide_card", self, "hide_card")
@@ -406,6 +413,14 @@ func _on_CharBack_pressed():
 	AudioController.back()
 	char_select.hide()
 
-func _on_Dungeon_shop():
-	shop.show()
+func _on_Dungeon_shop(square):
+	var actions: Array = []
+	if merchants.has(square):
+		print("Found, loading")
+		actions = merchants[square]
+	else:
+		print("Cannot find, generating")
+		actions = loot.new_picker(progress, 5)
+		merchants[square] = actions
+	shop.display(actions)
 	save_game()

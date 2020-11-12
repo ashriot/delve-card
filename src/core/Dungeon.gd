@@ -7,7 +7,7 @@ signal start_battle(enemy)
 signal start_loot(gold)
 signal heal
 signal blacksmith
-signal shop
+signal shop(square)
 signal done_pathing
 
 onready var floor_number = $ColorRect/TopBanner/FloorNum
@@ -91,7 +91,7 @@ func _on_Map_move_to_square(square: Square):
 		emit_signal("advance")
 	elif square.type == "Battle":
 #		var level = (progress) as int
-		var enemy = load("res://src/enemies/wolf" + ".tres")
+		var enemy = load("res://src/enemies/bear" + ".tres")
 		emit_signal("start_battle", enemy)
 	elif square.type == "Chest":
 		emit_signal("start_loot", 0)
@@ -101,7 +101,7 @@ func _on_Map_move_to_square(square: Square):
 	elif square.type == "Anvil":
 		emit_signal("blacksmith")
 	elif square.type == "Shop":
-		emit_signal("shop")
+		emit_signal("shop", current_square)
 	if !square.cleared and square.type != "Anvil" and square.type != "Shop":
 		square.clear()
 

@@ -58,21 +58,6 @@ func setup(progress: int, gold_amt: int, qty: int) -> void:
 			child.initialize(action, player)
 		child.chosen = false
 
-func choose(choice: ActionChoice) -> void:
-	for child in choices.get_children():
-		if child == choice:
-			child.chosen = !child.chosen
-			if child.chosen:
-				AudioController.click()
-				finished.text = "Finished"
-				chosen_action = child.action
-			else:
-				AudioController.back()
-				chosen_action = null
-				finished.text = "Skip Reward"
-		else:
-			child.chosen = false
-
 func new_picker(progress: int, qty: int) -> Array:
 	#warning-ignore:integer_division
 	var level = (1 + progress / 2) as int
@@ -170,6 +155,21 @@ func _on_Finished_button_up():
 			player.actions.append(chosen_action)
 			player.actions.sort()
 	emit_signal("looting_finished")
+
+func choose(choice: ActionChoice) -> void:
+	for child in choices.get_children():
+		if child == choice:
+			child.chosen = !child.chosen
+			if child.chosen:
+				AudioController.click()
+				finished.text = "Finished"
+				chosen_action = child.action
+			else:
+				AudioController.back()
+				chosen_action = null
+				finished.text = "Skip Reward"
+		else:
+			child.chosen = false
 
 func _on_show_card(btn: ActionChoice) -> void:
 	var count = 0

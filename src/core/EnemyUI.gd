@@ -261,6 +261,7 @@ func remove_debuff(debuff_name: String) -> void:
 func update_atk_panel() -> void:
 	var rand = randi() % actor.actions.size()
 	action_to_use = actor.actions[rand]
+	enemy_ai()
 	attack_icon.frame = action_to_use.frame_id
 	intent = "Attack" if action_to_use.action_type == Action.ActionType.WEAPON \
 		else "Skill"
@@ -283,6 +284,12 @@ func update_data() -> void:
 
 func get_intent() -> String:
 	return intent
+
+func enemy_ai() -> void:
+	var action = null
+	if actor.name == "Angry Bear":
+		pass
+	action_to_use = action
 
 # SETTERS ###########################################
 
