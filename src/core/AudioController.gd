@@ -33,7 +33,7 @@ func play_sfx(name: String) -> void:
 
 func click() -> void:
 	play_sfx("click")
-	
+
 func back() -> void:
 	play_sfx("back")
 

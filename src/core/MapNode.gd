@@ -37,7 +37,7 @@ func initialize() -> void:
 	chest_max = randi() % 2 + 1
 	heal_max = randi() % 3 + 1
 	enemy_max = randi() % 2 + 4
-	shop_max = 1
+	shop_max = 2
 	anvil_max = 1
 	shrine_max = 0
 	branches = $Branches

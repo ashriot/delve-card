@@ -67,9 +67,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -42.0
-margin_top = -45.0
+margin_top = -44.0
 margin_right = 43.0
-margin_bottom = 25.0
+margin_bottom = 29.0
 custom_constants/separation = 6
 __meta__ = {
 "_edit_use_anchors_": false
@@ -135,9 +135,9 @@ __meta__ = {
 
 [node name="Back" type="Button" parent="BG/ActionDialog" index="4"]
 margin_left = 1.0
-margin_top = 108.0
+margin_top = 109.0
 margin_right = 41.0
-margin_bottom = 121.0
+margin_bottom = 122.0
 text = "Back"
 icon = ExtResource( 5 )
 align = 0
@@ -147,9 +147,9 @@ __meta__ = {
 
 [node name="Buy" type="Button" parent="BG/ActionDialog" index="5"]
 margin_left = 46.0
-margin_top = 108.0
+margin_top = 109.0
 margin_right = 107.0
-margin_bottom = 121.0
+margin_bottom = 122.0
 disabled = true
 text = "Buy"
 icon = ExtResource( 6 )
@@ -188,13 +188,7 @@ position = Vector2( -5, -2 )
 texture = ExtResource( 8 )
 centered = false
 
-[node name="Sprite" type="Sprite" parent="BG/ActionDialog/PriceTags/PriceTag" index="0"]
-modulate = Color( 0.145098, 0.145098, 0.133333, 1 )
-position = Vector2( 21, 3 )
-texture = ExtResource( 6 )
-centered = false
-
-[node name="Label" type="Label" parent="BG/ActionDialog/PriceTags/PriceTag" index="1"]
+[node name="Label" type="Label" parent="BG/ActionDialog/PriceTags/PriceTag" index="0"]
 modulate = Color( 0.145098, 0.145098, 0.133333, 1 )
 margin_left = -5.0
 margin_top = -2.0
@@ -206,18 +200,18 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Sprite" type="Sprite" parent="BG/ActionDialog/PriceTags/PriceTag/Label" index="0"]
+modulate = Color( 0.145098, 0.145098, 0.133333, 1 )
+position = Vector2( 26, 5 )
+texture = ExtResource( 6 )
+centered = false
+
 [node name="PriceTag2" type="Sprite" parent="BG/ActionDialog/PriceTags" index="1"]
 position = Vector2( -5, 17 )
 texture = ExtResource( 8 )
 centered = false
 
-[node name="Sprite" type="Sprite" parent="BG/ActionDialog/PriceTags/PriceTag2" index="0"]
-modulate = Color( 0.145098, 0.145098, 0.133333, 1 )
-position = Vector2( 21, 3 )
-texture = ExtResource( 6 )
-centered = false
-
-[node name="Label" type="Label" parent="BG/ActionDialog/PriceTags/PriceTag2" index="1"]
+[node name="Label" type="Label" parent="BG/ActionDialog/PriceTags/PriceTag2" index="0"]
 modulate = Color( 0.145098, 0.145098, 0.133333, 1 )
 margin_left = -5.0
 margin_top = -2.0
@@ -229,18 +223,18 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Sprite" type="Sprite" parent="BG/ActionDialog/PriceTags/PriceTag2/Label" index="0"]
+modulate = Color( 0.145098, 0.145098, 0.133333, 1 )
+position = Vector2( 26, 5 )
+texture = ExtResource( 6 )
+centered = false
+
 [node name="PriceTag3" type="Sprite" parent="BG/ActionDialog/PriceTags" index="2"]
 position = Vector2( -5, 36 )
 texture = ExtResource( 8 )
 centered = false
 
-[node name="Sprite" type="Sprite" parent="BG/ActionDialog/PriceTags/PriceTag3" index="0"]
-modulate = Color( 0.145098, 0.145098, 0.133333, 1 )
-position = Vector2( 21, 3 )
-texture = ExtResource( 6 )
-centered = false
-
-[node name="Label" type="Label" parent="BG/ActionDialog/PriceTags/PriceTag3" index="1"]
+[node name="Label" type="Label" parent="BG/ActionDialog/PriceTags/PriceTag3" index="0"]
 modulate = Color( 0.145098, 0.145098, 0.133333, 1 )
 margin_left = -5.0
 margin_top = -2.0
@@ -251,19 +245,19 @@ align = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Sprite" type="Sprite" parent="BG/ActionDialog/PriceTags/PriceTag3/Label" index="0"]
+modulate = Color( 0.145098, 0.145098, 0.133333, 1 )
+position = Vector2( 26, 5 )
+texture = ExtResource( 6 )
+centered = false
 
 [node name="PriceTag4" type="Sprite" parent="BG/ActionDialog/PriceTags" index="3"]
 position = Vector2( -5, 55 )
 texture = ExtResource( 8 )
 centered = false
 
-[node name="Sprite" type="Sprite" parent="BG/ActionDialog/PriceTags/PriceTag4" index="0"]
-modulate = Color( 0.145098, 0.145098, 0.133333, 1 )
-position = Vector2( 21, 3 )
-texture = ExtResource( 6 )
-centered = false
-
-[node name="Label" type="Label" parent="BG/ActionDialog/PriceTags/PriceTag4" index="1"]
+[node name="Label" type="Label" parent="BG/ActionDialog/PriceTags/PriceTag4" index="0"]
 modulate = Color( 0.145098, 0.145098, 0.133333, 1 )
 margin_left = -5.0
 margin_top = -2.0
@@ -274,19 +268,19 @@ align = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Sprite" type="Sprite" parent="BG/ActionDialog/PriceTags/PriceTag4/Label" index="0"]
+modulate = Color( 0.145098, 0.145098, 0.133333, 1 )
+position = Vector2( 26, 5 )
+texture = ExtResource( 6 )
+centered = false
 
 [node name="PriceTag5" type="Sprite" parent="BG/ActionDialog/PriceTags" index="4"]
 position = Vector2( -5, 74 )
 texture = ExtResource( 8 )
 centered = false
 
-[node name="Sprite" type="Sprite" parent="BG/ActionDialog/PriceTags/PriceTag5" index="0"]
-modulate = Color( 0.145098, 0.145098, 0.133333, 1 )
-position = Vector2( 21, 3 )
-texture = ExtResource( 6 )
-centered = false
-
-[node name="Label" type="Label" parent="BG/ActionDialog/PriceTags/PriceTag5" index="1"]
+[node name="Label" type="Label" parent="BG/ActionDialog/PriceTags/PriceTag5" index="0"]
 modulate = Color( 0.145098, 0.145098, 0.133333, 1 )
 margin_left = -5.0
 margin_top = -2.0
@@ -297,6 +291,13 @@ align = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Sprite" type="Sprite" parent="BG/ActionDialog/PriceTags/PriceTag5/Label" index="0"]
+modulate = Color( 0.145098, 0.145098, 0.133333, 1 )
+position = Vector2( 26, 5 )
+texture = ExtResource( 6 )
+centered = false
 [connection signal="pressed" from="BG/Menu/ClassActions" to="." method="_on_ClassActions_pressed"]
 [connection signal="pressed" from="BG/Menu/Exit" to="." method="_on_Exit_pressed"]
 [connection signal="pressed" from="BG/ActionDialog/Back" to="." method="_on_Back_pressed"]
+[connection signal="pressed" from="BG/ActionDialog/Buy" to="." method="_on_Buy_pressed"]

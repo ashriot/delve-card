@@ -35,10 +35,22 @@ func display(actions: Array) -> void:
 		child.connect("hide_card", self, "_on_hide_card")
 		child.connect("chosen", self, "choose")
 		choices.add_child(child)
+	update_price_tags()
+	self.show()
+
+func update_price_tags() -> void:
+	for child in choices.get_children():
+		var cost = child.action.rarity * 10
 		var index = child.get_index()
 		var tag = price_tags.get_child(index)
-		tag.find_node("Label").text = str(action.rarity * 10)
-	self.show()
+		var label = tag.find_node("Label")
+		label.text = str(cost)
+		if player.gold < cost:
+			label.modulate.a = 0.5
+			child.disable(true)
+		else:
+			label.modulate.a = 1.0
+			child.disable(false)
 
 func show(move: = true) -> void:
 	$BG/Menu/Exit.mouse_filter = Control.MOUSE_FILTER_STOP
@@ -87,6 +99,17 @@ func _on_Back_pressed():
 		child.set_chosen(false)
 	$BG/ActionDialog/Back.mouse_filter = Control.MOUSE_FILTER_STOP
 
+func _on_Buy_pressed():
+	AudioController.click()
+	var cost = chosen_action.rarity * 10
+	player.gold -= cost
+	for child in choices.get_children():
+		if child.action == chosen_action:
+			choices.remove_child(child)
+			child.queue_free()
+			chosen_action = null
+			return
+
 # SETTERS
 
 func set_chosen_action(value) -> void:
@@ -96,6 +119,6 @@ func set_chosen_action(value) -> void:
 	buy_btn.disabled = disabled
 	if value != null:
 		buy_cost.show()
-		buy_cost.text = str(chosen_action.cost)
+		buy_cost.text = str(chosen_action.rarity * 10)
 	else:
 		buy_cost.hide()

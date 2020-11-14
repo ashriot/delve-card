@@ -80,6 +80,9 @@ func update_data() -> void:
 		text = ""
 	$Button/Damage.bbcode_text = text
 
+func disable(value: bool) -> void:
+	find_node("Button").disabled = value
+
 func _on_Button_up() -> void:
 	timer.stop()
 	if hovering:
