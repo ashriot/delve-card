@@ -37,7 +37,7 @@ func display(actions: Array) -> void:
 		choices.add_child(child)
 		var index = child.get_index()
 		var tag = price_tags.get_child(index)
-		tag.find_node("Label").text = str(action.cost)
+		tag.find_node("Label").text = str(action.rarity * 10)
 	self.show()
 
 func show(move: = true) -> void:
