@@ -126,4 +126,3 @@ func load(save_game: Resource) -> void:
 	var data: Dictionary = save_game.data[SAVE_KEY]
 	player = data["player"]
 	player.actions = data["actions"]
-

@@ -424,3 +424,6 @@ func _on_Dungeon_shop(square):
 		merchants[square] = actions
 	shop.display(actions)
 	save_game()
+
+func _on_Shop_update_player():
+	playerUI.refresh()

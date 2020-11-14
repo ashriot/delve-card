@@ -4,6 +4,7 @@ var _ActionChoice = preload("res://src/core/ActionChoice.tscn")
 
 signal show_card(card, qty)
 signal hide_card
+signal update_player
 
 onready var class_button = $BG/Menu/ClassActions
 onready var action_dialog = $BG/ActionDialog
@@ -100,14 +101,16 @@ func _on_Back_pressed():
 	$BG/ActionDialog/Back.mouse_filter = Control.MOUSE_FILTER_STOP
 
 func _on_Buy_pressed():
-	AudioController.click()
+	AudioController.confirm()
 	var cost = chosen_action.rarity * 10
 	player.gold -= cost
 	for child in choices.get_children():
-		if child.action == chosen_action:
+		if child.chosen:
 			choices.remove_child(child)
 			child.queue_free()
+			player.actions.append(chosen_action)
 			chosen_action = null
+			emit_signal("update_player")
 			return
 
 # SETTERS

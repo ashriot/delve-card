@@ -37,6 +37,9 @@ func click() -> void:
 func back() -> void:
 	play_sfx("back")
 
+func confirm() -> void:
+	play_sfx("confirm")
+
 func steps() -> void:
 	play_sfx("footsteps")
 
