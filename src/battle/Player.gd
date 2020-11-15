@@ -97,22 +97,28 @@ func take_hit(damage: int) -> void:
 		floating_text.initialize(damage, false)
 		AudioController.play_sfx("hit")
 		$AnimationPlayer.play("Shake")
-	floating_text.position = Vector2(58, 67)
+	floating_text.position = Vector2(58, 70)
 	get_parent().add_child(floating_text)
 
 func take_healing(amount: int, type: String) -> void:
+	var x = 40
+	var y = 68
 	var floating_text = FloatingText.instance()
 	if type == "HP":
+		x = 50
 		self.hp += amount
 	if type == "AC":
+		x = 70
 		self.ac += amount
 	if type == "ST":
 		self.ap += amount
 	if type == "MP":
+		x = 70
+		y = 74
 		self.mp += amount
 	var text = "+" + str(amount) + type
 	floating_text.display_text(text)
-	floating_text.position = Vector2(40, 67)
+	floating_text.position = Vector2(x, y)
 	get_parent().add_child(floating_text)
 
 func add_to_deck(action_name: String, qty: int) -> void:
@@ -124,7 +130,7 @@ func update_data() -> void:
 func gain_buff(buff: Buff, amt: int) -> void:
 	var floating_text = FloatingText.instance()
 	floating_text.display_text("+" + buff.name)
-	floating_text.position = Vector2(54, 67)
+	floating_text.position = Vector2(54, 78)
 	get_parent().add_child(floating_text)
 	for b in buffs.keys():
 		if b == buff.name:
@@ -167,7 +173,7 @@ func apply_debuff(debuff: Buff, qty: int) -> void:
 func gain_debuff(debuff: Buff, qty: int) -> void:
 	var floating_text = FloatingText.instance()
 	floating_text.display_text("+" + debuff.name)
-	floating_text.position = Vector2(54, 67)
+	floating_text.position = Vector2(54, 74)
 	get_parent().add_child(floating_text)
 	for d in debuffs.keys():
 		if d == debuff.name:

@@ -58,7 +58,7 @@ func setup(progress: int, gold_amt: int, qty: int) -> void:
 			child.initialize(action, player)
 		child.chosen = false
 
-func new_picker(progress: int, qty: int) -> Array:
+func new_picker(progress: int, qty: int, other_classes: = false) -> Array:
 	#warning-ignore:integer_division
 	var level = (1 + progress / 2) as int
 	var loot_list = []
@@ -121,7 +121,7 @@ func remove_loot(item: String) -> void:
 		loot4.remove(loot4.find(path + "4/" + item))
 		return
 
-func get_loot(rank: int) -> Array:
+func get_loot(rank: int, other_classes: = false) -> Array:
 	var list = []
 	var path = "res://src/actions/" + player.name.to_lower() + "/" + str(rank) + "/"
 	var files = []
@@ -141,6 +141,9 @@ func get_loot(rank: int) -> Array:
 
 	return list
 
+func get_other_loot(rank: int) -> Array:
+	return get_loot(rank, true)
+
 func _on_Finished_button_up():
 	AudioController.click()
 	if chosen_action != null:
@@ -151,7 +154,6 @@ func _on_Finished_button_up():
 			elif chosen_action.damage_type == Action.DamageType.MP:
 				player.initial_mp += chosen_action.damage
 		else:
-#			remove_loot(chosen_action.name)
 			player.actions.append(chosen_action)
 			player.actions.sort()
 	emit_signal("looting_finished")

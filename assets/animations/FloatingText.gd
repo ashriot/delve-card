@@ -3,8 +3,9 @@ class_name FloatingText
 
 onready var tween = $Tween
 
-export var gravity: = Vector2(0, 1)
-export var mass: = 200
+var gravity: = Vector2(0, 1)
+var mass: = 200
+var vertical_velocity = -80
 
 var velocity: Vector2
 var text setget set_text
@@ -28,7 +29,7 @@ func _ready() -> void:
 
 	tween.interpolate_callback(self, 1.0, "queue_free")
 
-	velocity = Vector2(rand_range(-40, 40), -80)
+	velocity = Vector2(rand_range(-20, 20), vertical_velocity)
 
 	tween.start()
 

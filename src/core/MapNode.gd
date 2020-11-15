@@ -22,6 +22,7 @@ var generator: = preload("res://src/map/dungeon_generation.gd").new()
 var _Square = preload("res://src/map/Square.tscn")
 var astar: AStar2D
 var origin = null
+var enemy_list: = []
 
 var DIST = 18
 
@@ -33,7 +34,8 @@ var shop_max: = 2
 var anvil_max: = 1
 var shrine_max: = 1
 
-func initialize() -> void:
+func initialize(dungeon: Dungeon) -> void:
+	enemy_list = dungeon.enemy_list
 	chest_max = randi() % 2 + 1
 	heal_max = randi() % 3 + 1
 	enemy_max = randi() % 2 + 4
@@ -117,7 +119,8 @@ func load_map() -> void:
 			else:
 				if enemies > 0:
 					enemies -= 1
-					square.initialize("Battle", enemy_sprite)
+					var enemy_name = enemy_list[randi() % enemy_list.size()]
+					square.initialize("Battle", enemy_sprite, enemy_name)
 				elif chests > 0:
 					chests -= 1
 					square.initialize("Chest", chest_sprite)
@@ -179,7 +182,6 @@ func get_index_by_pos(pos) -> int:
 	return -1
 
 func square_clicked(button: Square) -> void:
-	print("Square clicked! ", button.get_instance_id())
 	if button.type == "Battle":
 		var index = button.get_index()
 		astar.set_point_disabled(index, false)
@@ -190,7 +192,3 @@ func show_tooltip(button: Square) -> void:
 
 func hide_tooltip() -> void:
 	emit_signal("hide_tooltip")
-
-func _on_Button_pressed():
-	generate_dungeon()
-	load_map()

@@ -86,6 +86,7 @@ margin_top = 19.0
 margin_right = 85.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 80, 13 )
+disabled = true
 text = "Other Actions"
 
 [node name="Sundries" type="Button" parent="BG/Menu" index="2"]
@@ -104,6 +105,7 @@ rect_min_size = Vector2( 80, 13 )
 text = "Exit"
 
 [node name="ActionDialog" parent="BG" index="5" instance=ExtResource( 4 )]
+visible = false
 
 [node name="Banner" type="ColorRect" parent="BG/ActionDialog" index="2"]
 anchor_right = 1.0
@@ -297,7 +299,205 @@ modulate = Color( 0.145098, 0.145098, 0.133333, 1 )
 position = Vector2( 26, 5 )
 texture = ExtResource( 6 )
 centered = false
+
+[node name="OtherDialog" parent="BG" index="6" instance=ExtResource( 4 )]
+visible = false
+
+[node name="Banner" type="ColorRect" parent="BG/OtherDialog" index="2"]
+anchor_right = 1.0
+margin_bottom = 9.0
+color = Color( 0.145098, 0.145098, 0.133333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="BG/OtherDialog/Banner" index="0"]
+margin_left = -1.0
+margin_top = -3.0
+margin_right = 46.0
+margin_bottom = 11.0
+text = "Actions"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Choices" type="VBoxContainer" parent="BG/OtherDialog" index="3"]
+margin_left = 2.0
+margin_top = 12.0
+margin_right = 100.0
+margin_bottom = 160.0
+custom_constants/separation = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Back" type="Button" parent="BG/OtherDialog" index="4"]
+margin_left = 1.0
+margin_top = 109.0
+margin_right = 41.0
+margin_bottom = 122.0
+text = "Back"
+icon = ExtResource( 5 )
+align = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Buy" type="Button" parent="BG/OtherDialog" index="5"]
+margin_left = 46.0
+margin_top = 109.0
+margin_right = 107.0
+margin_bottom = 122.0
+disabled = true
+text = "Buy"
+icon = ExtResource( 6 )
+align = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Cost" type="Label" parent="BG/OtherDialog/Buy" index="0"]
+margin_left = 28.0
+margin_top = -1.0
+margin_right = 58.0
+margin_bottom = 13.0
+text = "100"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="BG/OtherDialog/Buy/Cost" index="0"]
+position = Vector2( 26, 5 )
+texture = ExtResource( 6 )
+centered = false
+
+[node name="PriceTags" type="Control" parent="BG/OtherDialog" index="6"]
+margin_left = 84.0
+margin_top = 22.0
+margin_right = 108.0
+margin_bottom = 108.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PriceTag" type="Sprite" parent="BG/OtherDialog/PriceTags" index="0"]
+position = Vector2( -5, -2 )
+texture = ExtResource( 8 )
+centered = false
+
+[node name="Label" type="Label" parent="BG/OtherDialog/PriceTags/PriceTag" index="0"]
+modulate = Color( 0.145098, 0.145098, 0.133333, 1 )
+margin_left = -5.0
+margin_top = -2.0
+margin_right = 25.0
+margin_bottom = 12.0
+text = "45"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="BG/OtherDialog/PriceTags/PriceTag/Label" index="0"]
+modulate = Color( 0.145098, 0.145098, 0.133333, 1 )
+position = Vector2( 26, 5 )
+texture = ExtResource( 6 )
+centered = false
+
+[node name="PriceTag2" type="Sprite" parent="BG/OtherDialog/PriceTags" index="1"]
+position = Vector2( -5, 17 )
+texture = ExtResource( 8 )
+centered = false
+
+[node name="Label" type="Label" parent="BG/OtherDialog/PriceTags/PriceTag2" index="0"]
+modulate = Color( 0.145098, 0.145098, 0.133333, 1 )
+margin_left = -5.0
+margin_top = -2.0
+margin_right = 25.0
+margin_bottom = 12.0
+text = "80"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="BG/OtherDialog/PriceTags/PriceTag2/Label" index="0"]
+modulate = Color( 0.145098, 0.145098, 0.133333, 1 )
+position = Vector2( 26, 5 )
+texture = ExtResource( 6 )
+centered = false
+
+[node name="PriceTag3" type="Sprite" parent="BG/OtherDialog/PriceTags" index="2"]
+position = Vector2( -5, 36 )
+texture = ExtResource( 8 )
+centered = false
+
+[node name="Label" type="Label" parent="BG/OtherDialog/PriceTags/PriceTag3" index="0"]
+modulate = Color( 0.145098, 0.145098, 0.133333, 1 )
+margin_left = -5.0
+margin_top = -2.0
+margin_right = 25.0
+margin_bottom = 12.0
+text = "120"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="BG/OtherDialog/PriceTags/PriceTag3/Label" index="0"]
+modulate = Color( 0.145098, 0.145098, 0.133333, 1 )
+position = Vector2( 26, 5 )
+texture = ExtResource( 6 )
+centered = false
+
+[node name="PriceTag4" type="Sprite" parent="BG/OtherDialog/PriceTags" index="3"]
+position = Vector2( -5, 55 )
+texture = ExtResource( 8 )
+centered = false
+
+[node name="Label" type="Label" parent="BG/OtherDialog/PriceTags/PriceTag4" index="0"]
+modulate = Color( 0.145098, 0.145098, 0.133333, 1 )
+margin_left = -5.0
+margin_top = -2.0
+margin_right = 25.0
+margin_bottom = 12.0
+text = "120"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="BG/OtherDialog/PriceTags/PriceTag4/Label" index="0"]
+modulate = Color( 0.145098, 0.145098, 0.133333, 1 )
+position = Vector2( 26, 5 )
+texture = ExtResource( 6 )
+centered = false
+
+[node name="PriceTag5" type="Sprite" parent="BG/OtherDialog/PriceTags" index="4"]
+position = Vector2( -5, 74 )
+texture = ExtResource( 8 )
+centered = false
+
+[node name="Label" type="Label" parent="BG/OtherDialog/PriceTags/PriceTag5" index="0"]
+modulate = Color( 0.145098, 0.145098, 0.133333, 1 )
+margin_left = -5.0
+margin_top = -2.0
+margin_right = 25.0
+margin_bottom = 12.0
+text = "120"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="BG/OtherDialog/PriceTags/PriceTag5/Label" index="0"]
+modulate = Color( 0.145098, 0.145098, 0.133333, 1 )
+position = Vector2( 26, 5 )
+texture = ExtResource( 6 )
+centered = false
 [connection signal="pressed" from="BG/Menu/ClassActions" to="." method="_on_ClassActions_pressed"]
 [connection signal="pressed" from="BG/Menu/Exit" to="." method="_on_Exit_pressed"]
 [connection signal="pressed" from="BG/ActionDialog/Back" to="." method="_on_Back_pressed"]
 [connection signal="pressed" from="BG/ActionDialog/Buy" to="." method="_on_Buy_pressed"]
+[connection signal="pressed" from="BG/OtherDialog/Back" to="." method="_on_Back_pressed"]
+[connection signal="pressed" from="BG/OtherDialog/Buy" to="." method="_on_Buy_pressed"]

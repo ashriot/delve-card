@@ -861,7 +861,7 @@ anims/FadeOut = SubResource( 16 )
 [connection signal="profile_chose" from="WelcomeScreen" to="." method="_on_WelcomeScreen_profile_chose"]
 [connection signal="hide_card" from="Loot" to="." method="hide_card"]
 [connection signal="show_card" from="Loot" to="." method="show_card"]
-[connection signal="update_player" from="Shop" to="." method="_on_Shop_update_player"]
+[connection signal="shop_purchase" from="Shop" to="." method="_on_Shop_shop_purchase"]
 [connection signal="button_up" from="Title/ColorRect/StartGame" to="." method="_on_StartGame_button_up"]
 [connection signal="toggled" from="Settings/Dimmer/AutoEnd/AutoEnd" to="." method="_on_AutoEnd_toggled"]
 [connection signal="button_down" from="Settings/Settings" to="." method="_on_Settings_button_down"]

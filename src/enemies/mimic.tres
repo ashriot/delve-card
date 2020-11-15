@@ -4,7 +4,8 @@
 [ext_resource path="res://assets/images/enemies/mimic.png" type="Texture" id=2]
 [ext_resource path="res://src/actions/enemy/attack-double.tres" type="Resource" id=3]
 [ext_resource path="res://src/actions/enemy/gird5.tres" type="Resource" id=4]
-[ext_resource path="res://src/actions/enemy/roar.tres" type="Resource" id=5]
+[ext_resource path="res://src/actions/enemy/roar5.tres" type="Resource" id=5]
+
 
 [resource]
 script = ExtResource( 1 )

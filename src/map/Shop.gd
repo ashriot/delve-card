@@ -4,17 +4,24 @@ var _ActionChoice = preload("res://src/core/ActionChoice.tscn")
 
 signal show_card(card, qty)
 signal hide_card
-signal update_player
+signal shop_purchase(action)
 
 onready var class_button = $BG/Menu/ClassActions
 onready var action_dialog = $BG/ActionDialog
+onready var other_dialog = $BG/OtherDialog
 onready var buy_btn = $BG/ActionDialog/Buy
 onready var buy_cost = $BG/ActionDialog/Buy/Cost
+onready var other_buy = $BG/OtherDialog/Buy
+onready var other_cost = $BG/OtherDialog/Buy/Cost
 onready var choices = $BG/ActionDialog/Choices
+onready var other_choices = $BG/OtherDialog/Choices
 onready var price_tags = $BG/ActionDialog/PriceTags
+onready var other_tags = $BG/OtherDialog/PriceTags
 
 var player: Actor
 var chosen_action: Action setget set_chosen_action
+
+var square_id: int
 
 func initialize(game) -> void:
 	player = game.player
@@ -23,7 +30,8 @@ func initialize(game) -> void:
 	buy_cost.hide()
 	buy_btn.disabled = true
 
-func display(actions: Array) -> void:
+func display(actions: Array, _square_id: int) -> void:
+	square_id = _square_id
 	for child in choices.get_children():
 		choices.remove_child(child)
 		child.queue_free()
@@ -39,19 +47,56 @@ func display(actions: Array) -> void:
 	update_price_tags()
 	self.show()
 
+func display_others(actions: Array) -> void:
+	for child in other_choices.get_children():
+		other_choices.remove_child(child)
+		child.queue_free()
+
+	for res in actions:
+		var action = load(res)
+		var child = _ActionChoice.instance()
+		child.initialize(action, player)
+		child.connect("show_card", self, "_on_show_card")
+		child.connect("hide_card", self, "_on_hide_card")
+		child.connect("chosen", self, "choose")
+		other_choices.add_child(child)
+	update_other_price_tags()
+
 func update_price_tags() -> void:
-	for child in choices.get_children():
-		var cost = child.action.rarity * 10
-		var index = child.get_index()
-		var tag = price_tags.get_child(index)
-		var label = tag.find_node("Label")
-		label.text = str(cost)
-		if player.gold < cost:
-			label.modulate.a = 0.5
-			child.disable(true)
+	for tag in price_tags.get_children():
+		var index = tag.get_index()
+		if index >= choices.get_child_count():
+			tag.hide()
 		else:
-			label.modulate.a = 1.0
-			child.disable(false)
+			tag.show()
+			var child = choices.get_child(index)
+			var cost = child.action.rarity * 10
+			var label = tag.find_node("Label")
+			label.text = str(cost)
+			if player.gold < cost:
+				label.modulate.a = 0.5
+				child.disable(true)
+			else:
+				label.modulate.a = 1.0
+				child.disable(false)
+
+func update_other_price_tags() -> void:
+	for tag in other_tags.get_children():
+		var index = tag.get_index()
+		if index >= other_choices.get_child_count():
+			tag.hide()
+		else:
+			tag.show()
+			var child = other_choices.get_child(index)
+			var cost = child.action.rarity * 10
+			var label = tag.find_node("Label")
+			label.text = str(cost)
+			if player.gold < cost:
+				label.modulate.a = 0.5
+				child.disable(true)
+			else:
+				label.modulate.a = 1.0
+				child.disable(false)
 
 func show(move: = true) -> void:
 	$BG/Menu/Exit.mouse_filter = Control.MOUSE_FILTER_STOP
@@ -106,17 +151,27 @@ func _on_Buy_pressed():
 	player.gold -= cost
 	for child in choices.get_children():
 		if child.chosen:
+			gain_purchase()
+			emit_signal("shop_purchase", child.get_index(), square_id)
 			choices.remove_child(child)
 			child.queue_free()
-			player.actions.append(chosen_action)
-			chosen_action = null
-			emit_signal("update_player")
+			self.chosen_action = null
+			update_price_tags()
 			return
+
+func gain_purchase() -> void:
+	if chosen_action.action_type == Action.ActionType.PERMANENT:
+		if chosen_action.damage_type == Action.DamageType.HP:
+			player.max_hp += chosen_action.damage
+			player.hp += chosen_action.damage
+		elif chosen_action.damage_type == Action.DamageType.MP:
+			player.initial_mp += chosen_action.damage
+	else:
+		player.actions.append(chosen_action)
 
 # SETTERS
 
 func set_chosen_action(value) -> void:
-	print(value)
 	var disabled = true if value == null else false
 	chosen_action = value
 	buy_btn.disabled = disabled

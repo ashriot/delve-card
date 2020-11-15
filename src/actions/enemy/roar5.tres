@@ -1,13 +1,13 @@
 [gd_resource type="Resource" load_steps=4 format=2]
 
-[ext_resource path="res://src/actions/res/action.gd" type="Script" id=1]
-[ext_resource path="res://src/actions/enemy/extra/gain_power3.gd" type="Script" id=2]
+[ext_resource path="res://src/actions/enemy/extra/gain_power5.gd" type="Script" id=1]
+[ext_resource path="res://src/actions/res/action.gd" type="Script" id=2]
 [ext_resource path="res://assets/animations/Conductivity.tscn" type="PackedScene" id=3]
 
 [resource]
-script = ExtResource( 1 )
+script = ExtResource( 2 )
 name = "Roar"
-description = "Gain 3 Power. (Damage increased by 3.)"
+description = "Gain 5 Power."
 rarity = 2
 upgraded = false
 action_type = 3
@@ -28,4 +28,4 @@ fade = false
 consume = false
 frame_id = 57
 fx = ExtResource( 3 )
-extra_action = ExtResource( 2 )
+extra_action = ExtResource( 1 )

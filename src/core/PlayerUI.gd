@@ -39,6 +39,7 @@ func initialize(game) -> void:
 	refresh()
 
 func refresh() -> void:
+	player.actions.sort()
 	item_belt.init_ui(self)
 	set_hp(player.hp)
 	set_ac(player.initial_ac)

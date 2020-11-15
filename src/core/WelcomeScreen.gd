@@ -41,11 +41,11 @@ func initialize(game: Node) -> void:
 		profiles.hide_instantly()
 		create_profile.hide_instantly()
 
-func _on_ContinueGame_button_up():
+func _on_ContinueGame_pressed():
 	AudioController.click()
 	emit_signal("load_game")
 
-func _on_NewGame_button_up():
+func _on_NewGame_pressed():
 	AudioController.click()
 	if continue_button.disabled:
 		emit_signal("new")

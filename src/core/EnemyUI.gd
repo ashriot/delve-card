@@ -30,6 +30,8 @@ onready var debuff_bar = $Enemy/DebuffBar
 var buffs: Dictionary
 var debuffs: Dictionary
 
+var vars: Dictionary
+
 var actor: EnemyActor
 var action_to_use: Action
 var dead: bool setget , get_dead
@@ -47,14 +49,15 @@ var mp: int setget set_mp
 
 func initialize(_actor: EnemyActor) -> void:
 	actor = _actor
+	set_vars()
 	sprite.texture = actor.texture
 	animationPlayer.play("Idle")
 	hp_percent.max_value = actor.max_hp
 	self.hp = actor.max_hp
 	self.ac = actor.initial_ac
 	self.mp = actor.initial_mp
-	self.hp = 1
-	self.ac = 0
+#	self.hp = 1
+#	self.ac = 0
 	$Enemy/Sprite.position = Vector2.ZERO
 	$Enemy/Sprite.modulate.a = 1
 	added_damage = 0
@@ -80,25 +83,29 @@ func act() -> void:
 			reduce_debuff("Burn")
 			yield(get_tree().create_timer(0.8), "timeout")
 	if self.dead:
+		print("dead, ended turn")
 		emit_signal("ended_turn")
 		return
 	if intent == "Attack":
 		animationPlayer.play(intent + str(action_to_use.hits))
 	else:
 		animationPlayer.play("Cast")
-	yield(animationPlayer, "animation_finished")
-	animationPlayer.play("Idle")
-	print("Damage bonus: ", added_damage)
-	reduce_debuffs()
-	reduce_buffs()
-	update_atk_panel()
-	emit_signal("ended_turn")
 
 func inflict_hit() -> void:
 	if action_to_use.target_type == Action.TargetType.OPPONENT:
 		emit_signal("used_action", action_to_use)
 	else:
 		take_effect(action_to_use)
+
+func action_done() -> void:
+	print("action_done()")
+	animationPlayer.play("Idle")
+	print("Damage bonus: ", added_damage)
+	reduce_debuffs()
+	reduce_buffs()
+	update_atk_panel()
+	print("enemy act() done -- ended turn")
+	emit_signal("ended_turn")
 
 func take_effect(action: Action) -> void:
 	if action.extra_action != null:
@@ -149,9 +156,10 @@ func take_hit(action: Action, damage: int, crit: bool) -> void:
 	if self.dead:
 		die()
 	else:
-		animationPlayer.play("Hit")
-		yield(animationPlayer, "animation_finished")
-		animationPlayer.play("Idle")
+		if animationPlayer.current_animation == "Idle":
+			animationPlayer.play("Hit")
+			yield(animationPlayer, "animation_finished")
+			animationPlayer.play("Idle")
 
 func die() -> void:
 	emit_signal("block_input")
@@ -166,8 +174,8 @@ func die() -> void:
 func gain_buff(buff: Buff, amt: int) -> void:
 	var floating_text = FloatingText.instance()
 	floating_text.display_text("+" + buff.name)
-	floating_text.position = Vector2(54, 67)
 	get_parent().add_child(floating_text)
+	floating_text.position = Vector2(54, 37)
 	for b in buffs.keys():
 		if b == buff.name:
 			buffs[b].stacks += amt
@@ -259,9 +267,7 @@ func remove_debuff(debuff_name: String) -> void:
 	child.queue_free()
 
 func update_atk_panel() -> void:
-	var rand = randi() % actor.actions.size()
-	action_to_use = actor.actions[rand]
-	enemy_ai()
+	action_to_use = enemy_ai()
 	attack_icon.frame = action_to_use.frame_id
 	intent = "Attack" if action_to_use.action_type == Action.ActionType.WEAPON \
 		else "Skill"
@@ -285,11 +291,47 @@ func update_data() -> void:
 func get_intent() -> String:
 	return intent
 
-func enemy_ai() -> void:
-	var action = action_to_use
+func enemy_ai() -> Action:
+	if actor.name == "Angry Bear": return angry_bear()
+	else:
+		var rand = randi() % actor.actions.size()
+		return actor.actions[rand]
+
+func angry_bear() -> Action:
+	var action = null
+	vars.turns += 1
+	if is_injured(0.5) and !vars.bloodied:
+		vars.bloodied = true
+		action = actor.actions[4]		# Gird
+	elif is_injured(0.25) and !vars.dying:
+		vars.dying = true
+		action = actor.actions[5]		# Hibernate
+	elif vars.turns % 5 == 1:
+		action = actor.actions[0]		# Roar
+	elif randf() < 0.9 and vars.maul_uses < 3:
+		if is_injured(0.5): action = actor.actions[3]
+		else: action = actor.actions[2]		# 2x/3x
+	else:
+		if is_injured(0.5): action = actor.actions[2]
+		else: action = actor.actions[1]		# 1x/2x
+	if action.name == "Attack2":
+		vars.maul_uses += 1
+	else:
+		vars.maul_uses = 0
+	return action
+
+func set_vars() -> void:
 	if actor.name == "Angry Bear":
-		pass
-	action_to_use = action
+		vars = {
+			"bloodied": false,
+			"10%": false,
+			"maul_uses": 0,
+			"turns": 0,
+			"dying": false
+		}
+
+func is_injured(threshold: float) -> bool:
+	return (float(hp) / float(actor.max_hp) <= threshold)
 
 # SETTERS ###########################################
 
@@ -304,6 +346,12 @@ func set_hp(value: int) -> void:
 	var text = "[color=#22252522]" + cur_sub + "[/color]" + str(value)
 	hp_value.bbcode_text = text
 	hp_percent.value = hp
+	if vars.has("bloodied"):
+		if !vars.bloodied and is_injured(0.5):
+			update_atk_panel()
+	if vars.has("dying"):
+		if !vars.dying and is_injured(0.25):
+			update_atk_panel()
 
 func set_ac(value: int) -> void:
 	value = max(value, 0)

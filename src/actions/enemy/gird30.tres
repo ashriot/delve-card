@@ -4,18 +4,18 @@
 
 [resource]
 script = ExtResource( 1 )
-name = "Attack2"
+name = "Attack"
 description = ""
-rarity = 2
+rarity = 1
 upgraded = false
-action_type = 0
-target_type = 1
+action_type = 3
+target_type = 0
 cost_type = 3
 cost = 0
-healing = false
-damage_type = 0
-damage = 5
-hits = 2
+healing = true
+damage_type = 1
+damage = 30
+hits = 1
 crit_chance = 0.0
 penetrate = false
 impact = 0
@@ -24,4 +24,4 @@ draw_type = 7
 drop = false
 fade = false
 consume = false
-frame_id = 1
+frame_id = 58

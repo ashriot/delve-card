@@ -11,13 +11,15 @@ signal shop(square)
 signal done_pathing
 
 onready var floor_number = $ColorRect/TopBanner/FloorNum
-onready var tooltip = $ColorRect/Tooltip
-onready var tooltext = $ColorRect/Tooltip/Label
+onready var tooltip = $Tooltip
+onready var tooltext = $Tooltip/PanelContainer/Label
 
 onready var map = $Map
 onready var avatar = $Avatar as Sprite
 onready var avatar_tween = $Avatar/Tween
 onready var colorRect = $ColorRect
+
+var enemy_list: Array
 
 var SAVE_KEY: String = "dungeon"
 var current_square: int
@@ -27,15 +29,18 @@ var progress: = 0 setget set_progress
 var pathing: = false
 
 func initialize(game) -> void:
+	enemy_list = ["wolf", "devil"]
 	print("dungeon.initialize()")
 	game_seed = game.game_seed
 	tooltip.hide()
 	map.connect("move_to_square", self, "_on_Map_move_to_square", [], 2)
+	map.connect("show_tooltip", self, "_on_Map_show_tooltip")
+	map.connect("hide_tooltip", self, "_on_Map_hide_tooltip")
 	self.progress = 1
 
 func new_map() -> void:
 	print("dungeon.new_map()")
-	map.initialize()
+	map.initialize(self)
 	var origin = map.get_origin()
 	current_square = origin.get_index()
 
@@ -79,7 +84,6 @@ func path(sq: Square) -> bool:
 
 func _on_Map_move_to_square(square: Square):
 	if pathing: return
-	print("trying to move")
 	var moving = path(square)
 	if not moving and (square.type != "Anvil" and square.type != "Shop" or square.get_index() != current_square):
 		return
@@ -90,8 +94,7 @@ func _on_Map_move_to_square(square: Square):
 	elif square.type == "Down":
 		emit_signal("advance")
 	elif square.type == "Battle":
-#		var level = (progress) as int
-		var enemy = load("res://src/enemies/bear" + ".tres")
+		var enemy = load("res://src/enemies/" + square.enemy_name + ".tres")
 		emit_signal("start_battle", enemy)
 	elif square.type == "Chest":
 		emit_signal("start_loot", 0)
@@ -109,7 +112,8 @@ func _on_Map_show_tooltip(button):
 	tooltext.text = button.type.capitalize()
 	var pos = get_global_mouse_position()
 	var x = clamp(pos.x - tooltip.rect_size.x / 2, 0, 108 - tooltip.rect_size.x)
-	tooltip.set_global_position(Vector2(x, pos.y - tooltip.rect_size.y - 12))
+	var y = clamp(pos.y - tooltip.rect_size.y - 12, 0, 92 - tooltip.rect_size.y)
+	tooltip.set_global_position(Vector2(x, y))
 	tooltip.show()
 
 func _on_Map_hide_tooltip():

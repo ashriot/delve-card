@@ -310,6 +310,7 @@ __meta__ = {
 }
 
 [node name="Shop" parent="." instance=ExtResource( 1 )]
+visible = false
 margin_bottom = -43.0
 
 [node name="Banner" type="ColorRect" parent="Shop"]
@@ -1278,8 +1279,8 @@ __meta__ = {
 
 [node name="Timer" type="Timer" parent="Profiles/CreateDialog/Exists"]
 [connection signal="pressed" from="BG/Profile" to="." method="_on_Profile_pressed"]
-[connection signal="button_up" from="BG/NewGame" to="." method="_on_NewGame_button_up"]
-[connection signal="button_up" from="BG/ContinueGame" to="." method="_on_ContinueGame_button_up"]
+[connection signal="pressed" from="BG/NewGame" to="." method="_on_NewGame_pressed"]
+[connection signal="pressed" from="BG/ContinueGame" to="." method="_on_ContinueGame_pressed"]
 [connection signal="pressed" from="BG/Shop" to="." method="_on_Shop_pressed"]
 [connection signal="pressed" from="BG/NewDialog/Panel/NewBack" to="." method="_on_NewBack_pressed"]
 [connection signal="pressed" from="BG/NewDialog/Panel/NewOK" to="." method="_on_NewOK_pressed"]

@@ -53,6 +53,7 @@ func _on_Actions_ended_turn():
 	elif enemyUI.dead:
 		enemyUI.die()
 	else:
+		print("actions done -- enemy not dead, start_turn")
 		emit_signal("start_turn")
 
 func _on_Enemy_used_action(action: Action):

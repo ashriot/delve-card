@@ -29,3 +29,4 @@ func spend_gold(amt: int) -> void:
 
 func have_enough_gold(amt: int) -> bool:
 	return gold >= amt
+

@@ -11,6 +11,7 @@ export var pos: Vector2
 export var origin: = false
 
 export var type: String
+export var enemy_name: String
 export var cleared: = false
 export var hovering: = false
 
@@ -23,10 +24,11 @@ export var connected: = false
 var connections: = 0 setget, get_connections
 var initialized: = false
 
-func initialize(_type: String, texture: Texture) -> void:
+func initialize(_type: String, texture: Texture, _enemy_name: = "") -> void:
 	if initialized: return
-	cleared = false
 	type = _type
+	enemy_name = _enemy_name
+	cleared = true if type == "Clear" else false
 	texture_normal = texture
 	connect("button_down", self, "_on_Square_button_down", [], 2)
 	connect("button_up", self, "_on_Square_button_up", [], 2)
@@ -45,14 +47,13 @@ func clear() -> void:
 
 func _on_Square_button_down():
 	modulate = Color.gray
-	if cleared: return
 	timer.start(0.33)
 
 func _on_Square_button_up():
-	print("clicked!")
 	timer.stop()
 	modulate = Color.white
 	if hovering:
+		if cleared: return
 		emit_signal("hide_tooltip")
 		hovering = false
 		return
@@ -60,8 +61,9 @@ func _on_Square_button_up():
 
 func _on_Timer_timeout():
 	timer.stop()
-	emit_signal("show_tooltip")
 	hovering = true
+	if cleared: return
+	emit_signal("show_tooltip")
 
 func get_connections() -> int:
 	var result = 0

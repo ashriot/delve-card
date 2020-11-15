@@ -116,7 +116,6 @@ func save_game() -> void:
 	if !dir.dir_exists(SAVE_DIR):
 		dir.make_dir_recursive(SAVE_DIR)
 
-	print(core_data.profile_name, "->", self.profile_hash)
 	var save_path = SAVE_DIR.plus_file(SAVE_NAME_TEMPLATE % self.profile_hash)
 
 	var directory: Directory = Directory.new()
@@ -139,19 +138,22 @@ func save_game() -> void:
 	game_data.current_square = dungeon.current_square
 	game_data.upgrade_cost = blacksmith.upgrade_cost
 	game_data.destroy_cost = blacksmith.destroy_cost
+	game_data.merchants = merchants
 	path = save_path.plus_file("data.tres")
 	error = ResourceSaver.save(path, game_data)
 	check_error(path, error)
 
 func load_game() -> void:
 	loading = true
-	print("loading game!")
 	var save_path = SAVE_DIR.plus_file(SAVE_NAME_TEMPLATE % self.profile_hash)
 	var path = save_path.plus_file("data.tres")
 	game_data = load(path)
 	# Player Data
 	path = save_path.plus_file("player.tres")
 	player = load(path)
+	# Merchants Data
+	merchants = game_data.merchants
+
 	# Map Data
 	path = save_path.plus_file("map.tscn")
 	var map = load(path).instance()
@@ -159,6 +161,8 @@ func load_game() -> void:
 	map.add_squares_to_astar()
 	map.connect_squares()
 	map.connect("move_to_square", dungeon, "_on_Map_move_to_square")
+	map.connect("show_tooltip", dungeon, "_on_Map_show_tooltip")
+	map.connect("hide_tooltip", dungeon, "_on_Map_hide_tooltip")
 	dungeon.add_child_below_node(dungeon.colorRect, map)
 	dungeon.map = map
 	dungeon.current_square = game_data.current_square
@@ -348,7 +352,7 @@ func _on_Dungeon_start_battle(enemy: EnemyActor) -> void:
 func _on_Dungeon_start_loot(gold):
 	# Chance to fight a Mimic!!
 	var rand = randf()
-	if rand < 0.5:
+	if rand < 0.0:
 		var enemy = load("res://src/enemies/mimic.tres")
 		start_battle(dungeon, enemy)
 		yield(self, "battle_finished")
@@ -369,6 +373,7 @@ func _on_Dungeon_heal():
 func _on_Dungeon_advance():
 	fade.play("FadeOut")
 	yield(fade, "animation_finished")
+	merchants.clear()
 	if dungeon.progress == 5:
 		$EndGame/Label.text = "Thank you for playing!"
 		end_game.show()
@@ -413,17 +418,25 @@ func _on_CharBack_pressed():
 	AudioController.back()
 	char_select.hide()
 
-func _on_Dungeon_shop(square):
+func _on_Dungeon_shop(square_id: int):
 	var actions: Array = []
-	if merchants.has(square):
+	var others: Array = []
+	if merchants.has(square_id):
 		print("Found, loading")
-		actions = merchants[square]
+		actions = merchants[square_id]["actions"]
+#		others = merchants[square_id]["others"]
 	else:
 		print("Cannot find, generating")
 		actions = loot.new_picker(progress, 5)
-		merchants[square] = actions
-	shop.display(actions)
+#		others = loot.new_picker(progress, 5, true)
+		merchants[square_id] = {"actions": actions}
+#		merchants[square_id] = {"others": others}
+	shop.display(actions, square_id)
+#	shop.display_others(others)
 	save_game()
 
-func _on_Shop_update_player():
+func _on_Shop_shop_purchase(index: int, square_id: int):
+	var items = merchants[square_id]["actions"] as Array
+	items.remove(index)
+	save_game()
 	playerUI.refresh()
