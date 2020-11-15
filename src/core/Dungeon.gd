@@ -39,7 +39,7 @@ func initialize(game) -> void:
 	dungeon_name = "Dark Forest"
 	enemy_list = ["wolf", "devil"]
 	enemy_boss = "bear"
-	max_prog = 1
+	max_prog = 2
 	self.progress = 1
 	map.connect("move_to_square", self, "_on_Map_move_to_square", [], 2)
 	map.connect("show_tooltip", self, "_on_Map_show_tooltip")

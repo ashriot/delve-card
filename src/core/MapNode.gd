@@ -70,8 +70,8 @@ func get_origin() -> Square:
 
 func generate_dungeon() -> void:
 	var room_max = min(chest_max + heal_max + enemy_max + \
-		shop_max + anvil_max + shrine_max + 8, 36)
-	var room_min = room_max - 4
+		shop_max + anvil_max + shrine_max + 4, 36)
+	var room_min = room_max - 3
 	generator.generate([room_min, room_max])
 	dungeon = generator.get_dungeon()
 

@@ -163,7 +163,7 @@ func reduce_buff(buff_name: String) -> void:
 		if child.buff_name == buff_name:
 			if buff_name == "Power":
 				added_damage -= 1
-				get_tree().call_group("action_button", "update_data")
+				update_data()
 			child.stacks -= 1
 
 func remove_buff(buff_name: String) -> void:

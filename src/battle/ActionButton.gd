@@ -80,7 +80,10 @@ func discard() -> void:
 	emit_signal("discarded", self)
 
 func update_data() -> void:
-	modulate.a = 1.0
+	if action.action_type == Action.ActionType.INJURY:
+		modulate.a = 0.4
+	else:
+		modulate.a = 1.0
 	if action.cost_type == Action.DamageType.AP and action.cost > 0:
 		$Button/AP.rect_size = Vector2(5 * ap_cost, 7)
 		$Button/AP.show()
@@ -167,7 +170,7 @@ func play() -> void:
 	execute()
 
 func finalize_execute() -> void:
-	get_tree().call_group("action_button", "update_data")
+	update_data()
 	emit_signal("action_finished", self)
 
 func display_error() -> void:
@@ -315,7 +318,7 @@ func set_spell_multiplier(value: float) -> void:
 	update_data()
 
 func _on_Button_up() -> void:
-	modulate.a = 1
+	update_data()
 	timer.stop()
 	if hovering:
 		hovering = false
