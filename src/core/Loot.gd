@@ -3,7 +3,7 @@ class_name Loot
 
 var _ActionChoice = preload("res://src/core/ActionChoice.tscn")
 
-signal refresh_player
+signal refresh_player(save)
 signal looting_finished
 signal show_card(btn, qty)
 signal hide_card
@@ -43,7 +43,7 @@ func setup(progress: int, gold_amt: int, qty: int) -> void:
 		gold.show()
 		gold.text = "+" + str(gold_amt)
 		player.gold += gold_amt
-		emit_signal("refresh_player")
+		emit_signal("refresh_player", false)
 	finished.text = "Skip Reward"
 	var actions = new_picker(progress, qty)
 	actions.shuffle()

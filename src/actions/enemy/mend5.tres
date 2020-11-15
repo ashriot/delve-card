@@ -1,12 +1,12 @@
 [gd_resource type="Resource" load_steps=3 format=2]
 
-[ext_resource path="res://src/actions/enemy/extra/gain_power5.gd" type="Script" id=1]
+[ext_resource path="res://src/actions/enemy/extra/gain_mend5.gd" type="Script" id=1]
 [ext_resource path="res://src/actions/res/action.gd" type="Script" id=2]
 
 [resource]
 script = ExtResource( 2 )
-name = "Roar"
-description = "Gain 5 Power."
+name = "Mend"
+description = "Gain 5 Mend."
 rarity = 2
 upgraded = false
 action_type = 3
@@ -25,5 +25,5 @@ draw_type = 7
 drop = false
 fade = false
 consume = false
-frame_id = 57
+frame_id = 112
 extra_action = ExtResource( 1 )

@@ -268,9 +268,9 @@ func blacksmithing_deck(smith: Blacksmith) -> void:
 	deck.smithing(smith)
 	deck.show()
 
-func refresh_player() -> void:
+func refresh_player(save: = true) -> void:
 	playerUI.refresh()
-	save_game()
+	if save: save_game()
 
 func _on_Restart_button_up():
 	AudioController.click()

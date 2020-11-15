@@ -24,6 +24,7 @@ func initialize(_player: Actor) -> void:
 	actions.connect("graveyard_count", self, "set_graveyard_count")
 	actions.connect("show_card", self, "show_card")
 	actions.connect("hide_card", self, "hide_card")
+	enemyUI.connect("ended_turn", self, "_on_Enemy_ended_turn")
 	playerUI.initialize(_player)
 	actions.initialize(playerUI, enemyUI)
 	initialized = true
@@ -33,7 +34,7 @@ func start(_enemy: EnemyActor) -> void:
 	playerUI.reset()
 	actions.reset()
 	enemy = _enemy
-	enemy_label.text = enemy.name
+	enemy_label.text = enemy.title
 	enemyUI.initialize(enemy)
 	yield(get_tree().create_timer(0.2), "timeout")
 	emit_signal("start_turn")
@@ -46,14 +47,15 @@ func _on_Actions_ended_turn():
 	print("on actions ended turn")
 	yield(get_tree().create_timer(0.3), "timeout")
 	enemyUI.act()
-	yield(enemyUI, "ended_turn")
+
+func _on_Enemy_ended_turn():
+	print("enemyUI 'ended_turn' signal received --> start_turn")
 	if playerUI.dead:
 		game_over = true
 		emit_signal("battle_finished", false)
 	elif enemyUI.dead:
 		enemyUI.die()
 	else:
-		print("actions done -- enemy not dead, start_turn")
 		emit_signal("start_turn")
 
 func _on_Enemy_used_action(action: Action):
@@ -61,7 +63,7 @@ func _on_Enemy_used_action(action: Action):
 		for x in action.hits:
 			var damage = action.damage * (1 + enemyUI.damage_multiplier) \
 				+ (enemyUI.added_damage)
-			playerUI.take_hit(damage)
+			playerUI.take_hit(damage, action.penetrate)
 			if action.extra_action != null:
 				action.extra_action.execute(playerUI)
 			if playerUI.buffs.has("Flame Shield"):

@@ -5,6 +5,7 @@ var FloatingText = preload("res://assets/animations/FloatingText.tscn")
 var EBuffUI = preload("res://src/battle/EBuffUI.tscn")
 var EDebuffUI = preload("res://src/battle/EDebuffUI.tscn")
 var Burn = preload("res://src/actions/debuffs/burn_action.tres")
+var Mend = preload("res://src/actions/buffs/mend_action.tres")
 
 signal used_action(action)
 signal ended_turn
@@ -56,6 +57,10 @@ func initialize(_actor: EnemyActor) -> void:
 	self.hp = actor.max_hp
 	self.ac = actor.initial_ac
 	self.mp = actor.initial_mp
+	if mp == 0:
+		mp_panel.hide()
+	else:
+		mp_panel.show()
 #	self.hp = 1
 #	self.ac = 0
 	$Enemy/Sprite.position = Vector2.ZERO
@@ -76,6 +81,8 @@ func initialize(_actor: EnemyActor) -> void:
 		child.queue_free()
 
 func act() -> void:
+	if action_to_use.cost_type == Action.DamageType.MP:
+		self.mp -= action_to_use.cost
 	if debuffs.size() > 0:
 		if debuffs.has("Burn"):
 			AudioController.play_sfx("fire")
@@ -95,22 +102,25 @@ func inflict_hit() -> void:
 	if action_to_use.target_type == Action.TargetType.OPPONENT:
 		emit_signal("used_action", action_to_use)
 	else:
-		take_effect(action_to_use)
+		take_effect(action_to_use, action_to_use.damage)
 
 func action_done() -> void:
-	print("action_done()")
 	animationPlayer.play("Idle")
-	print("Damage bonus: ", added_damage)
+	if buffs.size() > 0:
+		if buffs.has("Mend"):
+			AudioController.play_sfx("heal")
+			take_effect(Mend, buffs["Mend"].stacks)
+			yield(get_tree().create_timer(0.8), "timeout")
 	reduce_debuffs()
 	reduce_buffs()
 	update_atk_panel()
-	print("enemy act() done -- ended turn")
+	print("EnemyUI 'ended_turn' signal fired.")
 	emit_signal("ended_turn")
 
-func take_effect(action: Action) -> void:
+func take_effect(action: Action, damage: int) -> void:
 	if action.extra_action != null:
 		action.extra_action.execute(self)
-	var amount = action.damage
+	var amount = damage
 	if action.healing:
 		var type = action.damage_type
 		var postfix = ""
@@ -127,7 +137,8 @@ func take_effect(action: Action) -> void:
 			self.mp += amount
 		var text = "+" + str(amount) + postfix
 		floating_text.display_text(text)
-		floating_text.position = self.position
+		var pos = Vector2(self.position.x, self.position.y + rand_range(-8, 8))
+		floating_text.position = pos
 		get_parent().add_child(floating_text)
 
 func take_hit(action: Action, damage: int, crit: bool) -> void:
@@ -212,6 +223,9 @@ func remove_buff(buff_name: String) -> void:
 	buffs.erase(buff_name)
 	child.queue_free()
 
+func has_buff(title: String) -> bool:
+	return buffs.has(title)
+
 func gain_debuff(debuff: Buff, qty: int) -> void:
 	var floating_text = FloatingText.instance()
 	floating_text.display_text("+" + debuff.name)
@@ -225,9 +239,7 @@ func gain_debuff(debuff: Buff, qty: int) -> void:
 	debuffUI.initialize(debuff, qty)
 	debuff_bar.add_child(debuffUI)
 	debuffs[debuff.name] = debuffUI
-	if debuff.name == "Burn":
-		pass
-	elif debuff.name == "Weak":
+	if debuff.name == "Weak":
 		damage_multiplier -= 0.25
 	elif debuff.name == "Sunder":
 		damage_reduction -= 0.25
@@ -292,12 +304,13 @@ func get_intent() -> String:
 	return intent
 
 func enemy_ai() -> Action:
-	if actor.name == "Angry Bear": return angry_bear()
+	if actor.name == "bear": return bear()
+	elif actor.name == "devil": return devil()
 	else:
 		var rand = randi() % actor.actions.size()
 		return actor.actions[rand]
 
-func angry_bear() -> Action:
+func bear() -> Action:
 	var action = null
 	vars.turns += 1
 	if is_injured(0.5) and !vars.bloodied:
@@ -310,24 +323,40 @@ func angry_bear() -> Action:
 		action = actor.actions[0]		# Roar
 	elif randf() < 0.9 and vars.maul_uses < 3:
 		if is_injured(0.5): action = actor.actions[3]
-		else: action = actor.actions[2]		# 2x/3x
+		else: action = actor.actions[2]	# 2x/3x
 	else:
 		if is_injured(0.5): action = actor.actions[2]
-		else: action = actor.actions[1]		# 1x/2x
+		else: action = actor.actions[1]	# 1x/2x
 	if action.name == "Attack2":
 		vars.maul_uses += 1
 	else:
 		vars.maul_uses = 0
 	return action
 
+func devil() -> Action:
+	var action = actor.actions[0]
+	if mp > 4:
+		if !vars.shield_used:
+			vars.shield_used = true
+			action = actor.actions[2]	# Flame Shield
+		else:
+			vars.shield_used = false
+			action = actor.actions[1]	# Fatigue
+	return action
+
 func set_vars() -> void:
-	if actor.name == "Angry Bear":
+	vars.clear()
+	if actor.name == "bear":
 		vars = {
 			"bloodied": false,
 			"10%": false,
 			"maul_uses": 0,
 			"turns": 0,
 			"dying": false
+		}
+	elif actor.name == "devil":
+		vars = {
+			"shield_used": false
 		}
 
 func is_injured(threshold: float) -> bool:
@@ -369,10 +398,6 @@ func set_ac(value: int) -> void:
 func set_mp(value: int) -> void:
 	value = max(value, 0)
 	mp = value
-	if mp == 0:
-		mp_panel.hide()
-	else:
-		mp_panel.show()
 	var zeros = 3 - str(value).length()
 	var cur = str(value).pad_zeros(3)
 	var cur_sub = cur.substr(0, zeros)

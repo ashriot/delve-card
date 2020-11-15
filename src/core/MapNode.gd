@@ -2,6 +2,7 @@ extends Node2D
 
 var node_sprite = preload("res://assets/images/map/clear.png")
 var enemy_sprite = preload("res://assets/images/map/enemy.png")
+var boss_sprite = preload("res://assets/images/map/boss.png")
 var chest_sprite = preload("res://assets/images/map/chest.png")
 var heal_sprite = preload("res://assets/images/map/heal.png")
 var shop_sprite = preload("res://assets/images/map/shop.png")
@@ -22,7 +23,10 @@ var generator: = preload("res://src/map/dungeon_generation.gd").new()
 var _Square = preload("res://src/map/Square.tscn")
 var astar: AStar2D
 var origin = null
-var enemy_list: = []
+var enemy_list: Array
+var enemy_boss: String
+var progress: int
+var max_prog: int
 
 var DIST = 18
 
@@ -36,6 +40,9 @@ var shrine_max: = 1
 
 func initialize(dungeon: Dungeon) -> void:
 	enemy_list = dungeon.enemy_list
+	enemy_boss = dungeon.enemy_boss
+	progress = dungeon.progress
+	max_prog = dungeon.max_prog
 	chest_max = randi() % 2 + 1
 	heal_max = randi() % 3 + 1
 	enemy_max = randi() % 2 + 4
@@ -99,7 +106,11 @@ func load_map() -> void:
 			square.origin = true
 		else:
 			if i[1] == down_pos:
-				square.initialize("Down", down_sprite)
+				if progress == max_prog:
+					var enemy_name = enemy_boss
+					square.initialize("Battle", boss_sprite, enemy_name)
+				else:
+					square.initialize("Down", down_sprite)
 			elif dungeon[i[1]].connections == 1:
 				if chests > 0:
 					chests -= 1

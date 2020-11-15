@@ -20,23 +20,30 @@ onready var avatar_tween = $Avatar/Tween
 onready var colorRect = $ColorRect
 
 var enemy_list: Array
+var enemy_boss: String
 
 var SAVE_KEY: String = "dungeon"
 var current_square: int
 var game_seed: String
 
+var dungeon_name: String
 var progress: = 0 setget set_progress
+var max_prog: = 0
+
 var pathing: = false
 
 func initialize(game) -> void:
-	enemy_list = ["wolf", "devil"]
 	print("dungeon.initialize()")
-	game_seed = game.game_seed
 	tooltip.hide()
+	game_seed = game.game_seed
+	dungeon_name = "Dark Forest"
+	enemy_list = ["wolf", "devil"]
+	enemy_boss = "bear"
+	max_prog = 1
+	self.progress = 1
 	map.connect("move_to_square", self, "_on_Map_move_to_square", [], 2)
 	map.connect("show_tooltip", self, "_on_Map_show_tooltip")
 	map.connect("hide_tooltip", self, "_on_Map_hide_tooltip")
-	self.progress = 1
 
 func new_map() -> void:
 	print("dungeon.new_map()")
@@ -50,7 +57,7 @@ func reset() -> void:
 
 func set_progress(value: int) -> void:
 	progress = value
-	floor_number.text = "Dark Forest Lv. " + str(progress) + " of 5"
+	floor_number.text = dungeon_name + " Lv. " + str(progress) + " of " + str(max_prog)
 
 # Advance -> Stairs Down
 func reset_avatar() -> void:
@@ -109,7 +116,11 @@ func _on_Map_move_to_square(square: Square):
 		square.clear()
 
 func _on_Map_show_tooltip(button):
-	tooltext.text = button.type.capitalize()
+	if button.type == "Battle":
+		var enemy = load("res://src/enemies/" + button.enemy_name + ".tres")
+		tooltext.text = enemy.title
+	else:
+		tooltext.text = button.type.capitalize()
 	var pos = get_global_mouse_position()
 	var x = clamp(pos.x - tooltip.rect_size.x / 2, 0, 108 - tooltip.rect_size.x)
 	var y = clamp(pos.y - tooltip.rect_size.y - 12, 0, 92 - tooltip.rect_size.y)

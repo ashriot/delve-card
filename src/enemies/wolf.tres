@@ -1,14 +1,16 @@
-[gd_resource type="Resource" load_steps=6 format=2]
+[gd_resource type="Resource" load_steps=7 format=2]
 
 [ext_resource path="res://src/enemies/enemy_actor.gd" type="Script" id=1]
-[ext_resource path="res://src/actions/enemy/attack1.tres" type="Resource" id=2]
-[ext_resource path="res://src/actions/enemy/gird5.tres" type="Resource" id=3]
+[ext_resource path="res://src/actions/enemy/attack8.tres" type="Resource" id=2]
+[ext_resource path="res://src/actions/enemy/attack6x2.tres" type="Resource" id=3]
 [ext_resource path="res://assets/images/enemies/wolf.png" type="Texture" id=4]
-[ext_resource path="res://src/actions/enemy/attackx3.tres" type="Resource" id=5]
+[ext_resource path="res://src/actions/enemy/attack5x3.tres" type="Resource" id=5]
+[ext_resource path="res://src/actions/enemy/gird8.tres" type="Resource" id=6]
 
 [resource]
 script = ExtResource( 1 )
-name = "Wolf"
+name = "wolf"
+title = "Wuphf"
 level = 1
 max_hp = 40
 max_ap = 3
@@ -16,4 +18,4 @@ initial_ac = 0
 initial_mp = 0
 gold = 15
 texture = ExtResource( 4 )
-actions = [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 5 ) ]
+actions = [ ExtResource( 2 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 3 ), ExtResource( 6 ), ExtResource( 5 ) ]

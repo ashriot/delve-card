@@ -80,15 +80,22 @@ func discard() -> void:
 	emit_signal("discarded", self)
 
 func update_data() -> void:
+	modulate.a = 1.0
 	if action.cost_type == Action.DamageType.AP and action.cost > 0:
 		$Button/AP.rect_size = Vector2(5 * ap_cost, 7)
 		$Button/AP.show()
+		if action.cost > player.ap:
+			modulate.a = 0.4
 	elif action.cost_type == Action.DamageType.MP and action.cost > 0:
 		$Button/MP.bbcode_text = " " + str(mp_cost) + "MP"
 		$Button/MP.show()
+		if action.cost > player.mp:
+			modulate.a = 0.4
 	elif action.cost_type == Action.DamageType.HP and action.cost > 0:
 		$Button/MP.bbcode_text = " -" + str(hp_cost) + "HP"
 		$Button/MP.show()
+		if action.cost > player.hp:
+			modulate.a = 0.4
 
 	var hit_text = "" if hits < 2 else ("x" + str(hits))
 	var type = "HP" if action.healing else "dmg"
@@ -254,10 +261,12 @@ func get_action_hits() -> int:
 	if action.name == "Mana Storm":
 		#warning-ignore:integer_division
 		hits = min(5, (player.mp + action.cost) / action.cost)
-		print("Mana storm hits: ", hits)
 	return hits
 
 func inflict_hit() -> void:
+	if enemy.has_buff("Flame Shield"):
+		var burn_debuff = load("res://src/actions/debuffs/burn.tres")
+		player.gain_debuff(burn_debuff, 1)
 	emit_signal("inflict_hit")
 
 func inflict_effect() -> void:

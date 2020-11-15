@@ -2,6 +2,7 @@ extends Resource
 class_name EnemyActor
 
 export var name: String
+export var title: String
 export var level: = 1
 export var max_hp: = 1
 export var max_ap: = 3

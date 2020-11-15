@@ -50,11 +50,19 @@ func reset() -> void:
 	weapon_multiplier = 0.0
 	damage_reduction = 0.0
 	buffs.clear()
+	debuffs.clear()
 	for child in buff_bar.get_children():
+		child.queue_free()
+	for child in debuff_bar.get_children():
 		child.queue_free()
 
 func start_turn() -> void:
 	self.ap = actor.max_ap
+	if debuffs.size() > 0 and debuffs.has("Burn"):
+		AudioController.play_sfx("fire")
+		take_hit(debuffs["Burn"].stacks, true)
+		reduce_debuff("Burn")
+		yield(get_tree().create_timer(0.8), "timeout")
 	for child in buff_bar.get_children():
 		if child.fades_per_turn:
 			reduce_buff(child.buff_name)
@@ -62,7 +70,7 @@ func start_turn() -> void:
 		if child.fades_per_turn:
 			reduce_debuff(child.buff_name)
 
-func take_hit(damage: int) -> void:
+func take_hit(damage: int, penetrate: bool) -> void:
 	var floating_text = FloatingText.instance()
 	var miss = false
 	if buffs.has("Dodge"):
@@ -79,7 +87,7 @@ func take_hit(damage: int) -> void:
 		else:
 			damage -= mp
 			self.mp = 0
-	if ac > 0:
+	if ac > 0 and !penetrate:
 		if ac > damage:
 			self.ac -= damage
 #			blocked_dmg = damage
@@ -173,7 +181,7 @@ func apply_debuff(debuff: Buff, qty: int) -> void:
 func gain_debuff(debuff: Buff, qty: int) -> void:
 	var floating_text = FloatingText.instance()
 	floating_text.display_text("+" + debuff.name)
-	floating_text.position = Vector2(54, 74)
+	floating_text.position = Vector2(50, 78)
 	get_parent().add_child(floating_text)
 	for d in debuffs.keys():
 		if d == debuff.name:
@@ -183,9 +191,7 @@ func gain_debuff(debuff: Buff, qty: int) -> void:
 	debuffUI.initialize(debuff, qty)
 	debuff_bar.add_child(debuffUI)
 	debuffs[debuff.name] = debuffUI
-	if debuff.name == "Burn":
-		pass
-	elif debuff.name == "Weak":
+	if debuff.name == "Weak":
 		weapon_multiplier -= 0.25
 	elif debuff.name == "Sunder":
 		damage_reduction -= 0.25

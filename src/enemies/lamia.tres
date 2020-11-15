@@ -2,16 +2,16 @@
 
 [ext_resource path="res://src/enemies/enemy_actor.gd" type="Script" id=1]
 [ext_resource path="res://assets/images/enemies/lamia.png" type="Texture" id=2]
-[ext_resource path="res://src/actions/enemy/attack1.tres" type="Resource" id=3]
-[ext_resource path="res://src/actions/enemy/gird5.tres" type="Resource" id=4]
+[ext_resource path="res://src/actions/enemy/attack8.tres" type="Resource" id=3]
+[ext_resource path="res://src/actions/enemy/gird8.tres" type="Resource" id=4]
 [ext_resource path="res://src/actions/enemy/roar5.tres" type="Resource" id=5]
-[ext_resource path="res://src/actions/enemy/attack3.tres" type="Resource" id=6]
-[ext_resource path="res://src/actions/enemy/attack2.tres" type="Resource" id=7]
-
+[ext_resource path="res://src/actions/enemy/attack5x3.tres" type="Resource" id=6]
+[ext_resource path="res://src/actions/enemy/attack6x2.tres" type="Resource" id=7]
 
 [resource]
 script = ExtResource( 1 )
-name = "Lamia"
+name = "lamia"
+title = "Lamia"
 level = 1
 max_hp = 50
 max_ap = 0

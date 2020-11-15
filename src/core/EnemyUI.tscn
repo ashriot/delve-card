@@ -442,9 +442,9 @@ modulate = Color( 0.447059, 0.435294, 0.419608, 1 )
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -29.0
-margin_top = -24.0
+margin_top = -26.0
 margin_right = -15.0
-margin_bottom = -17.0
+margin_bottom = -19.0
 __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
@@ -475,9 +475,9 @@ modulate = Color( 0.447059, 0.435294, 0.419608, 1 )
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = 19.0
-margin_top = -24.0
+margin_top = -26.0
 margin_right = 33.0
-margin_bottom = -17.0
+margin_bottom = -19.0
 __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
@@ -504,10 +504,11 @@ __meta__ = {
 }
 
 [node name="Attack" type="Control" parent="Enemy"]
-margin_left = -10.0
+margin_left = -14.0
 margin_top = 18.0
-margin_right = 29.0
-margin_bottom = 27.0
+margin_right = 36.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 50, 7 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -525,6 +526,8 @@ frame = 10
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 10.0
+margin_right = -3.8147e-06
+margin_bottom = -4.76837e-07
 custom_colors/default_color = Color( 0.6, 0.584314, 0.521569, 1 )
 bbcode_enabled = true
 bbcode_text = "10x3"
@@ -549,9 +552,9 @@ anims/Idle = SubResource( 7 )
 
 [node name="BuffBar" type="VBoxContainer" parent="Enemy"]
 margin_left = 17.0
-margin_top = -18.0
+margin_top = -19.0
 margin_right = 32.0
-margin_bottom = 23.0
+margin_bottom = 22.0
 rect_min_size = Vector2( 15, 0 )
 custom_constants/separation = 2
 __meta__ = {
@@ -560,11 +563,18 @@ __meta__ = {
 
 [node name="DebuffBar" type="VBoxContainer" parent="Enemy"]
 margin_left = -29.0
-margin_top = -18.0
+margin_top = -19.0
 margin_right = -14.0
-margin_bottom = 23.0
+margin_bottom = 22.0
 rect_min_size = Vector2( 15, 0 )
 custom_constants/separation = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Enemy"]
+margin_right = 40.0
+margin_bottom = 40.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
