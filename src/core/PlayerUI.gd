@@ -33,7 +33,6 @@ func initialize(game) -> void:
 	connect("open_deck", game, "open_deck")
 	job_title.text = profile_name + " the " + player.name
 	portrait.frame = player.portrait_id
-	player.hp = player.max_hp
 	item_belt.init_ui(self)
 	trinket_belt.initialize(self)
 	refresh()

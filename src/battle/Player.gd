@@ -34,7 +34,6 @@ var debuffs: Dictionary
 func initialize(_actor: Actor) ->  void:
 	assert(_actor is Actor)
 	actor = _actor as Actor
-	self.hp = actor.max_hp
 	self.ac = actor.initial_ac
 	self.mp = actor.initial_mp
 	self.ap = actor.max_ap

@@ -18,6 +18,7 @@ max_ap = 4
 initial_ac = 0
 initial_mp = 2
 gold = 50
+hp = 0
 trinkets = [  ]
 potions = [ ExtResource( 9 ) ]
 actions = [ ExtResource( 6 ), ExtResource( 6 ), ExtResource( 6 ), ExtResource( 5 ), ExtResource( 5 ), ExtResource( 3 ), ExtResource( 3 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 4 ) ]

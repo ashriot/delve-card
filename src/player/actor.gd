@@ -10,7 +10,7 @@ export var initial_ac: = 0
 export var initial_mp: = 0
 export var gold: = 0
 
-var hp: int setget set_hp
+export var hp: int setget set_hp
 
 export(Array) var trinkets: = []
 export(Array) var potions: = []

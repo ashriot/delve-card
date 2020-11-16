@@ -41,8 +41,6 @@ var game_data = GameData.new()
 
 var game_seed: String = "GODOT"
 
-var progress: int
-
 # Settings
 var auto_end: = true
 
@@ -51,7 +49,6 @@ func _ready() -> void:
 	rand_seed(game_seed.hash())
 	AudioController.mute = mute
 	AudioController.play_bgm("title")
-	progress = 0
 	init_dir()
 	playerUI.hide()
 	settings.hide()
@@ -110,6 +107,7 @@ func core_exists() -> bool:
 	return file.file_exists(save_path)
 
 func save_game() -> void:
+	# SAVE CORE DATA VERSION NUMBER
 	print("saving game!")
 	var dir = Directory.new()
 	if !dir.dir_exists(SAVE_DIR):
@@ -148,10 +146,10 @@ func save_game() -> void:
 	check_error(path, error)
 
 func load_game() -> void:
-	loading = true
 	var save_path = SAVE_DIR.plus_file(SAVE_NAME_TEMPLATE % self.profile_hash)
 	var path = save_path.plus_file("data.tres")
 	game_data = load(path)
+	loading = true
 	# Player Data
 	path = save_path.plus_file("player.tres")
 	player = load(path)
@@ -177,6 +175,18 @@ func load_game() -> void:
 	dungeon.current_square = game_data.current_square
 	dungeon.avatar.global_position = dungeon.map.get_pos(game_data.current_square) - Vector2(3, 3) + map.position
 
+func delete_game(path) -> void:
+	var dir = Directory.new()
+	if dir.open(path) == OK:
+		dir.list_dir_begin()
+		var file_name = dir.get_next()
+		while file_name != "":
+			if dir.current_is_dir(): file_name = dir.get_next()
+			print("Deleting file: " + file_name)
+			dir.remove(file_name)
+			file_name = dir.get_next()
+	dir.remove(path)
+
 func check_error(path, error) -> void:
 	if error != OK:
 		print("There was an error writing the save %s to %s -> %s" % [core_data.profile_name, path, error])
@@ -184,8 +194,14 @@ func check_error(path, error) -> void:
 func save_exists() -> bool:
 	var file = File.new()
 	var save_path = SAVE_DIR.plus_file(SAVE_NAME_TEMPLATE % self.profile_hash)
-	save_path = save_path.plus_file("player.tres")
-	return file.file_exists(save_path)
+	var path = save_path.plus_file("data.tres")
+	var check = load(path)
+	var version =  ProjectSettings.get_setting("application/config/version")
+	print("game_data version: ", check.game_version)
+	if check.game_version != version:
+		delete_game(save_path)
+		return false
+	return file.file_exists(path)
 
 func _on_StartGame_button_up() -> void:
 	AudioController.click()
@@ -239,11 +255,10 @@ func start_battle(scene_to_hide: Node2D, enemy: EnemyActor) -> void:
 	if battle.game_over:
 		game_over()
 		return
-#	AudioController.play_bgm("victory")
 	start_loot(enemy.gold, 3)
 	yield(self, "looting_finished")
 	if scene_to_hide != null: scene_to_hide.show()
-#	AudioController.play_bgm("dungeon")
+	save_game()
 	fade.play("FadeIn")
 	emit_signal("battle_finished")
 
@@ -261,7 +276,6 @@ func start_loot(gold: int, qty: int) -> void:
 
 func game_over() -> void:
 	AudioController.play_bgm("title")
-	player.hp = player.max_hp
 	$EndGame/Label.text = "Game Over"
 	end_game.show()
 	fade.play("FadeIn")
@@ -304,6 +318,7 @@ func _on_CharSelect_chose_class(name: String) -> void:
 	var n = name.to_lower()
 	var player_res = load("res://src/actions/" + n + "/" + n + ".tres")
 	player = player_res
+	player.hp = player.max_hp
 	skip_intro()
 
 func skip_intro() -> void:
@@ -361,7 +376,7 @@ func _on_Dungeon_start_battle(enemy: EnemyActor) -> void:
 func _on_Dungeon_start_loot(gold):
 	# Chance to fight a Mimic!!
 	var rand = randf()
-	if rand < 0.0:
+	if rand < 0.05 * float(dungeon.progress) - 0.05:
 		var enemy = load("res://src/enemies/mimic.tres")
 		start_battle(dungeon, enemy)
 		yield(self, "battle_finished")
@@ -440,7 +455,7 @@ func _on_Dungeon_shop(square_id: int):
 #		others = merchants[square_id]["others"]
 	else:
 		print("Cannot find, generating")
-		actions = loot.new_picker(progress, 5)
+		actions = loot.new_picker(dungeon.progress, 5)
 #		others = loot.new_picker(progress, 5, true)
 		merchants[square_id] = {"actions": actions}
 #		merchants[square_id] = {"others": others}

@@ -43,11 +43,11 @@ func initialize(dungeon: Dungeon) -> void:
 	enemy_boss = dungeon.enemy_boss
 	progress = dungeon.progress
 	max_prog = dungeon.max_prog
-	chest_max = randi() % 2 + 1
-	heal_max = randi() % 3 + 1
-	enemy_max = randi() % 2 + 4
-	shop_max = 2
-	anvil_max = 1
+	chest_max = randi() % 3 + 1 + max(progress - 1, 0)
+	heal_max = randi() % 3 + 1 + progress
+	enemy_max = randi() % 2 + 4 + progress
+	shop_max = randi() % 2 + 1 + max(progress - 2, 0)
+	anvil_max = randi() % 2 + max(progress - 1, 0)
 	shrine_max = 0
 	branches = $Branches
 	branches.set_owner(self)
@@ -70,8 +70,8 @@ func get_origin() -> Square:
 
 func generate_dungeon() -> void:
 	var room_max = min(chest_max + heal_max + enemy_max + \
-		shop_max + anvil_max + shrine_max + 4, 36)
-	var room_min = room_max - 3
+		shop_max + anvil_max + shrine_max + 6 + progress, 36)
+	var room_min = room_max - 4
 	generator.generate([room_min, room_max])
 	dungeon = generator.get_dungeon()
 

@@ -7,7 +7,7 @@
 [resource]
 script = ExtResource( 1 )
 name = "Conductivity"
-description = "Gain 2 Aim. (+ 50% Crit chance for your next attack.)"
+description = "Gain Aim. (+ 50% Crit chance for your next attack.)"
 rarity = 2
 upgraded = false
 action_type = 1

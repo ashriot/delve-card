@@ -74,7 +74,7 @@ func _on_Enemy_used_action(action: Action):
 				var crit = randf() < static_shield.crit_chance
 				enemyUI.take_hit(static_shield, static_shield.damage * (2 if crit else 1), crit)
 			if playerUI.buffs.has("Mist Shield"):
-				playerUI.take_healing(3, "HP")
+				playerUI.take_healing(2, "HP")
 			if x < action.hits:
 				yield(get_tree().create_timer(0.4), "timeout")
 
@@ -100,3 +100,6 @@ func set_graveyard_count(value: int) -> void:
 func _on_DeckBtn_button_up():
 	AudioController.click()
 	actions.show_deck_viewer()
+
+func _on_Instakill_pressed():
+	enemyUI.die()

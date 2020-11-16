@@ -8,7 +8,7 @@
 script = ExtResource( 1 )
 name = "Instability"
 description = "Gain 5 Power. (Damage increased by 5.)"
-rarity = 2
+rarity = 3
 upgraded = false
 action_type = 3
 target_type = 0
