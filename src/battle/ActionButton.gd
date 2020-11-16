@@ -170,7 +170,6 @@ func play() -> void:
 	execute()
 
 func finalize_execute() -> void:
-	update_data()
 	emit_signal("action_finished", self)
 
 func display_error() -> void:

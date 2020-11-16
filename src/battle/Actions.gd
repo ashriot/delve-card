@@ -270,6 +270,7 @@ func action_finished(action_button: ActionButton) -> void:
 		yield(get_tree().create_timer(0.5), "timeout")
 		action_button.queue_free()
 	actions_queued -= 1
+	get_tree().call_group("action_button", "update_data")
 	if hand_count == 0 && auto_end && actions_queued == 0:
 		print("end turn")
 		end_turn()

@@ -53,7 +53,6 @@ func _ready() -> void:
 	AudioController.play_bgm("title")
 	progress = 0
 	init_dir()
-	dungeon.initialize(self)
 	playerUI.hide()
 	settings.hide()
 	battle.hide()
@@ -127,6 +126,11 @@ func save_game() -> void:
 	var error: int = ResourceSaver.save(path, player)
 	check_error(path, error)
 	# SAVE DUNGEON
+	game_data.dungeon = {
+		"dungeon_name": dungeon.dungeon_name,
+		"progress": dungeon.progress,
+		"max_prog": dungeon.max_prog
+		}
 	path = save_path.plus_file("map.tscn")
 	var packed_scene = PackedScene.new()
 	packed_scene.pack(dungeon.map)
@@ -155,6 +159,11 @@ func load_game() -> void:
 	merchants = game_data.merchants
 
 	# Map Data
+	var dungeon_data = game_data.dungeon
+	dungeon.dungeon_name = dungeon_data.dungeon_name
+	dungeon.max_prog = dungeon_data.max_prog
+	dungeon.progress = dungeon_data.progress
+	dungeon.initialize(self)
 	path = save_path.plus_file("map.tscn")
 	var map = load(path).instance()
 	dungeon.map.queue_free()
@@ -400,6 +409,10 @@ func _on_WelcomeScreen_new():
 	fade.play("FadeOut")
 	yield(fade, "animation_finished")
 	welcome.hide()
+	dungeon.dungeon_name = "Dark Forest"
+	dungeon.max_prog = 3
+	dungeon.progress = 1
+	dungeon.initialize(self)
 	dungeon.new_map()
 	char_select.show()
 	fade.play("FadeIn")

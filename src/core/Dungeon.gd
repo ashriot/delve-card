@@ -27,8 +27,8 @@ var current_square: int
 var game_seed: String
 
 var dungeon_name: String
-var progress: = 0 setget set_progress
-var max_prog: = 0
+var progress: int setget set_progress
+var max_prog: int
 
 var pathing: = false
 
@@ -36,11 +36,8 @@ func initialize(game) -> void:
 	print("dungeon.initialize()")
 	tooltip.hide()
 	game_seed = game.game_seed
-	dungeon_name = "Dark Forest"
 	enemy_list = ["wolf", "devil"]
 	enemy_boss = "bear"
-	max_prog = 2
-	self.progress = 1
 	map.connect("move_to_square", self, "_on_Map_move_to_square", [], 2)
 	map.connect("show_tooltip", self, "_on_Map_show_tooltip")
 	map.connect("hide_tooltip", self, "_on_Map_hide_tooltip")

@@ -148,7 +148,6 @@ tracks/1/keys = {
 [node name="Game" type="Node"]
 script = ExtResource( 3 )
 player = ExtResource( 4 )
-mute = true
 
 [node name="Battle" parent="." instance=ExtResource( 1 )]
 
