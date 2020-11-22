@@ -339,12 +339,14 @@ func _on_Fire_button_up():
 	AudioController.click()
 	var n = "fire_sorc"
 	player = load("res://src/actions/sorcerer/" + n + ".tres")
+	player.hp = player.max_hp
 	skip_intro()
 
 func _on_Arcane_button_up():
 	AudioController.click()
 	var n = "arcane_sorc"
 	player = load("res://src/actions/sorcerer/" + n + ".tres")
+	player.hp = player.max_hp
 	skip_intro()
 
 func show_card(btn, amt: int) -> void:

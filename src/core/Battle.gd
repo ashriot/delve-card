@@ -35,7 +35,7 @@ func start(_enemy: EnemyActor) -> void:
 	actions.reset()
 	enemy = _enemy
 	enemy_label.text = enemy.title
-	enemyUI.initialize(enemy)
+	enemyUI.initialize(enemy, playerUI)
 	yield(get_tree().create_timer(0.2), "timeout")
 	emit_signal("start_turn")
 

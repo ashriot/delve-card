@@ -41,6 +41,8 @@ var added_damage: = 0
 var damage_multiplier = 0.0 as float
 var damage_reduction = 0.0 as float
 
+var player: Player
+
 var intent: String
 
 var hp: int setget set_hp
@@ -48,8 +50,9 @@ var ac: int setget set_ac
 var mp: int setget set_mp
 #var ap: int setget set_ap
 
-func initialize(_actor: EnemyActor) -> void:
+func initialize(_actor: EnemyActor, _player: Player) -> void:
 	actor = _actor
+	player = _player
 	set_vars()
 	sprite.texture = actor.texture
 	animationPlayer.play("Idle")
@@ -242,7 +245,7 @@ func gain_debuff(debuff: Buff, qty: int) -> void:
 	if debuff.name == "Weak":
 		damage_multiplier -= 0.25
 	elif debuff.name == "Sunder":
-		damage_reduction -= 0.25
+		damage_reduction -= 0.5
 	debuffUI.connect("remove_debuff", self, "remove_debuff")
 #	debuffUI.connect("show_card", self, "show_buff_card")
 #	debuffUI.connect("hide_card", self, "hide_buff_card")
@@ -272,13 +275,14 @@ func remove_debuff(debuff_name: String) -> void:
 	if debuff_name == "Weak":
 		damage_multiplier += 0.25
 	elif debuff_name == "Sunder":
-		damage_reduction += 0.25
+		damage_reduction += 0.5
 	var child = debuffs[debuff_name]
 	debuff_bar.remove_child(child)
 	debuffs.erase(debuff_name)
 	child.queue_free()
 
 func update_atk_panel() -> void:
+
 	action_to_use = enemy_ai()
 	attack_icon.frame = action_to_use.frame_id
 	intent = "Attack" if action_to_use.action_type == Action.ActionType.WEAPON \
@@ -287,9 +291,11 @@ func update_atk_panel() -> void:
 
 func update_data() -> void:
 	var bonus = 0.0
+	var damage = float(action_to_use.damage)
 	if !action_to_use.healing:
 		bonus = float(action_to_use.damage) * (damage_multiplier) + added_damage
-	var dmg = float(action_to_use.damage) + bonus
+		damage *= (1 - player.damage_reduction)
+	var dmg = damage + bonus
 	var dmg_text: String
 	if action_to_use.healing:
 		dmg_text = "+"

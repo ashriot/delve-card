@@ -271,6 +271,7 @@ func action_finished(action_button: ActionButton) -> void:
 		action_button.queue_free()
 	actions_queued -= 1
 	get_tree().call_group("action_button", "update_data")
+	enemyUI.update_data()
 	if hand_count == 0 && auto_end && actions_queued == 0:
 		print("end turn")
 		end_turn()

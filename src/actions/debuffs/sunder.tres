@@ -5,6 +5,6 @@
 [resource]
 script = ExtResource( 1 )
 name = "Sunder"
-description = "Taking 25% more damage."
+description = "Taking 50% more damage."
 fades_per_turn = true
 frame_id = 105

@@ -79,6 +79,7 @@ func take_hit(damage: int, penetrate: bool) -> void:
 		damage = 0
 #	var blocked_dmg = 0
 #	var hp_dmg = 0
+	damage *= (1 - damage_reduction)
 	if buffs.has("Mage Armor"):
 		if mp > damage:
 			self.mp -= damage
@@ -193,7 +194,7 @@ func gain_debuff(debuff: Buff, qty: int) -> void:
 	if debuff.name == "Weak":
 		weapon_multiplier -= 0.25
 	elif debuff.name == "Sunder":
-		damage_reduction -= 0.25
+		damage_reduction -= 0.5
 	debuffUI.connect("remove_buff", self, "remove_debuff")
 #	debuffUI.connect("show_card", self, "show_buff_card")
 #	debuffUI.connect("hide_card", self, "hide_buff_card")
@@ -217,7 +218,7 @@ func remove_debuff(debuff_name: String) -> void:
 	if debuff_name == "Weak":
 		weapon_multiplier += 0.25
 	elif debuff_name == "Sunder":
-		damage_reduction += 0.25
+		damage_reduction += 0.5
 	var child = debuffs[debuff_name]
 	debuff_bar.remove_child(child)
 	debuffs.erase(debuff_name)
