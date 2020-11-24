@@ -354,6 +354,9 @@ func _on_Player_add_to_deck(action_name: String, qty: int):
 	add_to_deck(btns)
 	yield(self,"done_adding_to_deck")
 
+func _on_Player_discard_random(qty):
+	pass # Replace with function body.
+
 func _on_Player_apply_debuff(debuff: Buff, qty: int):
 	enemyUI.gain_debuff(debuff, qty)
 

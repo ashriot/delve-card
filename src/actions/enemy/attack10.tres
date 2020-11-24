@@ -1,21 +1,20 @@
-[gd_resource type="Resource" load_steps=3 format=2]
+[gd_resource type="Resource" load_steps=2 format=2]
 
 [ext_resource path="res://src/actions/res/action.gd" type="Script" id=1]
-[ext_resource path="res://assets/animations/Chakram.tscn" type="PackedScene" id=2]
 
 [resource]
 script = ExtResource( 1 )
-name = "Chakram"
-description = "Deal %damage. ST cost reduced by 1 for each other weapon in your hand."
-rarity = 2
+name = "Attack"
+description = ""
+rarity = 1
 upgraded = false
 action_type = 0
 target_type = 1
 cost_type = 3
-cost = 5
+cost = 0
 healing = false
 damage_type = 0
-damage = 12
+damage = 10
 hits = 1
 crit_chance = 0.0
 penetrate = false
@@ -25,5 +24,4 @@ draw_type = 7
 drop = false
 fade = false
 consume = false
-frame_id = 52
-fx = ExtResource( 2 )
+frame_id = 0

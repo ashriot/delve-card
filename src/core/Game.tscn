@@ -149,6 +149,7 @@ tracks/1/keys = {
 script = ExtResource( 3 )
 player = ExtResource( 4 )
 rooms = 3
+mute = true
 
 [node name="Battle" parent="." instance=ExtResource( 1 )]
 

@@ -7,6 +7,7 @@ var DebuffUI = preload("res://src/battle/DebuffUI.tscn")
 var BuffCard = preload("res://src/battle/BuffCard.tscn")
 
 signal add_to_deck(action_name, qty)
+signal discard_random(qty)
 signal apply_debuff(debuff, qty)
 
 onready var hp_value = $Player/Panel/HP/Value
@@ -131,6 +132,9 @@ func take_healing(amount: int, type: String) -> void:
 
 func add_to_deck(action_name: String, qty: int) -> void:
 	emit_signal("add_to_deck", action_name, qty)
+
+func discard_random(qty: int) -> void:
+	emit_signal("discard_random", qty)
 
 func update_data() -> void:
 	get_tree().call_group("action_button", "update_data")

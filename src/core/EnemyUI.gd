@@ -312,8 +312,10 @@ func get_intent() -> String:
 func enemy_ai() -> Action:
 	if actor.name == "bear": return bear()
 	elif actor.name == "devil": return devil()
+	elif actor.name == "slime": return slime()
 	else:
 		var rand = randi() % actor.actions.size()
+		print("RAND: ", rand, "/", actor.actions.size())
 		return actor.actions[rand]
 
 func bear() -> Action:
@@ -348,6 +350,15 @@ func devil() -> Action:
 		else:
 			vars.shield_used = false
 			action = actor.actions[1]	# Fatigue
+	return action
+
+func slime() -> Action:
+	var action = actor.actions[0]
+	if randf() < 0.5:
+		if !buffs.has("Mend"):
+			action = actor.actions[1]
+		else:
+			action = actor.actions[2]
 	return action
 
 func set_vars() -> void:

@@ -51,7 +51,6 @@ func initialize(_action: Action, _player: Player, _enemy: Enemy) -> void:
 		ap_cost = action.cost
 	elif action.cost_type == Action.DamageType.MP:
 		mp_cost = action.cost
-#	damage = action.damage
 	hits = action.hits
 	update_data()
 	initialized = true
@@ -66,7 +65,7 @@ func show() -> void:
 	played = false
 
 func gain() -> void:
-	$Button.modulate.a = 1
+	modulate.a = 1
 	$Button.rect_position = Vector2.ZERO
 
 func discard() -> void:
@@ -87,17 +86,17 @@ func update_data() -> void:
 	if action.cost_type == Action.DamageType.AP and action.cost > 0:
 		$Button/AP.rect_size = Vector2(5 * ap_cost, 7)
 		$Button/AP.show()
-		if action.cost > player.ap:
+		if ap_cost > player.ap:
 			modulate.a = 0.4
 	elif action.cost_type == Action.DamageType.MP and action.cost > 0:
 		$Button/MP.bbcode_text = " " + str(mp_cost) + "MP"
 		$Button/MP.show()
-		if action.cost > player.mp:
+		if mp_cost > player.mp:
 			modulate.a = 0.4
 	elif action.cost_type == Action.DamageType.HP and action.cost > 0:
 		$Button/MP.bbcode_text = " -" + str(hp_cost) + "HP"
 		$Button/MP.show()
-		if action.cost > player.hp:
+		if hp_cost > player.hp:
 			modulate.a = 0.4
 
 	var hit_text = "" if hits < 2 else ("x" + str(hits))
@@ -299,6 +298,7 @@ func weapons_played(amt: int) -> void:
 func weapons_in_hand(qty: int) -> void:
 	if action.name == "Chakram":
 		self.ap_cost = max(action.cost - qty + 1, 0)
+#		update_data()
 
 func set_ap_cost(value: int) -> void:
 	ap_cost = value

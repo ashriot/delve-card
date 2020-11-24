@@ -195,6 +195,7 @@ func save_exists() -> bool:
 	var file = File.new()
 	var save_path = SAVE_DIR.plus_file(SAVE_NAME_TEMPLATE % self.profile_hash)
 	var path = save_path.plus_file("data.tres")
+	if !file.file_exists(path): return false
 	var check = load(path)
 	var version =  ProjectSettings.get_setting("application/config/version")
 	print("game_data version: ", check.game_version)
