@@ -55,6 +55,7 @@ func execute() -> void:
 				AudioController.play_sfx("mp_gain")
 				player.take_healing(damage, "MP")
 	player.actor.potions.erase(action)
+	get_tree().call_group("action_button", "update_data")
 	queue_free()
 
 func _on_Button_up():

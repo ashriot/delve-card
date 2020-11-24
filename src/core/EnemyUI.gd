@@ -153,6 +153,9 @@ func take_hit(action: Action, damage: int, crit: bool) -> void:
 		if action.name == "Fireball":
 			if debuffs.has("Burn"):
 				damage *= 2
+		if action.name == "Combust":
+			if debuffs.has("Burn"):
+				damage *= 3
 		damage *= (1 - damage_reduction)
 		if damage > 0:
 			var floating_text = FloatingText.instance()

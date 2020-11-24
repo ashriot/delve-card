@@ -11,6 +11,7 @@ signal weapons_in_hand(qty)
 signal graveyard_done
 signal ended_turn
 signal done_discarding
+signal discarded_x(qty)
 signal done_filling_hand
 signal done_drawing
 signal done_adding_to_deck
@@ -355,7 +356,31 @@ func _on_Player_add_to_deck(action_name: String, qty: int):
 	yield(self,"done_adding_to_deck")
 
 func _on_Player_discard_random(qty):
-	pass # Replace with function body.
+	if hand_count == 0:
+		return
+	if qty == hand_count:
+		discard_hand()
+		return
+	qty = min(qty, hand_count)
+	while qty > 0:
+		var i = randi() % 5
+		var pos = hand.get_child(i)
+		if pos.get_child_count() > 0:
+			var child = pos.get_child(0)
+			if child.played:
+				continue
+			else:
+				qty -= 1
+				child.discard()
+				yield(child, "discarded")
+				remove_pos(child)
+				if child.action.fade:
+					child.queue_free()
+				else:
+					graveyard.add_child(child)
+					self.graveyard_count += 1
+	yield(get_tree().create_timer(0.2), "timeout")
+	emit_signal("discarded_x", qty)
 
 func _on_Player_apply_debuff(debuff: Buff, qty: int):
 	enemyUI.gain_debuff(debuff, qty)

@@ -5,8 +5,8 @@
 
 [resource]
 script = ExtResource( 1 )
-name = "Flametongue Oil"
-description = "Gain 2 Power.."
+name = "Whetstone"
+description = "Gain 2 Power."
 rarity = 2
 upgraded = false
 action_type = 3

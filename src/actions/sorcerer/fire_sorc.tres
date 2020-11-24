@@ -1,10 +1,11 @@
-[gd_resource type="Resource" load_steps=12 format=2]
+[gd_resource type="Resource" load_steps=13 format=2]
 
 [ext_resource path="res://src/player/actor.gd" type="Script" id=1]
 [ext_resource path="res://src/actions/sorcerer/1/mana_shell.tres" type="Resource" id=2]
 [ext_resource path="res://src/actions/sorcerer/1/mana_dart.tres" type="Resource" id=3]
 [ext_resource path="res://src/actions/sorcerer/1/mana_crystal.tres" type="Resource" id=4]
 [ext_resource path="res://src/actions/sorcerer/1/novice_wand.tres" type="Resource" id=5]
+[ext_resource path="res://src/actions/sorcerer/3/combust.tres" type="Resource" id=6]
 [ext_resource path="res://src/potions/small_apple.tres" type="Resource" id=7]
 [ext_resource path="res://src/potions/magic_mushroom.tres" type="Resource" id=8]
 [ext_resource path="res://src/actions/sorcerer/2/fireball.tres" type="Resource" id=11]
@@ -25,4 +26,4 @@ gold = 15
 hp = 0
 trinkets = [  ]
 potions = [ ExtResource( 7 ), ExtResource( 8 ) ]
-actions = [ ExtResource( 5 ), ExtResource( 5 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 4 ), ExtResource( 4 ), ExtResource( 3 ), ExtResource( 3 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 13 ), ExtResource( 11 ), ExtResource( 14 ), ExtResource( 12 ) ]
+actions = [ ExtResource( 6 ), ExtResource( 5 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 4 ), ExtResource( 4 ), ExtResource( 3 ), ExtResource( 3 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 13 ), ExtResource( 11 ), ExtResource( 14 ), ExtResource( 12 ) ]
