@@ -150,26 +150,26 @@ func take_hit(action: Action, damage: int, crit: bool) -> void:
 		if hp < 11:
 			self.hp = 0
 	else:
-		if action.name == "Fireball":
-			if debuffs.has("Burn"):
-				damage *= 2
-		if action.name == "Combust":
-			if debuffs.has("Burn"):
-				damage *= 3
 		damage *= (1 - damage_reduction)
 		if damage > 0:
-			var floating_text = FloatingText.instance()
-			floating_text.initialize(damage, crit)
-			add_child(floating_text)
+			var dmg_text = 0
 			if not action.penetrate:
 				if ac > 0:
+					if action.name == "Disintegration Ray": damage *= 2
 					if ac > damage:
+						dmg_text += damage
 						self.ac -= damage
 						damage = 0
 					else:
+						dmg_text += ac
 						damage -= ac
 						self.ac = 0
+						if action.name == "Disintegration Ray": damage /= 2
 			self.hp -= damage
+			dmg_text += damage
+			var floating_text = FloatingText.instance()
+			floating_text.initialize(dmg_text, crit)
+			add_child(floating_text)
 	if self.dead:
 		die()
 	else:

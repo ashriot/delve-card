@@ -295,10 +295,6 @@ func block_input(block: bool) -> void:
 func used_potion(button: PotionButton) -> void:
 	button.execute()
 
-func _on_EndTurn_button_up():
-	AudioController.click()
-	end_turn()
-
 func end_turn() -> void:
 	if ended_turn: return
 	ended_turn = true
@@ -417,3 +413,8 @@ func _on_Close_button_up():
 		deck.move_child(child, deck_order.find(child))
 	deck_viewer.modulate.a = 0
 	deck_viewer.global_position = Vector2(-112, 0)
+
+
+func _on_EndTurn_pressed():
+	AudioController.click()
+	end_turn()

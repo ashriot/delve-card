@@ -116,5 +116,5 @@ __meta__ = {
 custom_constants/separation = 2
 
 [node name="Tween" type="Tween" parent="DeckViewer"]
-[connection signal="button_up" from="EndTurn" to="." method="_on_EndTurn_button_up"]
+[connection signal="pressed" from="EndTurn" to="." method="_on_EndTurn_pressed"]
 [connection signal="button_up" from="DeckViewer/InputBlock/Close" to="." method="_on_Close_button_up"]

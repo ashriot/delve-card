@@ -1,29 +1,29 @@
 [gd_resource type="Resource" load_steps=3 format=2]
 
 [ext_resource path="res://src/actions/res/action.gd" type="Script" id=1]
-[ext_resource path="res://src/actions/sorcerer/add/mp_gain3.gd" type="Script" id=2]
+[ext_resource path="res://assets/animations/Conjure.tscn" type="PackedScene" id=2]
 
 [resource]
 script = ExtResource( 1 )
-name = "Mana Bread"
-description = "Gain %damage MP and HP."
-rarity = 3
+name = "Haste"
+description = "Gain %damage AP. Draw an action."
+rarity = 1
 upgraded = false
-action_type = 2
+action_type = 1
 target_type = 0
-cost_type = 3
-cost = 0
+cost_type = 2
+cost = 4
 healing = true
-damage_type = 0
-damage = 3
+damage_type = 3
+damage = 2
 hits = 1
 crit_chance = 0.0
 penetrate = false
 impact = 0
-drawX = 0
+drawX = 1
 draw_type = 7
 drop = false
 fade = false
-consume = true
-frame_id = 61
-extra_action = ExtResource( 2 )
+consume = false
+frame_id = 0
+fx = ExtResource( 2 )

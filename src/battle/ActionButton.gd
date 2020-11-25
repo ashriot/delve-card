@@ -118,11 +118,16 @@ func update_data() -> void:
 	if action.action_type == Action.ActionType.SPELL:
 		multiplier += spell_multiplier + player.weapon_multiplier
 	if action.target_type == Action.TargetType.OPPONENT:
+		added_damage = 0
 		if action.impact > 0:
-			added_damage = player.added_damage * (action.impact - 1)
+			added_damage += player.added_damage * (action.impact - 1)
+		if enemy.has_debuff("Burn"):
+			if action.name == "Fireball": added_damage += 6
+			if action.name == "Combust": added_damage += 12
 		damage = ((damage + added_damage + player.added_damage) * \
 			(multiplier - enemy.damage_reduction)) as int
 	var text = "[right]" + prepend + str(damage) + drown + hit_text + type
+	print(action.name, " damage: ", action.damage)
 	if action.damage == 0:
 		text = ""
 	if action.name == "Brilliant Crystal":
@@ -195,16 +200,21 @@ func execute() -> void:
 				else:
 					enemy.gain_debuff(conflag, 10)
 			if action.damage > 0:
+				print(action.name, " damage: ", action.damage)
 				var roll = randf()
 				var crit_mod = 0
 				if player.has_buff("Aim"):
 					crit_mod = 0.5
 				var crit = roll < crit_mod + action.crit_chance
+				added_damage = 0
 				if action.impact > 0:
-					added_damage = player.added_damage * (action.impact - 1)
-					print(added_damage)
+					added_damage += player.added_damage * (action.impact - 1)
+				if enemy.has_debuff("Burn"):
+					if action.name == "Fireball": added_damage += 6
+					if action.name == "Combust": added_damage += 12
 				var damage = (action.damage + added_damage + player.added_damage) * \
 					(1 + weapon_multiplier + player.weapon_multiplier)
+				print(added_damage)
 				if action.name == "Drown":
 					damage += clamp(player.mp, 0, 30)
 				damage *= (2 if crit else 1)

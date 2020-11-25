@@ -45,8 +45,16 @@ func toggle_auto_end(value: bool) -> void:
 
 func _on_Actions_ended_turn():
 	print("on actions ended turn")
+	end_of_turn()
 	yield(get_tree().create_timer(0.3), "timeout")
 	enemyUI.act()
+
+func end_of_turn() -> void:
+	if playerUI.has_buff("Mend"):
+		AudioController.play_sfx("heal")
+		playerUI.take_healing(playerUI.buffs["Mend"].stacks, "HP")
+		playerUI.reduce_buff("Mend")
+		yield(get_tree().create_timer(0.8), "timeout")
 
 func _on_Enemy_ended_turn():
 	print("enemyUI 'ended_turn' signal received --> start_turn")
