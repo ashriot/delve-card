@@ -7,7 +7,7 @@
 script = ExtResource( 1 )
 name = "Drown"
 description = "Deal %damage damage plus 1 for each remaining MP (up to 30)."
-rarity = 4
+rarity = 3
 upgraded = false
 action_type = 1
 target_type = 1

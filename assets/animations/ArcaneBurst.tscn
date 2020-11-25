@@ -2,12 +2,11 @@
 
 [ext_resource path="res://assets/images/effects/arcane_burst.png" type="Texture" id=1]
 [ext_resource path="res://assets/animations/Animation.tscn" type="PackedScene" id=2]
-[ext_resource path="res://assets/audio/sfx/mana_dart.wav" type="AudioStream" id=3]
+[ext_resource path="res://assets/audio/sfx/lightning.wav" type="AudioStream" id=3]
 [ext_resource path="res://assets/audio/sfx/cast.wav" type="AudioStream" id=4]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Effect"
-length = 0.9
 step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -61,7 +60,7 @@ tracks/3/keys = {
 "start_offset": 0.0,
 "stream": ExtResource( 3 )
 } ],
-"times": PoolRealArray( 0, 0.4 )
+"times": PoolRealArray( 0, 0.45 )
 }
 tracks/4/type = "method"
 tracks/4/path = NodePath(".")
@@ -81,10 +80,11 @@ tracks/4/keys = {
 [node name="ArcaneBurst" instance=ExtResource( 2 )]
 
 [node name="Sprite" parent="." index="0"]
+modulate = Color( 1, 1, 1, 0 )
 position = Vector2( 0, 18 )
 texture = ExtResource( 1 )
 hframes = 8
-frame = 2
+frame = 7
 
 [node name="AnimationPlayer" parent="." index="1"]
 autoplay = "Effect"

@@ -183,10 +183,10 @@ func add_to_deck(actions_to_add) -> void:
 		var action = list_of_actions.pop_front() as ActionButton
 		action.played = true
 		player.get_parent().add_child(action)
-		action.gain()
 		action.rect_position = Vector2(0, 64)
 		action.animationPlayer.play("Gain")
 		yield(get_tree().create_timer(0.65), "timeout")
+		action.gain()
 		player.get_parent().remove_child(action)
 		action.rect_position = Vector2.ZERO
 		deck.add_child(action)

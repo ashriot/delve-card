@@ -8,12 +8,12 @@
 script = ExtResource( 2 )
 name = "Combust"
 description = "Deal %damage damage or %dx3 if the enemy is Burning. Add 2 Burns."
-rarity = 2
+rarity = 3
 upgraded = false
 action_type = 1
 target_type = 1
 cost_type = 2
-cost = 10
+cost = 8
 healing = false
 damage_type = 0
 damage = 6

@@ -63,7 +63,10 @@ func initialize(_action_button, have: int) -> void:
 		if have > 0:
 			$Panel/Have.text = "Have: " + str(have)
 		else:
-			$Panel/Have.text = "New!"
+			if !action.action_type == Action.ActionType.INJURY:
+				$Panel/Have.text = "New!"
+			else:
+				$Panel/Have.text = ""
 		if action.cost_type == Action.DamageType.AP:
 			ap_cost = action.cost
 		elif action.cost_type == Action.DamageType.MP:

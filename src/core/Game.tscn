@@ -77,16 +77,16 @@ tracks/0/keys = {
 length = 1.2
 loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath("ColorRect/TapToStart/ColorRect:color")
+tracks/0/path = NodePath("ColorRect/TapToStart:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.4, 0.8 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.5, 0.7, 1.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Color( 0.145098, 0.145098, 0.133333, 0 ), Color( 0.145098, 0.145098, 0.133333, 1 ), Color( 0.145098, 0.145098, 0.133333, 0 ) ]
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
 [sub_resource type="StyleBoxEmpty" id=14]
@@ -622,8 +622,10 @@ visible = false
 visible = false
 
 [node name="Shop" parent="." instance=ExtResource( 18 )]
+visible = false
 
 [node name="PlayerUI" parent="." instance=ExtResource( 13 )]
+visible = false
 
 [node name="Deck" parent="." instance=ExtResource( 21 )]
 visible = false
@@ -657,15 +659,8 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ColorRect" type="ColorRect" parent="Title/ColorRect/TapToStart"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-color = Color( 0.145098, 0.145098, 0.133333, 0 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="Games" type="Label" parent="Title/ColorRect"]
+visible = false
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -680,6 +675,7 @@ __meta__ = {
 }
 
 [node name="Copyright" type="Label" parent="Title/ColorRect"]
+visible = false
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -687,6 +683,19 @@ margin_top = -13.0
 margin_bottom = 1.0
 custom_colors/font_color = Color( 0.447059, 0.435294, 0.419608, 0.490196 )
 text = "Copyright 2020"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Copyright2" type="Label" parent="Title/ColorRect"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -28.0
+margin_bottom = -14.0
+custom_colors/font_color = Color( 0.447059, 0.435294, 0.419608, 0.490196 )
+text = "Alpha Test"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false

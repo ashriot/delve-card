@@ -56,16 +56,16 @@ func initialize(_action: Action, _player: Player, _enemy: Enemy) -> void:
 	initialized = true
 
 func show() -> void:
-	modulate.a = 1
 	$Button.modulate.a = 0
 	AudioController.play_sfx("draw")
 	animationPlayer.play("Draw")
 	yield(animationPlayer, "animation_finished")
-	update_data()
 	played = false
+	update_data()
 
 func gain() -> void:
 	modulate.a = 1
+	$Button.modulate.a = 1
 	$Button.rect_position = Vector2.ZERO
 
 func discard() -> void:
@@ -79,24 +79,24 @@ func discard() -> void:
 	emit_signal("discarded", self)
 
 func update_data() -> void:
-	if action.action_type == Action.ActionType.INJURY:
+	modulate.a = 1.0
+	if action.action_type == Action.ActionType.INJURY and !played:
+		print("fading injury")
 		modulate.a = 0.4
-	else:
-		modulate.a = 1.0
 	if action.cost_type == Action.DamageType.AP and action.cost > 0:
 		$Button/AP.rect_size = Vector2(5 * ap_cost, 7)
 		$Button/AP.show()
-		if ap_cost > player.ap:
+		if ap_cost > player.ap and !played:
 			modulate.a = 0.4
 	elif action.cost_type == Action.DamageType.MP and action.cost > 0:
 		$Button/MP.bbcode_text = " " + str(mp_cost) + "MP"
 		$Button/MP.show()
-		if mp_cost > player.mp:
+		if mp_cost > player.mp and !played:
 			modulate.a = 0.4
 	elif action.cost_type == Action.DamageType.HP and action.cost > 0:
 		$Button/MP.bbcode_text = " -" + str(hp_cost) + "HP"
 		$Button/MP.show()
-		if hp_cost > player.hp:
+		if hp_cost > player.hp and !played:
 			modulate.a = 0.4
 
 	var hit_text = "" if hits < 2 else ("x" + str(hits))
@@ -191,7 +191,7 @@ func execute() -> void:
 				if enemy.has_debuff("Burn"):
 					print("already burning")
 					var stacks = enemy.get_debuff_stacks("Burn")
-					enemy.gain_debuff(conflag, (stacks + 5) * 2)
+					enemy.gain_debuff(conflag, ((stacks + 2) * 2) - stacks)
 				else:
 					enemy.gain_debuff(conflag, 10)
 			if action.damage > 0:
