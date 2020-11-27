@@ -44,6 +44,7 @@ var damage_reduction = 0.0 as float
 var player: Player
 
 var intent: String
+var acting: bool
 
 var hp: int setget set_hp
 var ac: int setget set_ac
@@ -53,6 +54,7 @@ var mp: int setget set_mp
 func initialize(_actor: EnemyActor, _player: Player) -> void:
 	actor = _actor
 	player = _player
+	acting = false
 	set_vars()
 	sprite.texture = actor.texture
 	animationPlayer.play("Idle")
@@ -84,6 +86,7 @@ func initialize(_actor: EnemyActor, _player: Player) -> void:
 		child.queue_free()
 
 func act() -> void:
+	acting = true
 	if action_to_use.cost_type == Action.DamageType.MP:
 		self.mp -= action_to_use.cost
 	if debuffs.size() > 0:
@@ -100,6 +103,7 @@ func act() -> void:
 		animationPlayer.play(intent + str(action_to_use.hits))
 	else:
 		animationPlayer.play("Cast")
+	acting = false
 
 func inflict_hit() -> void:
 	if action_to_use.target_type == Action.TargetType.OPPONENT:
@@ -146,6 +150,7 @@ func take_effect(action: Action, damage: int) -> void:
 
 func take_hit(action: Action, damage: int, crit: bool) -> void:
 	if self.dead: return
+	var mp_dmg = action.damage_type == Action.DamageType.MP
 	if action.name == "Executioner Axe":
 		if hp < 11:
 			self.hp = 0
@@ -153,7 +158,7 @@ func take_hit(action: Action, damage: int, crit: bool) -> void:
 		damage *= (1 - damage_reduction)
 		if damage > 0:
 			var dmg_text = 0
-			if not action.penetrate:
+			if not action.penetrate and !mp_dmg:
 				if ac > 0:
 					if action.name == "Disintegration Ray": damage *= 2
 					if ac > damage:
@@ -165,10 +170,14 @@ func take_hit(action: Action, damage: int, crit: bool) -> void:
 						damage -= ac
 						self.ac = 0
 						if action.name == "Disintegration Ray": damage /= 2
-			self.hp -= damage
+			if mp_dmg: self.mp -= damage
+			else: self.hp -= damage
 			dmg_text += damage
 			var floating_text = FloatingText.instance()
-			floating_text.initialize(dmg_text, crit)
+			if mp_dmg:
+				var txt = "-" + str(dmg_text) + "MP"
+				floating_text.display_text(txt)
+			else: floating_text.initialize(dmg_text, crit)
 			add_child(floating_text)
 	if self.dead:
 		die()
@@ -192,7 +201,7 @@ func gain_buff(buff: Buff, amt: int) -> void:
 	var floating_text = FloatingText.instance()
 	floating_text.display_text("+" + buff.name)
 	get_parent().add_child(floating_text)
-	floating_text.position = Vector2(54, 37)
+	floating_text.position = Vector2(54, 25)
 	for b in buffs.keys():
 		if b == buff.name:
 			buffs[b].stacks += amt
@@ -293,6 +302,7 @@ func update_atk_panel() -> void:
 	update_data()
 
 func update_data() -> void:
+	print("UPDATING ENEMY DATA")
 	var bonus = 0.0
 	var damage = float(action_to_use.damage)
 	if !action_to_use.healing:
@@ -418,6 +428,8 @@ func set_ac(value: int) -> void:
 func set_mp(value: int) -> void:
 	value = max(value, 0)
 	mp = value
+	if !acting and action_to_use != null and action_to_use.cost_type == Action.DamageType.MP:
+		if action_to_use.cost > mp: update_atk_panel()
 	var zeros = 3 - str(value).length()
 	var cur = str(value).pad_zeros(3)
 	var cur_sub = cur.substr(0, zeros)
