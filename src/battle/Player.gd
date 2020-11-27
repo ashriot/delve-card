@@ -171,6 +171,7 @@ func reduce_buff(buff_name: String) -> void:
 			child.stacks -= 1
 
 func remove_buff(buff_name: String) -> void:
+	if !has_buff(buff_name): return
 	var child = buffs[buff_name]
 	buff_bar.remove_child(child)
 	buffs.erase(buff_name)
@@ -219,6 +220,7 @@ func reduce_debuff(debuff_name: String) -> void:
 	update_data()
 
 func remove_debuff(debuff_name: String) -> void:
+	if !has_debuff(debuff_name): return
 	if debuff_name == "Weak":
 		weapon_multiplier += 0.25
 	elif debuff_name == "Sunder":

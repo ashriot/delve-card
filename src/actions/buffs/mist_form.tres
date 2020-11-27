@@ -1,0 +1,10 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://src/actions/buffs/buff.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+name = "Mist Form"
+description = "Immune to physical damage and Burns."
+fades_per_turn = true
+frame_id = 101
