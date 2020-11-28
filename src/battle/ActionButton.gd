@@ -235,8 +235,11 @@ func execute() -> void:
 					action.extra_action.execute(player)
 			if !enemy.dead:
 				emit_signal("unblock", false)
-			if hits > 1 and hit == (hits -1):
-				yield(self, "anim_finished")
+			if hits > 1:
+				if hit == (hits -1):
+					yield(self, "anim_finished")
+				else:
+					yield(get_tree().create_timer(0.1), "timeout")
 		if player.has_buff("Lifesteal") and action.damage > 0:
 			player.reduce_buff("Lifesteal")
 		if player.has_buff("Aim") and action.damage > 0:
