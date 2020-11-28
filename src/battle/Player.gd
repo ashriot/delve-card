@@ -9,6 +9,7 @@ var BuffCard = preload("res://src/battle/BuffCard.tscn")
 signal add_to_deck(action_name, qty)
 signal discard_random(qty)
 signal apply_debuff(debuff, qty)
+signal update_enemy
 
 onready var hp_value = $Player/Panel/HP/Value
 onready var hp_percent = $Player/Panel/HP/TextureProgress
@@ -60,7 +61,8 @@ func start_turn() -> void:
 	self.ap = actor.max_ap
 	if debuffs.size() > 0 and debuffs.has("Burn"):
 		AudioController.play_sfx("fire")
-		take_hit(debuffs["Burn"].stacks, true)
+		var Burn = load("res://src/actions/debuffs/burn_action.tres")
+		take_hit(Burn, debuffs["Burn"].stacks)
 		reduce_debuff("Burn")
 		yield(get_tree().create_timer(0.8), "timeout")
 	for child in buff_bar.get_children():
@@ -69,17 +71,19 @@ func start_turn() -> void:
 	for child in debuff_bar.get_children():
 		if child.fades_per_turn:
 			reduce_debuff(child.buff_name)
+	emit_signal("update_enemy")
 
-func take_hit(damage: int, penetrate: bool) -> void:
+func take_hit(action: Action, damage: int) -> void:
 	var floating_text = FloatingText.instance()
 	var miss = false
-	if buffs.has("Dodge"):
-		print("trying to dodge")
+	var immune = false
+	if (buffs.has("Mist Form") and action.action_type == Action.ActionType.WEAPON) \
+		or (buffs.has("Stoneskin") and action.action_type == Action.ActionType.SPELL):
+		immune = true
+	if !immune and buffs.has("Dodge"):
 		miss = randf() < .5
-	if miss:
+	if miss or immune:
 		damage = 0
-#	var blocked_dmg = 0
-#	var hp_dmg = 0
 	damage *= (1 - damage_reduction)
 	if buffs.has("Mage Armor"):
 		if mp > damage:
@@ -88,7 +92,7 @@ func take_hit(damage: int, penetrate: bool) -> void:
 		else:
 			damage -= mp
 			self.mp = 0
-	if ac > 0 and !penetrate:
+	if ac > 0 and !action.penetrate:
 		if ac > damage:
 			self.ac -= damage
 #			blocked_dmg = damage
@@ -102,6 +106,9 @@ func take_hit(damage: int, penetrate: bool) -> void:
 	if miss:
 		AudioController.play_sfx("miss")
 		floating_text.display_text("Miss!")
+	elif immune:
+		AudioController.play_sfx("down")
+		floating_text.display_text("Immune!")
 	else:
 		floating_text.initialize(damage, false)
 		AudioController.play_sfx("hit")
@@ -184,6 +191,8 @@ func apply_debuff(debuff: Buff, qty: int) -> void:
 	emit_signal("apply_debuff", debuff, qty)
 
 func gain_debuff(debuff: Buff, qty: int) -> void:
+	if debuff.name == "Burn" and has_buff("Mist Form"): return
+	if debuff.name == "Poison" and has_buff("Stoneskin"): return
 	var floating_text = FloatingText.instance()
 	floating_text.display_text("+" + debuff.name)
 	floating_text.position = Vector2(50, 78)

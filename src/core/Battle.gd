@@ -71,7 +71,7 @@ func _on_Enemy_used_action(action: Action):
 		for x in action.hits:
 			var damage = action.damage * (1 + enemyUI.damage_multiplier) \
 				+ (enemyUI.added_damage)
-			playerUI.take_hit(damage, action.penetrate)
+			playerUI.take_hit(action, damage)
 			if action.extra_action != null:
 				action.extra_action.execute(playerUI)
 			if playerUI.buffs.has("Flame Shield"):
@@ -111,3 +111,6 @@ func _on_DeckBtn_button_up():
 
 func _on_Instakill_pressed():
 	enemyUI.die()
+
+func _on_Player_update_enemy():
+	enemyUI.update_data()

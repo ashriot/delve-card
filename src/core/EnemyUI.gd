@@ -4,7 +4,6 @@ class_name Enemy
 var FloatingText = preload("res://assets/animations/FloatingText.tscn")
 var EBuffUI = preload("res://src/battle/EBuffUI.tscn")
 var EDebuffUI = preload("res://src/battle/EDebuffUI.tscn")
-var Burn = preload("res://src/actions/debuffs/burn_action.tres")
 var Mend = preload("res://src/actions/buffs/mend_action.tres")
 
 signal used_action(action)
@@ -91,6 +90,7 @@ func act() -> void:
 		self.mp -= action_to_use.cost
 	if debuffs.size() > 0:
 		if debuffs.has("Burn"):
+			var Burn = load("res://src/actions/debuffs/burn_action.tres")
 			AudioController.play_sfx("fire")
 			take_hit(Burn, debuffs["Burn"].stacks, false)
 			reduce_debuff("Burn")
@@ -294,7 +294,6 @@ func remove_debuff(debuff_name: String) -> void:
 	child.queue_free()
 
 func update_atk_panel() -> void:
-
 	action_to_use = enemy_ai()
 	attack_icon.frame = action_to_use.frame_id
 	intent = "Attack" if action_to_use.action_type == Action.ActionType.WEAPON \
@@ -302,7 +301,6 @@ func update_atk_panel() -> void:
 	update_data()
 
 func update_data() -> void:
-	print("UPDATING ENEMY DATA")
 	var bonus = 0.0
 	var damage = float(action_to_use.damage)
 	if !action_to_use.healing:
@@ -317,6 +315,17 @@ func update_data() -> void:
 		dmg_text += "x" + str(action_to_use.hits)
 	if action_to_use.damage == 0:
 		dmg_text = ""
+	if action_to_use.healing:
+		if action_to_use.damage_type == Action.DamageType.HP:
+			dmg_text += "HP"
+		if action_to_use.damage_type == Action.DamageType.MP:
+			dmg_text += "MP"
+		if action_to_use.damage_type == Action.DamageType.AC:
+			dmg_text += "AC"
+	if action_to_use.target_type == Action.TargetType.OPPONENT \
+	and ((player.buffs.has("Mist Form") and action_to_use.action_type == Action.ActionType.WEAPON) \
+	or (player.buffs.has("Stoneskin") and action_to_use.action_type == Action.ActionType.SPELL)):
+		dmg_text = "0"
 	attack_value.bbcode_text = dmg_text
 
 func get_intent() -> String:
