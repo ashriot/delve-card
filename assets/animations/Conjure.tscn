@@ -52,7 +52,7 @@ tracks/2/keys = {
 [node name="Conjure" instance=ExtResource( 1 )]
 
 [node name="Sprite" parent="." index="0"]
-modulate = Color( 0.792157, 0.780392, 0.721569, 1 )
+modulate = Color( 0.792157, 0.780392, 0.721569, 0.75817 )
 texture = ExtResource( 3 )
 
 [node name="AnimationPlayer" parent="." index="1"]

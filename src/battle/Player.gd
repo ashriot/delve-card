@@ -77,8 +77,10 @@ func take_hit(action: Action, damage: int) -> void:
 	var floating_text = FloatingText.instance()
 	var miss = false
 	var immune = false
-	if (buffs.has("Mist Form") and action.action_type == Action.ActionType.WEAPON) \
-		or (buffs.has("Stoneskin") and action.action_type == Action.ActionType.SPELL):
+	if (buffs.has("Mist Form") and ((action.action_type == Action.ActionType.WEAPON) \
+		or action.action_type == Action.ActionType.SKILL)) \
+		or (buffs.has("Stoneskin") and action.action_type == Action.ActionType.SPELL) \
+		or buffs.has("Invisibility"):
 		immune = true
 	if !immune and buffs.has("Dodge"):
 		miss = randf() < .5
@@ -147,6 +149,9 @@ func update_data() -> void:
 	get_tree().call_group("action_button", "update_data")
 
 func gain_buff(buff: Buff, amt: int) -> void:
+	if buff.name == "Time Warp":
+		if mp < 30: return
+		else: self.mp -= 30
 	var floating_text = FloatingText.instance()
 	floating_text.display_text("+" + buff.name)
 	floating_text.position = Vector2(54, 78)
@@ -179,6 +184,11 @@ func reduce_buff(buff_name: String) -> void:
 
 func remove_buff(buff_name: String) -> void:
 	if !has_buff(buff_name): return
+	if buff_name == "Time Warp":
+		var floating_text = FloatingText.instance()
+		floating_text.display_text("Extra Turn!")
+		floating_text.position = Vector2(50, 78)
+		get_parent().add_child(floating_text)
 	var child = buffs[buff_name]
 	buff_bar.remove_child(child)
 	buffs.erase(buff_name)

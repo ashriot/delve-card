@@ -47,7 +47,8 @@ func _on_Actions_ended_turn():
 	print("on actions ended turn")
 	end_of_turn()
 	yield(get_tree().create_timer(0.3), "timeout")
-	enemyUI.act()
+	if playerUI.has_buff("Time Warp"): emit_signal("start_turn")
+	else: enemyUI.act()
 
 func end_of_turn() -> void:
 	if playerUI.has_buff("Mend"):

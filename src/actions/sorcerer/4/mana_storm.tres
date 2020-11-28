@@ -6,8 +6,8 @@
 [resource]
 script = ExtResource( 1 )
 name = "Mana Storm"
-description = "Consume 3 MP to cast `Mana Dart.` Repeat up to 5 times."
-rarity = 1
+description = "Consume 4 MP to cast `Mana Dart.` Repeat up to 5 times."
+rarity = 4
 upgraded = false
 action_type = 0
 target_type = 1

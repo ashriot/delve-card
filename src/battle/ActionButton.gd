@@ -218,9 +218,12 @@ func execute() -> void:
 				if action.name == "Drown":
 					damage += clamp(player.mp, 0, 30)
 				damage *= (2 if crit else 1)
+				damage *= (1 - enemy.damage_reduction)
 				if player.has_buff("Lifesteal"):
 					var healing = damage
 					player.take_healing(healing, "HP")
+				if action.name == "Calcify":
+					player.take_healing(damage, "AC")
 				enemy.take_hit(action, damage, crit)
 			if action.drawX > 0:
 				emit_signal("draw_cards", action)

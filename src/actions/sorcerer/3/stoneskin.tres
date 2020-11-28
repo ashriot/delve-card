@@ -8,7 +8,7 @@
 script = ExtResource( 1 )
 name = "Stoneskin"
 description = "Remove Poison and become immune to Poison and spells."
-rarity = 1
+rarity = 3
 upgraded = false
 action_type = 1
 target_type = 0

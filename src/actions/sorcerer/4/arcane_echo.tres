@@ -4,14 +4,14 @@
 
 [resource]
 script = ExtResource( 1 )
-name = ""
-description = ""
-rarity = 1
+name = "Arcane Echo"
+description = "The next spell you use casts twice."
+rarity = 4
 upgraded = false
-action_type = 0
-target_type = 1
-cost_type = 3
-cost = 0
+action_type = 1
+target_type = 0
+cost_type = 2
+cost = 6
 healing = false
 damage_type = 0
 damage = 0

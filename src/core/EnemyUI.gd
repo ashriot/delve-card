@@ -155,7 +155,6 @@ func take_hit(action: Action, damage: int, crit: bool) -> void:
 		if hp < 11:
 			self.hp = 0
 	else:
-		damage *= (1 - damage_reduction)
 		if damage > 0:
 			var dmg_text = 0
 			if not action.penetrate and !mp_dmg:
@@ -324,7 +323,8 @@ func update_data() -> void:
 			dmg_text += "AC"
 	if action_to_use.target_type == Action.TargetType.OPPONENT \
 	and ((player.buffs.has("Mist Form") and action_to_use.action_type == Action.ActionType.WEAPON) \
-	or (player.buffs.has("Stoneskin") and action_to_use.action_type == Action.ActionType.SPELL)):
+	or (player.buffs.has("Stoneskin") and action_to_use.action_type == Action.ActionType.SPELL) \
+	or player.buffs.has("Invisibility")):
 		dmg_text = "0"
 	attack_value.bbcode_text = dmg_text
 
