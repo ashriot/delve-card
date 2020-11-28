@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=13 format=2]
+[gd_resource type="Resource" load_steps=14 format=2]
 
 [ext_resource path="res://src/player/actor.gd" type="Script" id=1]
 [ext_resource path="res://src/actions/sorcerer/1/mana_shell.tres" type="Resource" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://src/actions/sorcerer/2/conductivity.tres" type="Resource" id=10]
 [ext_resource path="res://src/actions/sorcerer/3/chromatic_crystal.tres" type="Resource" id=11]
 [ext_resource path="res://src/actions/sorcerer/3/arcane_burst.tres" type="Resource" id=12]
+[ext_resource path="res://src/actions/sorcerer/3/disintegrate.tres" type="Resource" id=13]
 
 [resource]
 script = ExtResource( 1 )
@@ -26,4 +27,4 @@ gold = 15
 hp = 0
 trinkets = [  ]
 potions = [ ExtResource( 7 ), ExtResource( 8 ) ]
-actions = [ ExtResource( 5 ), ExtResource( 5 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 4 ), ExtResource( 3 ), ExtResource( 3 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 6 ), ExtResource( 10 ), ExtResource( 9 ), ExtResource( 11 ), ExtResource( 12 ) ]
+actions = [ ExtResource( 13 ), ExtResource( 5 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 4 ), ExtResource( 3 ), ExtResource( 3 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 6 ), ExtResource( 10 ), ExtResource( 9 ), ExtResource( 11 ), ExtResource( 12 ) ]

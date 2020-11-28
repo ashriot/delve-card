@@ -127,7 +127,7 @@ func update_data() -> void:
 		damage = ((damage + added_damage + player.added_damage) * \
 			(multiplier - enemy.damage_reduction)) as int
 	var text = "[right]" + prepend + str(damage) + drown + hit_text + type
-	print(action.name, " damage: ", action.damage)
+#	print(action.name, " damage: ", action.damage)
 	if action.damage == 0:
 		text = ""
 	if action.name == "Brilliant Crystal":
@@ -200,7 +200,7 @@ func execute() -> void:
 				else:
 					enemy.gain_debuff(conflag, 10)
 			if action.damage > 0:
-				print(action.name, " damage: ", action.damage)
+#				print(action.name, " damage: ", action.damage)
 				var roll = randf()
 				var crit_mod = 0
 				if player.has_buff("Aim"):
