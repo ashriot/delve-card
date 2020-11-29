@@ -36,7 +36,7 @@ func initialize(game) -> void:
 	print("dungeon.initialize()")
 	tooltip.hide()
 	game_seed = game.game_seed
-	enemy_list = ["devil", "devil"]
+	enemy_list = ["slime", "devil"]
 	enemy_boss = "bear"
 	map.connect("move_to_square", self, "_on_Map_move_to_square", [], 2)
 	map.connect("show_tooltip", self, "_on_Map_show_tooltip")
