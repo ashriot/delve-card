@@ -220,7 +220,6 @@ func draw_cards(src: Action) -> void:
 			set_pos(action)
 			action.show()
 		if action.action.action_type == Action.ActionType.WEAPON:
-			print("its a weapon!")
 			weapons_in_hand += 1
 			emit_signal("weapons_in_hand", weapons_in_hand)
 		yield(get_tree().create_timer(0.12), "timeout")
