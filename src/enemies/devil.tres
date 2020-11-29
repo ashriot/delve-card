@@ -15,6 +15,6 @@ max_hp = 30
 max_ap = 3
 initial_ac = 30
 initial_mp = 5
-gold = 10
+gold = 15
 texture = ExtResource( 1 )
 actions = [ ExtResource( 2 ), ExtResource( 4 ), ExtResource( 5 ) ]

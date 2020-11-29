@@ -59,6 +59,10 @@ func set_progress(value: int) -> void:
 # Advance -> Stairs Down
 func reset_avatar() -> void:
 	self.progress += 1
+	print("Progress: ", progress)
+	if progress == 2:
+		enemy_list.remove(0)
+		enemy_list.append("Tiger")
 	avatar.global_position = map.position - Vector2(8, 8)
 	map.clear_map()
 	yield(get_tree().create_timer(0.2), "timeout")

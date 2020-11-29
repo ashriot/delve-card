@@ -7,7 +7,7 @@
 script = ExtResource( 1 )
 name = "Conflagration"
 description = "Add 2 Burns, then double the enemy's Burns."
-rarity = 1
+rarity = 4
 upgraded = false
 action_type = 1
 target_type = 1
