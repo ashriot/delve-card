@@ -8,6 +8,7 @@ var BuffCard = preload("res://src/battle/BuffCard.tscn")
 
 signal add_to_deck(action_name, qty)
 signal discard_random(qty)
+signal discarded_x(qty)
 signal apply_debuff(debuff, qty)
 signal update_enemy
 
@@ -144,6 +145,9 @@ func add_to_deck(action_name: String, qty: int) -> void:
 
 func discard_random(qty: int) -> void:
 	emit_signal("discard_random", qty)
+
+func _on_Actions_discarded_x(qty):
+	emit_signal("discarded_x", qty)
 
 func update_data() -> void:
 	get_tree().call_group("action_button", "update_data")

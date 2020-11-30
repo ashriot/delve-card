@@ -159,5 +159,6 @@ __meta__ = {
 [connection signal="block_input" from="Enemy" to="." method="_on_Enemy_block_input"]
 [connection signal="died" from="Enemy" to="." method="_on_Enemy_died"]
 [connection signal="used_action" from="Enemy" to="." method="_on_Enemy_used_action"]
+[connection signal="discarded_x" from="Actions" to="Player" method="_on_Actions_discarded_x"]
 [connection signal="ended_turn" from="Actions" to="." method="_on_Actions_ended_turn"]
 [connection signal="pressed" from="Instakill" to="." method="_on_Instakill_pressed"]
