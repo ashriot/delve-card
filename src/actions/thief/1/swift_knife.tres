@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource( 1 )
 name = "Swift Knife"
-description = "Deal %damage damage and gain 1 AC."
+description = "Deal %damage damage and gain AC equal to half the damage dealt."
 rarity = 1
 upgraded = false
 action_type = 0
@@ -21,6 +21,8 @@ crit_chance = 0.0
 penetrate = false
 impact = 0
 drawX = 0
+discardRandomX = 0
+discardX = 0
 draw_type = 7
 drop = false
 fade = false

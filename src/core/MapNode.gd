@@ -38,11 +38,11 @@ var shop_max: = 2
 var anvil_max: = 1
 var shrine_max: = 1
 
-func initialize(dungeon: Dungeon) -> void:
-	enemy_list = dungeon.enemy_list
-	enemy_boss = dungeon.enemy_boss
-	progress = dungeon.progress
-	max_prog = dungeon.max_prog
+func initialize(_dungeon: Dungeon) -> void:
+	enemy_list = _dungeon.enemy_list
+	enemy_boss = _dungeon.enemy_boss
+	progress = _dungeon.progress
+	max_prog = _dungeon.max_prog
 	chest_max = randi() % 3 + 1 + max(progress - 1, 0)
 	heal_max = randi() % 3 + 1 + progress
 	enemy_max = randi() % 2 + 4 + progress

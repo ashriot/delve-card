@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource( 1 )
-name = "Trollblood Oil"
+name = "Reinvigorate"
 description = "Your next weapon attack has Lifesteal."
 rarity = 2
 upgraded = false
@@ -21,6 +21,8 @@ crit_chance = 0.0
 penetrate = false
 impact = 0
 drawX = 0
+discardRandomX = 0
+discardX = 0
 draw_type = 7
 drop = false
 fade = false
