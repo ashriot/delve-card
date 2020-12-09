@@ -81,7 +81,6 @@ func discard() -> void:
 func update_data() -> void:
 	modulate.a = 1.0
 	if action.action_type == Action.ActionType.INJURY and !played:
-		print("fading injury")
 		modulate.a = 0.4
 	if action.cost_type == Action.DamageType.AP and action.cost > 0:
 		$Button/AP.rect_size = Vector2(5 * ap_cost, 7)
@@ -183,6 +182,14 @@ func display_error() -> void:
 	get_parent().add_child(floating_text)
 
 func execute() -> void:
+	if action.discard_random_x > 0:
+		player.discard_random(action.discard_random_x)
+		var qty = yield(player, "discarded_x")
+		if qty < action.discard_random_x:
+			finalize_execute()
+			return
+	if action.drawX > 0:
+		emit_signal("draw_cards", action)
 	if action.target_type == Action.TargetType.OPPONENT:
 		var hits = get_action_hits()
 		for hit in hits:
@@ -226,8 +233,6 @@ func execute() -> void:
 					player.take_healing(damage, "AC")
 				elif action.name == "Swift Knife":
 					player.take_healing(damage/2, "AC")
-			if action.drawX > 0:
-				emit_signal("draw_cards", action)
 			if action.extra_action != null:
 				if action.name == "Offensive Tactics" \
 				and enemy.get_intent() == "Attack":

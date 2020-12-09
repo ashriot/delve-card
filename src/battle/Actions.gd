@@ -351,21 +351,26 @@ func _on_Player_add_to_deck(action_name: String, qty: int):
 	yield(self,"done_adding_to_deck")
 
 func _on_Player_discard_random(qty):
-	if hand_count == 0:
-		return
+	var count = qty
+	if hand_count == 0 or qty > hand_count:
+		count = 0
 	if qty == hand_count:
 		discard_hand()
+		count = 0
+	if count == 0:
+		yield(get_tree().create_timer(0.1), "timeout")
+		emit_signal("discarded_x", 0)
 		return
-	qty = min(qty, hand_count)
-	while qty > 0:
-		var i = randi() % 5
-		var pos = hand.get_child(i)
+	var rand_array = hand.get_children()
+
+	rand_array.shuffle()
+	rand_array.resize(qty)
+	for pos in rand_array:
 		if pos.get_child_count() > 0:
 			var child = pos.get_child(0)
 			if child.played:
 				continue
 			else:
-				qty -= 1
 				child.discard()
 				yield(child, "discarded")
 				remove_pos(child)
@@ -374,7 +379,6 @@ func _on_Player_discard_random(qty):
 				else:
 					graveyard.add_child(child)
 					self.graveyard_count += 1
-	yield(get_tree().create_timer(0.2), "timeout")
 	emit_signal("discarded_x", qty)
 
 func _on_Player_apply_debuff(debuff: Buff, qty: int):
