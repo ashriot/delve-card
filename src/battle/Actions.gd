@@ -361,8 +361,7 @@ func _on_Player_discard_random(qty):
 		yield(get_tree().create_timer(0.1), "timeout")
 		emit_signal("discarded_x", 0)
 		return
-	var rand_array = hand.get_children()
-
+	var rand_array: = hand.get_children()
 	rand_array.shuffle()
 	rand_array.resize(qty)
 	for pos in rand_array:
