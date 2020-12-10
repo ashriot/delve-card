@@ -15,6 +15,7 @@ signal discarded_x(qty)
 signal done_filling_hand
 signal done_drawing
 signal done_adding_to_deck
+signal done_adding_to_discard
 signal done_pressing
 signal show_card(btn, qty)
 signal hide_card
@@ -196,6 +197,25 @@ func add_to_deck(actions_to_add) -> void:
 	shuffle_deck()
 	emit_signal("done_adding_to_deck")
 
+func add_to_discard(actions_to_add) -> void:
+	var list_of_actions = []
+	list_of_actions += actions_to_add
+	while list_of_actions.size() > 0:
+		var action = list_of_actions.pop_front() as ActionButton
+		action.played = true
+		player.get_parent().add_child(action)
+		action.rect_position = Vector2(0, 64)
+		action.animationPlayer.play("Discard_Gain")
+		yield(get_tree().create_timer(0.65), "timeout")
+		action.discard()
+		player.get_parent().remove_child(action)
+		action.rect_position = Vector2.ZERO
+		graveyard.add_child(action)
+		self.graveyard_count += 1
+		AudioController.play_sfx("draw")
+	yield(get_tree().create_timer(0.1), "timeout")
+	emit_signal("done_adding_to_discard")
+
 func draw_cards(src: Action) -> void:
 	block_input(true)
 	for _i in range(0, src.drawX):
@@ -267,7 +287,7 @@ func action_finished(action_button: ActionButton) -> void:
 		graveyard.add_child(action_button)
 		self.graveyard_count += 1
 	else:
-		yield(get_tree().create_timer(0.5), "timeout")
+		yield(get_tree().create_timer(0.75), "timeout")
 		action_button.queue_free()
 	actions_queued -= 1
 	get_tree().call_group("action_button", "update_data")
@@ -350,6 +370,19 @@ func _on_Player_add_to_deck(action_name: String, qty: int):
 	add_to_deck(btns)
 	yield(self,"done_adding_to_deck")
 
+func _on_Player_add_to_discard(action_name: String, qty: int):
+	var btns = []
+	for i in qty:
+		var action_button = _ActionButton.instance()
+		var load_dir = "res://src/actions/created/" + action_name + ".tres"
+		if action_name == "boomerang":
+			load_dir = "res://src/actions/thief/2/boomerang.tres"
+		var action = load(load_dir)
+		initialize_button(action_button, action)
+		btns.append(action_button)
+	add_to_discard(btns)
+	yield(self,"done_adding_to_discard")
+
 func _on_Player_discard_random(qty):
 	var count = qty
 	if hand_count == 0 or qty > hand_count:
@@ -363,13 +396,12 @@ func _on_Player_discard_random(qty):
 		return
 	var rand_array: = hand.get_children()
 	rand_array.shuffle()
-	rand_array.resize(qty)
 	for pos in rand_array:
-		if pos.get_child_count() > 0:
+		if pos.get_child_count() > 0 and count > 0:
 			var child = pos.get_child(0)
-			if child.played:
-				continue
+			if child.played: continue
 			else:
+				count -= 1
 				child.discard()
 				yield(child, "discarded")
 				remove_pos(child)

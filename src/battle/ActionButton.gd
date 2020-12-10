@@ -27,6 +27,7 @@ var played: = true
 var hp_cost: int
 var ap_cost: int setget set_ap_cost
 var mp_cost: int
+var mp_spent: int
 #var damage: int
 var hits: int
 
@@ -88,7 +89,9 @@ func update_data() -> void:
 		if ap_cost > player.ap and !played:
 			modulate.a = 0.4
 	elif action.cost_type == Action.DamageType.MP and action.cost > 0:
-		$Button/MP.bbcode_text = " " + str(mp_cost) + "MP"
+		var mp_cost_txt = mp_cost
+		if action.name == "Shadow Bolt": mp_cost_txt = min(player.mp, 15)
+		$Button/MP.bbcode_text = " " + str(mp_cost_txt) + "MP"
 		$Button/MP.show()
 		if mp_cost > player.mp and !played:
 			modulate.a = 0.4
@@ -108,9 +111,9 @@ func update_data() -> void:
 		type = "ST"
 	var prepend = "+" if action.healing else ""
 	var drown = "+"
-	if action.name != "Drown":
-		drown = ""
+	if action.name != "Drown": drown = ""
 	var damage = action.damage
+	if action.name == "Shadow Bolt": damage *= min(player.mp, 15)
 	var multiplier = 1
 	if action.action_type == Action.ActionType.WEAPON:
 		multiplier += weapon_multiplier + player.weapon_multiplier
@@ -157,6 +160,7 @@ func get_error() -> String:
 	return "Something's missing!"
 
 func play() -> void:
+	mp_spent = mp_cost
 	emit_signal("hide_card")
 	if !playable():
 		display_error()
@@ -168,7 +172,8 @@ func play() -> void:
 	else:
 		animationPlayer.play("Use")
 	player.ap -= ap_cost
-	player.mp -= mp_cost
+	if action.name == "Shadow Bolt": mp_spent = min(player.mp, 15)
+	player.mp -= mp_spent
 	player.hp -= hp_cost
 	execute()
 
@@ -219,10 +224,11 @@ func execute() -> void:
 				if enemy.has_debuff("Burn"):
 					if action.name == "Fireball": bonus += 6
 					if action.name == "Combust": bonus += 12
-				var damage = (action.damage + bonus + player.added_damage + added_damage) * \
+				var damage = action.damage
+				if action.name == "Shadow Bolt": damage *= mp_spent
+				if action.name == "Drown": damage += clamp(player.mp, 0, 30)
+				damage += (bonus + player.added_damage + added_damage) * \
 					(1 + weapon_multiplier + player.weapon_multiplier)
-				if action.name == "Drown":
-					damage += clamp(player.mp, 0, 30)
 				damage *= (2 if crit else 1)
 				damage *= (1 - enemy.damage_reduction)
 				enemy.take_hit(action, damage, crit)

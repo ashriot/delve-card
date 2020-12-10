@@ -7,6 +7,7 @@ var DebuffUI = preload("res://src/battle/DebuffUI.tscn")
 var BuffCard = preload("res://src/battle/BuffCard.tscn")
 
 signal add_to_deck(action_name, qty)
+signal add_to_discard(action_name, qty)
 signal discard_random(qty)
 signal discarded_x(qty)
 signal apply_debuff(debuff, qty)
@@ -142,6 +143,9 @@ func take_healing(amount: int, type: String) -> void:
 
 func add_to_deck(action_name: String, qty: int) -> void:
 	emit_signal("add_to_deck", action_name, qty)
+
+func add_to_discard(action_name: String, qty: int) -> void:
+	emit_signal("add_to_discard", action_name, qty)
 
 func discard_random(qty: int) -> void:
 	emit_signal("discard_random", qty)

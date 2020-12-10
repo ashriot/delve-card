@@ -7,8 +7,8 @@
 [ext_resource path="res://src/actions/thief/2/take_aim.tres" type="Resource" id=5]
 [ext_resource path="res://src/actions/thief/1/evasion.tres" type="Resource" id=6]
 [ext_resource path="res://src/potions/small_apple.tres" type="Resource" id=7]
-[ext_resource path="res://src/actions/created/fatigue.tres" type="Resource" id=8]
-[ext_resource path="res://src/actions/thief/2/distraction.tres" type="Resource" id=9]
+[ext_resource path="res://src/actions/thief/2/boomerang.tres" type="Resource" id=8]
+[ext_resource path="res://src/actions/thief/3/shadow_bolt.tres" type="Resource" id=9]
 [ext_resource path="res://src/actions/thief/1/trollblood_oil.tres" type="Resource" id=11]
 
 [resource]

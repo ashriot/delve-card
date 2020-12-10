@@ -153,6 +153,7 @@ __meta__ = {
 [connection signal="start_turn" from="." to="Actions" method="_on_Battle_start_turn"]
 [connection signal="button_up" from="DeckBtn" to="." method="_on_DeckBtn_button_up"]
 [connection signal="add_to_deck" from="Player" to="Actions" method="_on_Player_add_to_deck"]
+[connection signal="add_to_discard" from="Player" to="Actions" method="_on_Player_add_to_discard"]
 [connection signal="apply_debuff" from="Player" to="Actions" method="_on_Player_apply_debuff"]
 [connection signal="discard_random" from="Player" to="Actions" method="_on_Player_discard_random"]
 [connection signal="update_enemy" from="Player" to="." method="_on_Player_update_enemy"]
