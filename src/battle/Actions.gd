@@ -216,9 +216,9 @@ func add_to_discard(actions_to_add) -> void:
 	yield(get_tree().create_timer(0.1), "timeout")
 	emit_signal("done_adding_to_discard")
 
-func draw_cards(src: Action) -> void:
+func draw_cards(src: Action, qty: int) -> void:
 	block_input(true)
-	for _i in range(0, src.drawX):
+	for _i in range(0, qty):
 		if deck.get_child_count() == 0:
 			if graveyard_count > 0:
 				yield(get_tree().create_timer(0.1), "timeout")

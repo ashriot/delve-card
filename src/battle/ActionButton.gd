@@ -10,7 +10,7 @@ signal action_finished(action_button)
 signal button_pressed(button)
 signal unblock(value)
 signal discarded(action_button)
-signal draw_cards(action)
+signal draw_cards(action, qty)
 
 signal show_card(action_button)
 signal hide_card
@@ -81,6 +81,7 @@ func discard() -> void:
 
 func update_data() -> void:
 	modulate.a = 1.0
+	get_action_hits()
 	if action.action_type == Action.ActionType.INJURY and !played:
 		modulate.a = 0.4
 	if action.cost_type == Action.DamageType.AP and action.cost > 0:
@@ -90,7 +91,10 @@ func update_data() -> void:
 			modulate.a = 0.4
 	elif action.cost_type == Action.DamageType.MP and action.cost > 0:
 		var mp_cost_txt = mp_cost
-		if action.name == "Shadow Bolt": mp_cost_txt = min(player.mp, 15)
+		if action.name == "Shadow Bolt": mp_cost_txt = clamp(player.mp, 1, 15)
+		if action.name == "Shadow Cloak": mp_cost_txt = clamp(player.mp, 1, 15)
+		if action.name == "Shadow Dance": mp_cost_txt = clamp(player.mp/mp_cost, 1, 20/mp_cost) * mp_cost
+		if action.name == "Mana Storm": mp_cost_txt = min(5, player.mp / action.cost) * action.cost
 		$Button/MP.bbcode_text = " " + str(mp_cost_txt) + "MP"
 		$Button/MP.show()
 		if mp_cost > player.mp and !played:
@@ -100,7 +104,6 @@ func update_data() -> void:
 		$Button/MP.show()
 		if hp_cost > player.hp and !played:
 			modulate.a = 0.4
-
 	var hit_text = "" if hits < 2 else ("x" + str(hits))
 	var type = "HP" if action.healing else "dmg"
 	if action.damage_type == Action.DamageType.AC:
@@ -114,6 +117,7 @@ func update_data() -> void:
 	if action.name != "Drown": drown = ""
 	var damage = action.damage
 	if action.name == "Shadow Bolt": damage *= min(player.mp, 15)
+	if action.name == "Shadow Cloak": damage *= min(player.mp, 15)
 	var multiplier = 1
 	if action.action_type == Action.ActionType.WEAPON:
 		multiplier += weapon_multiplier + player.weapon_multiplier
@@ -173,6 +177,9 @@ func play() -> void:
 		animationPlayer.play("Use")
 	player.ap -= ap_cost
 	if action.name == "Shadow Bolt": mp_spent = min(player.mp, 15)
+	if action.name == "Shadow Cloak": mp_spent = min(player.mp, 15)
+	if action.name == "Shadow Dance": mp_spent = min(player.mp/mp_cost, 20/mp_cost) * mp_cost
+	if action.name == "Mana Storm": mp_spent = 0
 	player.mp -= mp_spent
 	player.hp -= hp_cost
 	execute()
@@ -193,14 +200,15 @@ func execute() -> void:
 		if qty < action.discard_random_x:
 			finalize_execute()
 			return
-	if action.drawX > 0:
-		emit_signal("draw_cards", action)
+	var draw = action.drawX
+	if action.name == "Shadow Dance": draw *= mp_spent / action.cost
+	if draw > 0:
+		emit_signal("draw_cards", action, draw)
 	if action.target_type == Action.TargetType.OPPONENT:
-		var hits = get_action_hits()
+		get_action_hits()
 		for hit in hits:
 			if enemy.dead: break
-			if action.name == "Mana Storm" and hit > 0:
-				player.mp -= action.cost
+			if action.name == "Mana Storm": player.mp -= action.cost
 			create_effect(enemy.global_position, "hit")
 			yield(self, "inflict_hit")
 			if action.name == "Conflagration":
@@ -232,13 +240,10 @@ func execute() -> void:
 				damage *= (2 if crit else 1)
 				damage *= (1 - enemy.damage_reduction)
 				enemy.take_hit(action, damage, crit)
-				if player.has_buff("Lifesteal"):
-					var healing = damage
-					player.take_healing(healing, "HP")
-				if action.name == "Calcify":
-					player.take_healing(damage, "AC")
-				elif action.name == "Swift Knife":
-					player.take_healing(damage/2, "AC")
+				if player.has_buff("Lifesteal"): player.take_healing(damage, "HP")
+				if action.name == "Calcify": player.take_healing(damage, "AC")
+				elif action.name == "Swift Knife": player.take_healing(damage/2, "AC")
+				elif action.name == "Rune Knife": player.take_healing(damage, "MP")
 			if action.extra_action != null:
 				if action.name == "Offensive Tactics" \
 				and enemy.get_intent() == "Attack":
@@ -261,36 +266,35 @@ func execute() -> void:
 		create_effect(player.global_position, "effect")
 		yield(self, "inflict_effect")
 		if action.drawX > 0:
-			emit_signal("draw_cards", action)
+			emit_signal("draw_cards", action, action.drawX)
 		else:
 			emit_signal("unblock", false)
 		if action.extra_action != null:
 			action.extra_action.execute(player)
-		if action.damage > 0:
+		var damage = action.damage
+		if action.name == "Shadow Cloak": damage *= mp_spent
+		if action.name == "Brilliant Crystal": damage = min(player.mp, 30)
+		if damage > 0:
 			if action.damage_type == Action.DamageType.HP:
 				AudioController.play_sfx("heal")
-				player.take_healing(action.damage, "HP")
+				player.take_healing(damage, "HP")
 			if action.damage_type == Action.DamageType.AP:
 				AudioController.play_sfx("blip_up")
-				player.take_healing(action.damage, "ST")
+				player.take_healing(damage, "ST")
 			elif action.damage_type == Action.DamageType.AC:
 				AudioController.play_sfx("grazed")
-				player.take_healing(action.damage, "AC")
+				player.take_healing(damage, "AC")
 			elif action.damage_type == Action.DamageType.MP:
-				var damage = action.damage
-				if action.name == "Brilliant Crystal":
-					damage = min(player.mp, 30)
 				AudioController.play_sfx("mp_gain")
 				player.take_healing(damage, "MP")
 		yield(self, "anim_finished")
 		finalize_execute()
 
-func get_action_hits() -> int:
+func get_action_hits() -> void:
 	hits = action.hits
 	if action.name == "Mana Storm":
 		#warning-ignore:integer_division
-		hits = min(5, (player.mp + action.cost) / action.cost)
-	return hits
+		hits = min(5, player.mp/ action.cost)
 
 func inflict_hit() -> void:
 	if enemy.has_buff("Flame Shield"):
