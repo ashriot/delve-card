@@ -1,13 +1,14 @@
-[gd_resource type="Resource" load_steps=10 format=2]
+[gd_resource type="Resource" load_steps=11 format=2]
 
 [ext_resource path="res://src/player/actor.gd" type="Script" id=1]
 [ext_resource path="res://src/actions/thief/1/swift_knife.tres" type="Resource" id=2]
 [ext_resource path="res://src/actions/thief/1/dart.tres" type="Resource" id=3]
 [ext_resource path="res://src/actions/thief/1/iron_claws.tres" type="Resource" id=4]
+[ext_resource path="res://src/actions/thief/3/throwing_knife.tres" type="Resource" id=5]
 [ext_resource path="res://src/actions/thief/1/evasion.tres" type="Resource" id=6]
 [ext_resource path="res://src/potions/small_apple.tres" type="Resource" id=7]
-[ext_resource path="res://src/actions/thief/3/rune_knife.tres" type="Resource" id=8]
-[ext_resource path="res://src/actions/thief/3/shadow_bolt.tres" type="Resource" id=9]
+[ext_resource path="res://src/actions/thief/2/jagged_knife.tres" type="Resource" id=8]
+[ext_resource path="res://src/actions/thief/4/numbing_knife.tres" type="Resource" id=9]
 [ext_resource path="res://src/actions/thief/1/trollblood_oil.tres" type="Resource" id=11]
 
 [resource]
@@ -18,9 +19,9 @@ level = 1
 max_hp = 35
 max_ap = 3
 initial_ac = 0
-initial_mp = 3
+initial_mp = 10
 gold = 0
 hp = 0
 trinkets = [  ]
 potions = [ ExtResource( 7 ) ]
-actions = [ ExtResource( 2 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 3 ), ExtResource( 6 ), ExtResource( 4 ), ExtResource( 4 ), ExtResource( 11 ) ]
+actions = [ ExtResource( 2 ), ExtResource( 8 ), ExtResource( 5 ), ExtResource( 9 ), ExtResource( 3 ), ExtResource( 3 ), ExtResource( 6 ), ExtResource( 4 ), ExtResource( 4 ), ExtResource( 11 ) ]

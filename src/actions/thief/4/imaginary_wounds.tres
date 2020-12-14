@@ -1,0 +1,33 @@
+[gd_resource type="Resource" load_steps=4 format=2]
+
+[ext_resource path="res://src/actions/res/action.gd" type="Script" id=1]
+[ext_resource path="res://src/actions/thief/add/grant_mend4.gd" type="Script" id=2]
+[ext_resource path="res://assets/animations/ImaginaryWounds.tscn" type="PackedScene" id=3]
+
+[resource]
+script = ExtResource( 1 )
+name = "Imaginary Wounds"
+description = "Deal 15 damage. Grant the enemy 4 Mend."
+rarity = 4
+upgraded = false
+action_type = 1
+target_type = 1
+cost_type = 2
+cost = 8
+healing = false
+damage_type = 0
+damage = 15
+hits = 1
+crit_chance = 0.0
+penetrate = true
+impact = 0
+drawX = 0
+discard_random_x = 0
+discard_x = 0
+draw_type = 7
+drop = false
+fade = false
+consume = false
+frame_id = 0
+fx = ExtResource( 3 )
+extra_action = ExtResource( 2 )

@@ -45,7 +45,7 @@ var deck_count setget set_deck_count
 var deck_order: = []
 var graveyard_count setget set_graveyard_count
 var player: Player
-var enemyUI
+var enemyUI: Enemy
 var actions: Array
 
 var weapons_played: = 0
@@ -414,6 +414,9 @@ func _on_Player_discard_random(qty):
 
 func _on_Player_apply_debuff(debuff: Buff, qty: int):
 	enemyUI.gain_debuff(debuff, qty)
+
+func _on_Player_apply_buff(buff: Buff, qty: int):
+	enemyUI.gain_buff(buff, qty)
 
 func show_deck_viewer() -> void:
 	if deck_tween.is_active(): return

@@ -55,6 +55,7 @@ tracks/2/keys = {
 modulate = Color( 0.145098, 0.145098, 0.133333, 1 )
 texture = ExtResource( 2 )
 hframes = 5
+frame = 4
 
 [node name="AnimationPlayer" parent="." index="1"]
 autoplay = "Effect"

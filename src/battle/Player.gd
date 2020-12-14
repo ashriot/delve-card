@@ -11,6 +11,7 @@ signal add_to_discard(action_name, qty)
 signal discard_random(qty)
 signal discarded_x(qty)
 signal apply_debuff(debuff, qty)
+signal apply_buff(buff, qty)
 signal update_enemy
 
 onready var hp_value = $Player/Panel/HP/Value
@@ -207,6 +208,9 @@ func has_buff(buff_name: String) -> bool:
 
 func apply_debuff(debuff: Buff, qty: int) -> void:
 	emit_signal("apply_debuff", debuff, qty)
+
+func apply_buff(buff: Buff, qty: int) -> void:
+	emit_signal("apply_buff", buff, qty)
 
 func gain_debuff(debuff: Buff, qty: int) -> void:
 	if debuff.name == "Burn" and has_buff("Mist Form"): return
