@@ -4,14 +4,14 @@
 
 [resource]
 script = ExtResource( 1 )
-name = "Hidden Knife"
-description = "Deals %damage damage or %dx2 if this is the only action in your hand."
-rarity = 3
+name = "Dismantle"
+description = "Remove all enemy AC."
+rarity = 1
 upgraded = false
-action_type = 0
+action_type = 1
 target_type = 1
 cost_type = 3
-cost = 0
+cost = 1
 healing = false
 damage_type = 0
 damage = 0

@@ -1,0 +1,31 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://assets/animations/Claws.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/actions/res/action.gd" type="Script" id=2]
+
+[resource]
+script = ExtResource( 2 )
+name = "Cat Claws"
+description = "Deal %damage damage."
+rarity = 2
+upgraded = false
+action_type = 0
+target_type = 1
+cost_type = 3
+cost = 1
+healing = false
+damage_type = 0
+damage = 4
+hits = 2
+crit_chance = 0.0
+penetrate = false
+impact = 0
+drawX = 1
+discard_random_x = 0
+discard_x = 0
+draw_type = 0
+drop = false
+fade = false
+consume = false
+frame_id = 19
+fx = ExtResource( 1 )

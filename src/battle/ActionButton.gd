@@ -28,6 +28,7 @@ var hp_cost: int
 var ap_cost: int setget set_ap_cost
 var mp_cost: int
 var mp_spent: int
+var ap_spent: int
 #var damage: int
 var hits: int
 
@@ -77,6 +78,14 @@ func discard() -> void:
 	else:
 		animationPlayer.play("Discard")
 	yield(animationPlayer, "animation_finished")
+	if action.name == "Lucky Dice": emit_signal("draw_cards", action, action.drawX + 1)
+	if action.name == "Lucky Knife":
+		create_effect(enemy.global_position, "hit")
+		yield(self, "inflict_hit")
+		var crit_mod = 0
+		if player.has_buff("Aim"): crit_mod = 0.5
+		var crit = randf() < crit_mod + action.crit_chance
+		enemy.take_hit(action, action.damage * 3, crit)
 	emit_signal("discarded", self)
 
 func update_data() -> void:
@@ -105,6 +114,7 @@ func update_data() -> void:
 		if hp_cost > player.hp and !played:
 			modulate.a = 0.4
 	var hit_text = "" if hits < 2 else ("x" + str(hits))
+	if action.name == "Lightning Claws": hit_text += "x?"
 	var type = "HP" if action.healing else "dmg"
 	if action.damage_type == Action.DamageType.AC:
 		type = "AC"
@@ -165,6 +175,8 @@ func get_error() -> String:
 
 func play() -> void:
 	mp_spent = mp_cost
+	ap_spent = ap_cost
+	if action.name == "Lightning Claws": ap_spent = player.ap
 	emit_signal("hide_card")
 	if !playable():
 		display_error()
@@ -175,7 +187,7 @@ func play() -> void:
 		animationPlayer.play("Drop")
 	else:
 		animationPlayer.play("Use")
-	player.ap -= ap_cost
+	player.ap -= ap_spent
 	if action.name == "Shadow Bolt": mp_spent = min(player.mp, 15)
 	if action.name == "Shadow Cloak": mp_spent = min(player.mp, 15)
 	if action.name == "Shadow Dance": mp_spent = min(player.mp/mp_cost, 20/mp_cost) * mp_cost
@@ -219,7 +231,9 @@ func execute() -> void:
 					enemy.gain_debuff(conflag, ((stacks + 2) * 2) - stacks)
 				else:
 					enemy.gain_debuff(conflag, 10)
-			if action.damage > 0:
+			var damage = action.damage
+			if action.name == "Dismantle": damage = enemy.ac
+			if damage > 0:
 #				print(action.name, " damage: ", action.damage)
 				var roll = randf()
 				var crit_mod = 0
@@ -232,18 +246,23 @@ func execute() -> void:
 				if enemy.has_debuff("Burn"):
 					if action.name == "Fireball": bonus += 6
 					if action.name == "Combust": bonus += 12
-				var damage = action.damage
 				if action.name == "Shadow Bolt": damage *= mp_spent
 				if action.name == "Drown": damage += clamp(player.mp, 0, 30)
 				damage += (bonus + player.added_damage + added_damage) * \
 					(1 + weapon_multiplier + player.weapon_multiplier)
 				damage *= (2 if crit else 1)
+				if action.name == "Silver Claws" and crit:
+					player.take_healing(1, "ST")
 				damage *= (1 - enemy.damage_reduction)
 				enemy.take_hit(action, damage, crit)
-				if player.has_buff("Lifesteal"): player.take_healing(damage, "HP")
+				var lifesteal = 0
+				if player.has_buff("Lifesteal"): lifesteal += damage
+				if action.name == "Blood Claws": lifesteal += damage / 2
+				if lifesteal > 0: player.take_healing(lifesteal, "HP")
 				if action.name == "Calcify": player.take_healing(damage, "AC")
 				elif action.name == "Swift Knife": player.take_healing(damage/2, "AC")
-				elif action.name == "Rune Knife": player.take_healing(damage, "MP")
+				elif action.name == "Rune Knife" or action.name == "Rune Claws":
+					player.take_healing(damage, "MP")
 			if action.extra_action != null:
 				if action.name == "Offensive Tactics" \
 				and enemy.get_intent() == "Attack":
@@ -295,6 +314,8 @@ func get_action_hits() -> void:
 	if action.name == "Mana Storm":
 		#warning-ignore:integer_division
 		hits = min(5, player.mp/ action.cost)
+	if action.name == "Lightning Claws":
+		hits = ap_spent
 
 func inflict_hit() -> void:
 	if enemy.has_buff("Flame Shield"):

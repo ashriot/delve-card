@@ -4,12 +4,12 @@
 
 [resource]
 script = ExtResource( 1 )
-name = "Hidden Knife"
-description = "Deals %damage damage or %dx2 if this is the only action in your hand."
-rarity = 3
+name = "Lucky Dice"
+description = "Draw an action. If discarded, draw 2 actions."
+rarity = 2
 upgraded = false
-action_type = 0
-target_type = 1
+action_type = 3
+target_type = 0
 cost_type = 3
 cost = 0
 healing = false
@@ -19,7 +19,7 @@ hits = 1
 crit_chance = 0.0
 penetrate = false
 impact = 0
-drawX = 0
+drawX = 1
 discard_random_x = 0
 discard_x = 0
 draw_type = 7
