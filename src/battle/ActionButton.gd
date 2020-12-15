@@ -70,7 +70,7 @@ func gain() -> void:
 	$Button.modulate.a = 1
 	$Button.rect_position = Vector2.ZERO
 
-func discard() -> void:
+func discard(end_of_turn: bool) -> void:
 	played = true
 	AudioController.play_sfx("draw")
 	if action.fade:
@@ -78,14 +78,15 @@ func discard() -> void:
 	else:
 		animationPlayer.play("Discard")
 	yield(animationPlayer, "animation_finished")
-	if action.name == "Lucky Dice": emit_signal("draw_cards", action, action.drawX + 1)
-	if action.name == "Lucky Knife":
-		create_effect(enemy.global_position, "hit")
-		yield(self, "inflict_hit")
-		var crit_mod = 0
-		if player.has_buff("Aim"): crit_mod = 0.5
-		var crit = randf() < crit_mod + action.crit_chance
-		enemy.take_hit(action, action.damage * 3, crit)
+	if !end_of_turn:
+		if action.name == "Lucky Dice": emit_signal("draw_cards", action, action.drawX + 1)
+		if action.name == "Lucky Knife":
+			create_effect(enemy.global_position, "hit")
+			yield(self, "inflict_hit")
+			var crit_mod = 0
+			if player.has_buff("Aim"): crit_mod = 0.5
+			var crit = randf() < crit_mod + action.crit_chance
+			enemy.take_hit(action, action.damage * 3, crit)
 	emit_signal("discarded", self)
 
 func update_data() -> void:

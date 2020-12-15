@@ -207,7 +207,7 @@ func add_to_discard(actions_to_add) -> void:
 		action.rect_position = Vector2(0, 64)
 		action.animationPlayer.play("Discard_Gain")
 		yield(get_tree().create_timer(0.65), "timeout")
-		action.discard()
+		action.discard(false)
 		player.get_parent().remove_child(action)
 		action.rect_position = Vector2.ZERO
 		graveyard.add_child(action)
@@ -255,7 +255,7 @@ func find_card_by_type(type) -> ActionButton:
 			return child
 	return null
 
-func discard_hand() -> void:
+func discard_hand(end_of_turn: bool) -> void:
 	if hand_count > 0:
 		for i in hand.get_children():
 			if i.get_child_count() > 0:
@@ -263,7 +263,7 @@ func discard_hand() -> void:
 				if child.played:
 					continue
 				else:
-					child.discard()
+					child.discard(end_of_turn)
 					yield(child, "discarded")
 					remove_pos(child)
 					if child.action.fade:
@@ -325,7 +325,7 @@ func end_turn() -> void:
 	emit_signal("weapons_played", 0)
 	emit_signal("weapons_in_hand", 0)
 	if hand_count > 0:
-		discard_hand()
+		discard_hand(true)
 		yield(self, "done_discarding")
 	emit_signal("ended_turn")
 
@@ -388,7 +388,7 @@ func _on_Player_discard_random(qty):
 	if hand_count == 0 or qty > hand_count:
 		count = 0
 	if qty == hand_count:
-		discard_hand()
+		discard_hand(false)
 		count = 0
 	if count == 0:
 		yield(get_tree().create_timer(0.1), "timeout")
@@ -402,7 +402,7 @@ func _on_Player_discard_random(qty):
 			if child.played: continue
 			else:
 				count -= 1
-				child.discard()
+				child.discard(false)
 				yield(child, "discarded")
 				remove_pos(child)
 				if child.action.fade:
