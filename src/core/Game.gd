@@ -209,7 +209,8 @@ func _on_StartGame_button_up() -> void:
 	fade.play("FadeOut")
 	yield(fade, "animation_finished")
 	title.hide()
-	demo.show()
+#	demo.show()
+	welcome.show()
 	fade.play("FadeIn")
 	yield(fade, "animation_finished")
 
