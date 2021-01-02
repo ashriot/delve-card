@@ -563,9 +563,10 @@ __meta__ = {
 }
 
 [node name="Sprite" type="Sprite" parent="Enemy"]
+position = Vector2( -4, 0 )
 texture = ExtResource( 1 )
 hframes = 9
-frame = 1
+frame = 6
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Enemy"]
 anims/Attack1 = SubResource( 1 )
@@ -606,4 +607,4 @@ __meta__ = {
 }
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 9 )
+stream = ExtResource( 6 )
