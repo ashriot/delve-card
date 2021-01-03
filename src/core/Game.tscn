@@ -342,6 +342,7 @@ __meta__ = {
 }
 
 [node name="CharSelect" parent="." instance=ExtResource( 9 )]
+visible = false
 
 [node name="WelcomeScreen" parent="." instance=ExtResource( 16 )]
 visible = false
