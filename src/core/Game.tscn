@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://src/core/Battle.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/images/bgs/title.png" type="Texture" id=2]
@@ -8,15 +8,13 @@
 [ext_resource path="res://assets/images/ui/Shield.png" type="Texture" id=6]
 [ext_resource path="res://assets/images/ui/Staff.png" type="Texture" id=7]
 [ext_resource path="res://assets/images/ui/Heart.png" type="Texture" id=8]
-[ext_resource path="res://assets/images/sheets/portraits.png" type="Texture" id=9]
-[ext_resource path="res://src/core/CharSelect.gd" type="Script" id=10]
+[ext_resource path="res://src/core/CharSelect.tscn" type="PackedScene" id=9]
 [ext_resource path="res://assets/images/ui/gear_small.png" type="Texture" id=11]
 [ext_resource path="res://assets/images/ui/stamina.png" type="Texture" id=12]
 [ext_resource path="res://src/core/PlayerUI.tscn" type="PackedScene" id=13]
 [ext_resource path="res://src/core/Dungeon.tscn" type="PackedScene" id=14]
 [ext_resource path="res://Card.tscn" type="PackedScene" id=15]
 [ext_resource path="res://src/core/WelcomeScreen.tscn" type="PackedScene" id=16]
-[ext_resource path="res://assets/images/ui/back.png" type="Texture" id=17]
 [ext_resource path="res://src/map/Shop.tscn" type="PackedScene" id=18]
 [ext_resource path="res://src/map/Blacksmith.tscn" type="PackedScene" id=19]
 [ext_resource path="res://src/core/Deck.tscn" type="PackedScene" id=21]
@@ -47,21 +45,7 @@ tracks/0/keys = {
 
 [sub_resource type="StyleBoxEmpty" id=6]
 
-[sub_resource type="Animation" id=7]
-length = 1.4
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5, 1.2 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Color( 0.145098, 0.145098, 0.133333, 0 ), Color( 0.145098, 0.145098, 0.133333, 1 ), Color( 0.145098, 0.145098, 0.133333, 0 ) ]
-}
+[sub_resource type="StyleBoxEmpty" id=7]
 
 [sub_resource type="StyleBoxEmpty" id=8]
 
@@ -71,9 +55,7 @@ tracks/0/keys = {
 
 [sub_resource type="StyleBoxEmpty" id=11]
 
-[sub_resource type="StyleBoxEmpty" id=12]
-
-[sub_resource type="Animation" id=13]
+[sub_resource type="Animation" id=12]
 length = 1.2
 loop = true
 tracks/0/type = "value"
@@ -89,9 +71,9 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="StyleBoxEmpty" id=14]
+[sub_resource type="StyleBoxEmpty" id=13]
 
-[sub_resource type="Animation" id=15]
+[sub_resource type="Animation" id=14]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:color")
@@ -118,7 +100,7 @@ tracks/1/keys = {
 "values": [ 2 ]
 }
 
-[sub_resource type="Animation" id=16]
+[sub_resource type="Animation" id=15]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:color")
@@ -149,6 +131,7 @@ tracks/1/keys = {
 script = ExtResource( 3 )
 player = ExtResource( 4 )
 rooms = 3
+mute = true
 
 [node name="Battle" parent="." instance=ExtResource( 1 )]
 
@@ -358,258 +341,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="CharSelect" type="Node2D" parent="."]
-visible = false
-script = ExtResource( 10 )
-
-[node name="ColorRect" type="ColorRect" parent="CharSelect"]
-margin_right = 108.0
-margin_bottom = 192.0
-color = Color( 0, 0, 0, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Banner" type="ColorRect" parent="CharSelect/ColorRect"]
-anchor_right = 1.0
-margin_bottom = 9.0
-color = Color( 0.145098, 0.145098, 0.133333, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Choose" type="Label" parent="CharSelect/ColorRect/Banner"]
-anchor_right = 1.0
-margin_left = -1.0
-margin_top = -3.0
-margin_right = -1.0
-margin_bottom = 11.0
-text = "Choose a Class"
-__meta__ = {
-"_edit_group_": true,
-"_edit_use_anchors_": false
-}
-
-[node name="ColorRect" type="ColorRect" parent="CharSelect/ColorRect/Banner/Choose"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 2.0
-margin_top = 3.0
-margin_right = -9.0
-margin_bottom = -3.0
-color = Color( 0.145098, 0.145098, 0.133333, 0 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="CharSelect/ColorRect/Banner/Choose/ColorRect"]
-autoplay = "Blink"
-anims/Blink = SubResource( 7 )
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CharSelect/ColorRect"]
-anchor_right = 0.666667
-margin_top = 14.0
-margin_right = 36.0
-margin_bottom = 170.0
-rect_pivot_offset = Vector2( -261, 123 )
-__meta__ = {
-"_edit_group_": true,
-"_edit_use_anchors_": false
-}
-
-[node name="Fighter" type="Control" parent="CharSelect/ColorRect/VBoxContainer"]
-margin_right = 108.0
-margin_bottom = 36.0
-rect_min_size = Vector2( 108, 36 )
-
-[node name="Sprite" type="Sprite" parent="CharSelect/ColorRect/VBoxContainer/Fighter"]
-position = Vector2( -6, -6 )
-texture = ExtResource( 9 )
-centered = false
-vframes = 4
-hframes = 7
-
-[node name="Label" type="Label" parent="CharSelect/ColorRect/VBoxContainer/Fighter"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 34.0
-margin_top = -4.0
-margin_right = 3.99999
-margin_bottom = 3.0
-custom_constants/line_spacing = 1
-text = "FIGHTER
-An offensive unit that uses heavy weaponry and shields to fight."
-autowrap = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Fighter" type="TextureButton" parent="CharSelect/ColorRect/VBoxContainer/Fighter"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Sorcerer" type="Control" parent="CharSelect/ColorRect/VBoxContainer"]
-margin_top = 40.0
-margin_right = 108.0
-margin_bottom = 76.0
-rect_min_size = Vector2( 108, 36 )
-
-[node name="Sprite" type="Sprite" parent="CharSelect/ColorRect/VBoxContainer/Sorcerer"]
-position = Vector2( -6, -6 )
-texture = ExtResource( 9 )
-centered = false
-vframes = 4
-hframes = 7
-frame = 3
-
-[node name="Label" type="Label" parent="CharSelect/ColorRect/VBoxContainer/Sorcerer"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 34.0
-margin_top = -4.0
-margin_right = 6.99999
-margin_bottom = 3.0
-custom_constants/line_spacing = 1
-text = "SORCERER
-The Sorcerer uses powerful magic to control and destroy opposition."
-autowrap = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Sorcerer" type="TextureButton" parent="CharSelect/ColorRect/VBoxContainer/Sorcerer"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Thief" type="Control" parent="CharSelect/ColorRect/VBoxContainer"]
-margin_top = 80.0
-margin_right = 108.0
-margin_bottom = 116.0
-rect_min_size = Vector2( 108, 36 )
-
-[node name="Sprite" type="Sprite" parent="CharSelect/ColorRect/VBoxContainer/Thief"]
-position = Vector2( -6, -6 )
-texture = ExtResource( 9 )
-centered = false
-vframes = 4
-hframes = 7
-frame = 1
-
-[node name="Label" type="Label" parent="CharSelect/ColorRect/VBoxContainer/Thief"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 34.0
-margin_top = -4.0
-margin_right = 6.99999
-margin_bottom = 3.0
-custom_constants/line_spacing = 1
-text = "THIEF
-Focuses on quick, light attacks and powerful utility."
-autowrap = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Thief" type="TextureButton" parent="CharSelect/ColorRect/VBoxContainer/Thief"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Priest" type="Control" parent="CharSelect/ColorRect/VBoxContainer"]
-modulate = Color( 1, 1, 1, 0.490196 )
-margin_top = 120.0
-margin_right = 108.0
-margin_bottom = 156.0
-rect_min_size = Vector2( 108, 36 )
-
-[node name="Sprite" type="Sprite" parent="CharSelect/ColorRect/VBoxContainer/Priest"]
-position = Vector2( -6, -6 )
-texture = ExtResource( 9 )
-centered = false
-vframes = 4
-hframes = 7
-frame = 19
-
-[node name="Label" type="Label" parent="CharSelect/ColorRect/VBoxContainer/Priest"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 34.0
-margin_top = -4.0
-margin_right = 6.99999
-margin_bottom = 3.0
-custom_constants/line_spacing = 1
-text = "PRIESTESS
-A pious magic-user who derives her power from her divine faith."
-autowrap = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Priestess" type="TextureButton" parent="CharSelect/ColorRect/VBoxContainer/Priest"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="NYI" type="Label" parent="CharSelect/ColorRect"]
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-margin_top = 49.0
-margin_bottom = 63.0
-custom_colors/font_color = Color( 0.6, 0.584314, 0.521569, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-custom_constants/shadow_offset_x = 1
-custom_constants/shadow_offset_y = 1
-custom_constants/shadow_as_outline = 1
-text = "Not Yet Implemented"
-align = 1
-uppercase = true
-__meta__ = {
-"_edit_group_": true,
-"_edit_use_anchors_": false
-}
-
-[node name="Fire" type="Button" parent="CharSelect"]
-margin_left = 83.0
-margin_top = 180.0
-margin_right = 106.0
-margin_bottom = 190.0
-text = "Fire"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Arcane" type="Button" parent="CharSelect"]
-margin_left = 53.0
-margin_top = 180.0
-margin_right = 81.0
-margin_bottom = 190.0
-text = "Arcane"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="CharBack" type="Button" parent="CharSelect"]
-margin_left = 2.0
-margin_top = 177.0
-margin_right = 50.0
-margin_bottom = 190.0
-text = "Back"
-icon = ExtResource( 17 )
-align = 0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="CharSelect" parent="." instance=ExtResource( 9 )]
 
 [node name="WelcomeScreen" parent="." instance=ExtResource( 16 )]
 visible = false
@@ -704,17 +436,17 @@ __meta__ = {
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 9.0
-custom_styles/hover = SubResource( 8 )
-custom_styles/pressed = SubResource( 9 )
-custom_styles/focus = SubResource( 10 )
-custom_styles/disabled = SubResource( 11 )
-custom_styles/normal = SubResource( 12 )
+custom_styles/hover = SubResource( 7 )
+custom_styles/pressed = SubResource( 8 )
+custom_styles/focus = SubResource( 9 )
+custom_styles/disabled = SubResource( 10 )
+custom_styles/normal = SubResource( 11 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Title"]
-anims/FlashTap = SubResource( 13 )
+anims/FlashTap = SubResource( 12 )
 
 [node name="Settings" type="Control" parent="."]
 margin_right = 108.0
@@ -765,7 +497,7 @@ margin_left = 70.0
 margin_top = -2.0
 margin_right = 94.0
 margin_bottom = 22.0
-custom_styles/focus = SubResource( 14 )
+custom_styles/focus = SubResource( 13 )
 pressed = true
 align = 2
 __meta__ = {
@@ -849,8 +581,8 @@ __meta__ = {
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Fade"]
-anims/FadeIn = SubResource( 15 )
-anims/FadeOut = SubResource( 16 )
+anims/FadeIn = SubResource( 14 )
+anims/FadeOut = SubResource( 15 )
 [connection signal="advance" from="Dungeon" to="." method="_on_Dungeon_advance"]
 [connection signal="blacksmith" from="Dungeon" to="." method="_on_Dungeon_blacksmith"]
 [connection signal="blank" from="Dungeon" to="." method="_on_Dungeon_blank"]
@@ -862,9 +594,6 @@ anims/FadeOut = SubResource( 16 )
 [connection signal="button_up" from="DemoScreen/Patch" to="." method="_on_Patch_button_up"]
 [connection signal="button_up" from="DemoScreen/Notes/PatchBack" to="." method="_on_PatchBack_button_up"]
 [connection signal="chose_class" from="CharSelect" to="." method="_on_CharSelect_chose_class"]
-[connection signal="button_up" from="CharSelect/Fire" to="." method="_on_Fire_button_up"]
-[connection signal="button_up" from="CharSelect/Arcane" to="." method="_on_Arcane_button_up"]
-[connection signal="pressed" from="CharSelect/CharBack" to="." method="_on_CharBack_pressed"]
 [connection signal="load_game" from="WelcomeScreen" to="." method="_on_WelcomeScreen_load_game"]
 [connection signal="new" from="WelcomeScreen" to="." method="_on_WelcomeScreen_new"]
 [connection signal="profile_chose" from="WelcomeScreen" to="." method="_on_WelcomeScreen_profile_chose"]

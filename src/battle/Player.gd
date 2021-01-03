@@ -68,6 +68,12 @@ func start_turn() -> void:
 		take_hit(Burn, debuffs["Burn"].stacks)
 		reduce_debuff("Burn")
 		yield(get_tree().create_timer(0.8), "timeout")
+	if debuffs.size() > 0 and debuffs.has("Poison"):
+		AudioController.play_sfx("poison")
+		var poison = load("res://src/actions/debuffs/poison_action.tres")
+		take_hit(poison, actor.max_hp / 10)
+		reduce_debuff("Poison")
+		yield(get_tree().create_timer(0.8), "timeout")
 	for child in buff_bar.get_children():
 		if child.fades_per_turn:
 			reduce_buff(child.buff_name)

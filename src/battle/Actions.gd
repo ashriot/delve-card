@@ -49,6 +49,7 @@ var enemyUI: Enemy
 var actions: Array
 
 var weapons_played: = 0
+var actions_used: = 0
 var weapons_in_hand: = 0
 
 var initialized: = false
@@ -79,6 +80,7 @@ func reset() -> void:
 	hand_count = 0
 	self.graveyard_count = 0
 	weapons_played = 0
+	actions_used = 0
 	weapons_in_hand = 0
 	actions_queued = 0
 	fill_deck()
@@ -139,7 +141,7 @@ func initialize_button(action_button: ActionButton, action: Action) -> void:
 	action_button.connect("hide_card", self, "hide_card")
 	connect("weapons_played", action_button, "weapons_played")
 	connect("weapons_in_hand", action_button, "weapons_in_hand")
-	action_button.initialize(action, player, enemyUI)
+	action_button.initialize(self, action, player, enemyUI)
 
 func fill_hand() -> void:
 	print("filling hand")
@@ -275,6 +277,7 @@ func discard_hand(end_of_turn: bool) -> void:
 	emit_signal("done_discarding")
 
 func action_finished(action_button: ActionButton) -> void:
+	actions_used += 1
 	if action_button.action.action_type == Action.ActionType.WEAPON:
 		weapons_played += 1
 		weapons_in_hand -= 1
@@ -321,6 +324,7 @@ func end_turn() -> void:
 	item_belt.hide()
 	end_turn_btn.hide()
 	weapons_played = 0
+	actions_used = 0
 	weapons_in_hand = 0
 	emit_signal("weapons_played", 0)
 	emit_signal("weapons_in_hand", 0)
@@ -419,6 +423,8 @@ func _on_Player_apply_buff(buff: Buff, qty: int):
 	enemyUI.gain_buff(buff, qty)
 
 func show_deck_viewer() -> void:
+	$DeckViewer/InputBlock/Banner/Banner.text = \
+		"Draw Pile (" + str(hand_count) + ")"
 	if deck_tween.is_active(): return
 	AudioController.click()
 	deck_order.clear()

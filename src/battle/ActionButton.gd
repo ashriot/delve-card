@@ -19,6 +19,7 @@ onready var button = $Button
 onready var animationPlayer: = $AnimationPlayer
 onready var timer: = $Timer
 
+var actions = null
 var action: Action
 var player: Player
 var enemy: Enemy
@@ -39,7 +40,8 @@ var spell_multiplier: = 0.0 setget set_spell_multiplier
 var hovering: = false
 var initialized: = false
 
-func initialize(_action: Action, _player: Player, _enemy: Enemy) -> void:
+func initialize(_actions, _action: Action, _player: Player, _enemy: Enemy) -> void:
+	actions = _actions
 	action = _action
 	player = _player
 	enemy = _enemy
@@ -125,10 +127,12 @@ func update_data() -> void:
 		type = "ST"
 	var prepend = "+" if action.healing else ""
 	var drown = "+"
-	if action.name != "Drown": drown = ""
 	var damage = action.damage
+	if action.name != "Drown": drown = ""
 	if action.name == "Shadow Bolt": damage *= min(player.mp, 15)
 	if action.name == "Shadow Cloak": damage *= min(player.mp, 15)
+	if action.name == "Hidden Knife": if actions.hand_count == 1: damage *= 2
+	if action.name == "Gleaming Knife": if actions.actions_used == 0: damage *= 2
 	var multiplier = 1
 	if action.action_type == Action.ActionType.WEAPON:
 		multiplier += weapon_multiplier + player.weapon_multiplier
@@ -227,7 +231,6 @@ func execute() -> void:
 			if action.name == "Conflagration":
 				var conflag = load("res://src/actions/debuffs/burn.tres")
 				if enemy.has_debuff("Burn"):
-					print("already burning")
 					var stacks = enemy.get_debuff_stacks("Burn")
 					enemy.gain_debuff(conflag, ((stacks + 2) * 2) - stacks)
 				else:
@@ -246,7 +249,9 @@ func execute() -> void:
 					bonus += player.added_damage * (action.impact - 1)
 				if enemy.has_debuff("Burn"):
 					if action.name == "Fireball": bonus += 6
-					if action.name == "Combust": bonus += 12
+					elif action.name == "Combust": bonus += 12
+				if action.name == "Hidden Knife": if actions.hand_count == 0: damage *= 2
+				if action.name == "Gleaming Knife": if actions.actions_used == 0: damage *= 2
 				if action.name == "Shadow Bolt": damage *= mp_spent
 				if action.name == "Drown": damage += clamp(player.mp, 0, 30)
 				damage += (bonus + player.added_damage + added_damage) * \

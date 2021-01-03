@@ -95,6 +95,12 @@ func act() -> void:
 			take_hit(Burn, debuffs["Burn"].stacks, false)
 			reduce_debuff("Burn")
 			yield(get_tree().create_timer(0.8), "timeout")
+		if debuffs.has("Poison"):
+			var Poison = load("res://src/actions/debuffs/burn_action.tres")
+			AudioController.play_sfx("poison")
+			take_hit(Poison, actor.max_hp / 10, false)
+			reduce_debuff("Poison")
+			yield(get_tree().create_timer(0.8), "timeout")
 	if self.dead:
 		print("dead, ended turn")
 		emit_signal("ended_turn")

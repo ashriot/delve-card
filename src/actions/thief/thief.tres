@@ -4,10 +4,10 @@
 [ext_resource path="res://src/actions/thief/1/swift_knife.tres" type="Resource" id=2]
 [ext_resource path="res://src/actions/thief/1/dart.tres" type="Resource" id=3]
 [ext_resource path="res://src/actions/thief/1/iron_claws.tres" type="Resource" id=4]
-[ext_resource path="res://src/actions/thief/3/shadow_cloak.tres" type="Resource" id=5]
+[ext_resource path="res://src/actions/thief/3/gleaming_knife.tres" type="Resource" id=5]
 [ext_resource path="res://src/actions/thief/1/evasion.tres" type="Resource" id=6]
 [ext_resource path="res://src/potions/small_apple.tres" type="Resource" id=7]
-[ext_resource path="res://src/actions/thief/2/boomerang.tres" type="Resource" id=8]
+[ext_resource path="res://src/actions/thief/2/poison_needle.tres" type="Resource" id=8]
 [ext_resource path="res://src/actions/thief/2/rune_knife.tres" type="Resource" id=9]
 [ext_resource path="res://src/actions/thief/1/trollblood_oil.tres" type="Resource" id=11]
 

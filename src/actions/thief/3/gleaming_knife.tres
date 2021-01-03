@@ -5,8 +5,8 @@
 
 [resource]
 script = ExtResource( 1 )
-name = "Hidden Knife"
-description = "Deals %damage damage or %dx2 if this is the only action in your hand."
+name = "Gleaming Knife"
+description = "Deals %damage damage or %dx2 if this is the first action used in a turn."
 rarity = 3
 upgraded = false
 action_type = 0
