@@ -78,7 +78,18 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Back" type="Button" parent="BG"]
+[node name="JobName" type="Label" parent="BG"]
+margin_top = 56.0
+margin_right = 108.0
+margin_bottom = 70.0
+text = "Fighter"
+align = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Prev" type="Button" parent="BG"]
 margin_left = 19.0
 margin_top = 69.0
 margin_right = 32.0
@@ -88,11 +99,22 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Talents" type="Button" parent="BG"]
+[node name="Next" type="Button" parent="BG"]
+margin_left = 76.0
+margin_top = 69.0
+margin_right = 89.0
+margin_bottom = 105.0
+icon = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Perks" type="Button" parent="BG"]
 margin_left = 19.0
 margin_top = 109.0
 margin_right = 89.0
 margin_bottom = 122.0
+disabled = true
 text = "Perks"
 icon = ExtResource( 5 )
 align = 0
@@ -100,7 +122,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="JobName2" type="Label" parent="BG/Talents"]
+[node name="Amt" type="Label" parent="BG/Perks"]
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -116,16 +138,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Forward" type="Button" parent="BG"]
-margin_left = 76.0
-margin_top = 69.0
-margin_right = 89.0
-margin_bottom = 105.0
-icon = ExtResource( 4 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="Go" type="Button" parent="BG"]
 margin_left = 74.0
 margin_top = 158.0
@@ -137,26 +149,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Unit" type="Node2D" parent="BG"]
-position = Vector2( 0, 98 )
-
-[node name="JobName" type="Label" parent="BG/Unit"]
-margin_top = -42.0
-margin_right = 108.0
-margin_bottom = -28.0
-text = "Fighter"
-align = 1
-uppercase = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Sprite" type="Sprite" parent="BG/Unit"]
-position = Vector2( 30, -35 )
+[node name="Sprite" type="Sprite" parent="BG"]
+position = Vector2( 30, 63 )
 texture = ExtResource( 3 )
 centered = false
 vframes = 4
 hframes = 7
+frame = 1
 
 [node name="Fire" type="Button" parent="BG"]
 margin_left = 108.0
@@ -179,7 +178,6 @@ __meta__ = {
 }
 
 [node name="Perks" type="ColorRect" parent="."]
-visible = false
 margin_right = 108.0
 margin_bottom = 192.0
 color = Color( 0, 0, 0, 0.784314 )

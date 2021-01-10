@@ -12,8 +12,8 @@ onready var difficulty_btn: Button = $BG/Difficulty
 onready var new_button: Button = $BG/NewGame
 onready var continue_button: Button = $BG/ContinueGame
 onready var new_dialog = $BG/NewDialog
-onready var shop = $Shop
-onready var donor = $Shop/DonorBundles
+onready var shop = $GemShop
+onready var donor = $GemShop/DonorBundles
 onready var profiles = $Profiles
 onready var create_profile = $Profiles/CreateDialog
 onready var created_name = $Profiles/CreateDialog/Panel/LineEdit
@@ -60,39 +60,39 @@ func _on_Shop_pressed():
 	$BG/Shop.mouse_filter = Control.MOUSE_FILTER_STOP
 
 func _on_ShopBack_pressed():
-	$Shop/ShopBack.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	$GemShop/ShopBack.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	AudioController.back()
 	shop.hide(false)
 	yield(shop, "done")
-	$Shop/ShopBack.mouse_filter = Control.MOUSE_FILTER_STOP
+	$GemShop/ShopBack.mouse_filter = Control.MOUSE_FILTER_STOP
 
 func _on_Donor_pressed():
-	$Shop/DonorBundles/DonorBack.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	$GemShop/DonorBundles/DonorBack.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	AudioController.click()
 	donor.show(false)
 	yield(donor, "done")
-	$Shop/DonorBundles/DonorBack.mouse_filter = Control.MOUSE_FILTER_STOP
+	$GemShop/DonorBundles/DonorBack.mouse_filter = Control.MOUSE_FILTER_STOP
 
 func _on_DonorBack_pressed():
-	$Shop/DonorBundles/DonorBack.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	$GemShop/DonorBundles/DonorBack.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	AudioController.back()
 	donor.hide(false)
 	yield(donor, "done")
-	$Shop/DonorBundles/DonorBack.mouse_filter = Control.MOUSE_FILTER_STOP
+	$GemShop/DonorBundles/DonorBack.mouse_filter = Control.MOUSE_FILTER_STOP
 
 func _on_Profile_pressed():
-	$Shop/ShopBack.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	$GemShop/ShopBack.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	AudioController.click()
 	display_profiles()
 	profiles.show(false)
 	yield(profiles, "done")
-	$Shop/ShopBack.mouse_filter = Control.MOUSE_FILTER_STOP
+	$GemShop/ShopBack.mouse_filter = Control.MOUSE_FILTER_STOP
 
 func select_profile():
-	$Shop/ShopBack.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	$GemShop/ShopBack.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	profiles.hide(false)
 	yield(profiles, "done")
-	$Shop/ShopBack.mouse_filter = Control.MOUSE_FILTER_STOP
+	$GemShop/ShopBack.mouse_filter = Control.MOUSE_FILTER_STOP
 	save_core_data()
 
 func display_profiles():

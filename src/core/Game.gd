@@ -82,7 +82,7 @@ func init_dir() -> void:
 
 	# CREATE DATA
 	if !core_exists():
-		core_data = CoreData.new()
+		core_data = load("res://src/player/new_game.tres")
 		core_data.game_version =  ProjectSettings.get_setting("application/config/version")
 		var path = save_path.plus_file("core.tres")
 		var error: int = ResourceSaver.save(path, core_data)
@@ -433,6 +433,7 @@ func _on_WelcomeScreen_new():
 	dungeon.progress = 1
 	dungeon.initialize(self)
 	dungeon.new_map()
+	char_select.initialize(core_data.unlocked_jobs)
 	char_select.show()
 	fade.play("FadeIn")
 
