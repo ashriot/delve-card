@@ -134,6 +134,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/player/Perk.gd"
 }, {
+"base": "Button",
+"class": "PerkButton",
+"language": "GDScript",
+"path": "res://src/player/PerkButton.gd"
+}, {
 "base": "Node2D",
 "class": "Player",
 "language": "GDScript",
@@ -200,6 +205,7 @@ _global_script_class_icons={
 "Job": "",
 "Loot": "",
 "Perk": "",
+"PerkButton": "",
 "Player": "",
 "PlayerUI": "",
 "PotionButton": "",

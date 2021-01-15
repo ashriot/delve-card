@@ -6,8 +6,8 @@
 [ext_resource path="res://assets/images/ui/forward.png" type="Texture" id=4]
 [ext_resource path="res://assets/images/ui/talents.png" type="Texture" id=5]
 [ext_resource path="res://assets/images/ui/gem_tiny.png" type="Texture" id=6]
-[ext_resource path="res://assets/images/ui/shop.png" type="Texture" id=7]
 [ext_resource path="res://assets/images/ui/ok.png" type="Texture" id=8]
+[ext_resource path="res://src/core/BaseControl.tscn" type="PackedScene" id=9]
 
 [sub_resource type="Animation" id=1]
 length = 1.4
@@ -114,7 +114,6 @@ margin_left = 19.0
 margin_top = 109.0
 margin_right = 89.0
 margin_bottom = 122.0
-disabled = true
 text = "Perks"
 icon = ExtResource( 5 )
 align = 0
@@ -177,304 +176,71 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Perks" type="ColorRect" parent="."]
+[node name="GemShop" type="Button" parent="."]
+margin_left = 64.0
+margin_top = 177.0
+margin_right = 106.0
+margin_bottom = 190.0
+text = "999,999"
+align = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Gems" type="Sprite" parent="GemShop"]
+position = Vector2( 35, 4 )
+texture = ExtResource( 6 )
+centered = false
+
+[node name="Perks" parent="." instance=ExtResource( 9 )]
+
+[node name="BG2" type="ColorRect" parent="Perks"]
 margin_right = 108.0
-margin_bottom = 192.0
-color = Color( 0, 0, 0, 0.784314 )
+margin_bottom = 175.0
+color = Color( 0, 0, 0, 1 )
 __meta__ = {
 "_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
-[node name="Banner" type="ColorRect" parent="Perks"]
-anchor_right = 1.0
-margin_bottom = 9.0
-color = Color( 0.145098, 0.145098, 0.133333, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Choose" type="Label" parent="Perks/Banner"]
-anchor_right = 1.0
-margin_left = -1.0
-margin_top = -3.0
-margin_right = -1.0
-margin_bottom = 11.0
-text = "[Class Name] Perks"
-__meta__ = {
-"_edit_group_": true,
-"_edit_use_anchors_": false
-}
-
-[node name="Back" type="Button" parent="Perks"]
+[node name="Back" type="Button" parent="Perks/BG2"]
 margin_left = 2.0
-margin_top = 160.0
-margin_right = 106.0
-margin_bottom = 173.0
-text = "Close Perks Panel"
+margin_top = 177.0
+margin_right = 34.0
+margin_bottom = 190.0
+text = "Back"
 icon = ExtResource( 1 )
 align = 0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Perks"]
+[node name="Container" type="ScrollContainer" parent="Perks/BG2"]
 margin_left = 2.0
 margin_top = 10.0
 margin_right = 107.0
-margin_bottom = 88.0
+margin_bottom = 105.0
 __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
 }
 
-[node name="Perks" type="VBoxContainer" parent="Perks/ScrollContainer"]
-margin_right = 100.0
-margin_bottom = 148.0
+[node name="Perks" type="VBoxContainer" parent="Perks/BG2/Container"]
 custom_constants/separation = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Perk" type="Button" parent="Perks/ScrollContainer/Perks"]
-margin_right = 100.0
-margin_bottom = 13.0
-rect_min_size = Vector2( 100, 13 )
-text = "Toughness"
-icon = ExtResource( 5 )
-align = 0
-
-[node name="Label" type="Label" parent="Perks/ScrollContainer/Perks/Perk"]
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-margin_left = -21.0
-margin_top = -7.5
-margin_right = 1.0
-margin_bottom = 6.5
-text = "0/5"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Perk2" type="Button" parent="Perks/ScrollContainer/Perks"]
-margin_top = 15.0
-margin_right = 100.0
-margin_bottom = 28.0
-rect_min_size = Vector2( 100, 13 )
-text = "Toughness"
-icon = ExtResource( 5 )
-align = 0
-
-[node name="Label" type="Label" parent="Perks/ScrollContainer/Perks/Perk2"]
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-margin_left = -21.0
-margin_top = -7.5
-margin_right = 1.0
-margin_bottom = 6.5
-text = "0/5"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Perk3" type="Button" parent="Perks/ScrollContainer/Perks"]
-margin_top = 30.0
-margin_right = 100.0
-margin_bottom = 43.0
-rect_min_size = Vector2( 100, 13 )
-text = "Toughness"
-icon = ExtResource( 5 )
-align = 0
-
-[node name="Label" type="Label" parent="Perks/ScrollContainer/Perks/Perk3"]
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-margin_left = -21.0
-margin_top = -7.5
-margin_right = 1.0
-margin_bottom = 6.5
-text = "0/5"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Perk4" type="Button" parent="Perks/ScrollContainer/Perks"]
-margin_top = 45.0
-margin_right = 100.0
-margin_bottom = 58.0
-rect_min_size = Vector2( 100, 13 )
-text = "Toughness"
-icon = ExtResource( 5 )
-align = 0
-
-[node name="Label" type="Label" parent="Perks/ScrollContainer/Perks/Perk4"]
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-margin_left = -21.0
-margin_top = -7.5
-margin_right = 1.0
-margin_bottom = 6.5
-text = "0/5"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Perk5" type="Button" parent="Perks/ScrollContainer/Perks"]
-margin_top = 60.0
-margin_right = 100.0
-margin_bottom = 73.0
-rect_min_size = Vector2( 100, 13 )
-text = "Toughness"
-icon = ExtResource( 5 )
-align = 0
-
-[node name="Label" type="Label" parent="Perks/ScrollContainer/Perks/Perk5"]
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-margin_left = -21.0
-margin_top = -7.5
-margin_right = 1.0
-margin_bottom = 6.5
-text = "0/5"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Perk6" type="Button" parent="Perks/ScrollContainer/Perks"]
-margin_top = 75.0
-margin_right = 100.0
-margin_bottom = 88.0
-rect_min_size = Vector2( 100, 13 )
-text = "Toughness"
-icon = ExtResource( 5 )
-align = 0
-
-[node name="Label" type="Label" parent="Perks/ScrollContainer/Perks/Perk6"]
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-margin_left = -21.0
-margin_top = -7.5
-margin_right = 1.0
-margin_bottom = 6.5
-text = "0/5"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Perk7" type="Button" parent="Perks/ScrollContainer/Perks"]
-margin_top = 90.0
-margin_right = 100.0
-margin_bottom = 103.0
-rect_min_size = Vector2( 100, 13 )
-text = "Toughness"
-icon = ExtResource( 5 )
-align = 0
-
-[node name="Label" type="Label" parent="Perks/ScrollContainer/Perks/Perk7"]
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-margin_left = -21.0
-margin_top = -7.5
-margin_right = 1.0
-margin_bottom = 6.5
-text = "0/5"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Perk8" type="Button" parent="Perks/ScrollContainer/Perks"]
-margin_top = 105.0
-margin_right = 100.0
-margin_bottom = 118.0
-rect_min_size = Vector2( 100, 13 )
-text = "Toughness"
-icon = ExtResource( 5 )
-align = 0
-
-[node name="Label" type="Label" parent="Perks/ScrollContainer/Perks/Perk8"]
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-margin_left = -21.0
-margin_top = -7.5
-margin_right = 1.0
-margin_bottom = 6.5
-text = "0/5"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Perk9" type="Button" parent="Perks/ScrollContainer/Perks"]
-margin_top = 120.0
-margin_right = 100.0
-margin_bottom = 133.0
-rect_min_size = Vector2( 100, 13 )
-text = "Toughness"
-icon = ExtResource( 5 )
-align = 0
-
-[node name="Label" type="Label" parent="Perks/ScrollContainer/Perks/Perk9"]
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-margin_left = -21.0
-margin_top = -7.5
-margin_right = 1.0
-margin_bottom = 6.5
-text = "0/5"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Perk10" type="Button" parent="Perks/ScrollContainer/Perks"]
-margin_top = 135.0
-margin_right = 100.0
-margin_bottom = 148.0
-rect_min_size = Vector2( 100, 13 )
-text = "Toughness"
-icon = ExtResource( 5 )
-align = 0
-
-[node name="Label" type="Label" parent="Perks/ScrollContainer/Perks/Perk10"]
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-margin_left = -21.0
-margin_top = -7.5
-margin_right = 1.0
-margin_bottom = 6.5
-text = "0/5"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Details" type="Panel" parent="Perks"]
+[node name="Details" type="Panel" parent="Perks/BG2"]
 margin_left = 2.0
-margin_top = 90.0
+margin_top = 107.0
 margin_right = 106.0
-margin_bottom = 156.0
+margin_bottom = 173.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Title" type="Label" parent="Perks/Details"]
+[node name="Title" type="Label" parent="Perks/BG2/Details"]
 margin_left = 9.0
 margin_top = -1.0
 margin_right = 102.0
@@ -484,12 +250,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Sprite" type="Sprite" parent="Perks/Details/Title"]
+[node name="Sprite" type="Sprite" parent="Perks/BG2/Details/Title"]
 position = Vector2( -7, 3 )
 texture = ExtResource( 5 )
 centered = false
 
-[node name="Ranks" type="Label" parent="Perks/Details"]
+[node name="Ranks" type="Label" parent="Perks/BG2/Details"]
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -20.0
@@ -501,7 +267,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="RankUp" type="Button" parent="Perks/Details"]
+[node name="RankUp" type="Button" parent="Perks/BG2/Details"]
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -513,7 +279,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Cost" type="Label" parent="Perks/Details/RankUp"]
+[node name="Cost" type="Label" parent="Perks/BG2/Details/RankUp"]
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -528,12 +294,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Sprite" type="Sprite" parent="Perks/Details/RankUp/Cost"]
+[node name="Sprite" type="Sprite" parent="Perks/BG2/Details/RankUp/Cost"]
 position = Vector2( 36, 5 )
 texture = ExtResource( 6 )
 centered = false
 
-[node name="DescBG" type="ColorRect" parent="Perks/Details"]
+[node name="DescBG" type="ColorRect" parent="Perks/BG2/Details"]
 margin_left = 3.0
 margin_top = 12.0
 margin_right = 101.0
@@ -543,7 +309,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Desc" type="Label" parent="Perks/Details"]
+[node name="Desc" type="Label" parent="Perks/BG2/Details"]
 margin_left = 1.0
 margin_top = 9.0
 margin_right = 105.0
@@ -556,44 +322,24 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="GemShop" type="Button" parent="."]
-margin_left = 2.0
-margin_top = 177.0
-margin_right = 106.0
-margin_bottom = 190.0
-text = "Gem Shop"
-icon = ExtResource( 7 )
-align = 0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="SpiritGems" type="Control" parent="GemShop"]
-anchor_left = 1.0
-anchor_top = 1.0
+[node name="Banner" type="ColorRect" parent="Perks"]
 anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -44.0
-margin_top = -16.0
-margin_right = 6.0
-margin_bottom = 6.0
+margin_bottom = 9.0
+color = Color( 0.145098, 0.145098, 0.133333, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="GemShop/SpiritGems"]
-anchor_left = 1.0
+[node name="ClassPerks" type="Label" parent="Perks/Banner"]
 anchor_right = 1.0
-margin_left = -51.0
-margin_top = 2.0
-margin_right = -10.0
-margin_bottom = 16.0
-text = "999,999"
+margin_left = -1.0
+margin_top = -3.0
+margin_right = -1.0
+margin_bottom = 11.0
+text = "[Class Name] Perks"
 __meta__ = {
+"_edit_group_": true,
 "_edit_use_anchors_": false
 }
-
-[node name="Gems" type="Sprite" parent="GemShop/SpiritGems/Label"]
-position = Vector2( 37, 5 )
-texture = ExtResource( 6 )
-centered = false
+[connection signal="pressed" from="BG/Perks" to="." method="_on_Perks_pressed"]
+[connection signal="pressed" from="Perks/BG2/Back" to="." method="_on_Back_pressed"]
