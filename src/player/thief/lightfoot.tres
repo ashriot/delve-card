@@ -10,6 +10,6 @@ desc = "Increases the chance to avoid damage with Dodge."
 trait = false
 units = [ "%" ]
 amts = [ 5 ]
-cost = 250
+cost = 75
 cur_ranks = 0
 max_ranks = 3

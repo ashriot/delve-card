@@ -10,6 +10,6 @@ desc = "Start fights with bonus MP for each Spell action in your deck."
 trait = false
 units = [ "MP per Spell" ]
 amts = [ 1 ]
-cost = 500
+cost = 150
 cur_ranks = 0
 max_ranks = 2

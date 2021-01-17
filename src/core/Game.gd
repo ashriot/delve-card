@@ -53,6 +53,7 @@ func _ready() -> void:
 	AudioController.mute = mute
 	AudioController.play_bgm("title")
 	init_dir()
+	$OpenGemShop.hide()
 	playerUI.hide()
 	settings.hide()
 	battle.hide()
@@ -68,7 +69,7 @@ func _ready() -> void:
 	welcome.connect("save_core_data", self, "save_core_data")
 	$DemoScreen/Notes.hide()
 	char_select.hide()
-	self.gems = 2345
+	self.gems = 2000
 	if skipping_intro:
 		skip_intro()
 	else:
@@ -215,6 +216,7 @@ func _on_StartGame_button_up() -> void:
 	title.hide()
 #	demo.show()
 	welcome.show()
+	$OpenGemShop.show()
 	fade.play("FadeIn")
 	yield(fade, "animation_finished")
 
@@ -437,7 +439,7 @@ func _on_WelcomeScreen_new():
 	dungeon.progress = 1
 	dungeon.initialize(self)
 	dungeon.new_map()
-	char_select.initialize(core_data.unlocked_jobs)
+	char_select.initialize(self, core_data.unlocked_jobs)
 	char_select.show()
 	fade.play("FadeIn")
 
@@ -486,6 +488,9 @@ func _on_OpenGemShop_pressed():
 	yield(gem_shop, "done")
 	$OpenGemShop.mouse_filter = Control.MOUSE_FILTER_STOP
 
+func spend_gems(qty):
+	self.gems -= qty
+
 func comma_sep(number: int) -> String:
 	var string = str(number)
 	var mod = string.length() % 3
@@ -500,4 +505,4 @@ func comma_sep(number: int) -> String:
 
 func set_gems(value) -> void:
 	gems = value
-	$OpenGemShop.text = comma_sep(value)
+	$OpenGemShop.text = comma_sep(value) + "  "

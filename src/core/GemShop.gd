@@ -8,20 +8,23 @@ func _ready():
 	hide()
 
 func _on_CloseShop_pressed():
+	$BG/CloseShop.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	AudioController.back()
 	self.hide()
+	yield(self, "done")
+	$BG/CloseShop.mouse_filter = Control.MOUSE_FILTER_STOP
 
 func _on_Donor_pressed():
 	$BG/Donor.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	AudioController.click()
-	donor.show(false)
+	donor.show()
 	yield(donor, "done")
 	$BG/Donor.mouse_filter = Control.MOUSE_FILTER_STOP
 
 func _on_DonorBack_pressed():
 	$BG/DonorBundles/DonorBack.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	AudioController.back()
-	donor.hide(false)
+	donor.hide()
 	yield(donor, "done")
 	$BG/DonorBundles/DonorBack.mouse_filter = Control.MOUSE_FILTER_STOP
 

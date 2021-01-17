@@ -10,6 +10,6 @@ desc = "Enemies start each fight with 2 Weak."
 trait = true
 units = [ "gold" ]
 amts = [ 5 ]
-cost = 3000
+cost = 1000
 cur_ranks = 0
 max_ranks = 1

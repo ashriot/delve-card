@@ -5,11 +5,11 @@
 [resource]
 script = ExtResource( 1 )
 id = 16
-name = "Slice and Dice"
+name = "Ghost"
 desc = "Start fights with 2 Dodge."
 trait = true
 units = [ "gold" ]
 amts = [ 5 ]
-cost = 2000
+cost = 700
 cur_ranks = 0
 max_ranks = 1

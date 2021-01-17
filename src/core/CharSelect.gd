@@ -1,6 +1,7 @@
 extends Node2D
 
 signal chose_class(name)
+signal spent_gems(qty)
 
 onready var _Perk: = preload("res://src/player/Perk.tscn")
 
@@ -17,21 +18,22 @@ onready var perk_ranks: = $Perks/BG2/Details/Ranks
 onready var rank_up: = $Perks/BG2/Details/RankUp
 onready var rank_cost: = $Perks/BG2/Details/RankUp/Cost
 onready var rank_gem: = $Perks/BG2/Details/RankUp/Cost/Sprite
-onready var job_name: = $BG/JobName
+onready var level: = $BG/XpBar/Level
+onready var xp_bar: = $BG/XpBar
+onready var xp: = $BG/XpBar/XP
 onready var job_desc: = $BG/Desc
 onready var job_sprite: = $BG/Sprite
 onready var perk_count: = $BG/Perks/Amt
 
 var selected_perk: PerkButton setget set_selected_perk
 
+var game: Game
 var jobs: Array
 var cur_job: Job
 
-func _ready() -> void:
-	pass
-
-func initialize(_jobs: Array) -> void:
+func initialize(_game: Game, _jobs: Array) -> void:
 	perks.hide_instantly()
+	game = _game
 	jobs = _jobs
 	cur_job = jobs[0] as Job
 	setup_perks()
@@ -39,21 +41,31 @@ func initialize(_jobs: Array) -> void:
 	clear_perk()
 
 func display_job_data() -> void:
-	job_name.text = cur_job.name
+	level.text = "Lv. " + str(cur_job.level) + " " + cur_job.name
+	var xp_to_level = xp_to_level()
+	if cur_job.level < 10: xp.text = comma_sep(cur_job.xp) + "/" + comma_sep(xp_to_level) + " XP"
+	else: xp.text = "Max Level"
+	xp_bar.max_value = xp_to_level
+	xp_bar.value = cur_job.xp if cur_job.level < 10 else 1100
 	perks_banner.text = cur_job.name + "'s" + " Perks"
 	job_desc.text = cur_job.desc
 	job_sprite.frame = cur_job.sprite_id
 	var count = get_perk_count()
 	perk_count.text = str(count[0]) + "/" + str(count[1])
 
+func xp_to_level() -> int:
+	return (cur_job.level + 1) * 100
+
 func display_perk(perk: PerkButton) -> void:
+	perk_panel.modulate.a = 1
 	perk_title.text = perk.text
 	perk_desc.text = perk.desc
 	perk_ranks.text = perk.ranks
 	if perk.perk.cur_ranks < perk.perk.max_ranks:
-		rank_up.text = "Rank Up ->" + str(perk.perk.cur_ranks + 1)
-		rank_cost.text = comma_sep(perk.perk.cost * (perk.perk.cur_ranks + 1))
-		rank_up.disabled = false
+		rank_up.text = "Rank " + str(perk.perk.cur_ranks) + " -> " + str(perk.perk.cur_ranks + 1)
+		rank_cost.text = comma_sep(perk.cost)
+		rank_up.disabled = perk.cost > game.gems
+		rank_cost.modulate.a = 0.5 if game.gems < perk.cost else 1
 		rank_gem.show()
 	else:
 		rank_up.text = "Max rank!"
@@ -63,6 +75,7 @@ func display_perk(perk: PerkButton) -> void:
 	perk_panel.show()
 
 func clear_perk() -> void:
+	perk_panel.modulate.a = 0.25
 	perk_title.text = ""
 	perk_desc.text = ""
 	perk_ranks.text = ""
@@ -95,6 +108,21 @@ func comma_sep(number: int) -> String:
 		res += string[i]
 	return res
 
+func set_selected_perk(value: PerkButton) -> void:
+	print(value.text)
+	value.chosen = !value.chosen
+	for child in perks_list.get_children():
+		if child != value:
+			child.chosen = false
+	selected_perk = value if value.chosen else null
+	if selected_perk == null:
+		AudioController.back()
+		clear_perk()
+		return
+	else:
+		AudioController.click()
+		display_perk(selected_perk)
+
 func _on_Perk_pressed(button) -> void:
 	self.selected_perk = button
 
@@ -121,23 +149,9 @@ func _on_Perks_pressed():
 	yield(perks, "done")
 	$BG/Perks.mouse_filter = Control.MOUSE_FILTER_STOP
 
-func set_selected_perk(value: PerkButton) -> void:
-	print(value.text)
-	value.chosen = !value.chosen
-	for child in perks_list.get_children():
-		if child != value:
-			child.chosen = false
-	selected_perk = value if value.chosen else null
-	if selected_perk == null:
-		AudioController.back()
-		clear_perk()
-		return
-	else:
-		AudioController.click()
-		display_perk(selected_perk)
-
 func _on_RankUp_pressed():
 	AudioController.click()
+	game.spend_gems(selected_perk.cost)
 	selected_perk.rank_up()
 	display_perk(selected_perk)
 	var count = get_perk_count()

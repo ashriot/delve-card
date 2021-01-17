@@ -10,6 +10,6 @@ desc = "Gain 1 maximum ST."
 trait = true
 units = [ "gold" ]
 amts = [ 5 ]
-cost = 2000
+cost = 800
 cur_ranks = 0
 max_ranks = 1

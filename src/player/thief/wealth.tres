@@ -10,6 +10,6 @@ desc = "Increases starting gold."
 trait = false
 units = [ "gold" ]
 amts = [ 5 ]
-cost = 100
+cost = 30
 cur_ranks = 0
 max_ranks = 5

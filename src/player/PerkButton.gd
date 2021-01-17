@@ -6,17 +6,20 @@ onready var chosen: = false setget set_chosen
 var perk: Perk
 var desc: String setget , get_desc
 var ranks: String setget, get_ranks
+var cost: int
 
 func initialize(_perk: Perk):
-	perk = _perk
 	$Chosen.hide()
+	perk = _perk
 	text = perk.name
+	cost = (perk.cur_ranks + 1) * perk.cost
 	$Ranks.text = self.ranks
 	$Chosen/Label.text = perk.name
 	$Chosen/Ranks.text = self.ranks
 
 func rank_up() -> void:
 	perk.cur_ranks += 1
+	cost = (perk.cur_ranks + 1) * perk.cost
 	$Ranks.text = self.ranks
 	$Chosen/Ranks.text = self.ranks
 
