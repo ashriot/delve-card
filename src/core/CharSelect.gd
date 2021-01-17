@@ -34,8 +34,9 @@ func initialize(_jobs: Array) -> void:
 	perks.hide_instantly()
 	jobs = _jobs
 	cur_job = jobs[0] as Job
+	setup_perks()
 	display_job_data()
-	perk_panel.hide()
+	clear_perk()
 
 func display_job_data() -> void:
 	job_name.text = cur_job.name
@@ -61,16 +62,27 @@ func display_perk(perk: PerkButton) -> void:
 		rank_gem.hide()
 	perk_panel.show()
 
-func get_perk_count() -> Array:
-	var count = [0, 0] as Array
+func clear_perk() -> void:
+	perk_title.text = ""
+	perk_desc.text = ""
+	perk_ranks.text = ""
+	rank_up.text = ""
+	rank_cost.text = ""
+	rank_up.disabled = true
+	rank_gem.hide()
+
+func setup_perks() -> void:
 	for perk in cur_job.perks:
-		count[0] += perk.cur_ranks
-		count[1] += perk.max_ranks
 		var new_perk = _Perk.instance()
 		new_perk.initialize(perk)
 		new_perk.connect("pressed", self, "_on_Perk_pressed", [new_perk])
 		perks_list.add_child(new_perk)
-		print(perk.name)
+
+func get_perk_count() -> Array:
+	var count = [0, 0] as Array
+	for perk in perks_list.get_children():
+		count[0] += perk.perk.cur_ranks
+		count[1] += perk.perk.max_ranks
 	return count
 
 func comma_sep(number: int) -> String:
@@ -118,7 +130,7 @@ func set_selected_perk(value: PerkButton) -> void:
 	selected_perk = value if value.chosen else null
 	if selected_perk == null:
 		AudioController.back()
-		perk_panel.hide()
+		clear_perk()
 		return
 	else:
 		AudioController.click()

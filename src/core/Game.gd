@@ -28,6 +28,9 @@ onready var char_select = $CharSelect
 onready var playerUI = $PlayerUI
 onready var settings = $Settings/Dimmer
 onready var settings_btn = $Settings/Settings
+onready var gem_shop = $GemShop
+
+var gems: = 0 setget set_gems
 
 var merchants: Dictionary
 
@@ -65,6 +68,7 @@ func _ready() -> void:
 	welcome.connect("save_core_data", self, "save_core_data")
 	$DemoScreen/Notes.hide()
 	char_select.hide()
+	self.gems = 2345
 	if skipping_intro:
 		skip_intro()
 	else:
@@ -473,3 +477,27 @@ func _on_Shop_shop_purchase(index: int, square_id: int):
 	items.remove(index)
 	save_game()
 	playerUI.refresh()
+
+func _on_OpenGemShop_pressed():
+	$OpenGemShop.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	AudioController.click()
+	gem_shop.gem_qty = comma_sep(gems)
+	gem_shop.show()
+	yield(gem_shop, "done")
+	$OpenGemShop.mouse_filter = Control.MOUSE_FILTER_STOP
+
+func comma_sep(number: int) -> String:
+	var string = str(number)
+	var mod = string.length() % 3
+	var res = ""
+	for i in range(0, string.length()):
+		if i != 0 && i % 3 == mod:
+			res += ","
+		res += string[i]
+	return res
+
+# SETTERS / GETTERS
+
+func set_gems(value) -> void:
+	gems = value
+	$OpenGemShop.text = comma_sep(value)
