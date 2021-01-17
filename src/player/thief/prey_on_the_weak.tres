@@ -4,12 +4,12 @@
 
 [resource]
 script = ExtResource( 1 )
-id = 11
-name = "Wealth"
-desc = "Increases starting gold."
-trait = false
+id = 19
+name = "Prey on the Weak"
+desc = "Enemies start each fight with 2 Weak."
+trait = true
 units = [ "gold" ]
 amts = [ 5 ]
-cost = 100
+cost = 3000
 cur_ranks = 0
-max_ranks = 5
+max_ranks = 1

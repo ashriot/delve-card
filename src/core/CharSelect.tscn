@@ -217,9 +217,11 @@ __meta__ = {
 
 [node name="Container" type="ScrollContainer" parent="Perks/BG2"]
 margin_left = 2.0
-margin_top = 10.0
-margin_right = 107.0
-margin_bottom = 105.0
+margin_top = 11.0
+margin_right = 106.0
+margin_bottom = 88.0
+follow_focus = true
+scroll_horizontal_enabled = false
 __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
@@ -233,9 +235,19 @@ __meta__ = {
 
 [node name="Details" type="Panel" parent="Perks/BG2"]
 margin_left = 2.0
-margin_top = 107.0
+margin_top = 90.0
 margin_right = 106.0
 margin_bottom = 173.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DescBG" type="ColorRect" parent="Perks/BG2/Details"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 103.0
+margin_bottom = 12.0
+color = Color( 0.447059, 0.435294, 0.419608, 0.560784 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -255,6 +267,25 @@ position = Vector2( -7, 3 )
 texture = ExtResource( 5 )
 centered = false
 
+[node name="Desc" type="Label" parent="Perks/BG2/Details"]
+margin_left = -1.0
+margin_top = 9.0
+margin_right = 105.0
+margin_bottom = 69.0
+custom_constants/line_spacing = 1
+text = "Maximum HP +5.
+(Next Rank: +5)
+Testing
+Testing
+Testing
+Testing
+Testing
+Testing"
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Ranks" type="Label" parent="Perks/BG2/Details"]
 anchor_left = 1.0
 anchor_right = 1.0
@@ -272,8 +303,7 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -13.0
-text = "Rank Up -> 1"
-icon = ExtResource( 5 )
+text = " Rank Up -> 1"
 align = 0
 __meta__ = {
 "_edit_use_anchors_": false
@@ -299,31 +329,9 @@ position = Vector2( 36, 5 )
 texture = ExtResource( 6 )
 centered = false
 
-[node name="DescBG" type="ColorRect" parent="Perks/BG2/Details"]
-margin_left = 3.0
-margin_top = 12.0
-margin_right = 101.0
-margin_bottom = 51.0
-color = Color( 0.447059, 0.435294, 0.419608, 0.294118 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Desc" type="Label" parent="Perks/BG2/Details"]
-margin_left = 1.0
-margin_top = 9.0
-margin_right = 105.0
-margin_bottom = 51.0
-custom_constants/line_spacing = 2
-text = "Maximum HP +5.
-(Next Rank: +5)"
-autowrap = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="Banner" type="ColorRect" parent="Perks"]
 anchor_right = 1.0
+margin_right = 108.0
 margin_bottom = 9.0
 color = Color( 0.145098, 0.145098, 0.133333, 1 )
 __meta__ = {
@@ -343,3 +351,4 @@ __meta__ = {
 }
 [connection signal="pressed" from="BG/Perks" to="." method="_on_Perks_pressed"]
 [connection signal="pressed" from="Perks/BG2/Back" to="." method="_on_Back_pressed"]
+[connection signal="pressed" from="Perks/BG2/Details/RankUp" to="." method="_on_RankUp_pressed"]
