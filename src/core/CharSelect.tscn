@@ -7,7 +7,7 @@
 [ext_resource path="res://assets/images/ui/talents.png" type="Texture" id=5]
 [ext_resource path="res://assets/images/ui/gem_tiny.png" type="Texture" id=6]
 [ext_resource path="res://assets/images/ui/fill_texture.png" type="Texture" id=7]
-[ext_resource path="res://assets/images/ui/ok.png" type="Texture" id=8]
+[ext_resource path="res://assets/images/ui/delve.png" type="Texture" id=8]
 [ext_resource path="res://src/core/BaseControl.tscn" type="PackedScene" id=9]
 [ext_resource path="res://assets/images/ui/Staff.png" type="Texture" id=10]
 [ext_resource path="res://assets/images/ui/Heart.png" type="Texture" id=11]
@@ -77,12 +77,12 @@ texture = ExtResource( 3 )
 centered = false
 vframes = 4
 hframes = 7
-frame = 1
+frame = 19
 
 [node name="XpBar" type="TextureProgress" parent="BG"]
 margin_left = 40.0
 margin_top = 21.0
-margin_right = 100.0
+margin_right = 106.0
 margin_bottom = 23.0
 value = 35.0
 texture_under = ExtResource( 7 )
@@ -110,7 +110,7 @@ anchor_top = 1.0
 anchor_bottom = 1.0
 margin_left = -3.0
 margin_top = -3.0
-margin_right = 60.0
+margin_right = 65.0
 margin_bottom = 11.0
 custom_colors/font_color = Color( 0.447059, 0.435294, 0.419608, 1 )
 text = "200/500 XP"
@@ -176,10 +176,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -9.0
+margin_left = -8.5
 margin_top = -14.0
-margin_right = 9.0
-text = "4"
+margin_right = 9.5
+text = "10"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
@@ -204,10 +204,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -9.0
+margin_left = -8.5
 margin_top = -14.0
-margin_right = 9.0
-text = "0"
+margin_right = 9.5
+text = "1"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
@@ -232,9 +232,9 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -9.0
+margin_left = -8.5
 margin_top = -14.0
-margin_right = 9.0
+margin_right = 9.5
 text = "3"
 align = 1
 __meta__ = {
@@ -272,11 +272,11 @@ __meta__ = {
 [node name="Desc" type="Label" parent="BG"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = 64.0
+margin_top = 65.0
 margin_right = 1.0
-margin_bottom = -56.0
+margin_bottom = -55.0
 custom_constants/line_spacing = 1
-text = "An offensive unit that uses heavy weaponry and shields to fight."
+text = "A devout class that relies on her faith to empower both her attacks and her defense."
 align = 1
 autowrap = true
 __meta__ = {
@@ -290,6 +290,7 @@ margin_right = 52.0
 margin_bottom = 170.0
 text = "Prev"
 icon = ExtResource( 15 )
+align = 0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -299,17 +300,21 @@ margin_left = 56.0
 margin_top = 157.0
 margin_right = 106.0
 margin_bottom = 170.0
-text = "Next"
-icon = ExtResource( 4 )
+text = "   Next"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Sprite" type="Sprite" parent="BG/Next"]
+position = Vector2( 39, 2 )
+texture = ExtResource( 4 )
+centered = false
+
 [node name="Perks" type="Button" parent="BG"]
 margin_left = 2.0
-margin_top = 52.0
+margin_top = 53.0
 margin_right = 106.0
-margin_bottom = 65.0
+margin_bottom = 66.0
 text = "Perks"
 icon = ExtResource( 5 )
 align = 0
@@ -341,7 +346,7 @@ margin_left = 27.0
 margin_top = -55.0
 margin_right = -27.0
 margin_bottom = -42.0
-text = "GO!"
+text = "Delve!"
 icon = ExtResource( 8 )
 __meta__ = {
 "_edit_use_anchors_": false

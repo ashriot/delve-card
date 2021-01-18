@@ -40,15 +40,19 @@ func get_desc() -> String:
 	else:
 		if perk.cur_ranks > 0:
 			text += "\nCurrent: "
-			for i in range(perk.units.size()):
-				text += "+" + str(perk.amts[i] * perk.cur_ranks) + " " + perk.units[i]
-				text += "\n"
+			if perk.name == "Magic Armor": text += "1 AC per " + str(9 - perk.amts[0] * perk.cur_ranks) + " MP\n"
+			else:
+				for i in range(perk.units.size()):
+					text += "+" + str(perk.amts[i] * perk.cur_ranks) + " " + perk.units[i]
+					text += "\n"
 		else: text += "\n"
 		if perk.cur_ranks < perk.max_ranks:
 			text += "Next: "
-			for i in range(perk.units.size()):
-				text += "+" + str(perk.amts[i] * (perk.cur_ranks + 1)) + " " + perk.units[i]
-				text += "\n"
+			if perk.name == "Magic Armor": text += "1 AC per " + str(9 - perk.amts[0] * (perk.cur_ranks + 1)) + " MP"
+			else:
+				for i in range(perk.units.size()):
+					text += "+" + str(perk.amts[i] * (perk.cur_ranks + 1)) + " " + perk.units[i]
+					text += "\n"
 	return text
 
 func get_ranks() -> String:

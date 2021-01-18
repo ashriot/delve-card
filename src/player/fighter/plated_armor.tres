@@ -4,12 +4,12 @@
 
 [resource]
 script = ExtResource( 1 )
-id = 11
-name = "Wealth"
-desc = "Increases starting gold."
+id = 10
+name = "Plated Armor"
+desc = "Start fights with bonus AC."
 trait = false
-units = [ "gold" ]
-amts = [ 5 ]
-cost = 25
+units = [ "AC" ]
+amts = [ 2 ]
+cost = 75
 cur_ranks = 0
-max_ranks = 5
+max_ranks = 3

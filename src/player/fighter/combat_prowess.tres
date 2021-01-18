@@ -4,12 +4,12 @@
 
 [resource]
 script = ExtResource( 1 )
-id = 11
-name = "Wealth"
-desc = "Increases starting gold."
+id = 10
+name = "Combat Prowess"
+desc = "Increases the chance to criticall hit with Aim."
 trait = false
-units = [ "gold" ]
+units = [ "%" ]
 amts = [ 5 ]
-cost = 25
+cost = 175
 cur_ranks = 0
-max_ranks = 5
+max_ranks = 2

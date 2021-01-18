@@ -47,14 +47,14 @@ func initialize(_game: Game, _jobs: Array) -> void:
 	display_job_stats()
 	setup_perks()
 	display_job_data()
-	clear_perk()
 
 func display_job_stats() -> void:
-	hp.text = str(cur_job.max_hp)
-	mp.text = str(cur_job.initial_mp)
-	ac.text = str(cur_job.initial_ac)
-	st.text = str(cur_job.max_ap)
-	gp.text = str(cur_job.starting_gold)
+	update_perk_bonuses()
+	hp.text = str(cur_job.max_hp + cur_job.bonus_hp)
+	mp.text = str(cur_job.initial_mp + cur_job.bonus_mp)
+	ac.text = str(cur_job.initial_ac + cur_job.bonus_ac)
+	st.text = str(cur_job.max_st + cur_job.bonus_st)
+	gp.text = str(cur_job.starting_gold + cur_job.bonus_gp)
 
 func display_job_data() -> void:
 	level.text = "Lv. " + str(cur_job.level) + " " + cur_job.name
@@ -94,16 +94,6 @@ func display_perk(perk: PerkButton) -> void:
 			rank_gem.hide()
 	perk_panel.show()
 
-func clear_perk() -> void:
-	perk_panel.modulate.a = 0.25
-	perk_title.text = ""
-	perk_desc.text = ""
-	perk_ranks.text = ""
-	rank_up.text = ""
-	rank_cost.text = ""
-	rank_up.disabled = true
-	rank_gem.hide()
-
 func clear_perks_list() -> void:
 	for child in perks_list.get_children():
 		child.free()
@@ -119,6 +109,10 @@ func setup_perks() -> void:
 			new_perk.modulate.r = 0.5
 			new_perk.modulate.g = 0.5
 			new_perk.modulate.b = 0.5
+	var first = perks_list.get_child(0)
+	first.chosen = true
+	selected_perk = first
+	display_perk(first)
 
 func get_perk_count() -> Array:
 	var count = [0, 0] as Array
@@ -138,23 +132,25 @@ func comma_sep(number: int) -> String:
 	return res
 
 func set_selected_perk(value: PerkButton) -> void:
-	value.chosen = !value.chosen
-	for child in perks_list.get_children():
-		if child != value:
-			child.chosen = false
-	selected_perk = value if value.chosen else null
-	if selected_perk == null:
-		AudioController.back()
-		clear_perk()
-		return
-	else:
-		AudioController.click()
-		display_perk(selected_perk)
+	if value.chosen: return
+	AudioController.click()
+	selected_perk.chosen = false
+	value.chosen = true
+	selected_perk = value
+	display_perk(selected_perk)
 
 func apply_perk(perk: Perk) -> void:
-	if perk.name == "Toughness": cur_job.max_hp += perk.amts[0]
-	if perk.name == "Wealth": cur_job.starting_gold += perk.amts[0]
 	display_job_stats()
+
+func update_perk_bonuses() -> void:
+	cur_job.clear_bonuses()
+	for perk in cur_job.perks:
+		if perk.name == "Toughness": cur_job.bonus_hp = perk.amts[0] * perk.cur_ranks
+		if perk.name == "Wealth": cur_job.bonus_gp = perk.amts[0] * perk.cur_ranks
+		if perk.name == "Clarity": cur_job.bonus_mp = perk.amts[0] * perk.cur_ranks
+		if perk.name == "Plated Armor": cur_job.bonus_ac = perk.amts[0] * perk.cur_ranks
+		if perk.name == "Magic Armor" and perk.cur_ranks > 0:
+			cur_job.bonus_ac = ((cur_job.initial_mp + cur_job.bonus_mp) / ( 9 - perk.amts[0]) * perk.cur_ranks)
 
 func _on_Perk_pressed(button) -> void:
 	self.selected_perk = button
@@ -173,9 +169,6 @@ func _on_PerksBack_pressed():
 	AudioController.back()
 	perks.hide(false)
 	yield(perks, "done")
-	clear_perk()
-	for child in perks_list.get_children():
-		child.chosen = false
 	$Perks/BG2/PerksBack.mouse_filter = Control.MOUSE_FILTER_STOP
 
 func _on_Perks_pressed():
@@ -197,7 +190,6 @@ func _on_RankUp_pressed():
 func _on_Back_pressed():
 	AudioController.back()
 	emit_signal("back")
-	clear_perk()
 
 func _on_Prev_pressed():
 	AudioController.click()
@@ -207,7 +199,6 @@ func _on_Prev_pressed():
 	display_job_stats()
 	setup_perks()
 	display_job_data()
-	clear_perk()
 
 func _on_Next_pressed():
 	AudioController.click()
@@ -217,4 +208,3 @@ func _on_Next_pressed():
 	display_job_stats()
 	setup_perks()
 	display_job_data()
-	clear_perk()
