@@ -13,8 +13,8 @@ onready var ac: = $BG/Stats/AC/Label
 onready var st: = $BG/Stats/ST/Label
 onready var gp: = $BG/Stats/GP/Label
 
-onready var next_btn: = $BG/Prev
-onready var prev_btn: = $BG/Next
+onready var prev_btn: = $BG/Prev
+onready var next_btn: = $BG/Next
 onready var perks: = $Perks
 onready var perks_banner: = $Perks/Banner/ClassPerks
 onready var perks_list: = $Perks/BG2/Container/Perks
@@ -151,6 +151,11 @@ func set_selected_perk(value: PerkButton) -> void:
 		AudioController.click()
 		display_perk(selected_perk)
 
+func apply_perk(perk: Perk) -> void:
+	if perk.name == "Toughness": cur_job.max_hp += perk.amts[0]
+	if perk.name == "Wealth": cur_job.starting_gold += perk.amts[0]
+	display_job_stats()
+
 func _on_Perk_pressed(button) -> void:
 	self.selected_perk = button
 
@@ -168,6 +173,9 @@ func _on_PerksBack_pressed():
 	AudioController.back()
 	perks.hide(false)
 	yield(perks, "done")
+	clear_perk()
+	for child in perks_list.get_children():
+		child.chosen = false
 	$Perks/BG2/PerksBack.mouse_filter = Control.MOUSE_FILTER_STOP
 
 func _on_Perks_pressed():
@@ -189,9 +197,24 @@ func _on_RankUp_pressed():
 func _on_Back_pressed():
 	AudioController.back()
 	emit_signal("back")
+	clear_perk()
 
-func apply_perk(perk: Perk) -> void:
-	print("Gaining effect from level " + str(perk.cur_ranks) + " " + perk.name)
-	if perk.name == "Toughness":
-		cur_job.max_hp += perk.amts[0]
+func _on_Prev_pressed():
+	AudioController.click()
+	var index = jobs.find(cur_job) - 1
+	cur_job = jobs[index]
+	print(index)
 	display_job_stats()
+	setup_perks()
+	display_job_data()
+	clear_perk()
+
+func _on_Next_pressed():
+	AudioController.click()
+	var index = (jobs.find(cur_job) + 1) % jobs.size()
+	cur_job = jobs[index]
+	print(index)
+	display_job_stats()
+	setup_perks()
+	display_job_data()
+	clear_perk()

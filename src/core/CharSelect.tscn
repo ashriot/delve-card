@@ -121,9 +121,9 @@ __meta__ = {
 [node name="Stats" type="HBoxContainer" parent="BG"]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -13.0
+margin_left = -12.0
 margin_top = 35.0
-margin_right = 72.0
+margin_right = 73.0
 margin_bottom = 52.0
 custom_constants/separation = 5
 __meta__ = {
@@ -148,10 +148,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -9.0
+margin_left = -11.5
 margin_top = -14.0
-margin_right = 9.0
-text = "60"
+margin_right = 11.5
+text = "100"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
@@ -538,6 +538,8 @@ __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
 }
+[connection signal="pressed" from="BG/Prev" to="." method="_on_Prev_pressed"]
+[connection signal="pressed" from="BG/Next" to="." method="_on_Next_pressed"]
 [connection signal="pressed" from="BG/Perks" to="." method="_on_Perks_pressed"]
 [connection signal="pressed" from="BG/Back" to="." method="_on_Back_pressed"]
 [connection signal="pressed" from="Perks/BG2/PerksBack" to="." method="_on_PerksBack_pressed"]

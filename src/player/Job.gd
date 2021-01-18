@@ -2,7 +2,7 @@ extends Resource
 class_name Job
 
 export var name: String
-export var desc: String
+export(String, MULTILINE) var desc
 export var sprite_id: int
 export var max_hp: int
 export var max_ap: int
