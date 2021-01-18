@@ -1,10 +1,14 @@
 extends BaseControl
 
 onready var donor = $BG/DonorBundles
+signal buy_gems(qty)
 
 var gem_qty: String setget set_gem_qty
 
 func _ready():
+	var buttons = get_tree().get_nodes_in_group("GemButtons")
+	for btn in buttons:
+		btn.connect("pressed", self, "_on_GemButton_pressed", [btn])
 	hide()
 
 func _on_CloseShop_pressed():
@@ -27,6 +31,10 @@ func _on_DonorBack_pressed():
 	donor.hide()
 	yield(donor, "done")
 	$BG/DonorBundles/DonorBack.mouse_filter = Control.MOUSE_FILTER_STOP
+
+func _on_GemButton_pressed(btn):
+	AudioController.confirm()
+	if btn.name == "Pile": emit_signal("buy_gems", 250)
 
 func set_gem_qty(value) -> void:
 	$BG/GemQty.text = str(value)

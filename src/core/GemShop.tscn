@@ -92,7 +92,9 @@ margin_right = 104.0
 margin_bottom = 13.0
 rect_min_size = Vector2( 98, 13 )
 
-[node name="Button" type="TextureButton" parent="BG/VBoxContainer/Button"]
+[node name="Coffee" type="TextureButton" parent="BG/VBoxContainer/Button" groups=[
+"GemButtons",
+]]
 margin_right = 13.0
 margin_bottom = 13.0
 texture_normal = ExtResource( 9 )
@@ -169,7 +171,9 @@ margin_right = 104.0
 margin_bottom = 29.0
 rect_min_size = Vector2( 98, 13 )
 
-[node name="Button" type="TextureButton" parent="BG/VBoxContainer/Button2"]
+[node name="Pile" type="TextureButton" parent="BG/VBoxContainer/Button2" groups=[
+"GemButtons",
+]]
 margin_right = 13.0
 margin_bottom = 13.0
 texture_normal = ExtResource( 1 )
@@ -241,7 +245,9 @@ margin_right = 104.0
 margin_bottom = 45.0
 rect_min_size = Vector2( 98, 13 )
 
-[node name="Button" type="TextureButton" parent="BG/VBoxContainer/Button3"]
+[node name="Stash" type="TextureButton" parent="BG/VBoxContainer/Button3" groups=[
+"GemButtons",
+]]
 margin_right = 13.0
 margin_bottom = 13.0
 texture_normal = ExtResource( 1 )
@@ -313,7 +319,9 @@ margin_right = 104.0
 margin_bottom = 61.0
 rect_min_size = Vector2( 98, 13 )
 
-[node name="Button" type="TextureButton" parent="BG/VBoxContainer/Button4"]
+[node name="Box" type="TextureButton" parent="BG/VBoxContainer/Button4" groups=[
+"GemButtons",
+]]
 margin_right = 13.0
 margin_bottom = 13.0
 texture_normal = ExtResource( 1 )
@@ -385,7 +393,9 @@ margin_right = 104.0
 margin_bottom = 77.0
 rect_min_size = Vector2( 98, 13 )
 
-[node name="Button" type="TextureButton" parent="BG/VBoxContainer/Button5"]
+[node name="Crate" type="TextureButton" parent="BG/VBoxContainer/Button5" groups=[
+"GemButtons",
+]]
 margin_right = 13.0
 margin_bottom = 13.0
 texture_normal = ExtResource( 1 )
@@ -457,7 +467,9 @@ margin_right = 104.0
 margin_bottom = 93.0
 rect_min_size = Vector2( 98, 13 )
 
-[node name="Button" type="TextureButton" parent="BG/VBoxContainer/Button6"]
+[node name="Bounty" type="TextureButton" parent="BG/VBoxContainer/Button6" groups=[
+"GemButtons",
+]]
 margin_right = 13.0
 margin_bottom = 13.0
 texture_normal = ExtResource( 1 )

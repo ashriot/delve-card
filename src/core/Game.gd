@@ -504,8 +504,14 @@ func _on_CharSelect_back():
 	welcome.show()
 	fade.play("FadeIn")
 
+func _on_GemShop_buy_gems(qty):
+	self.gems += qty
+	char_select.setup_perk_button()
+
 # SETTERS / GETTERS
 
 func set_gems(value) -> void:
 	gems = value
 	$OpenGemShop.text = comma_sep(value) + "  "
+	gem_shop.gem_qty = comma_sep(gems)
+

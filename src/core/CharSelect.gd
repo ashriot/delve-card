@@ -4,8 +4,6 @@ signal chose_class(name)
 signal spent_gems(qty)
 signal back
 
-onready var _Perk: = preload("res://src/player/Perk.tscn")
-
 # STATS
 onready var hp: = $BG/Stats/HP/Label
 onready var mp: = $BG/Stats/MP/Label
@@ -31,7 +29,11 @@ onready var xp_bar: = $BG/XpBar
 onready var xp: = $BG/XpBar/XP
 onready var job_desc: = $BG/Desc
 onready var job_sprite: = $BG/Portrait
+onready var perk_button: = $BG/Perks
 onready var perk_count: = $BG/Perks/Amt
+onready var unlock_cost: = $BG/Perks/Price
+
+onready var delve: = $BG/Delve
 
 var selected_perk: PerkButton setget set_selected_perk
 
@@ -44,6 +46,8 @@ func initialize(_game: Game, _jobs: Array) -> void:
 	game = _game
 	jobs = _jobs
 	cur_job = jobs[0] as Job
+	for perk in perks_list.get_children():
+		perk.connect("pressed", self, "_on_Perk_pressed", [perk])
 	display_job_stats()
 	setup_perks()
 	display_job_data()
@@ -59,15 +63,33 @@ func display_job_stats() -> void:
 func display_job_data() -> void:
 	level.text = "Lv. " + str(cur_job.level) + " " + cur_job.name
 	var xp_to_level = xp_to_level()
-	if cur_job.level < 10: xp.text = comma_sep(cur_job.xp) + "/" + comma_sep(xp_to_level) + " XP"
+	if !cur_job.unlocked: xp.text = "LOCKED"
+	elif cur_job.level < 10: xp.text = comma_sep(cur_job.xp) + "/" + comma_sep(xp_to_level) + " XP"
 	else: xp.text = "Max Level"
 	xp_bar.max_value = xp_to_level
 	xp_bar.value = cur_job.xp if cur_job.level < 10 else 1100
 	perks_banner.text = "Level " + str(cur_job.level) + " " + cur_job.name + " Perks"
 	job_desc.text = cur_job.desc
 	job_sprite.frame = cur_job.sprite_id
-	var count = get_perk_count()
-	perk_count.text = str(count[0]) + "/" + str(count[1])
+	setup_perk_button()
+
+func setup_perk_button() -> void:
+	delve.disabled = !cur_job.unlocked
+	if cur_job.unlocked:
+		perk_button.icon = load("res://assets/images/ui/talents.png")
+		perk_button.disabled = false
+		perk_button.text = "Perks"
+		var count = get_perk_count()
+		perk_count.text = str(count[0]) + "/" + str(count[1])
+		perk_count.show()
+		unlock_cost.hide()
+	else:
+		perk_button.icon = load("res://assets/images/ui/lock.png")
+		perk_button.disabled = game.gems < 1000
+		perk_button.text = "Unlock"
+		unlock_cost.text = comma_sep(1000)
+		perk_count.hide()
+		unlock_cost.show()
 
 func xp_to_level() -> int:
 	return (cur_job.level + 1) * 100
@@ -94,21 +116,15 @@ func display_perk(perk: PerkButton) -> void:
 			rank_gem.hide()
 	perk_panel.show()
 
-func clear_perks_list() -> void:
-	for child in perks_list.get_children():
-		child.free()
-
 func setup_perks() -> void:
-	clear_perks_list()
-	for perk in cur_job.perks:
-		var new_perk = _Perk.instance()
-		new_perk.initialize(perk)
-		new_perk.connect("pressed", self, "_on_Perk_pressed", [new_perk])
-		perks_list.add_child(new_perk)
-		if new_perk.get_index() >= cur_job.level:
-			new_perk.modulate.r = 0.5
-			new_perk.modulate.g = 0.5
-			new_perk.modulate.b = 0.5
+	for i in range(perks_list.get_child_count()):
+		var new_perk = perks_list.get_child(i)
+		if i >= cur_job.perks.size():
+			new_perk.clear()
+			continue
+		new_perk.initialize(cur_job.perks[i])
+		if i >= cur_job.level: new_perk.fade()
+		else: new_perk.opaque()
 	var first = perks_list.get_child(0)
 	first.chosen = true
 	selected_perk = first
@@ -117,6 +133,7 @@ func setup_perks() -> void:
 func get_perk_count() -> Array:
 	var count = [0, 0] as Array
 	for perk in perks_list.get_children():
+		if perk.perk == null: break
 		count[0] += perk.perk.cur_ranks
 		count[1] += perk.perk.max_ranks
 	return count
@@ -173,9 +190,15 @@ func _on_PerksBack_pressed():
 
 func _on_Perks_pressed():
 	$BG/Perks.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	AudioController.click()
-	perks.show(false)
-	yield(perks, "done")
+	if cur_job.unlocked:
+		AudioController.click()
+		perks.show(false)
+		yield(perks, "done")
+	else:
+		AudioController.confirm()
+		game.spend_gems(1000)
+		cur_job.unlocked = true
+		display_job_data()
 	$BG/Perks.mouse_filter = Control.MOUSE_FILTER_STOP
 
 func _on_RankUp_pressed():
@@ -195,7 +218,6 @@ func _on_Prev_pressed():
 	AudioController.click()
 	var index = jobs.find(cur_job) - 1
 	cur_job = jobs[index]
-	print(index)
 	display_job_stats()
 	setup_perks()
 	display_job_data()
@@ -204,7 +226,6 @@ func _on_Next_pressed():
 	AudioController.click()
 	var index = (jobs.find(cur_job) + 1) % jobs.size()
 	cur_job = jobs[index]
-	print(index)
 	display_job_stats()
 	setup_perks()
 	display_job_data()

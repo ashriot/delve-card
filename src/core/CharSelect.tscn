@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://assets/images/ui/back.png" type="Texture" id=1]
 [ext_resource path="res://src/core/CharSelect.gd" type="Script" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://assets/images/ui/Shield.png" type="Texture" id=13]
 [ext_resource path="res://assets/images/ui/stam_lg.png" type="Texture" id=14]
 [ext_resource path="res://assets/images/ui/prev.png" type="Texture" id=15]
+[ext_resource path="res://src/player/PerkButton.tscn" type="PackedScene" id=16]
 
 [sub_resource type="Animation" id=1]
 length = 1.4
@@ -323,6 +324,7 @@ __meta__ = {
 }
 
 [node name="Amt" type="Label" parent="BG/Perks"]
+visible = false
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
@@ -338,7 +340,24 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Go" type="Button" parent="BG"]
+[node name="Price" type="Label" parent="BG/Perks"]
+visible = false
+margin_left = 61.0
+margin_top = -1.0
+margin_right = 100.0
+margin_bottom = 13.0
+text = "1,000"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="BG/Perks/Price"]
+position = Vector2( 36, 5 )
+texture = ExtResource( 6 )
+centered = false
+
+[node name="Delve" type="Button" parent="BG"]
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -419,10 +438,50 @@ __meta__ = {
 }
 
 [node name="Perks" type="VBoxContainer" parent="Perks/BG2/Container"]
+margin_right = 100.0
+margin_bottom = 148.0
 custom_constants/separation = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="PerkButton" parent="Perks/BG2/Container/Perks" instance=ExtResource( 16 )]
+
+[node name="PerkButton2" parent="Perks/BG2/Container/Perks" instance=ExtResource( 16 )]
+margin_top = 15.0
+margin_bottom = 28.0
+
+[node name="PerkButton3" parent="Perks/BG2/Container/Perks" instance=ExtResource( 16 )]
+margin_top = 30.0
+margin_bottom = 43.0
+
+[node name="PerkButton4" parent="Perks/BG2/Container/Perks" instance=ExtResource( 16 )]
+margin_top = 45.0
+margin_bottom = 58.0
+
+[node name="PerkButton5" parent="Perks/BG2/Container/Perks" instance=ExtResource( 16 )]
+margin_top = 60.0
+margin_bottom = 73.0
+
+[node name="PerkButton6" parent="Perks/BG2/Container/Perks" instance=ExtResource( 16 )]
+margin_top = 75.0
+margin_bottom = 88.0
+
+[node name="PerkButton7" parent="Perks/BG2/Container/Perks" instance=ExtResource( 16 )]
+margin_top = 90.0
+margin_bottom = 103.0
+
+[node name="PerkButton8" parent="Perks/BG2/Container/Perks" instance=ExtResource( 16 )]
+margin_top = 105.0
+margin_bottom = 118.0
+
+[node name="PerkButton9" parent="Perks/BG2/Container/Perks" instance=ExtResource( 16 )]
+margin_top = 120.0
+margin_bottom = 133.0
+
+[node name="PerkButton10" parent="Perks/BG2/Container/Perks" instance=ExtResource( 16 )]
+margin_top = 135.0
+margin_bottom = 148.0
 
 [node name="Details" type="Panel" parent="Perks/BG2"]
 margin_left = 2.0

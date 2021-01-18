@@ -30,6 +30,25 @@ func set_chosen(value) -> void:
 	else:
 		$Chosen.hide()
 
+func clear() -> void:
+	chosen = false
+	perk = null
+	hide()
+
+func fade() -> void:
+	show()
+	chosen = false
+	modulate.r = 0.5
+	modulate.g = 0.5
+	modulate.b = 0.5
+
+func opaque() -> void:
+	show()
+	chosen = false
+	modulate.r = 1
+	modulate.g = 1
+	modulate.b = 1
+
 func get_desc() -> String:
 	var text = perk.desc + "\n"
 	if perk.trait:

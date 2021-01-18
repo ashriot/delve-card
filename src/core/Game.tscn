@@ -629,6 +629,7 @@ anims/FadeOut = SubResource( 15 )
 [connection signal="shop_purchase" from="Shop" to="." method="_on_Shop_shop_purchase"]
 [connection signal="pressed" from="OpenGemShop" to="." method="_on_OpenGemShop_pressed"]
 [connection signal="button_up" from="Title/ColorRect/StartGame" to="." method="_on_StartGame_button_up"]
+[connection signal="buy_gems" from="GemShop" to="." method="_on_GemShop_buy_gems"]
 [connection signal="toggled" from="Settings/Dimmer/AutoEnd/AutoEnd" to="." method="_on_AutoEnd_toggled"]
 [connection signal="button_down" from="Settings/Settings" to="." method="_on_Settings_button_down"]
 [connection signal="button_up" from="Settings/Settings" to="." method="_on_Settings_button_up"]
