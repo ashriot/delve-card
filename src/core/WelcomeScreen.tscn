@@ -273,7 +273,7 @@ anchor_right = 0.5
 margin_left = -49.0
 margin_top = 14.0
 margin_right = 49.0
-margin_bottom = 171.0
+margin_bottom = 157.0
 scroll_horizontal_enabled = false
 __meta__ = {
 "_edit_use_anchors_": false
@@ -283,9 +283,9 @@ __meta__ = {
 
 [node name="NewProfile" type="Button" parent="Profiles"]
 margin_left = 4.0
-margin_top = 173.0
+margin_top = 160.0
 margin_right = 104.0
-margin_bottom = 186.0
+margin_bottom = 173.0
 text = "New Profile"
 icon = ExtResource( 3 )
 align = 0
@@ -363,9 +363,10 @@ __meta__ = {
 }
 
 [node name="NewProfileBack" type="Button" parent="Profiles/CreateDialog/Panel"]
-margin_top = 137.0
+margin_left = -1.0
+margin_top = 124.0
 margin_right = 99.0
-margin_bottom = 150.0
+margin_bottom = 137.0
 text = "Back"
 icon = ExtResource( 17 )
 align = 0

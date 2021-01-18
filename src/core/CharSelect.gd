@@ -2,8 +2,16 @@ extends Node2D
 
 signal chose_class(name)
 signal spent_gems(qty)
+signal back
 
 onready var _Perk: = preload("res://src/player/Perk.tscn")
+
+# STATS
+onready var hp: = $BG/Stats/HP/Label
+onready var mp: = $BG/Stats/MP/Label
+onready var ac: = $BG/Stats/AC/Label
+onready var st: = $BG/Stats/ST/Label
+onready var gp: = $BG/Stats/GP/Label
 
 onready var next_btn: = $BG/Prev
 onready var prev_btn: = $BG/Next
@@ -22,7 +30,7 @@ onready var level: = $BG/XpBar/Level
 onready var xp_bar: = $BG/XpBar
 onready var xp: = $BG/XpBar/XP
 onready var job_desc: = $BG/Desc
-onready var job_sprite: = $BG/Sprite
+onready var job_sprite: = $BG/Portrait
 onready var perk_count: = $BG/Perks/Amt
 
 var selected_perk: PerkButton setget set_selected_perk
@@ -36,9 +44,17 @@ func initialize(_game: Game, _jobs: Array) -> void:
 	game = _game
 	jobs = _jobs
 	cur_job = jobs[0] as Job
+	display_job_stats()
 	setup_perks()
 	display_job_data()
 	clear_perk()
+
+func display_job_stats() -> void:
+	hp.text = str(cur_job.max_hp)
+	mp.text = str(cur_job.initial_mp)
+	ac.text = str(cur_job.initial_ac)
+	st.text = str(cur_job.max_ap)
+	gp.text = str(cur_job.starting_gold)
 
 func display_job_data() -> void:
 	level.text = "Lv. " + str(cur_job.level) + " " + cur_job.name
@@ -47,7 +63,7 @@ func display_job_data() -> void:
 	else: xp.text = "Max Level"
 	xp_bar.max_value = xp_to_level
 	xp_bar.value = cur_job.xp if cur_job.level < 10 else 1100
-	perks_banner.text = cur_job.name + "'s" + " Perks"
+	perks_banner.text = "Level " + str(cur_job.level) + " " + cur_job.name + " Perks"
 	job_desc.text = cur_job.desc
 	job_sprite.frame = cur_job.sprite_id
 	var count = get_perk_count()
@@ -61,17 +77,21 @@ func display_perk(perk: PerkButton) -> void:
 	perk_title.text = perk.text
 	perk_desc.text = perk.desc
 	perk_ranks.text = perk.ranks
-	if perk.perk.cur_ranks < perk.perk.max_ranks:
-		rank_up.text = "Rank " + str(perk.perk.cur_ranks) + " -> " + str(perk.perk.cur_ranks + 1)
-		rank_cost.text = comma_sep(perk.cost)
-		rank_up.disabled = perk.cost > game.gems
-		rank_cost.modulate.a = 0.5 if game.gems < perk.cost else 1
-		rank_gem.show()
+	rank_up.disabled = true
+	rank_cost.text = comma_sep(perk.cost)
+	rank_cost.modulate.a = 0.5
+	rank_gem.show()
+	if perk.get_index() >= cur_job.level:
+		rank_up.text = "Requires level " + str(perk.get_index() + 1)
 	else:
-		rank_up.text = "Max rank!"
-		rank_cost.text = ""
-		rank_up.disabled = true
-		rank_gem.hide()
+		if perk.perk.cur_ranks < perk.perk.max_ranks:
+			rank_up.text = "Rank " + str(perk.perk.cur_ranks) + " -> " + str(perk.perk.cur_ranks + 1)
+			rank_up.disabled = perk.cost > game.gems
+			rank_cost.modulate.a = 0.5 if game.gems < perk.cost else 1
+		else:
+			rank_up.text = "Max rank!"
+			rank_cost.text = ""
+			rank_gem.hide()
 	perk_panel.show()
 
 func clear_perk() -> void:
@@ -84,12 +104,21 @@ func clear_perk() -> void:
 	rank_up.disabled = true
 	rank_gem.hide()
 
+func clear_perks_list() -> void:
+	for child in perks_list.get_children():
+		child.free()
+
 func setup_perks() -> void:
+	clear_perks_list()
 	for perk in cur_job.perks:
 		var new_perk = _Perk.instance()
 		new_perk.initialize(perk)
 		new_perk.connect("pressed", self, "_on_Perk_pressed", [new_perk])
 		perks_list.add_child(new_perk)
+		if new_perk.get_index() >= cur_job.level:
+			new_perk.modulate.r = 0.5
+			new_perk.modulate.g = 0.5
+			new_perk.modulate.b = 0.5
 
 func get_perk_count() -> Array:
 	var count = [0, 0] as Array
@@ -109,7 +138,6 @@ func comma_sep(number: int) -> String:
 	return res
 
 func set_selected_perk(value: PerkButton) -> void:
-	print(value.text)
 	value.chosen = !value.chosen
 	for child in perks_list.get_children():
 		if child != value:
@@ -135,12 +163,12 @@ func _on_Button_up(button):
 	print("chose ", button.name)
 	emit_signal("chose_class", button.name)
 
-func _on_Back_pressed():
-	$Perks/BG2/Back.mouse_filter = Control.MOUSE_FILTER_IGNORE
+func _on_PerksBack_pressed():
+	$Perks/BG2/PerksBack.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	AudioController.back()
 	perks.hide(false)
 	yield(perks, "done")
-	$Perks/BG2/Back.mouse_filter = Control.MOUSE_FILTER_STOP
+	$Perks/BG2/PerksBack.mouse_filter = Control.MOUSE_FILTER_STOP
 
 func _on_Perks_pressed():
 	$BG/Perks.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -150,9 +178,20 @@ func _on_Perks_pressed():
 	$BG/Perks.mouse_filter = Control.MOUSE_FILTER_STOP
 
 func _on_RankUp_pressed():
-	AudioController.click()
+	AudioController.confirm()
 	game.spend_gems(selected_perk.cost)
 	selected_perk.rank_up()
 	display_perk(selected_perk)
+	apply_perk(selected_perk.perk)
 	var count = get_perk_count()
 	perk_count.text = str(count[0]) + "/" + str(count[1])
+
+func _on_Back_pressed():
+	AudioController.back()
+	emit_signal("back")
+
+func apply_perk(perk: Perk) -> void:
+	print("Gaining effect from level " + str(perk.cur_ranks) + " " + perk.name)
+	if perk.name == "Toughness":
+		cur_job.max_hp += perk.amts[0]
+	display_job_stats()

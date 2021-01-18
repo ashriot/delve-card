@@ -346,10 +346,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="WelcomeScreen" parent="." instance=ExtResource( 16 )]
+
 [node name="CharSelect" parent="." instance=ExtResource( 9 )]
 visible = false
-
-[node name="WelcomeScreen" parent="." instance=ExtResource( 16 )]
 
 [node name="Loot" parent="." instance=ExtResource( 5 )]
 visible = false
@@ -618,11 +618,12 @@ anims/FadeOut = SubResource( 15 )
 [connection signal="button_up" from="DemoScreen/DemoStart" to="." method="_on_DemoStart_button_up"]
 [connection signal="button_up" from="DemoScreen/Patch" to="." method="_on_Patch_button_up"]
 [connection signal="button_up" from="DemoScreen/Notes/PatchBack" to="." method="_on_PatchBack_button_up"]
-[connection signal="chose_class" from="CharSelect" to="." method="_on_CharSelect_chose_class"]
-[connection signal="spent_gems" from="CharSelect" to="." method="_on_CharSelect_spent_gems"]
 [connection signal="load_game" from="WelcomeScreen" to="." method="_on_WelcomeScreen_load_game"]
 [connection signal="new" from="WelcomeScreen" to="." method="_on_WelcomeScreen_new"]
 [connection signal="profile_chose" from="WelcomeScreen" to="." method="_on_WelcomeScreen_profile_chose"]
+[connection signal="back" from="CharSelect" to="." method="_on_CharSelect_back"]
+[connection signal="chose_class" from="CharSelect" to="." method="_on_CharSelect_chose_class"]
+[connection signal="spent_gems" from="CharSelect" to="." method="_on_CharSelect_spent_gems"]
 [connection signal="hide_card" from="Loot" to="." method="hide_card"]
 [connection signal="show_card" from="Loot" to="." method="show_card"]
 [connection signal="shop_purchase" from="Shop" to="." method="_on_Shop_shop_purchase"]

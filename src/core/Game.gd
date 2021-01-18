@@ -225,6 +225,11 @@ func start_game() -> void:
 	welcome.hide()
 	char_select.hide()
 	demo.hide()
+	dungeon.dungeon_name = "Dark Forest"
+	dungeon.max_prog = 3
+	dungeon.progress = 1
+	dungeon.initialize(self)
+	dungeon.new_map()
 	refresh_dungeon()
 	blacksmith.initialize(self)
 	shop.initialize(self)
@@ -433,13 +438,8 @@ func _on_WelcomeScreen_load_game():
 func _on_WelcomeScreen_new():
 	fade.play("FadeOut")
 	yield(fade, "animation_finished")
-	welcome.hide()
-	dungeon.dungeon_name = "Dark Forest"
-	dungeon.max_prog = 3
-	dungeon.progress = 1
-	dungeon.initialize(self)
-	dungeon.new_map()
 	char_select.initialize(self, core_data.unlocked_jobs)
+	welcome.hide()
 	char_select.show()
 	fade.play("FadeIn")
 
@@ -452,10 +452,6 @@ func _on_WelcomeScreen_profile_chose(username):
 
 func get_profile_hash() -> int:
 	return core_data.profile_name.hash()
-
-func _on_CharBack_pressed():
-	AudioController.back()
-	char_select.hide()
 
 func _on_Dungeon_shop(square_id: int):
 	var actions: Array = []
@@ -500,6 +496,13 @@ func comma_sep(number: int) -> String:
 			res += ","
 		res += string[i]
 	return res
+
+func _on_CharSelect_back():
+	fade.play("FadeOut")
+	yield(fade, "animation_finished")
+	char_select.hide()
+	welcome.show()
+	fade.play("FadeIn")
 
 # SETTERS / GETTERS
 

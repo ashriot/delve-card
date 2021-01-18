@@ -30,6 +30,16 @@ func play_sfx(name: String) -> void:
 	elif (!sfx3.playing):
 		sfx3.stream = load("res://assets/audio/sfx/" + name + ".wav")
 		sfx3.play()
+	elif (!sfx4.playing):
+		sfx4.stream = load("res://assets/audio/sfx/" + name + ".wav")
+		sfx4.play()
+	elif (!sfx5.playing):
+		sfx5.stream = load("res://assets/audio/sfx/" + name + ".wav")
+		sfx5.play()
+	else:
+		sfx1.stop()
+		sfx1.stream = load("res://assets/audio/sfx/" + name + ".wav")
+		sfx1.play()
 
 func click() -> void:
 	play_sfx("click")
