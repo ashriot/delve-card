@@ -61,9 +61,12 @@ func display_job_stats() -> void:
 	gp.text = str(cur_job.starting_gold + cur_job.bonus_gp)
 
 func display_job_data() -> void:
+	$BG/CharLock.hide()
 	level.text = "Lv. " + str(cur_job.level) + " " + cur_job.name
 	var xp_to_level = xp_to_level()
-	if !cur_job.unlocked: xp.text = "LOCKED"
+	if !cur_job.unlocked:
+		xp.text = "LOCKED"
+		$BG/CharLock.show()
 	elif cur_job.level < 10: xp.text = comma_sep(cur_job.xp) + "/" + comma_sep(xp_to_level) + " XP"
 	else: xp.text = "Max Level"
 	xp_bar.max_value = xp_to_level

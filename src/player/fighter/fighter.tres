@@ -9,6 +9,7 @@
 [resource]
 script = ExtResource( 3 )
 name = "Fighter"
+unlocked = true
 desc = "A mighty warrior who is a master of all weapons. Utilizes powerful shields to protect himself."
 sprite_id = 0
 max_hp = 70
