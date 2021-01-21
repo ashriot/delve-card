@@ -5,11 +5,11 @@
 [resource]
 script = ExtResource( 1 )
 id = 10
-name = "Toughness"
-desc = "Increases maximum hit points."
-trait = false
+name = "Iron Fortitude"
+desc = "Gain 6 additional maximum hit points."
+trait = true
 units = [ "HP" ]
-amts = [ 5 ]
-cost = 30
+amts = [ 6 ]
+cost = 350
 cur_ranks = 0
-max_ranks = 5
+max_ranks = 1

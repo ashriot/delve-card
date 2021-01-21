@@ -4,6 +4,8 @@ signal chose_class(name)
 signal spent_gems(qty)
 signal back
 
+export(Array, Resource) var jobs
+
 # STATS
 onready var hp: = $BG/Stats/HP/Label
 onready var mp: = $BG/Stats/MP/Label
@@ -38,27 +40,30 @@ onready var delve: = $BG/Delve
 var selected_perk: PerkButton setget set_selected_perk
 
 var game: Game
-var jobs: Array
 var cur_job: Job
 
-func initialize(_game: Game, _jobs: Array) -> void:
+var initialized: = false
+
+func initialize(_game: Game) -> void:
+	if !initialized:
+		game = _game
+		cur_job = jobs[0] as Job
+		for perk in perks_list.get_children():
+			perk.connect("pressed", self, "_on_Perk_pressed", [perk])
 	perks.hide_instantly()
-	game = _game
-	jobs = _jobs
-	cur_job = jobs[0] as Job
-	for perk in perks_list.get_children():
-		perk.connect("pressed", self, "_on_Perk_pressed", [perk])
 	display_job_stats()
 	setup_perks()
 	display_job_data()
+	initialized = true
+
 
 func display_job_stats() -> void:
 	update_perk_bonuses()
-	hp.text = str(cur_job.max_hp + cur_job.bonus_hp)
-	mp.text = str(cur_job.initial_mp + cur_job.bonus_mp)
-	ac.text = str(cur_job.initial_ac + cur_job.bonus_ac)
-	st.text = str(cur_job.max_st + cur_job.bonus_st)
-	gp.text = str(cur_job.starting_gold + cur_job.bonus_gp)
+	hp.text = str(cur_job.hp())
+	mp.text = str(cur_job.mp())
+	ac.text = str(cur_job.ac())
+	st.text = str(cur_job.st())
+	gp.text = str(cur_job.gold())
 
 func display_job_data() -> void:
 	$BG/CharLock.hide()
@@ -106,13 +111,13 @@ func display_perk(perk: PerkButton) -> void:
 	rank_cost.text = comma_sep(perk.cost)
 	rank_cost.modulate.a = 0.5
 	rank_gem.show()
-	if perk.get_index() >= cur_job.level:
+	if perk.get_index() >= cur_job.level + 1:
 		rank_up.text = "Requires level " + str(perk.get_index() + 1)
 	else:
 		if perk.perk.cur_ranks < perk.perk.max_ranks:
 			rank_up.text = "Rank " + str(perk.perk.cur_ranks) + " -> " + str(perk.perk.cur_ranks + 1)
 			rank_up.disabled = perk.cost > game.gems
-			rank_cost.modulate.a = 0.5 if game.gems < perk.cost else 1
+			rank_cost.modulate.a = 0.5 if game.gems < perk.cost else 1.0
 		else:
 			rank_up.text = "Max rank!"
 			rank_cost.text = ""
@@ -170,19 +175,13 @@ func update_perk_bonuses() -> void:
 		if perk.name == "Clarity": cur_job.bonus_mp = perk.amts[0] * perk.cur_ranks
 		if perk.name == "Plated Armor": cur_job.bonus_ac = perk.amts[0] * perk.cur_ranks
 		if perk.name == "Magic Armor" and perk.cur_ranks > 0:
-			cur_job.bonus_ac = ((cur_job.initial_mp + cur_job.bonus_mp) / ( 9 - perk.amts[0]) * perk.cur_ranks)
+			cur_job.bonus_ac = ((cur_job.mp()) / ( 9 - perk.amts[0]) * perk.cur_ranks)
 
 func _on_Perk_pressed(button) -> void:
 	self.selected_perk = button
 
-func _on_Button_down(button):
-	button.get_parent().modulate.a = .66
-
-func _on_Button_up(button):
-	AudioController.click()
-	button.get_parent().modulate.a = 1
-	print("chose ", button.name)
-	emit_signal("chose_class", button.name)
+#func _on_Button_down(button):
+#	button.get_parent().modulate.a = .66
 
 func _on_PerksBack_pressed():
 	$Perks/BG2/PerksBack.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -232,3 +231,8 @@ func _on_Next_pressed():
 	display_job_stats()
 	setup_perks()
 	display_job_data()
+
+func _on_Delve_pressed():
+	AudioController.confirm()
+	print("chose ", cur_job.name)
+	emit_signal("chose_class", cur_job.name)

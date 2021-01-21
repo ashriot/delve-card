@@ -38,7 +38,7 @@ func initialize(game: Node) -> void:
 		create_profile.hide_instantly()
 
 func _on_ContinueGame_pressed():
-	AudioController.click()
+	AudioController.confirm()
 	emit_signal("load_game")
 
 func _on_NewGame_pressed():

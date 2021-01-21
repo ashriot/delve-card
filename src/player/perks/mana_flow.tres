@@ -5,11 +5,11 @@
 [resource]
 script = ExtResource( 1 )
 id = 10
-name = "Toughness"
-desc = "Increases maximum hit points."
-trait = false
-units = [ "HP" ]
-amts = [ 5 ]
-cost = 20
+name = "Mana Flow"
+desc = "Start fights with 4 additional magic points."
+trait = true
+units = [ "MP" ]
+amts = [ 4 ]
+cost = 350
 cur_ranks = 0
-max_ranks = 5
+max_ranks = 1

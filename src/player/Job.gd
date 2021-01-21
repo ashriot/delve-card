@@ -26,3 +26,18 @@ func clear_bonuses() -> void:
 	bonus_ac = 0
 	bonus_st = 0
 	bonus_gp = 0
+
+func hp() -> int:
+	return max_hp + bonus_hp
+
+func mp() -> int:
+	return initial_mp + bonus_mp
+
+func ac() -> int:
+	return initial_ac + bonus_ac
+
+func st() -> int:
+	return max_st + bonus_st
+
+func gold() -> int:
+	return starting_gold + bonus_gp

@@ -20,9 +20,9 @@ export var down: = Vector2.ZERO
 export var left: = Vector2.ZERO
 export var right: = Vector2.ZERO
 export var connected: = false
+export var initialized: = false
 
 var connections: = 0 setget, get_connections
-var initialized: = false
 
 func initialize(_type: String, texture: Texture, _enemy_name: = "") -> void:
 	if initialized: return

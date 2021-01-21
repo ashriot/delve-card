@@ -29,6 +29,7 @@ onready var playerUI = $PlayerUI
 onready var settings = $Settings/Dimmer
 onready var settings_btn = $Settings/Settings
 onready var gem_shop = $GemShop
+onready var open_gem_shop = $OpenGemShop
 
 var gems: = 0 setget set_gems
 
@@ -53,7 +54,7 @@ func _ready() -> void:
 	AudioController.mute = mute
 	AudioController.play_bgm("title")
 	init_dir()
-	$OpenGemShop.hide()
+	open_gem_shop.hide()
 	playerUI.hide()
 	settings.hide()
 	battle.hide()
@@ -87,7 +88,7 @@ func init_dir() -> void:
 
 	# CREATE DATA
 	if !core_exists():
-		core_data = load("res://src/player/new_game.tres")
+		core_data = CoreData.new()
 		core_data.game_version =  ProjectSettings.get_setting("application/config/version")
 		var path = save_path.plus_file("core.tres")
 		var error: int = ResourceSaver.save(path, core_data)
@@ -211,8 +212,6 @@ func save_exists() -> bool:
 
 func _on_StartGame_button_up() -> void:
 	AudioController.click()
-	fade.play("FadeOut")
-	yield(fade, "animation_finished")
 	title.hide()
 #	demo.show()
 	welcome.show()
@@ -221,16 +220,23 @@ func _on_StartGame_button_up() -> void:
 	yield(fade, "animation_finished")
 
 func start_game() -> void:
-	title.hide()
-	welcome.hide()
-	char_select.hide()
-	demo.hide()
 	dungeon.dungeon_name = "Dark Forest"
 	dungeon.max_prog = 3
 	dungeon.progress = 1
 	dungeon.initialize(self)
 	dungeon.new_map()
 	refresh_dungeon()
+	enter_game()
+
+func enter_game() -> void:
+	AudioController.stop_bgm()
+	fade.play("FadeOut")
+	yield(fade, "animation_finished")
+	title.hide()
+	welcome.hide()
+	char_select.hide()
+	open_gem_shop.hide()
+	demo.hide()
 	blacksmith.initialize(self)
 	shop.initialize(self)
 	shop.connect("show_card", self, "show_card")
@@ -246,6 +252,7 @@ func start_game() -> void:
 	dungeon.show()
 	playerUI.initialize(self)
 	playerUI.show()
+	yield(get_tree().create_timer(0.5), "timeout")
 	fade.play("FadeIn")
 	AudioController.play_bgm("dungeon")
 	yield(fade, "animation_finished")
@@ -330,9 +337,15 @@ func _on_DemoStart_button_up():
 func _on_CharSelect_chose_class(name: String) -> void:
 	var n = name.to_lower()
 	var player_res = load("res://src/actions/" + n + "/" + n + ".tres")
-	player = player_res
+	var job = load("res://src/player/jobs/" + n + ".tres") as Job
+	player = player_res as Actor
+	player.max_hp += job.hp()
+	player.initial_mp += job.mp()
+	player.initial_ac += job.ac()
+	player.max_ap += job.st()
+	player.gold += job.gold()
 	player.hp = player.max_hp
-	skip_intro()
+	start_game()
 
 func skip_intro() -> void:
 	fade.play("FadeOut")
@@ -433,12 +446,16 @@ func _on_WelcomeScreen_load_game():
 	loading = true
 	player = playerUI.player
 	load_game()
-	start_game()
+	enter_game()
 
 func _on_WelcomeScreen_new():
 	fade.play("FadeOut")
 	yield(fade, "animation_finished")
-	char_select.initialize(self, core_data.unlocked_jobs)
+	var save_path = SAVE_DIR.plus_file(SAVE_NAME_TEMPLATE % self.profile_hash)
+	delete_game(save_path)
+	welcome.continue_button.disabled = true
+	welcome.new_dialog.hide_instantly()
+	char_select.initialize(self)
 	welcome.hide()
 	char_select.show()
 	fade.play("FadeIn")
@@ -514,4 +531,3 @@ func set_gems(value) -> void:
 	gems = value
 	$OpenGemShop.text = comma_sep(value) + "  "
 	gem_shop.gem_qty = comma_sep(gems)
-

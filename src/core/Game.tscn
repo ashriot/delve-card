@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=2]
+[gd_scene load_steps=40 format=2]
 
 [ext_resource path="res://src/core/Battle.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/images/bgs/title.png" type="Texture" id=2]
@@ -21,6 +21,9 @@
 [ext_resource path="res://src/map/Blacksmith.tscn" type="PackedScene" id=19]
 [ext_resource path="res://assets/images/ui/gem_shop.png" type="Texture" id=20]
 [ext_resource path="res://src/core/Deck.tscn" type="PackedScene" id=21]
+[ext_resource path="res://src/player/jobs/sorcerer.tres" type="Resource" id=22]
+[ext_resource path="res://src/player/jobs/fighter.tres" type="Resource" id=23]
+[ext_resource path="res://src/player/jobs/thief.tres" type="Resource" id=24]
 
 [sub_resource type="Animation" id=1]
 length = 1.2
@@ -347,9 +350,10 @@ __meta__ = {
 }
 
 [node name="WelcomeScreen" parent="." instance=ExtResource( 16 )]
+visible = false
 
 [node name="CharSelect" parent="." instance=ExtResource( 9 )]
-visible = false
+jobs = [ ExtResource( 23 ), ExtResource( 24 ), ExtResource( 22 ) ]
 
 [node name="Loot" parent="." instance=ExtResource( 5 )]
 visible = false

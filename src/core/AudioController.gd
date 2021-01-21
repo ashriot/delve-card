@@ -20,6 +20,9 @@ func play_bgm(name: String) -> void:
 	bgm.stream = load("res://assets/audio/bgm/" + name + ".ogg")
 	bgm.play()
 
+func stop_bgm() -> void:
+	bgm.stop()
+
 func play_sfx(name: String) -> void:
 	if (!sfx1.playing):
 		sfx1.stream = load("res://assets/audio/sfx/" + name + ".wav")

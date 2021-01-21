@@ -35,9 +35,6 @@ tracks/0/keys = {
 
 [node name="CharSelect" type="Node2D"]
 script = ExtResource( 2 )
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="BG" type="ColorRect" parent="."]
 margin_right = 108.0
@@ -495,6 +492,10 @@ margin_bottom = 133.0
 margin_top = 135.0
 margin_bottom = 148.0
 
+[node name="PerkButton11" parent="Perks/BG2/Container/Perks" instance=ExtResource( 16 )]
+margin_top = 135.0
+margin_bottom = 148.0
+
 [node name="Details" type="Panel" parent="Perks/BG2"]
 margin_left = 2.0
 margin_top = 90.0
@@ -617,6 +618,7 @@ __meta__ = {
 [connection signal="pressed" from="BG/Prev" to="." method="_on_Prev_pressed"]
 [connection signal="pressed" from="BG/Next" to="." method="_on_Next_pressed"]
 [connection signal="pressed" from="BG/Perks" to="." method="_on_Perks_pressed"]
+[connection signal="pressed" from="BG/Delve" to="." method="_on_Delve_pressed"]
 [connection signal="pressed" from="BG/Back" to="." method="_on_Back_pressed"]
 [connection signal="pressed" from="Perks/BG2/PerksBack" to="." method="_on_PerksBack_pressed"]
 [connection signal="pressed" from="Perks/BG2/Details/RankUp" to="." method="_on_RankUp_pressed"]
