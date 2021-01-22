@@ -4,7 +4,6 @@
 
 [resource]
 script = ExtResource( 1 )
-id = 16
 name = "Ghost"
 desc = "Start fights with 2 Dodge."
 trait = true

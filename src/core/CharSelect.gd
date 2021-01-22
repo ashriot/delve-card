@@ -4,7 +4,6 @@ signal chose_class(name)
 signal spent_gems(qty)
 signal back
 
-export(Array, Resource) var jobs
 
 # STATS
 onready var hp: = $BG/Stats/HP/Label
@@ -40,6 +39,7 @@ onready var delve: = $BG/Delve
 var selected_perk: PerkButton setget set_selected_perk
 
 var game: Game
+var jobs: Array
 var cur_job: Job
 
 var initialized: = false
@@ -47,6 +47,7 @@ var initialized: = false
 func initialize(_game: Game) -> void:
 	if !initialized:
 		game = _game
+		jobs = _game.jobs
 		cur_job = jobs[0] as Job
 		for perk in perks_list.get_children():
 			perk.connect("pressed", self, "_on_Perk_pressed", [perk])
@@ -55,7 +56,6 @@ func initialize(_game: Game) -> void:
 	setup_perks()
 	display_job_data()
 	initialized = true
-
 
 func display_job_stats() -> void:
 	update_perk_bonuses()
@@ -82,6 +82,7 @@ func display_job_data() -> void:
 	setup_perk_button()
 
 func setup_perk_button() -> void:
+	if cur_job == null: return
 	delve.disabled = !cur_job.unlocked
 	if cur_job.unlocked:
 		perk_button.icon = load("res://assets/images/ui/talents.png")
@@ -103,7 +104,6 @@ func xp_to_level() -> int:
 	return (cur_job.level + 1) * 100
 
 func display_perk(perk: PerkButton) -> void:
-	perk_panel.modulate.a = 1
 	perk_title.text = perk.text
 	perk_desc.text = perk.desc
 	perk_ranks.text = perk.ranks
@@ -112,7 +112,7 @@ func display_perk(perk: PerkButton) -> void:
 	rank_cost.modulate.a = 0.5
 	rank_gem.show()
 	if perk.get_index() >= cur_job.level + 1:
-		rank_up.text = "Requires level " + str(perk.get_index() + 1)
+		rank_up.text = "Requires level " + str(perk.get_index())
 	else:
 		if perk.perk.cur_ranks < perk.perk.max_ranks:
 			rank_up.text = "Rank " + str(perk.perk.cur_ranks) + " -> " + str(perk.perk.cur_ranks + 1)
@@ -122,7 +122,6 @@ func display_perk(perk: PerkButton) -> void:
 			rank_up.text = "Max rank!"
 			rank_cost.text = ""
 			rank_gem.hide()
-	perk_panel.show()
 
 func setup_perks() -> void:
 	for i in range(perks_list.get_child_count()):
@@ -131,7 +130,7 @@ func setup_perks() -> void:
 			new_perk.clear()
 			continue
 		new_perk.initialize(cur_job.perks[i])
-		if i >= cur_job.level: new_perk.fade()
+		if i > cur_job.level: new_perk.fade()
 		else: new_perk.opaque()
 	var first = perks_list.get_child(0)
 	first.chosen = true

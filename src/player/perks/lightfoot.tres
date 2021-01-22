@@ -4,7 +4,6 @@
 
 [resource]
 script = ExtResource( 1 )
-id = 12
 name = "Lightfoot"
 desc = "Increases the chance to avoid damage with Dodge."
 trait = false

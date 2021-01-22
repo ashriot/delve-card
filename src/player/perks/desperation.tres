@@ -4,7 +4,6 @@
 
 [resource]
 script = ExtResource( 1 )
-id = 18
 name = "Desperation"
 desc = "When below 50% HP, all attacks gain 25% lifesteal."
 trait = true

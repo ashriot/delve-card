@@ -4,7 +4,6 @@
 
 [resource]
 script = ExtResource( 1 )
-id = 10
 name = "Toughness"
 desc = "Increases maximum hit points."
 trait = false

@@ -138,6 +138,7 @@ script = ExtResource( 3 )
 player = ExtResource( 4 )
 rooms = 3
 mute = true
+jobs = [ ExtResource( 23 ), ExtResource( 22 ), ExtResource( 24 ) ]
 
 [node name="Battle" parent="." instance=ExtResource( 1 )]
 visible = false
@@ -353,7 +354,6 @@ __meta__ = {
 visible = false
 
 [node name="CharSelect" parent="." instance=ExtResource( 9 )]
-jobs = [ ExtResource( 23 ), ExtResource( 24 ), ExtResource( 22 ) ]
 
 [node name="Loot" parent="." instance=ExtResource( 5 )]
 visible = false

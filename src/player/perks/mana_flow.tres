@@ -4,7 +4,6 @@
 
 [resource]
 script = ExtResource( 1 )
-id = 10
 name = "Mana Flow"
 desc = "Start fights with 4 additional magic points."
 trait = true

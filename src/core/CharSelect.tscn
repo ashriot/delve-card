@@ -448,7 +448,7 @@ __meta__ = {
 
 [node name="Perks" type="VBoxContainer" parent="Perks/BG2/Container"]
 margin_right = 100.0
-margin_bottom = 148.0
+margin_bottom = 163.0
 custom_constants/separation = 2
 __meta__ = {
 "_edit_use_anchors_": false

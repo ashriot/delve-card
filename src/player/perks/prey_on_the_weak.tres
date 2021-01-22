@@ -4,7 +4,6 @@
 
 [resource]
 script = ExtResource( 1 )
-id = 19
 name = "Prey on the Weak"
 desc = "Enemies start each fight with 2 Weak."
 trait = true

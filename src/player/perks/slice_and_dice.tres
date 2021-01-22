@@ -4,7 +4,6 @@
 
 [resource]
 script = ExtResource( 1 )
-id = 14
 name = "Slice and Dice"
 desc = "Deal 1 damage each time you draw a Weapon action."
 trait = true

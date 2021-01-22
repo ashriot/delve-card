@@ -4,7 +4,6 @@
 
 [resource]
 script = ExtResource( 1 )
-id = 10
 name = "Loose Change"
 desc = "Instantly gain 20 additional gold."
 trait = true

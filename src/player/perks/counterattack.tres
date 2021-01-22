@@ -4,7 +4,6 @@
 
 [resource]
 script = ExtResource( 1 )
-id = 15
 name = "Counterattack"
 desc = "Deal 5 damage each time you dodge an attack."
 trait = true

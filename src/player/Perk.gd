@@ -1,7 +1,6 @@
 extends Resource
 class_name Perk
 
-export var id: = 0
 export var name: String
 export(String, MULTILINE) var desc
 export var trait: = false

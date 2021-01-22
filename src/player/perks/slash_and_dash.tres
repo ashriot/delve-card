@@ -4,7 +4,6 @@
 
 [resource]
 script = ExtResource( 1 )
-id = 17
 name = "Slash and Dash"
 desc = "15% chance to gain 1 ST when using an Action."
 trait = true

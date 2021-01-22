@@ -4,7 +4,6 @@
 
 [resource]
 script = ExtResource( 1 )
-id = 10
 name = "Plated Armor"
 desc = "Start fights with bonus AC."
 trait = false

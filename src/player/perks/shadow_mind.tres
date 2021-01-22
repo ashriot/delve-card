@@ -4,7 +4,6 @@
 
 [resource]
 script = ExtResource( 1 )
-id = 13
 name = "Shadow Mind"
 desc = "Start fights with bonus MP for each Spell action in your deck."
 trait = false

@@ -4,11 +4,10 @@
 
 [resource]
 script = ExtResource( 1 )
-id = 10
 name = "Combat Prowess"
-desc = "Increases the chance to criticall hit with Aim."
+desc = "Increases the chance to critically hit with Aim."
 trait = false
-units = [ "%" ]
+units = [ "% Crit with Aim" ]
 amts = [ 5 ]
 cost = 175
 cur_ranks = 0

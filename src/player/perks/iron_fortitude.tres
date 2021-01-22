@@ -4,7 +4,6 @@
 
 [resource]
 script = ExtResource( 1 )
-id = 10
 name = "Iron Fortitude"
 desc = "Gain 6 additional maximum hit points."
 trait = true

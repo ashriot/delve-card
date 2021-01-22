@@ -4,7 +4,6 @@
 
 [resource]
 script = ExtResource( 1 )
-id = 11
 name = "Wealth"
 desc = "Increases starting gold."
 trait = false

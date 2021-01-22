@@ -11,6 +11,7 @@ export var player: Resource
 export var rooms: = 5
 export var mute: = false
 export var skipping_intro: = false
+export(Array, Resource) var jobs
 
 onready var title: = $Title
 onready var welcome: = $WelcomeScreen
@@ -70,7 +71,6 @@ func _ready() -> void:
 	welcome.connect("save_core_data", self, "save_core_data")
 	$DemoScreen/Notes.hide()
 	char_select.hide()
-	self.gems = 2000
 	if skipping_intro:
 		skip_intro()
 	else:
@@ -89,15 +89,35 @@ func init_dir() -> void:
 	# CREATE DATA
 	if !core_exists():
 		core_data = CoreData.new()
+		core_data.gems = 0
+		self.gems = 0
 		core_data.game_version =  ProjectSettings.get_setting("application/config/version")
 		var path = save_path.plus_file("core.tres")
 		var error: int = ResourceSaver.save(path, core_data)
 		check_error(path, error)
+		initialize_job_data()
 	else: # LOAD
 		print("loading core")
 		save_path = SAVE_DIR.plus_file("core")
 		var path = save_path.plus_file("core.tres")
 		core_data = load(path)
+		self.gems = core_data.gems
+		load_job_data()
+
+func initialize_job_data() -> void:
+	for job in jobs:
+		job = job as Job
+		var data = {}
+		data["level"] = 1
+		data["xp"] = 0
+		data["perks"] = []
+		for perk in job.perks:
+			perk = perk as Perk
+			data["perks"].push_back({perk.name: 0})
+		core_data.job_data[job.name] = data
+
+func load_job_data() -> void:
+	pass
 
 func save_core_data() -> void:
 	print("saving the core -> ", core_data.profile_name)
@@ -129,6 +149,7 @@ func save_game() -> void:
 	var path = save_path.plus_file("player.tres")
 	var error: int = ResourceSaver.save(path, player)
 	check_error(path, error)
+
 	# SAVE DUNGEON
 	game_data.dungeon = {
 		"dungeon_name": dungeon.dungeon_name,
@@ -159,6 +180,7 @@ func load_game() -> void:
 	# Player Data
 	path = save_path.plus_file("player.tres")
 	player = load(path)
+
 	# Merchants Data
 	merchants = game_data.merchants
 
@@ -504,6 +526,9 @@ func _on_OpenGemShop_pressed():
 func spend_gems(qty):
 	self.gems -= qty
 
+func save_job(job_name: String, level: int) -> void:
+	pass
+
 func comma_sep(number: int) -> String:
 	var string = str(number)
 	var mod = string.length() % 3
@@ -529,5 +554,8 @@ func _on_GemShop_buy_gems(qty):
 
 func set_gems(value) -> void:
 	gems = value
+	print("Saving gem data")
+	core_data.gems = gems
+	save_core_data()
 	$OpenGemShop.text = comma_sep(value) + "  "
 	gem_shop.gem_qty = comma_sep(gems)
