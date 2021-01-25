@@ -94,8 +94,8 @@ func init_dir() -> void:
 		core_data.game_version =  ProjectSettings.get_setting("application/config/version")
 		var path = save_path.plus_file("core.tres")
 		var error: int = ResourceSaver.save(path, core_data)
-		check_error(path, error)
 		initialize_job_data()
+		check_error(path, error)
 	else: # LOAD
 		print("loading core")
 		save_path = SAVE_DIR.plus_file("core")
@@ -110,14 +110,30 @@ func initialize_job_data() -> void:
 		var data = {}
 		data["level"] = 1
 		data["xp"] = 0
-		data["perks"] = []
+		data["perks"] = {}
 		for perk in job.perks:
 			perk = perk as Perk
-			data["perks"].push_back({perk.name: 0})
+			data["perks"][perk.name] = 0
 		core_data.job_data[job.name] = data
 
 func load_job_data() -> void:
-	pass
+	for job in jobs:
+		job = job as Job
+		var data = core_data.job_data[job.name]
+		for perk in job.perks:
+			perk = perk as Perk
+			if !data["perks"].keys().has(perk.name):
+				print(job.name, " is missing perk: ", perk.name, " -> ", data["perks"].has(perk.name))
+				data["perks"][perk.name] = 0
+			else:
+				perk.cur_ranks = data["perks"][perk.name]
+
+func save_job_data(job: Job) -> void:
+	print("saving job data for ", job.name)
+	var data = core_data.job_data[job.name]
+	for perk in job.perks:
+		perk = perk as Perk
+		data["perks"][perk.name] = perk.cur_ranks
 
 func save_core_data() -> void:
 	print("saving the core -> ", core_data.profile_name)
@@ -549,6 +565,10 @@ func _on_CharSelect_back():
 func _on_GemShop_buy_gems(qty):
 	self.gems += qty
 	char_select.setup_perk_button()
+
+
+func _on_CharSelect_save_job(job):
+	save_job_data(job)
 
 # SETTERS / GETTERS
 

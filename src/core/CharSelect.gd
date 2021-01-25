@@ -3,7 +3,7 @@ extends Node2D
 signal chose_class(name)
 signal spent_gems(qty)
 signal back
-
+signal save_job(job)
 
 # STATS
 onready var hp: = $BG/Stats/HP/Label
@@ -45,6 +45,7 @@ var cur_job: Job
 var initialized: = false
 
 func initialize(_game: Game) -> void:
+	print("initializing char select")
 	if !initialized:
 		game = _game
 		jobs = _game.jobs
@@ -106,6 +107,7 @@ func xp_to_level() -> int:
 func display_perk(perk: PerkButton) -> void:
 	perk_title.text = perk.text
 	perk_desc.text = perk.desc
+	print(perk.perk.name, " -> ", perk.perk.cur_ranks)
 	perk_ranks.text = perk.ranks
 	rank_up.disabled = true
 	rank_cost.text = comma_sep(perk.cost)
@@ -164,6 +166,7 @@ func set_selected_perk(value: PerkButton) -> void:
 	display_perk(selected_perk)
 
 func apply_perk(perk: Perk) -> void:
+	emit_signal("save_job", cur_job)
 	display_job_stats()
 
 func update_perk_bonuses() -> void:
