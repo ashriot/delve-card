@@ -44,7 +44,7 @@ var SAVE_DIR = "user://saves/"
 var SAVE_NAME_TEMPLATE: String = "save_%d"
 var game_data = GameData.new()
 
-var game_seed: String = "GODOT"
+var game_seed: String = "GODOT" # randomize eventually
 
 # Settings
 var auto_end: = true
@@ -123,7 +123,6 @@ func load_job_data() -> void:
 		for perk in job.perks:
 			perk = perk as Perk
 			if !data["perks"].keys().has(perk.name):
-				print(job.name, " is missing perk: ", perk.name, " -> ", data["perks"].has(perk.name))
 				data["perks"][perk.name] = 0
 			else:
 				perk.cur_ranks = data["perks"][perk.name]
@@ -134,6 +133,7 @@ func save_job_data(job: Job) -> void:
 	for perk in job.perks:
 		perk = perk as Perk
 		data["perks"][perk.name] = perk.cur_ranks
+	save_core_data()
 
 func save_core_data() -> void:
 	print("saving the core -> ", core_data.profile_name)
