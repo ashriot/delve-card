@@ -89,8 +89,8 @@ func init_dir() -> void:
 	# CREATE DATA
 	if !core_exists():
 		core_data = CoreData.new()
-		core_data.gems = 0
-		self.gems = 0
+		core_data.gems = 1000
+		self.gems = 1000
 		core_data.game_version =  ProjectSettings.get_setting("application/config/version")
 		var path = save_path.plus_file("core.tres")
 		var error: int = ResourceSaver.save(path, core_data)
@@ -108,6 +108,7 @@ func initialize_job_data() -> void:
 	for job in jobs:
 		job = job as Job
 		var data = {}
+		data["unlocked"] = job.unlocked
 		data["level"] = 1
 		data["xp"] = 0
 		data["perks"] = {}
@@ -120,6 +121,9 @@ func load_job_data() -> void:
 	for job in jobs:
 		job = job as Job
 		var data = core_data.job_data[job.name]
+		job.unlocked = data.unlocked
+		job.level = data.level
+		job.xp = data.xp
 		for perk in job.perks:
 			perk = perk as Perk
 			if !data["perks"].keys().has(perk.name):
@@ -130,6 +134,7 @@ func load_job_data() -> void:
 func save_job_data(job: Job) -> void:
 	print("saving job data for ", job.name)
 	var data = core_data.job_data[job.name]
+	data["unlocked"] = job.unlocked
 	for perk in job.perks:
 		perk = perk as Perk
 		data["perks"][perk.name] = perk.cur_ranks

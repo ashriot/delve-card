@@ -1,7 +1,7 @@
 [gd_resource type="Resource" load_steps=7 format=2]
 
-[ext_resource path="res://src/player/perks/wealth.tres" type="Resource" id=1]
-[ext_resource path="res://src/player/perks/toughness.tres" type="Resource" id=2]
+[ext_resource path="res://src/player/perks/wealth-f.tres" type="Resource" id=1]
+[ext_resource path="res://src/player/perks/toughness-f.tres" type="Resource" id=2]
 [ext_resource path="res://src/player/Job.gd" type="Script" id=3]
 [ext_resource path="res://src/player/perks/plated_armor.tres" type="Resource" id=4]
 [ext_resource path="res://src/player/perks/combat_prowess.tres" type="Resource" id=5]

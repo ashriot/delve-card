@@ -52,8 +52,6 @@ func initialize(_game: Game) -> void:
 		cur_job = jobs[0] as Job
 		for perk in perks_list.get_children():
 			perk.connect("pressed", self, "_on_Perk_pressed", [perk])
-		for perk in cur_job.perks:
-			print(perk.name, ": ", perk.cur_ranks)
 	perks.hide_instantly()
 	display_job_stats()
 	setup_perks()
@@ -204,6 +202,7 @@ func _on_Perks_pressed():
 		AudioController.confirm()
 		game.spend_gems(1000)
 		cur_job.unlocked = true
+		emit_signal("save_job", cur_job)
 		display_job_data()
 	$BG/Perks.mouse_filter = Control.MOUSE_FILTER_STOP
 

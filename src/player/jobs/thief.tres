@@ -1,8 +1,8 @@
 [gd_resource type="Resource" load_steps=13 format=2]
 
-[ext_resource path="res://src/player/perks/toughness.tres" type="Resource" id=1]
+[ext_resource path="res://src/player/perks/toughness-t.tres" type="Resource" id=1]
 [ext_resource path="res://src/player/Job.gd" type="Script" id=2]
-[ext_resource path="res://src/player/perks/wealth.tres" type="Resource" id=3]
+[ext_resource path="res://src/player/perks/wealth-t.tres" type="Resource" id=3]
 [ext_resource path="res://src/player/perks/lightfoot.tres" type="Resource" id=4]
 [ext_resource path="res://src/player/perks/shadow_mind.tres" type="Resource" id=5]
 [ext_resource path="res://src/player/perks/slice_and_dice.tres" type="Resource" id=6]

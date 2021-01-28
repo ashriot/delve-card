@@ -1,7 +1,7 @@
 [gd_resource type="Resource" load_steps=7 format=2]
 
-[ext_resource path="res://src/player/perks/wealth.tres" type="Resource" id=1]
-[ext_resource path="res://src/player/perks/toughness.tres" type="Resource" id=2]
+[ext_resource path="res://src/player/perks/wealth-s.tres" type="Resource" id=1]
+[ext_resource path="res://src/player/perks/toughness-s.tres" type="Resource" id=2]
 [ext_resource path="res://src/player/perks/clarity.tres" type="Resource" id=3]
 [ext_resource path="res://src/player/perks/magic_armor.tres" type="Resource" id=4]
 [ext_resource path="res://src/player/perks/mana_flow.tres" type="Resource" id=5]
@@ -10,7 +10,7 @@
 [resource]
 script = ExtResource( 11 )
 name = "Sorcerer"
-unlocked = true
+unlocked = false
 desc = "A powerful spell-caster that commands the very elements to perform his bidding."
 sprite_id = 3
 max_hp = 50

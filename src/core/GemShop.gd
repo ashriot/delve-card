@@ -35,6 +35,7 @@ func _on_DonorBack_pressed():
 func _on_GemButton_pressed(btn):
 	AudioController.confirm()
 	if btn.name == "Pile": emit_signal("buy_gems", 250)
+	if btn.name == "Bounty": emit_signal("buy_gems", 4500)
 
 func set_gem_qty(value) -> void:
 	$BG/GemQty.text = str(value)
