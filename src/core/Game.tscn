@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=2]
+[gd_scene load_steps=41 format=2]
 
 [ext_resource path="res://src/core/Battle.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/images/bgs/title.png" type="Texture" id=2]
@@ -24,6 +24,7 @@
 [ext_resource path="res://src/player/jobs/sorcerer.tres" type="Resource" id=22]
 [ext_resource path="res://src/player/jobs/fighter.tres" type="Resource" id=23]
 [ext_resource path="res://src/player/jobs/thief.tres" type="Resource" id=24]
+[ext_resource path="res://src/map/TraitPicker.tscn" type="PackedScene" id=25]
 
 [sub_resource type="Animation" id=1]
 length = 1.2
@@ -144,7 +145,8 @@ jobs = [ ExtResource( 23 ), ExtResource( 22 ), ExtResource( 24 ) ]
 visible = false
 
 [node name="Dungeon" parent="." instance=ExtResource( 14 )]
-visible = false
+
+[node name="TraitPicker" parent="." instance=ExtResource( 25 )]
 
 [node name="DemoScreen" type="ColorRect" parent="."]
 visible = false
@@ -354,6 +356,7 @@ __meta__ = {
 visible = false
 
 [node name="CharSelect" parent="." instance=ExtResource( 9 )]
+visible = false
 
 [node name="Loot" parent="." instance=ExtResource( 5 )]
 visible = false
@@ -371,6 +374,7 @@ visible = false
 visible = false
 
 [node name="OpenGemShop" type="Button" parent="."]
+visible = false
 margin_left = 48.0
 margin_top = 177.0
 margin_right = 106.0

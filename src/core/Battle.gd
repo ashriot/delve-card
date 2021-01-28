@@ -106,7 +106,7 @@ func set_deck_count(value: int) -> void:
 func set_graveyard_count(value: int) -> void:
 	graveyard_val.text = str(value)
 
-func _on_DeckBtn_button_up():
+func _on_DeckBtn_pressed():
 	AudioController.click()
 	actions.show_deck_viewer()
 

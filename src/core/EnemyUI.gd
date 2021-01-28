@@ -343,7 +343,6 @@ func enemy_ai() -> Action:
 	elif actor.name == "slime": return slime()
 	else:
 		var rand = randi() % actor.actions.size()
-		print("RAND: ", rand, "/", actor.actions.size())
 		return actor.actions[rand]
 
 func bear() -> Action:

@@ -25,6 +25,7 @@ margin_top = -7.5
 margin_right = 1.0
 margin_bottom = 6.5
 text = "0/5"
+align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }

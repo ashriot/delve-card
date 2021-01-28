@@ -258,7 +258,7 @@ func _on_StartGame_button_up() -> void:
 	title.hide()
 #	demo.show()
 	welcome.show()
-	$OpenGemShop.show()
+	open_gem_shop.show()
 	fade.play("FadeIn")
 	yield(fade, "animation_finished")
 
