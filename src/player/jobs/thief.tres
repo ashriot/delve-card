@@ -29,6 +29,6 @@ bonus_mp = 0
 bonus_ac = 0
 bonus_st = 0
 bonus_gp = 0
-level = 1
+level = 10
 xp = 0
 perks = [ ExtResource( 1 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 12 ), ExtResource( 6 ), ExtResource( 11 ), ExtResource( 8 ), ExtResource( 7 ), ExtResource( 10 ), ExtResource( 9 ) ]
