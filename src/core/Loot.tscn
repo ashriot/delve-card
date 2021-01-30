@@ -104,4 +104,4 @@ __meta__ = {
 position = Vector2( 29, 5 )
 texture = ExtResource( 2 )
 centered = false
-[connection signal="button_up" from="BG/Finished" to="." method="_on_Finished_button_up"]
+[connection signal="pressed" from="BG/Finished" to="." method="_on_Finished_pressed"]

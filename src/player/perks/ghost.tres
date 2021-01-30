@@ -12,3 +12,4 @@ amts = [ 5 ]
 cost = 700
 cur_ranks = 0
 max_ranks = 1
+tier = 3

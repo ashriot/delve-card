@@ -96,7 +96,7 @@ func init_data() -> void:
 		var error: int = ResourceSaver.save(path, core_data)
 		initialize_job_data()
 		check_error(path, error)
-	else: # LOAD
+	else: # LOAD GAME
 		print("loading core")
 		save_path = SAVE_DIR.plus_file("core")
 		var path = save_path.plus_file("core.tres")
@@ -182,6 +182,7 @@ func save_game() -> void:
 	packed_scene.pack(dungeon.map)
 	error = ResourceSaver.save(path, packed_scene)
 	check_error(path, error)
+
 	# SAVE GAME DATA
 	game_data.game_version = ProjectSettings.get_setting("application/config/version")
 	game_data.profile_name = core_data.profile_name
@@ -199,6 +200,7 @@ func load_game() -> void:
 	var path = save_path.plus_file("data.tres")
 	game_data = load(path)
 	loading = true
+
 	# Player Data
 	path = save_path.plus_file("player.tres")
 	player = load(path)
@@ -264,25 +266,21 @@ func _on_StartGame_button_up() -> void:
 	yield(fade, "animation_finished")
 
 func start_game() -> void:
-	dungeon.dungeon_name = "Dark Forest"
-	dungeon.max_prog = 3
-	dungeon.progress = 1
-	dungeon.initialize(self)
-	dungeon.new_map()
+	open_gem_shop.hide()
 	trait_picker.initialize(self)
 	trait_picker.show()
-#	enter_game()
+	fade.play("FadeIn")
+	yield(fade, "animation_finished")
 
 func enter_game() -> void:
 	refresh_dungeon()
 	AudioController.stop_bgm()
-	fade.play("FadeOut")
-	yield(fade, "animation_finished")
 	title.hide()
 	welcome.hide()
 	char_select.hide()
 	open_gem_shop.hide()
 	demo.hide()
+	trait_picker.hide()
 	blacksmith.initialize(self)
 	shop.initialize(self)
 	shop.connect("show_card", self, "show_card")
@@ -391,6 +389,8 @@ func _on_CharSelect_chose_class(name: String) -> void:
 	player.max_ap += job.st()
 	player.gold += job.gold()
 	player.hp = player.max_hp
+	fade.play("FadeOut")
+	yield(fade, "animation_finished")
 	start_game()
 
 func skip_intro() -> void:
@@ -489,6 +489,8 @@ func _on_Dungeon_blank():
 	save_game()
 
 func _on_WelcomeScreen_load_game():
+	fade.play("FadeOut")
+	yield(fade, "animation_finished")
 	loading = true
 	player = playerUI.player
 	load_game()
@@ -558,8 +560,7 @@ func comma_sep(number: int) -> String:
 	var mod = string.length() % 3
 	var res = ""
 	for i in range(0, string.length()):
-		if i != 0 && i % 3 == mod:
-			res += ","
+		if i != 0 && i % 3 == mod: res += ","
 		res += string[i]
 	return res
 
@@ -574,9 +575,28 @@ func _on_GemShop_buy_gems(qty):
 	self.gems += qty
 	char_select.setup_perk_button()
 
-
 func _on_CharSelect_save_job(job):
 	save_job_data(job)
+
+func _on_TraitPicker_trait_back():
+	fade.play("FadeOut")
+	yield(fade, "animation_finished")
+	trait_picker.hide()
+	fade.play("FadeIn")
+
+func _on_TraitPicker_trait_choose(perk: Perk):
+	add_active_trait(perk)
+	dungeon.dungeon_name = "Dark Forest"
+	dungeon.max_prog = 3
+	dungeon.progress = 1
+	dungeon.initialize(self)
+	dungeon.new_map()
+	fade.play("FadeOut")
+	yield(fade, "animation_finished")
+	enter_game()
+
+func add_active_trait(perk: Perk) -> void:
+	player.add_trait(perk.name)
 
 # SETTERS / GETTERS
 

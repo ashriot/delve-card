@@ -146,8 +146,6 @@ visible = false
 
 [node name="Dungeon" parent="." instance=ExtResource( 14 )]
 
-[node name="TraitPicker" parent="." instance=ExtResource( 25 )]
-
 [node name="DemoScreen" type="ColorRect" parent="."]
 visible = false
 margin_right = 108.0
@@ -358,6 +356,8 @@ visible = false
 [node name="CharSelect" parent="." instance=ExtResource( 9 )]
 visible = false
 
+[node name="TraitPicker" parent="." instance=ExtResource( 25 )]
+
 [node name="Loot" parent="." instance=ExtResource( 5 )]
 visible = false
 
@@ -374,7 +374,6 @@ visible = false
 visible = false
 
 [node name="OpenGemShop" type="Button" parent="."]
-visible = false
 margin_left = 48.0
 margin_top = 177.0
 margin_right = 106.0
@@ -633,6 +632,8 @@ anims/FadeOut = SubResource( 15 )
 [connection signal="chose_class" from="CharSelect" to="." method="_on_CharSelect_chose_class"]
 [connection signal="save_job" from="CharSelect" to="." method="_on_CharSelect_save_job"]
 [connection signal="spent_gems" from="CharSelect" to="." method="_on_CharSelect_spent_gems"]
+[connection signal="trait_back" from="TraitPicker" to="." method="_on_TraitPicker_trait_back"]
+[connection signal="trait_choose" from="TraitPicker" to="." method="_on_TraitPicker_trait_choose"]
 [connection signal="hide_card" from="Loot" to="." method="hide_card"]
 [connection signal="show_card" from="Loot" to="." method="show_card"]
 [connection signal="shop_purchase" from="Shop" to="." method="_on_Shop_shop_purchase"]

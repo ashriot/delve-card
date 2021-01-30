@@ -1,20 +1,26 @@
 extends Button
 class_name TraitButton
 
+signal clicked(perk)
+
 onready var chosen: = false setget set_chosen
 
 var perk: Perk
+
 var desc: String setget , get_desc
 var picked: bool
 
-func initialize(_perk: Perk):
+func initialize(trait_picker, _perk: Perk):
+	connect("clicked", trait_picker, "_on_TraitButton_clicked")
 	$Chosen.hide()
 	perk = _perk
 	text = perk.name
 	picked = false
+	$Icon.frame = perk.tier - 1
 	$Ranks.text = "*" if chosen else ""
 	$Chosen/Label.text = perk.name
 	$Chosen/Ranks.text = "*" if chosen else ""
+	$Chosen/Icon.frame = perk.tier - 1
 
 func set_chosen(value) -> void:
 	chosen = value
@@ -44,3 +50,8 @@ func opaque() -> void:
 
 func get_desc() -> String:
 	return perk.desc
+
+func _on_TraitButton_pressed():
+	AudioController.click()
+	self.chosen = true
+	emit_signal("clicked", self)

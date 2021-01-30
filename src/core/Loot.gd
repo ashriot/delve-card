@@ -144,9 +144,9 @@ func get_loot(rank: int, other_classes: = false) -> Array:
 func get_other_loot(rank: int) -> Array:
 	return get_loot(rank, true)
 
-func _on_Finished_button_up():
-	AudioController.click()
+func _on_Finished_pressed():
 	if chosen_action != null:
+		AudioController.confirm()
 		if chosen_action.action_type == Action.ActionType.PERMANENT:
 			if chosen_action.damage_type == Action.DamageType.HP:
 				player.max_hp += chosen_action.damage
@@ -156,6 +156,7 @@ func _on_Finished_button_up():
 		else:
 			player.actions.append(chosen_action)
 			player.actions.sort()
+	else: AudioController.click()
 	emit_signal("looting_finished")
 
 func choose(choice: ActionChoice) -> void:
@@ -164,7 +165,7 @@ func choose(choice: ActionChoice) -> void:
 			child.chosen = !child.chosen
 			if child.chosen:
 				AudioController.click()
-				finished.text = "Finished"
+				finished.text = "Take Reward"
 				chosen_action = child.action
 			else:
 				AudioController.back()
