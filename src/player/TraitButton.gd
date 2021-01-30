@@ -12,9 +12,9 @@ func initialize(_perk: Perk):
 	perk = _perk
 	text = perk.name
 	picked = false
-	$Ranks.text = self.ranks
+	$Ranks.text = "*" if chosen else ""
 	$Chosen/Label.text = perk.name
-	$Chosen/Ranks.text = self.ranks
+	$Chosen/Ranks.text = "*" if chosen else ""
 
 func set_chosen(value) -> void:
 	chosen = value

@@ -15,6 +15,7 @@ export(Array, Resource) var jobs
 
 onready var title: = $Title
 onready var welcome: = $WelcomeScreen
+onready var trait_picker: = $TraitPicker
 onready var battle: = $Battle
 onready var dungeon: = $Dungeon
 onready var loot: = $Loot
@@ -54,7 +55,7 @@ func _ready() -> void:
 	rand_seed(game_seed.hash())
 	AudioController.mute = mute
 	AudioController.play_bgm("title")
-	init_dir()
+	init_data()		# Initial data creation or load
 	open_gem_shop.hide()
 	playerUI.hide()
 	settings.hide()
@@ -76,11 +77,10 @@ func _ready() -> void:
 	else:
 		title.show()
 
-func init_dir() -> void:
+func init_data() -> void:
 	var dir = Directory.new()
 	if !dir.dir_exists(SAVE_DIR + "/core"):
 		dir.make_dir_recursive(SAVE_DIR + "/core")
-
 	var save_path = SAVE_DIR.plus_file("core")
 	var directory: Directory = Directory.new()
 	if not directory.dir_exists(save_path):
@@ -189,6 +189,7 @@ func save_game() -> void:
 	game_data.upgrade_cost = blacksmith.upgrade_cost
 	game_data.destroy_cost = blacksmith.destroy_cost
 	game_data.merchants = merchants
+	game_data.active_traits = player.active_traits
 	path = save_path.plus_file("data.tres")
 	error = ResourceSaver.save(path, game_data)
 	check_error(path, error)
@@ -268,10 +269,12 @@ func start_game() -> void:
 	dungeon.progress = 1
 	dungeon.initialize(self)
 	dungeon.new_map()
-	refresh_dungeon()
-	enter_game()
+	trait_picker.initialize(self)
+	trait_picker.show()
+#	enter_game()
 
 func enter_game() -> void:
+	refresh_dungeon()
 	AudioController.stop_bgm()
 	fade.play("FadeOut")
 	yield(fade, "animation_finished")

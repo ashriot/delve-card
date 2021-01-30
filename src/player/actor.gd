@@ -9,6 +9,7 @@ export var max_ap: = 3
 export var initial_ac: = 0
 export var initial_mp: = 0
 export var gold: = 0
+export(Array, String) var active_traits
 
 export var hp: int setget set_hp
 
@@ -31,3 +32,6 @@ func spend_gold(amt: int) -> void:
 
 func have_enough_gold(amt: int) -> bool:
 	return gold >= amt
+
+func apply_traits() -> void:
+	pass

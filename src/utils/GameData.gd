@@ -10,4 +10,4 @@ export var upgrade_cost: int
 export var destroy_cost: int
 export var merchants: Dictionary
 export var dungeon: Dictionary
-
+export var active_traits: Array
