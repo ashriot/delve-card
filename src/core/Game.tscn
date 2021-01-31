@@ -14,7 +14,7 @@
 [ext_resource path="res://assets/images/ui/stamina.png" type="Texture" id=12]
 [ext_resource path="res://src/core/PlayerUI.tscn" type="PackedScene" id=13]
 [ext_resource path="res://src/core/Dungeon.tscn" type="PackedScene" id=14]
-[ext_resource path="res://Card.tscn" type="PackedScene" id=15]
+[ext_resource path="res://src/core/Card.tscn" type="PackedScene" id=15]
 [ext_resource path="res://src/core/WelcomeScreen.tscn" type="PackedScene" id=16]
 [ext_resource path="res://src/core/GemShop.tscn" type="PackedScene" id=17]
 [ext_resource path="res://src/map/Shop.tscn" type="PackedScene" id=18]
@@ -137,7 +137,7 @@ tracks/1/keys = {
 [node name="Game" type="Node"]
 script = ExtResource( 3 )
 player = ExtResource( 4 )
-rooms = 6
+rooms = 3
 mute = true
 jobs = [ ExtResource( 23 ), ExtResource( 22 ), ExtResource( 24 ) ]
 

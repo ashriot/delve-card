@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://assets/images/ui/fill_texture.png" type="Texture" id=1]
-[ext_resource path="res://Card.gd" type="Script" id=2]
+[ext_resource path="res://src/core/Card.gd" type="Script" id=2]
 [ext_resource path="res://assets/images/ui/stam.png" type="Texture" id=3]
 [ext_resource path="res://assets/images/sheets/icons2.png" type="Texture" id=4]
 

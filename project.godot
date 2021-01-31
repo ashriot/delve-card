@@ -72,7 +72,7 @@ _global_script_classes=[ {
 "base": "ColorRect",
 "class": "Card",
 "language": "GDScript",
-"path": "res://Card.gd"
+"path": "res://src/core/Card.gd"
 }, {
 "base": "Resource",
 "class": "CoreData",

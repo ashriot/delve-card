@@ -1,8 +1,9 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://Card.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/core/Card.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/battle/Actions.gd" type="Script" id=2]
 [ext_resource path="res://src/battle/ItemBelt.tscn" type="PackedScene" id=3]
+
 
 [node name="Actions" type="Node2D"]
 script = ExtResource( 2 )

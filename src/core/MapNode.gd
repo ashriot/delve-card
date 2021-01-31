@@ -45,10 +45,10 @@ func initialize(_dungeon: Dungeon) -> void:
 	progress = _dungeon.progress
 	max_prog = _dungeon.max_prog
 	chest_max = max(progress / 2, 1)
-	heal_max = randi() % 2 + 1 + max(progress - 1, 0)
+	heal_max = randi() % 2 + max(progress - 1, 0)
 	enemy_max = 2 + progress
-	shop_max = randi() % int(max(progress / 2, 1))
-	anvil_max = randi() % 2 + max(progress - 1, 0)
+	shop_max = randi() % int(max(progress / 2, 1)) + 1
+	anvil_max = randi() % 1 + max(progress / 2, 0)
 	shrine_max = 0
 	branches = $Branches
 	branches.set_owner(self)

@@ -50,12 +50,11 @@ __meta__ = {
 }
 
 [node name="ChatBox" type="Label" parent="BG" index="3"]
-margin_left = 2.0
 margin_top = 18.0
-margin_right = 73.0
+margin_right = 71.0
 margin_bottom = 48.0
 custom_constants/line_spacing = 2
-text = "Welcome. See anything you like?"
+text = "\"Welcome. See anything you like?\""
 autowrap = true
 __meta__ = {
 "_edit_use_anchors_": false
