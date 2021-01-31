@@ -137,7 +137,7 @@ tracks/1/keys = {
 [node name="Game" type="Node"]
 script = ExtResource( 3 )
 player = ExtResource( 4 )
-rooms = 3
+rooms = 6
 mute = true
 jobs = [ ExtResource( 23 ), ExtResource( 22 ), ExtResource( 24 ) ]
 
@@ -351,7 +351,6 @@ __meta__ = {
 }
 
 [node name="WelcomeScreen" parent="." instance=ExtResource( 16 )]
-visible = false
 
 [node name="CharSelect" parent="." instance=ExtResource( 9 )]
 visible = false
@@ -369,6 +368,7 @@ visible = false
 visible = false
 
 [node name="PlayerUI" parent="." instance=ExtResource( 13 )]
+visible = false
 
 [node name="Deck" parent="." instance=ExtResource( 21 )]
 visible = false

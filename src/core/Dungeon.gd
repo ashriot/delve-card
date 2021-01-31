@@ -36,7 +36,7 @@ func initialize(game) -> void:
 	print("dungeon.initialize()")
 	tooltip.hide()
 	game_seed = game.game_seed
-	enemy_list = ["slime", "slime", "devil"]
+	enemy_list = ["slime", "slime"]
 	enemy_boss = "bear"
 	map.connect("move_to_square", self, "_on_Map_move_to_square", [], 2)
 	map.connect("show_tooltip", self, "_on_Map_show_tooltip")
@@ -59,6 +59,8 @@ func set_progress(value: int) -> void:
 func reset_avatar() -> void:
 	self.progress += 1
 	print("Progress: ", progress)
+	if progress == 2:
+		enemy_list.append("Devil")
 	if progress == 3:
 		enemy_list.remove(0)
 		enemy_list.append("Tiger")

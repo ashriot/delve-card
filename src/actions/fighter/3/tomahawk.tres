@@ -1,10 +1,7 @@
 [gd_resource type="Resource" load_steps=3 format=2]
 
 [ext_resource path="res://src/actions/res/action.gd" type="Script" id=1]
-[ext_resource path="res://assets/animations/Slash.tscn" type="PackedScene" id=2]
-
-
-
+[ext_resource path="res://assets/animations/Hatchet.tscn" type="PackedScene" id=2]
 
 [resource]
 script = ExtResource( 1 )
@@ -21,9 +18,14 @@ damage_type = 0
 damage = 10
 hits = 1
 crit_chance = 0.0
+penetrate = false
+impact = 0
 drawX = 0
+discard_random_x = 0
+discard_x = 0
 draw_type = 7
 drop = true
+fade = false
 consume = false
-frame_id = 1
+frame_id = 38
 fx = ExtResource( 2 )

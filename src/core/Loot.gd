@@ -60,7 +60,7 @@ func setup(progress: int, gold_amt: int, qty: int) -> void:
 
 func new_picker(progress: int, qty: int, other_classes: = false) -> Array:
 	#warning-ignore:integer_division
-	var level = (1 + progress / 2) as int
+	var level = min((1 + progress / 2) as int, 4)
 	var loot_list = []
 	var pick1 = loot1.duplicate(true)
 	pick1.shuffle()
@@ -78,11 +78,8 @@ func new_picker(progress: int, qty: int, other_classes: = false) -> Array:
 		var chance = 0.15 * i
 		var roll = rand + chance + level / 5.0
 		var rank = 2
-		if roll >= rare:
-			rank = 4
-		elif roll >= uncommon:
-			rank = 3
-
+		if roll >= rare: rank = 4
+		elif roll >= uncommon: rank = 3
 		if rank == 4:
 			if pick4.size() > 0:
 				loot_list.append(pick4.pop_front())
