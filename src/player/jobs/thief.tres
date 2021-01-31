@@ -11,7 +11,8 @@
 [ext_resource path="res://src/player/perks/prey_on_the_weak.tres" type="Resource" id=9]
 [ext_resource path="res://src/player/perks/desperation.tres" type="Resource" id=10]
 [ext_resource path="res://src/player/perks/counterattack.tres" type="Resource" id=11]
-[ext_resource path="res://src/player/perks/loose_change.tres" type="Resource" id=12]
+[ext_resource path="res://src/player/perks/pocket_change.tres" type="Resource" id=12]
+
 
 [resource]
 script = ExtResource( 2 )

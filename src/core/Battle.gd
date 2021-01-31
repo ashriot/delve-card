@@ -36,6 +36,7 @@ func start(_enemy: EnemyActor) -> void:
 	enemy = _enemy
 	enemy_label.text = enemy.title
 	enemyUI.initialize(enemy, playerUI)
+	check_battle_start_effects()
 	yield(get_tree().create_timer(0.2), "timeout")
 	emit_signal("start_turn")
 
@@ -58,13 +59,13 @@ func end_of_turn() -> void:
 		yield(get_tree().create_timer(0.8), "timeout")
 
 func _on_Enemy_ended_turn():
-	print("enemyUI 'ended_turn' signal received --> start_turn")
 	if playerUI.dead:
 		game_over = true
 		emit_signal("battle_finished", false)
 	elif enemyUI.dead:
 		enemyUI.die()
 	else:
+		print("enemyUI 'ended_turn' signal received --> start_turn")
 		emit_signal("start_turn")
 
 func _on_Enemy_used_action(action: Action):
@@ -86,6 +87,12 @@ func _on_Enemy_used_action(action: Action):
 				playerUI.take_healing(2, "HP")
 			if x < action.hits:
 				yield(get_tree().create_timer(0.4), "timeout")
+
+func check_battle_start_effects() -> void:
+	for trinket in playerUI.actor.trinkets:
+		trinket = trinket as Trinket
+		if trinket.name == "Crown of Power":
+			playerUI.gain_buff(preload("res://src/actions/buffs/power.tres"), 4)
 
 func show_card(btn, amt: int) -> void:
 	emit_signal("show_card", btn, amt)

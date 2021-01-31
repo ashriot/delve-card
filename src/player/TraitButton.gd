@@ -16,11 +16,11 @@ func initialize(trait_picker, _perk: Perk):
 	perk = _perk
 	text = perk.name
 	picked = false
-	$Icon.frame = perk.tier - 1
+	$Icon.frame = perk.tier
 	$Ranks.text = "*" if chosen else ""
 	$Chosen/Label.text = perk.name
 	$Chosen/Ranks.text = "*" if chosen else ""
-	$Chosen/Icon.frame = perk.tier - 1
+	$Chosen/Icon.frame = perk.tier
 
 func set_chosen(value) -> void:
 	chosen = value

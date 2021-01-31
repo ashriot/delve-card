@@ -13,3 +13,4 @@ cost = 175
 cur_ranks = 0
 max_ranks = 2
 tier = 0
+level_req = 6

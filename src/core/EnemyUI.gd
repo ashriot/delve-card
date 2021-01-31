@@ -86,8 +86,10 @@ func initialize(_actor: EnemyActor, _player: Player) -> void:
 
 func act() -> void:
 	acting = true
-	if action_to_use.cost_type == Action.DamageType.MP:
-		self.mp -= action_to_use.cost
+	if self.dead:
+		print("dead, ended turn")
+		emit_signal("ended_turn")
+		return
 	if debuffs.size() > 0:
 		if debuffs.has("Burn"):
 			var Burn = load("res://src/actions/debuffs/burn_action.tres")
@@ -105,6 +107,8 @@ func act() -> void:
 		print("dead, ended turn")
 		emit_signal("ended_turn")
 		return
+	if action_to_use.cost_type == Action.DamageType.MP:
+		self.mp -= action_to_use.cost
 	if intent == "Attack":
 		animationPlayer.play(intent + str(action_to_use.hits))
 	else:

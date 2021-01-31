@@ -5,6 +5,10 @@ signal spent_gems(qty)
 signal back
 signal save_job(job)
 
+var lock = preload("res://assets/images/ui/lock.png")
+var perk_icon = preload("res://assets/images/ui/talents.png")
+var gear_icon = preload("res://assets/images/ui/pack.png")
+
 # STATS
 onready var hp: = $BG/Stats/HP/Label
 onready var mp: = $BG/Stats/MP/Label
@@ -15,6 +19,10 @@ onready var gp: = $BG/Stats/GP/Label
 onready var prev_btn: = $BG/Prev
 onready var next_btn: = $BG/Next
 onready var perks: = $Perks
+onready var gears: = $Gears
+onready var builds: = $Builds
+onready var gear: = $BG/Gear
+onready var build: = $BG/Build
 onready var perks_banner: = $Perks/Banner/ClassPerks
 onready var perks_list: = $Perks/BG2/Container/Perks
 onready var perk_panel: = $Perks/BG2/Details
@@ -53,6 +61,8 @@ func initialize(_game: Game) -> void:
 		for perk in perks_list.get_children():
 			perk.connect("pressed", self, "_on_Perk_pressed", [perk])
 	perks.hide_instantly()
+	gears.hide_instantly()
+	builds.hide_instantly()
 	display_job_stats()
 	setup_perks()
 	display_job_data()
@@ -86,38 +96,59 @@ func setup_perk_button() -> void:
 	if cur_job == null: return
 	delve.disabled = !cur_job.unlocked
 	if cur_job.unlocked:
-		perk_button.icon = load("res://assets/images/ui/talents.png")
-		perk_button.disabled = false
-		perk_button.text = "Perks"
-		var count = get_perk_count()
-		perk_count.text = str(count[0]) + "/" + str(count[1])
-		perk_count.show()
 		unlock_cost.hide()
+		gear.show()
+		build.show()
+		if cur_job.level < 2:
+			gear.icon = lock
+			gear.disabled = true
+			gear.text = "Gear Unlocked at Lv. 2"
+		else:
+			gear.icon = gear_icon
+			gear.disabled = false
+			gear.text = "None"
+		if cur_job.level < 3:
+			perk_count.text = ""
+			perk_button.icon = lock
+			perk_button.disabled = true
+			perk_button.text = "Perks Unlocked at Lv. 3"
+		else:
+			perk_button.icon = perk_icon
+			perk_button.disabled = false
+			perk_button.text = "Check Perks"
+			var count = get_perk_count()
+			perk_count.text = str(count[0]) + "/" + str(count[1])
+			perk_count.show()
 	else:
-		perk_button.icon = load("res://assets/images/ui/lock.png")
+		perk_button.icon = lock
 		perk_button.disabled = game.gems < 1000
 		perk_button.text = "Unlock"
-		unlock_cost.text = comma_sep(1000)
+		unlock_cost.text = comma_sep(5000)
 		perk_count.hide()
+		gear.hide()
+		build.hide()
 		unlock_cost.show()
 
 func xp_to_level() -> int:
 	return (cur_job.level + 1) * 100
 
+func refresh_perk() -> void:
+	display_perk(selected_perk)
+	setup_perk_button()
+
 func display_perk(perk: PerkButton) -> void:
 	perk_title.text = perk.text
 	perk_desc.text = perk.desc
-	print(perk.perk.name, " -> ", perk.perk.cur_ranks)
+	perk_sprite.frame = perk.perk.tier
 	perk_ranks.text = perk.ranks
 	rank_up.disabled = true
 	rank_cost.text = comma_sep(perk.cost)
 	rank_cost.modulate.a = 0.5
 	rank_gem.show()
-	if perk.get_index() >= cur_job.level + 1:
-		rank_up.text = "Requires level " + str(perk.get_index())
+	if perk.level_req > cur_job.level:
+		rank_up.text = "Requires level " + str(perk.level_req)
 	else:
 		if perk.perk.cur_ranks < perk.perk.max_ranks:
-			rank_up.text = "Rank " + str(perk.perk.cur_ranks) + " -> " + str(perk.perk.cur_ranks + 1)
 			rank_up.disabled = perk.cost > game.gems
 			rank_cost.modulate.a = 0.5 if game.gems < perk.cost else 1.0
 		else:
@@ -132,7 +163,7 @@ func setup_perks() -> void:
 			new_perk.clear()
 			continue
 		new_perk.initialize(cur_job.perks[i])
-		if i > cur_job.level: new_perk.fade()
+		if new_perk.level_req > cur_job.level: new_perk.fade()
 		else: new_perk.opaque()
 	var first = perks_list.get_child(0)
 	first.chosen = true
@@ -182,16 +213,6 @@ func update_perk_bonuses() -> void:
 func _on_Perk_pressed(button) -> void:
 	self.selected_perk = button
 
-#func _on_Button_down(button):
-#	button.get_parent().modulate.a = .66
-
-func _on_PerksBack_pressed():
-	$Perks/BG2/PerksBack.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	AudioController.back()
-	perks.hide(false)
-	yield(perks, "done")
-	$Perks/BG2/PerksBack.mouse_filter = Control.MOUSE_FILTER_STOP
-
 func _on_Perks_pressed():
 	$BG/Perks.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	if cur_job.unlocked:
@@ -239,3 +260,38 @@ func _on_Delve_pressed():
 	AudioController.confirm()
 	print("chose ", cur_job.name)
 	emit_signal("chose_class", cur_job.name)
+
+func _on_PerksBack_pressed():
+	$Perks/BG2/PerksBack.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	AudioController.back()
+	perks.hide(false)
+	yield(perks, "done")
+	$Perks/BG2/PerksBack.mouse_filter = Control.MOUSE_FILTER_STOP
+
+func _on_Gear_pressed():
+	$BG/Gear.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	AudioController.click()
+	gears.show(false)
+	yield(gears, "done")
+	$BG/Gear.mouse_filter = Control.MOUSE_FILTER_STOP
+
+func _on_Build_pressed():
+	$BG/Build.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	AudioController.click()
+	builds.show(false)
+	yield(builds, "done")
+	$BG/Build.mouse_filter = Control.MOUSE_FILTER_STOP
+
+func _on_GearsBack_pressed():
+	$Gears/BG2/GearsBack.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	AudioController.back()
+	gears.hide(false)
+	yield(gears, "done")
+	$Gears/BG2/GearsBack.mouse_filter = Control.MOUSE_FILTER_STOP
+
+func _on_BuildsBack_pressed():
+	$Builds/BG2/BuildsBack.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	AudioController.back()
+	builds.hide(false)
+	yield(builds, "done")
+	$Builds/BG2/BuildsBack.mouse_filter = Control.MOUSE_FILTER_STOP

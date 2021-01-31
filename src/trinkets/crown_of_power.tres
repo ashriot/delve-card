@@ -5,6 +5,6 @@
 [resource]
 script = ExtResource( 1 )
 name = "Crown of Power"
-description = "Begin battles with 5 Power."
+description = "Begin battles with 3 Power."
 rarity = 1
 frame_id = 7

@@ -40,4 +40,4 @@ func add_trait(name) -> void:
 		max_hp += 6
 		hp = max_hp
 	if name == "Mana Flow": initial_mp += 3
-	if name == "Loose Change": gold += 20
+	if name == "Pocket Change": gold += 20

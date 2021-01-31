@@ -2,17 +2,22 @@ extends Button
 class_name PerkButton
 
 onready var chosen: = false setget set_chosen
+onready var sprite: = $Sprite
 
 var perk: Perk
 var desc: String setget , get_desc
 var ranks: String setget, get_ranks
 var cost: int
+var level_req: int
 
 func initialize(_perk: Perk):
 	$Chosen.hide()
 	perk = _perk
+	level_req = perk.level_req
 	text = perk.name
 	cost = (perk.cur_ranks + 1) * perk.cost
+	sprite.frame = perk.tier
+	$Chosen/Sprite.frame = perk.tier
 	$Ranks.text = self.ranks
 	$Chosen/Label.text = perk.name
 	$Chosen/Ranks.text = self.ranks

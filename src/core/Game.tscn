@@ -357,6 +357,7 @@ visible = false
 visible = false
 
 [node name="TraitPicker" parent="." instance=ExtResource( 25 )]
+visible = false
 
 [node name="Loot" parent="." instance=ExtResource( 5 )]
 visible = false
@@ -368,12 +369,12 @@ visible = false
 visible = false
 
 [node name="PlayerUI" parent="." instance=ExtResource( 13 )]
-visible = false
 
 [node name="Deck" parent="." instance=ExtResource( 21 )]
 visible = false
 
 [node name="OpenGemShop" type="Button" parent="."]
+visible = false
 margin_left = 48.0
 margin_top = 177.0
 margin_right = 106.0

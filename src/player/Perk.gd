@@ -10,3 +10,4 @@ export var cost: = 0
 export var cur_ranks: = 0
 export var max_ranks: = 1
 export var tier: = 0
+export var level_req: = 1

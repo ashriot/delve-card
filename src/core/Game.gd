@@ -36,6 +36,7 @@ onready var open_gem_shop = $OpenGemShop
 var gems: = 0 setget set_gems
 
 var merchants: Dictionary
+var traits: Array
 
 var profile_hash: int setget, get_profile_hash
 var core_data: Resource
@@ -109,8 +110,8 @@ func initialize_job_data() -> void:
 		job = job as Job
 		var data = {}
 		data["unlocked"] = job.unlocked
-		data["level"] = 1
-		data["xp"] = 0
+		data["level"] = job.level
+		data["xp"] = job.xp
 		data["perks"] = {}
 		for perk in job.perks:
 			perk = perk as Perk
@@ -134,6 +135,8 @@ func load_job_data() -> void:
 func save_job_data(job: Job) -> void:
 	print("saving job data for ", job.name)
 	var data = core_data.job_data[job.name]
+	data.level = job.level
+	data.xp = job.xp
 	data["unlocked"] = job.unlocked
 	for perk in job.perks:
 		perk = perk as Perk
@@ -267,14 +270,26 @@ func _on_StartGame_button_up() -> void:
 
 func start_game() -> void:
 	open_gem_shop.hide()
-	trait_picker.initialize(self)
-	trait_picker.show()
-	fade.play("FadeIn")
-	yield(fade, "animation_finished")
+	for job in jobs:
+		for perk in job.perks:
+			if perk.trait and perk.cur_ranks == 1:
+				traits.append(perk)
+	print(traits)
+	if traits.size() > 0:
+		trait_picker.initialize(self)
+		trait_picker.show()
+		fade.play("FadeIn")
+		yield(fade, "animation_finished")
+	else: enter_game()
 
 func enter_game() -> void:
-	refresh_dungeon()
 	AudioController.stop_bgm()
+	dungeon.dungeon_name = "Dark Forest"
+	dungeon.max_prog = 3
+	dungeon.progress = 1
+	dungeon.initialize(self)
+	dungeon.new_map()
+	refresh_dungeon()
 	title.hide()
 	welcome.hide()
 	char_select.hide()
@@ -573,7 +588,7 @@ func _on_CharSelect_back():
 
 func _on_GemShop_buy_gems(qty):
 	self.gems += qty
-	char_select.setup_perk_button()
+	char_select.refresh_perk()
 
 func _on_CharSelect_save_job(job):
 	save_job_data(job)
@@ -585,12 +600,7 @@ func _on_TraitPicker_trait_back():
 	fade.play("FadeIn")
 
 func _on_TraitPicker_trait_choose(perk: Perk):
-	add_active_trait(perk)
-	dungeon.dungeon_name = "Dark Forest"
-	dungeon.max_prog = 3
-	dungeon.progress = 1
-	dungeon.initialize(self)
-	dungeon.new_map()
+	if perk != null: add_active_trait(perk)
 	fade.play("FadeOut")
 	yield(fade, "animation_finished")
 	enter_game()

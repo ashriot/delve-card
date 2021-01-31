@@ -8,6 +8,7 @@ var _TraitButton = preload("res://src/player/TraitButton.tscn")
 onready var trait_list = $BG/Container/Traits
 onready var perk_title = $BG/Info/Title
 onready var perk_desc: = $BG/Info/Desc
+onready var icon: = $BG/Info/Sprite
 onready var choose: = $BG/Choose
 
 var traits: Array
@@ -20,13 +21,7 @@ func initialize(game: Game) -> void:
 	perk_title.text = ""
 	perk_desc.text = ""
 	choose.disabled = true
-	traits = []
-	var jobs = game.jobs
-	for job in jobs:
-		for perk in job.perks:
-			if perk.trait and perk.cur_ranks == 1:
-				traits.append(perk)
-	print(traits)
+	traits = game.traits
 	for trait in traits:
 		var btn = _TraitButton.instance()
 		btn.initialize(self, trait)
@@ -49,6 +44,7 @@ func set_selected_trait(value: TraitButton) -> void:
 func display_trait(perk: TraitButton) -> void:
 	perk_title.text = perk.text
 	perk_desc.text = perk.desc
+	icon.frame = perk.perk.tier
 	choose.disabled = false
 
 func _on_Back_pressed():
