@@ -105,7 +105,7 @@ func setup_perk_button() -> void:
 			gear.text = "Gear Unlocked at Lv. 2"
 		else:
 			gear.icon = gear_icon
-			gear.disabled = false
+			gear.disabled = true
 			gear.text = "None"
 		if cur_job.level < 3:
 			perk_count.text = ""
@@ -123,7 +123,7 @@ func setup_perk_button() -> void:
 		perk_button.icon = lock
 		perk_button.disabled = game.gems < 1000
 		perk_button.text = "Unlock"
-		unlock_cost.text = comma_sep(5000)
+		unlock_cost.text = comma_sep(1000)
 		perk_count.hide()
 		gear.hide()
 		build.hide()
@@ -151,6 +151,7 @@ func display_perk(perk: PerkButton) -> void:
 		if perk.perk.cur_ranks < perk.perk.max_ranks:
 			rank_up.disabled = perk.cost > game.gems
 			rank_cost.modulate.a = 0.5 if game.gems < perk.cost else 1.0
+			rank_up.text = "Rank up " + str(perk.perk.cur_ranks) + " -> " + str(perk.perk.cur_ranks + 1)
 		else:
 			rank_up.text = "Max rank!"
 			rank_cost.text = ""

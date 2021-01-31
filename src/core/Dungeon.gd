@@ -60,7 +60,7 @@ func set_progress(value: int) -> void:
 func reset_avatar() -> void:
 	self.progress += 1
 	print("Progress: ", progress)
-	if progress == 2:
+	if progress == 3:
 		enemy_list.remove(0)
 		enemy_list.append("Tiger")
 	avatar.global_position = map.position - Vector2(8, 8)
@@ -102,7 +102,7 @@ func _on_Map_move_to_square(square: Square):
 	elif square.type == "Down":
 		emit_signal("advance")
 	elif square.type == "Battle":
-		var enemy = load("res://src/enemies/" + square.enemy_name + ".tres")
+		var enemy = load("res://src/enemies/" + square.enemy_name.to_lower() + ".tres")
 		emit_signal("start_battle", enemy)
 	elif square.type == "Chest":
 		emit_signal("start_loot", 0)
@@ -118,7 +118,7 @@ func _on_Map_move_to_square(square: Square):
 
 func _on_Map_show_tooltip(button):
 	if button.type == "Battle":
-		var enemy = load("res://src/enemies/" + button.enemy_name + ".tres")
+		var enemy = load("res://src/enemies/" + button.enemy_name.to_lower() + ".tres")
 		tooltext.text = enemy.title
 	else:
 		tooltext.text = button.type.capitalize()

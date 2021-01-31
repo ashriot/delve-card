@@ -54,6 +54,7 @@ var auto_end: = true
 func _ready() -> void:
 	$Title/AnimationPlayer.play("FlashTap")
 	rand_seed(game_seed.hash())
+	randomize()
 	AudioController.mute = mute
 	AudioController.play_bgm("title")
 	init_data()		# Initial data creation or load
@@ -283,15 +284,18 @@ func start_game() -> void:
 		trait_picker.show()
 		fade.play("FadeIn")
 		yield(fade, "animation_finished")
-	else: enter_game()
+	else: new_game()
 
-func enter_game() -> void:
-	AudioController.stop_bgm()
+func new_game() -> void:
 	dungeon.dungeon_name = "Dark Forest"
 	dungeon.max_prog = 3
 	dungeon.progress = 1
 	dungeon.initialize(self)
 	dungeon.new_map()
+	enter_game()
+
+func enter_game() -> void:
+	AudioController.stop_bgm()
 	refresh_dungeon()
 	title.hide()
 	welcome.hide()
@@ -606,7 +610,7 @@ func _on_TraitPicker_trait_choose(perk: Perk):
 	if perk != null: add_active_trait(perk)
 	fade.play("FadeOut")
 	yield(fade, "animation_finished")
-	enter_game()
+	new_game()
 
 func add_active_trait(perk: Perk) -> void:
 	player.add_trait(perk.name)
