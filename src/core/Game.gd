@@ -88,22 +88,25 @@ func init_data() -> void:
 		directory.make_dir_recursive(save_path)
 
 	# CREATE DATA
-	if !core_exists():
-		core_data = CoreData.new()
-		core_data.gems = 0
-		self.gems = 0
-		core_data.game_version =  ProjectSettings.get_setting("application/config/version")
-		var path = save_path.plus_file("core.tres")
-		var error: int = ResourceSaver.save(path, core_data)
-		initialize_job_data()
-		check_error(path, error)
-	else: # LOAD GAME
+	if core_exists(): # LOAD GAME
 		print("loading core")
 		save_path = SAVE_DIR.plus_file("core")
 		var path = save_path.plus_file("core.tres")
 		core_data = load(path)
-		self.gems = core_data.gems
-		load_job_data()
+		if core_data.game_version == ProjectSettings.get_setting("application/config/version"):
+			self.gems = core_data.gems
+			load_job_data()
+			return
+		print("REPLACE OUTDATED FILE")
+	# NEW GAME
+	core_data = CoreData.new()
+	core_data.gems = 0
+	self.gems = 0
+	core_data.game_version = ProjectSettings.get_setting("application/config/version")
+	var path = save_path.plus_file("core.tres")
+	var error: int = ResourceSaver.save(path, core_data)
+	initialize_job_data()
+	check_error(path, error)
 
 func initialize_job_data() -> void:
 	for job in jobs:

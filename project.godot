@@ -228,7 +228,7 @@ config/name="Delve"
 run/main_scene="res://src/core/Game.tscn"
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://assets/images/icon.png"
-config/version="0.1.1"
+config/version="0.1.2"
 
 [autoload]
 

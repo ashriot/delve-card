@@ -138,7 +138,6 @@ tracks/1/keys = {
 script = ExtResource( 3 )
 player = ExtResource( 4 )
 rooms = 3
-mute = true
 jobs = [ ExtResource( 23 ), ExtResource( 22 ), ExtResource( 24 ) ]
 
 [node name="Battle" parent="." instance=ExtResource( 1 )]
