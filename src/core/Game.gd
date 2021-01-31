@@ -8,7 +8,7 @@ var gear = preload("res://assets/images/ui/gear_small.png")
 var close = preload("res://assets/images/ui/close_small.png")
 
 export var player: Resource
-export var rooms: = 5
+export var rooms: int
 export var mute: = false
 export var skipping_intro: = false
 export(Array, Resource) var jobs
@@ -288,7 +288,7 @@ func start_game() -> void:
 
 func new_game() -> void:
 	dungeon.dungeon_name = "Dark Forest"
-	dungeon.max_prog = 3
+	dungeon.max_prog = rooms
 	dungeon.progress = 1
 	dungeon.initialize(self)
 	dungeon.new_map()
@@ -494,7 +494,7 @@ func _on_Dungeon_advance():
 	fade.play("FadeOut")
 	yield(fade, "animation_finished")
 	merchants.clear()
-	if dungeon.progress == 5:
+	if dungeon.progress == rooms:
 		$EndGame/Label.text = "Thank you for playing!"
 		end_game.show()
 	else:

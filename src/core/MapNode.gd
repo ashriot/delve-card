@@ -22,7 +22,8 @@ onready var squares = $Squares
 var generator: = preload("res://src/map/dungeon_generation.gd").new()
 var _Square = preload("res://src/map/Square.tscn")
 var astar: AStar2D
-var origin = null
+var origin: Square
+var exit: Square
 var enemy_list: Array
 var enemy_boss: String
 var progress: int
@@ -43,23 +44,30 @@ func initialize(_dungeon: Dungeon) -> void:
 	enemy_boss = _dungeon.enemy_boss
 	progress = _dungeon.progress
 	max_prog = _dungeon.max_prog
-	chest_max = randi() % 3 + 1 + max(progress - 1, 0)
-	heal_max = randi() % 3 + 1 + progress
-	enemy_max = randi() % 2 + 4 + progress
-	shop_max = randi() % 2 + 1 + max(progress - 2, 0)
+	chest_max = max(progress / 2, 1)
+	heal_max = randi() % 2 + 1 + max(progress - 1, 0)
+	enemy_max = 2 + progress
+	shop_max = randi() % int(max(progress / 2, 1))
 	anvil_max = randi() % 2 + max(progress - 1, 0)
 	shrine_max = 0
 	branches = $Branches
 	branches.set_owner(self)
 	squares.set_owner(self)
-	generate_dungeon()
-	load_map()
-	add_squares_to_astar()
-	connect_squares()
+	generation_loop()
+	while astar.get_id_path(origin.get_index(), exit.get_index()).size() > 1:
+		print("looping!")
+		clear_map()
+		generation_loop()
 	for child in branches.get_children():
 		child.set_owner(self)
 	for child in squares.get_children():
 		child.set_owner(self)
+
+func generation_loop() -> void:
+	generate_dungeon()
+	load_map()
+	add_squares_to_astar()
+	connect_squares()
 
 func get_origin() -> Square:
 	if origin == null:
@@ -70,16 +78,16 @@ func get_origin() -> Square:
 
 func generate_dungeon() -> void:
 	var room_max = min(chest_max + heal_max + enemy_max + \
-		shop_max + anvil_max + shrine_max + 6 + progress, 36)
-	var room_min = room_max - 4
+		shop_max + anvil_max + shrine_max + 2 + progress, 36)
+	var room_min = room_max - 1
 	generator.generate([room_min, room_max])
 	dungeon = generator.get_dungeon()
 
 func clear_map() -> void:
 	for child in squares.get_children():
-		child.queue_free()
+		child.free()
 	for child in branches.get_children():
-		child.queue_free()
+		child.free()
 
 func load_map() -> void:
 	var map = []
@@ -111,6 +119,7 @@ func load_map() -> void:
 					square.initialize("Battle", boss_sprite, enemy_name)
 				else:
 					square.initialize("Down", down_sprite)
+				exit = square
 			elif dungeon[i[1]].connections == 1:
 				if chests > 0:
 					chests -= 1
@@ -168,8 +177,7 @@ func add_squares_to_astar() -> void:
 	squares = $Squares
 	for square in squares.get_children():
 		astar.add_point(square.get_index(), square.rect_position)
-		if square.type == "Battle":
-			astar.set_point_disabled(square.get_index())
+		if square.type == "Battle": astar.set_point_disabled(square.get_index())
 
 func connect_squares() -> void:
 	for square in squares.get_children():

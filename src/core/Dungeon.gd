@@ -36,14 +36,13 @@ func initialize(game) -> void:
 	print("dungeon.initialize()")
 	tooltip.hide()
 	game_seed = game.game_seed
-	enemy_list = ["slime", "devil"]
+	enemy_list = ["slime", "slime", "devil"]
 	enemy_boss = "bear"
 	map.connect("move_to_square", self, "_on_Map_move_to_square", [], 2)
 	map.connect("show_tooltip", self, "_on_Map_show_tooltip")
 	map.connect("hide_tooltip", self, "_on_Map_hide_tooltip")
 
 func new_map() -> void:
-	print("dungeon.new_map()")
 	map.initialize(self)
 	var origin = map.get_origin()
 	current_square = origin.get_index()
@@ -63,6 +62,8 @@ func reset_avatar() -> void:
 	if progress == 3:
 		enemy_list.remove(0)
 		enemy_list.append("Tiger")
+	if progress == 5:
+		enemy_list.remove(0)
 	avatar.global_position = map.position - Vector2(8, 8)
 	map.clear_map()
 	yield(get_tree().create_timer(0.2), "timeout")
