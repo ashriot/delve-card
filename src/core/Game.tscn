@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=2]
+[gd_scene load_steps=42 format=2]
 
 [ext_resource path="res://src/core/Battle.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/images/bgs/title.png" type="Texture" id=2]
@@ -25,6 +25,7 @@
 [ext_resource path="res://src/player/jobs/fighter.tres" type="Resource" id=23]
 [ext_resource path="res://src/player/jobs/thief.tres" type="Resource" id=24]
 [ext_resource path="res://src/map/TraitPicker.tscn" type="PackedScene" id=25]
+[ext_resource path="res://assets/images/events/black_orb.png" type="Texture" id=26]
 
 [sub_resource type="Animation" id=1]
 length = 1.2
@@ -616,6 +617,95 @@ __meta__ = {
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Fade"]
 anims/FadeIn = SubResource( 14 )
 anims/FadeOut = SubResource( 15 )
+
+[node name="EventScreen" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BG" type="ColorRect" parent="EventScreen"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Banner" type="ColorRect" parent="EventScreen/BG"]
+anchor_right = 1.0
+margin_bottom = 9.0
+color = Color( 0.145098, 0.145098, 0.133333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="EventScreen/BG/Banner"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -1.0
+margin_top = -3.0
+margin_right = -1.0
+margin_bottom = 2.0
+text = "[Event Name]"
+
+[node name="Sprte" type="Sprite" parent="EventScreen/BG"]
+modulate = Color( 0.792157, 0.780392, 0.721569, 1 )
+position = Vector2( 37, 9 )
+texture = ExtResource( 26 )
+centered = false
+
+[node name="Desc" type="Label" parent="EventScreen/BG"]
+margin_left = -1.0
+margin_top = 38.0
+margin_right = 112.0
+margin_bottom = 102.0
+text = "As you enter the dimly-lit room, you see a burnt altar in the center of the room. Upon it lies a black orb."
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Options" type="VBoxContainer" parent="EventScreen/BG"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = -58.0
+margin_right = -2.0
+custom_constants/separation = 2
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Choice1" type="Button" parent="EventScreen/BG/Options"]
+margin_right = 104.0
+margin_bottom = 13.0
+rect_min_size = Vector2( 0, 13 )
+text = "Take the black orb."
+
+[node name="Choice2" type="Button" parent="EventScreen/BG/Options"]
+margin_top = 15.0
+margin_right = 104.0
+margin_bottom = 28.0
+rect_min_size = Vector2( 0, 13 )
+text = "Take the black orb."
+
+[node name="Choice3" type="Button" parent="EventScreen/BG/Options"]
+margin_top = 30.0
+margin_right = 104.0
+margin_bottom = 43.0
+rect_min_size = Vector2( 0, 13 )
+text = "Take the black orb."
+
+[node name="Choice4" type="Button" parent="EventScreen/BG/Options"]
+margin_top = 45.0
+margin_right = 104.0
+margin_bottom = 58.0
+rect_min_size = Vector2( 0, 13 )
+text = "Take the black orb."
 [connection signal="advance" from="Dungeon" to="." method="_on_Dungeon_advance"]
 [connection signal="blacksmith" from="Dungeon" to="." method="_on_Dungeon_blacksmith"]
 [connection signal="blank" from="Dungeon" to="." method="_on_Dungeon_blank"]
