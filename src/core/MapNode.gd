@@ -47,11 +47,11 @@ func initialize(_dungeon: Dungeon) -> void:
 	progress = _dungeon.progress
 	max_prog = _dungeon.max_prog
 	chest_max = max(progress / 2, 1)
-	heal_max = randi() % 2 + max(progress - 1, 0)
-	event_max = 2 #randi() % int(max(progress / 2 + 1, 0)) + max(progress / 2, 0)
+	heal_max = randi() % 2 + max(progress / 2, 0) + 1
+	event_max = randi() % int(max(progress / 2 + 1, 0)) + 1 if progress > 1 else 0
 	enemy_max = 2 + progress
 	shop_max = randi() % int(max(progress / 2, 1)) + 1
-	anvil_max = randi() % 1 + max(progress / 2, 0)
+	anvil_max = (randi() % 2 + 1) if progress > 1 else 0
 	shrine_max = 0
 	branches = $Branches
 	branches.set_owner(self)
@@ -81,9 +81,8 @@ func get_origin() -> Square:
 
 func generate_dungeon() -> void:
 	var room_max = min(chest_max + heal_max + event_max + enemy_max + \
-		shop_max + anvil_max + shrine_max + 2 + progress, 36)
-	var room_min = room_max - 1
-	generator.generate([room_min, room_max])
+		shop_max + anvil_max + shrine_max + 2, 36)
+	generator.generate([room_max, room_max])
 	dungeon = generator.get_dungeon()
 
 func clear_map() -> void:
@@ -126,21 +125,26 @@ func load_map() -> void:
 				exit = square
 			elif dungeon[i[1]].connections == 1:
 				if chests > 0:
+					print("... is a Chest!")
 					chests -= 1
 					square.initialize("Chest", chest_sprite)
 				elif shops > 0:
+					print("... is a Shop!")
 					shops -= 1
 					square.initialize("Shop", shop_sprite)
 				elif anvils > 0:
+					print("... is an Anvil!")
 					anvils -= 1
 					square.initialize("Anvil", anvil_sprite)
 				elif shrines > 0:
 					shrines -= 1
 					square.initialize("Shrine", shrine_sprite)
 				elif events > 0:
+					print("... is an Event!")
 					events -= 1
 					square.initialize("Event", event_sprite)
 				else:
+					print("... is a Heal!")
 					heals -= 1
 					square.initialize("Rest", heal_sprite)
 			else:
@@ -164,6 +168,7 @@ func load_map() -> void:
 					events -= 1
 					square.initialize("Event", event_sprite)
 				elif heals > 0:
+					print("multi-connection is a Heal!")
 					heals -= 1
 					square.initialize("Rest", heal_sprite)
 				else:

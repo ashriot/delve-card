@@ -7,7 +7,7 @@
 script = ExtResource( 1 )
 name = "Offensive Tactics"
 description = "If enemy intends to attack, gain 3 Power."
-rarity = 1
+rarity = 2
 upgraded = false
 action_type = 0
 target_type = 1
@@ -21,6 +21,8 @@ crit_chance = 0.0
 penetrate = false
 impact = 0
 drawX = 0
+discard_random_x = 0
+discard_x = 0
 draw_type = 7
 drop = false
 fade = false

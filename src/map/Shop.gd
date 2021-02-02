@@ -70,7 +70,7 @@ func update_price_tags() -> void:
 		else:
 			tag.show()
 			var child = choices.get_child(index)
-			var cost = child.action.rarity * 10
+			var cost = child.action.rarity * 20
 			var label = tag.find_node("Label")
 			label.text = str(cost)
 			if player.gold < cost:
