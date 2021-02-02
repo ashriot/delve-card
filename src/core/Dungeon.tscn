@@ -1,7 +1,6 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://src/core/Dungeon.gd" type="Script" id=1]
-[ext_resource path="res://assets/images/bgs/forest.png" type="Texture" id=2]
 [ext_resource path="res://src/core/MapNode.gd" type="Script" id=3]
 [ext_resource path="res://assets/images/map/player.png" type="Texture" id=4]
 [ext_resource path="res://assets/theming/panel_light.tres" type="StyleBox" id=5]
@@ -34,22 +33,6 @@ __meta__ = {
 "_edit_lock_": true,
 "_edit_use_anchors_": false
 }
-
-[node name="DungeonImageBG" type="ColorRect" parent="ColorRect"]
-visible = false
-margin_right = 108.0
-margin_bottom = 52.0
-color = Color( 0.145098, 0.145098, 0.133333, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="LocationSprite" type="Sprite" parent="ColorRect/DungeonImageBG"]
-visible = false
-position = Vector2( 54, 29 )
-texture = ExtResource( 2 )
-vframes = 7
-frame = 6
 
 [node name="TopBanner" type="ColorRect" parent="ColorRect"]
 anchor_right = 1.0

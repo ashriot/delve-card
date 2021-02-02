@@ -22,6 +22,7 @@ onready var loot: = $Loot
 onready var blacksmith = $Blacksmith
 onready var shop = $Shop
 onready var end_game: = $EndGame
+onready var event = $EventScreen
 onready var fade = $Fade/AnimationPlayer
 onready var demo = $DemoScreen
 onready var deck = $Deck
@@ -66,6 +67,7 @@ func _ready() -> void:
 	blacksmith.hide()
 	shop.hide()
 	dungeon.hide()
+	event.hide()
 	end_game.hide()
 	demo.hide()
 	deck.hide()
@@ -489,6 +491,24 @@ func _on_Settings_button_down():
 
 func _on_Dungeon_heal():
 	playerUI.heal(5, "HP")
+
+func _on_Dungeon_event(event_name:String):
+	fade.play("FadeOut")
+	yield(fade, "animation_finished")
+	yield(get_tree().create_timer(0.25), "timeout")
+	fade.play("FadeIn")
+	event.show()
+	var child = load("res://src/events/" + event_name + ".tscn").instance()
+	event.add_child(child)
+	child.initialize(self)
+
+func _on_Dungeon_event_done():
+	AudioController.steps()
+	fade.play("FadeOut")
+	yield(fade, "animation_finished")
+	event.hide()
+	fade.play("FadeIn")
+	save_game()
 
 func _on_Dungeon_advance():
 	fade.play("FadeOut")

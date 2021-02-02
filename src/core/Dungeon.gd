@@ -6,6 +6,7 @@ signal advance
 signal start_battle(enemy)
 signal start_loot(gold)
 signal heal
+signal event(event_name)
 signal blacksmith
 signal shop(square)
 signal done_pathing
@@ -18,6 +19,8 @@ onready var map = $Map
 onready var avatar = $Avatar as Sprite
 onready var avatar_tween = $Avatar/Tween
 onready var colorRect = $ColorRect
+
+var player: Actor
 
 var enemy_list: Array
 var enemy_boss: String
@@ -35,6 +38,7 @@ var pathing: = false
 func initialize(game) -> void:
 	print("dungeon.initialize()")
 	tooltip.hide()
+	player = game.playerUI.player
 	game_seed = game.game_seed
 	enemy_list = ["slime", "slime"]
 	enemy_boss = "bear"
@@ -112,6 +116,9 @@ func _on_Map_move_to_square(square: Square):
 	elif square.type == "Rest":
 		square.clear()
 		emit_signal("heal")
+	elif square.type == "Event":
+		square.clear()
+		emit_signal("event", get_event())
 	elif square.type == "Anvil":
 		emit_signal("blacksmith")
 	elif square.type == "Shop":
@@ -133,3 +140,7 @@ func _on_Map_show_tooltip(button):
 
 func _on_Map_hide_tooltip():
 	tooltip.hide()
+
+# ADD EVENT LOGIC HERE!
+func get_event() -> String:
+	return "CharredAltar"

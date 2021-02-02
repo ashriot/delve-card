@@ -5,6 +5,7 @@ var enemy_sprite = preload("res://assets/images/map/enemy.png")
 var boss_sprite = preload("res://assets/images/map/boss.png")
 var chest_sprite = preload("res://assets/images/map/chest.png")
 var heal_sprite = preload("res://assets/images/map/heal.png")
+var event_sprite = preload("res://assets/images/map/event.png")
 var shop_sprite = preload("res://assets/images/map/shop.png")
 var anvil_sprite = preload("res://assets/images/map/anvil.png")
 var shrine_sprite = preload("res://assets/images/map/shrine.png")
@@ -34,6 +35,7 @@ var DIST = 18
 var dungeon = {}
 var chest_max: = 3
 var heal_max: = 3
+var event_max: = 3
 var enemy_max: = 5
 var shop_max: = 2
 var anvil_max: = 1
@@ -46,6 +48,7 @@ func initialize(_dungeon: Dungeon) -> void:
 	max_prog = _dungeon.max_prog
 	chest_max = max(progress / 2, 1)
 	heal_max = randi() % 2 + max(progress - 1, 0)
+	event_max = 2 #randi() % int(max(progress / 2 + 1, 0)) + max(progress / 2, 0)
 	enemy_max = 2 + progress
 	shop_max = randi() % int(max(progress / 2, 1)) + 1
 	anvil_max = randi() % 1 + max(progress / 2, 0)
@@ -77,7 +80,7 @@ func get_origin() -> Square:
 	return origin as Square
 
 func generate_dungeon() -> void:
-	var room_max = min(chest_max + heal_max + enemy_max + \
+	var room_max = min(chest_max + heal_max + event_max + enemy_max + \
 		shop_max + anvil_max + shrine_max + 2 + progress, 36)
 	var room_min = room_max - 1
 	generator.generate([room_min, room_max])
@@ -93,6 +96,7 @@ func load_map() -> void:
 	var map = []
 	var chests = chest_max
 	var heals = heal_max
+	var events = event_max
 	var enemies = enemy_max
 	var shops = shop_max
 	var anvils = anvil_max
@@ -133,6 +137,9 @@ func load_map() -> void:
 				elif shrines > 0:
 					shrines -= 1
 					square.initialize("Shrine", shrine_sprite)
+				elif events > 0:
+					events -= 1
+					square.initialize("Event", event_sprite)
 				else:
 					heals -= 1
 					square.initialize("Rest", heal_sprite)
@@ -153,6 +160,9 @@ func load_map() -> void:
 				elif shrines > 0:
 					shrines -= 1
 					square.initialize("Shrine", shrine_sprite)
+				elif events > 0:
+					events -= 1
+					square.initialize("Event", event_sprite)
 				elif heals > 0:
 					heals -= 1
 					square.initialize("Rest", heal_sprite)
