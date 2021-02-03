@@ -69,9 +69,9 @@ func fill_deck() -> void:
 	for child in deck.get_children():
 		deck.remove_child(child)
 		child.queue_free()
-	for action in player.actions:
+	for act in player.actions:
 		var action_button = _ActionChoice.instance() as ActionChoice
-		initialize_button(action_button, action)
+		initialize_button(action_button, act)
 		deck.add_child(action_button)
 
 func initialize_button(action_button: ActionChoice, act: Action) -> void:

@@ -62,6 +62,9 @@ func display_others(actions: Array) -> void:
 		other_choices.add_child(child)
 	update_other_price_tags()
 
+func get_price(rarity: int) -> int:
+	return rarity * 15
+
 func update_price_tags() -> void:
 	for tag in price_tags.get_children():
 		var index = tag.get_index()
@@ -70,7 +73,7 @@ func update_price_tags() -> void:
 		else:
 			tag.show()
 			var child = choices.get_child(index)
-			var cost = child.action.rarity * 20
+			var cost = get_price(child.action.rarity)
 			var label = tag.find_node("Label")
 			label.text = str(cost)
 			if player.gold < cost:
@@ -88,7 +91,7 @@ func update_other_price_tags() -> void:
 		else:
 			tag.show()
 			var child = other_choices.get_child(index)
-			var cost = child.action.rarity * 10
+			var cost = get_price(child.action.rarity)
 			var label = tag.find_node("Label")
 			label.text = str(cost)
 			if player.gold < cost:
@@ -147,7 +150,7 @@ func _on_Back_pressed():
 
 func _on_Buy_pressed():
 	AudioController.confirm()
-	var cost = chosen_action.rarity * 10
+	var cost = get_price(chosen_action.rarity)
 	player.gold -= cost
 	for child in choices.get_children():
 		if child.chosen:
@@ -177,6 +180,6 @@ func set_chosen_action(value) -> void:
 	buy_btn.disabled = disabled
 	if value != null:
 		buy_cost.show()
-		buy_cost.text = str(chosen_action.rarity * 10)
+		buy_cost.text = str(get_price(chosen_action.rarity))
 	else:
 		buy_cost.hide()

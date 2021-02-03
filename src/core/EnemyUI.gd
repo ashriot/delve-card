@@ -100,6 +100,7 @@ func act() -> void:
 		if debuffs.has("Poison"):
 			var Poison = load("res://src/actions/debuffs/burn_action.tres")
 			AudioController.play_sfx("poison")
+# warning-ignore:integer_division
 			take_hit(Poison, actor.max_hp / 10, false)
 			reduce_debuff("Poison")
 			yield(get_tree().create_timer(0.8), "timeout")

@@ -46,10 +46,14 @@ func initialize(_dungeon: Dungeon) -> void:
 	enemy_boss = _dungeon.enemy_boss
 	progress = _dungeon.progress
 	max_prog = _dungeon.max_prog
+# warning-ignore:integer_division
 	chest_max = max(progress / 2, 1)
+# warning-ignore:integer_division
 	heal_max = randi() % 2 + max(progress / 2, 0) + 1
+# warning-ignore:integer_division
 	event_max = randi() % int(max(progress / 2 + 1, 0)) + 1 if progress > 1 else 0
 	enemy_max = 2 + progress
+# warning-ignore:integer_division
 	shop_max = randi() % int(max(progress / 2, 1)) + 1
 	anvil_max = (randi() % 2 + 1) if progress > 1 else 0
 	shrine_max = 0

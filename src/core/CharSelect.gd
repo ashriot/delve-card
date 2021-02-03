@@ -1,7 +1,6 @@
 extends Node2D
 
 signal chose_class(name)
-signal spent_gems(qty)
 signal back
 signal save_job(job)
 
@@ -197,7 +196,7 @@ func set_selected_perk(value: PerkButton) -> void:
 	selected_perk = value
 	display_perk(selected_perk)
 
-func apply_perk(perk: Perk) -> void:
+func apply_perk() -> void:
 	emit_signal("save_job", cur_job)
 	display_job_stats()
 
@@ -233,7 +232,7 @@ func _on_RankUp_pressed():
 	game.spend_gems(selected_perk.cost)
 	selected_perk.rank_up()
 	display_perk(selected_perk)
-	apply_perk(selected_perk.perk)
+	apply_perk()
 	var count = get_perk_count()
 	perk_count.text = str(count[0]) + "/" + str(count[1])
 

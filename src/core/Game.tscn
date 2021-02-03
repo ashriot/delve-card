@@ -638,7 +638,6 @@ anims/FadeOut = SubResource( 15 )
 [connection signal="back" from="CharSelect" to="." method="_on_CharSelect_back"]
 [connection signal="chose_class" from="CharSelect" to="." method="_on_CharSelect_chose_class"]
 [connection signal="save_job" from="CharSelect" to="." method="_on_CharSelect_save_job"]
-[connection signal="spent_gems" from="CharSelect" to="." method="_on_CharSelect_spent_gems"]
 [connection signal="trait_back" from="TraitPicker" to="." method="_on_TraitPicker_trait_back"]
 [connection signal="trait_choose" from="TraitPicker" to="." method="_on_TraitPicker_trait_choose"]
 [connection signal="hide_card" from="Loot" to="." method="hide_card"]

@@ -219,6 +219,7 @@ func add_to_discard(actions_to_add) -> void:
 	emit_signal("done_adding_to_discard")
 
 func draw_cards(src: Action, qty: int) -> void:
+	print("drawing ", qty, " actions!")
 	block_input(true)
 	for _i in range(0, qty):
 		if deck.get_child_count() == 0:

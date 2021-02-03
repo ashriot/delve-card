@@ -33,11 +33,11 @@ func spend_gold(amt: int) -> void:
 func have_enough_gold(amt: int) -> bool:
 	return gold >= amt
 
-func add_trait(name) -> void:
-	active_traits.append(name)
-	print("Gained trait: ", name)
-	if name == "Iron Fortitude":
+func add_trait(trait: String) -> void:
+	active_traits.append(trait)
+	print("Gained trait: ", trait)
+	if trait == "Iron Fortitude":
 		max_hp += 6
 		hp = max_hp
-	if name == "Mana Flow": initial_mp += 3
-	if name == "Pocket Change": gold += 20
+	if trait == "Mana Flow": initial_mp += 3
+	if trait == "Pocket Change": gold += 20

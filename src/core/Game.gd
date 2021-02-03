@@ -594,9 +594,6 @@ func _on_OpenGemShop_pressed():
 func spend_gems(qty):
 	self.gems -= qty
 
-func save_job(job_name: String, level: int) -> void:
-	pass
-
 func comma_sep(number: int) -> String:
 	var string = str(number)
 	var mod = string.length() % 3

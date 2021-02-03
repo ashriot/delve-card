@@ -105,7 +105,10 @@ func update_data() -> void:
 		var mp_cost_txt = mp_cost
 		if action.name == "Shadow Bolt": mp_cost_txt = clamp(player.mp, 1, 15)
 		if action.name == "Shadow Cloak": mp_cost_txt = clamp(player.mp, 1, 15)
+# warning-ignore:integer_division
+# warning-ignore:integer_division
 		if action.name == "Shadow Dance": mp_cost_txt = clamp(player.mp/mp_cost, 1, 20/mp_cost) * mp_cost
+# warning-ignore:integer_division
 		if action.name == "Mana Storm": mp_cost_txt = min(5, player.mp / action.cost) * action.cost
 		$Button/MP.bbcode_text = " " + str(mp_cost_txt) + "MP"
 		$Button/MP.show()
@@ -195,6 +198,8 @@ func play() -> void:
 	player.ap -= ap_spent
 	if action.name == "Shadow Bolt": mp_spent = min(player.mp, 15)
 	if action.name == "Shadow Cloak": mp_spent = min(player.mp, 15)
+# warning-ignore:integer_division
+# warning-ignore:integer_division
 	if action.name == "Shadow Dance": mp_spent = min(player.mp/mp_cost, 20/mp_cost) * mp_cost
 	if action.name == "Mana Storm": mp_spent = 0
 	player.mp -= mp_spent
@@ -218,6 +223,7 @@ func execute() -> void:
 			finalize_execute()
 			return
 	var draw = action.drawX
+# warning-ignore:integer_division
 	if action.name == "Shadow Dance": draw *= mp_spent / action.cost
 	if draw > 0:
 		emit_signal("draw_cards", action, draw)
@@ -238,7 +244,6 @@ func execute() -> void:
 			var damage = action.damage
 			if action.name == "Dismantle": damage = enemy.ac
 			if damage > 0:
-#				print(action.name, " damage: ", action.damage)
 				var roll = randf()
 				var crit_mod = 0
 				if player.has_buff("Aim"):
@@ -290,10 +295,7 @@ func execute() -> void:
 	else:
 		create_effect(player.global_position, "effect")
 		yield(self, "inflict_effect")
-		if action.drawX > 0:
-			emit_signal("draw_cards", action, action.drawX)
-		else:
-			emit_signal("unblock", false)
+		emit_signal("unblock", false)
 		if action.extra_action != null:
 			action.extra_action.execute(player)
 		var damage = action.damage

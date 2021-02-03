@@ -71,6 +71,7 @@ func start_turn() -> void:
 	if debuffs.size() > 0 and debuffs.has("Poison"):
 		AudioController.play_sfx("poison")
 		var poison = load("res://src/actions/debuffs/poison_action.tres")
+# warning-ignore:integer_division
 		take_hit(poison, actor.max_hp / 10)
 		reduce_debuff("Poison")
 		yield(get_tree().create_timer(0.8), "timeout")
