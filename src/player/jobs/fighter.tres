@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=7 format=2]
+[gd_resource type="Resource" load_steps=11 format=2]
 
 [ext_resource path="res://src/player/perks/wealth-f.tres" type="Resource" id=1]
 [ext_resource path="res://src/player/perks/toughness-f.tres" type="Resource" id=2]
@@ -6,6 +6,10 @@
 [ext_resource path="res://src/player/perks/plated_armor.tres" type="Resource" id=4]
 [ext_resource path="res://src/player/perks/combat_prowess.tres" type="Resource" id=5]
 [ext_resource path="res://src/player/perks/iron_fortitude.tres" type="Resource" id=6]
+[ext_resource path="res://src/actions/fighter/1/battle_shout.tres" type="Resource" id=7]
+[ext_resource path="res://src/actions/fighter/1/longsword.tres" type="Resource" id=8]
+[ext_resource path="res://src/actions/fighter/1/iron_shield.tres" type="Resource" id=9]
+[ext_resource path="res://src/actions/fighter/1/short_sword.tres" type="Resource" id=10]
 
 [resource]
 script = ExtResource( 3 )
@@ -25,4 +29,7 @@ bonus_st = 0
 bonus_gp = 0
 level = 10
 xp = 0
+actions = [ ExtResource( 7 ), ExtResource( 9 ), ExtResource( 9 ), ExtResource( 8 ), ExtResource( 8 ), ExtResource( 8 ), ExtResource( 8 ), ExtResource( 10 ), ExtResource( 10 ), ExtResource( 10 ) ]
 perks = [ ExtResource( 2 ), ExtResource( 1 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ) ]
+trinkets = [  ]
+potions = [  ]

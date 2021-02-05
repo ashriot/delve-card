@@ -39,17 +39,17 @@ var debuffs: Dictionary
 func initialize(_actor: Actor) ->  void:
 	assert(_actor is Actor)
 	actor = _actor as Actor
-	self.ac = actor.initial_ac
-	self.mp = actor.initial_mp
-	self.ap = actor.max_ap
+	self.ac = actor.ac
+	self.mp = actor.mp
+	self.ap = actor.st
 	actor.actions.sort()
 	$Player/Panel/AP/Max.rect_size = Vector2(5 * actor.max_ap, 7)
 
 func reset() -> void:
 	self.hp = actor.hp
-	self.ap = actor.max_ap
-	self.ac = actor.initial_ac
-	self.mp = actor.initial_mp
+	self.ap = actor.st
+	self.ac = actor.ac
+	self.mp = actor.mp
 	added_damage = 0
 	weapon_multiplier = 0.0
 	damage_reduction = 0.0

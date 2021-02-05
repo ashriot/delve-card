@@ -18,7 +18,10 @@ export var bonus_gp: int
 export var level: = 1
 export var xp: int
 
+export(Array, Resource) var actions
 export(Array, Resource) var perks
+export(Array, Resource) var trinkets
+export(Array, Resource) var potions
 
 func clear_bonuses() -> void:
 	bonus_hp = 0
@@ -41,3 +44,11 @@ func st() -> int:
 
 func gold() -> int:
 	return starting_gold + bonus_gp
+
+func update_perk_bonuses() -> void:
+	clear_bonuses()
+	for perk in perks:
+		if perk.name == "Toughness": bonus_hp = perk.amts[0] * perk.cur_ranks
+		if perk.name == "Wealth": bonus_gp = perk.amts[0] * perk.cur_ranks
+		if perk.name == "Clarity": bonus_mp = perk.amts[0] * perk.cur_ranks
+		if perk.name == "Plated Armor": bonus_ac = perk.amts[0] * perk.cur_ranks

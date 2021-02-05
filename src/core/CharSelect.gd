@@ -1,6 +1,6 @@
 extends Node2D
 
-signal chose_class(name)
+signal chose_class(job)
 signal back
 signal save_job(job)
 
@@ -201,14 +201,7 @@ func apply_perk() -> void:
 	display_job_stats()
 
 func update_perk_bonuses() -> void:
-	cur_job.clear_bonuses()
-	for perk in cur_job.perks:
-		if perk.name == "Toughness": cur_job.bonus_hp = perk.amts[0] * perk.cur_ranks
-		if perk.name == "Wealth": cur_job.bonus_gp = perk.amts[0] * perk.cur_ranks
-		if perk.name == "Clarity": cur_job.bonus_mp = perk.amts[0] * perk.cur_ranks
-		if perk.name == "Plated Armor": cur_job.bonus_ac = perk.amts[0] * perk.cur_ranks
-		if perk.name == "Magic Armor" and perk.cur_ranks > 0:
-			cur_job.bonus_ac = ((cur_job.mp()) / ( 9 - perk.amts[0]) * perk.cur_ranks)
+	cur_job.update_perk_bonuses()
 
 func _on_Perk_pressed(button) -> void:
 	self.selected_perk = button
@@ -259,7 +252,7 @@ func _on_Next_pressed():
 func _on_Delve_pressed():
 	AudioController.confirm()
 	print("chose ", cur_job.name)
-	emit_signal("chose_class", cur_job.name)
+	emit_signal("chose_class", cur_job)
 
 func _on_PerksBack_pressed():
 	$Perks/BG2/PerksBack.mouse_filter = Control.MOUSE_FILTER_IGNORE

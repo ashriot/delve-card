@@ -150,6 +150,7 @@ func _on_Finished_pressed():
 				player.hp += chosen_action.damage
 			elif chosen_action.damage_type == Action.DamageType.MP:
 				player.initial_mp += chosen_action.damage
+			player.update_perk_bonuses()
 		else:
 			player.actions.append(chosen_action)
 			player.actions.sort()

@@ -280,7 +280,6 @@ func start_game() -> void:
 		for perk in job.perks:
 			if perk.trait and perk.cur_ranks == 1:
 				traits.append(perk)
-	print(traits)
 	if traits.size() > 0:
 		trait_picker.initialize(self)
 		trait_picker.show()
@@ -318,6 +317,7 @@ func enter_game() -> void:
 	battle.connect("hide_card", self, "hide_card")
 	loot.initialize(self)
 	dungeon.show()
+	player.update_perk_bonuses()
 	playerUI.initialize(self)
 	playerUI.show()
 	yield(get_tree().create_timer(0.5), "timeout")
@@ -402,17 +402,9 @@ func _on_DemoStart_button_up():
 	welcome.show()
 	fade.play("FadeIn")
 
-func _on_CharSelect_chose_class(name: String) -> void:
-	var n = name.to_lower()
-	var player_res = load("res://src/actions/" + n + "/" + n + ".tres")
-	var job = load("res://src/player/jobs/" + n + ".tres") as Job
-	player = player_res as Actor
-	player.max_hp += job.hp()
-	player.initial_mp += job.mp()
-	player.initial_ac += job.ac()
-	player.max_ap += job.st()
-	player.gold += job.gold()
-	player.hp = player.max_hp
+func _on_CharSelect_chose_class(job: Job) -> void:
+	player = Actor.new()
+	player.initialize(job)
 	fade.play("FadeOut")
 	yield(fade, "animation_finished")
 	start_game()
@@ -627,6 +619,7 @@ func _on_TraitPicker_trait_choose(perk: Perk):
 	if perk != null: add_active_trait(perk)
 	fade.play("FadeOut")
 	yield(fade, "animation_finished")
+	char_select.update_perk_bonuses()
 	new_game()
 
 func add_active_trait(perk: Perk) -> void:

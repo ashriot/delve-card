@@ -236,6 +236,7 @@ texture = ExtResource( 7 )
 centered = false
 vframes = 4
 hframes = 7
+frame = 5
 
 [node name="Gold" type="Sprite" parent="."]
 position = Vector2( 101, 185 )

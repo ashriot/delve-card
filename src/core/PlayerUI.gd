@@ -41,9 +41,9 @@ func refresh() -> void:
 	player.actions.sort()
 	item_belt.init_ui(self)
 	set_hp(player.hp)
-	set_ac(player.initial_ac)
-	set_ap(player.max_ap)
-	set_mp(player.initial_mp)
+	set_ac(player.ac)
+	set_ap(player.st)
+	set_mp(player.mp)
 	gold_label.text = comma_sep(player.gold)
 	deck_label.text = str(player.actions.size())
 
@@ -106,20 +106,6 @@ func comma_sep(n: int) -> String:
 func _on_DeckButton_button_up():
 	AudioController.click()
 	emit_signal("open_deck")
-
-func save(save_game: Resource) -> void:
-	print("saving player data")
-	save_game.data[SAVE_KEY] = {
-		"player": player,
-		"actions": player.actions,
-		"potions": player.potions,
-		"trinkets": player.trinkets,
-		"max_hp": player.max_hp,
-		"max_ap": player.max_ap,
-		"initial_ac": player.initial_ac,
-		"initial_mp": player.initial_mp,
-		"gold": player.gold
-	}
 
 func load(save_game: Resource) -> void:
 	print('loading player data')
