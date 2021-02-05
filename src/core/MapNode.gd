@@ -55,7 +55,7 @@ func initialize(_dungeon: Dungeon) -> void:
 	enemy_max = 2 + progress
 # warning-ignore:integer_division
 	shop_max = randi() % int(max(progress / 2, 1)) + 1
-	anvil_max = (randi() % 2 + 1) if progress > 1 else 0
+	anvil_max = 1
 	shrine_max = 0
 	branches = $Branches
 	branches.set_owner(self)

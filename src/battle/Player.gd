@@ -83,7 +83,7 @@ func start_turn() -> void:
 			reduce_debuff(child.buff_name)
 	emit_signal("update_enemy")
 
-func take_hit(action: Action, damage: int) -> void:
+func take_hit(action: Action, damage: int) -> bool:
 	var floating_text = FloatingText.instance()
 	var miss = false
 	var immune = false
@@ -127,6 +127,7 @@ func take_hit(action: Action, damage: int) -> void:
 		$AnimationPlayer.play("Shake")
 	floating_text.position = Vector2(58, 70)
 	get_parent().add_child(floating_text)
+	return miss
 
 func take_healing(amount: int, type: String) -> void:
 	var x = 40

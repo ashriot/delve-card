@@ -55,7 +55,7 @@ var auto_end: = true
 func _ready() -> void:
 	$Title/AnimationPlayer.play("FlashTap")
 	rand_seed(game_seed.hash())
-	randomize()
+#	randomize()
 	AudioController.mute = mute
 	AudioController.play_bgm("title")
 	init_data()		# Initial data creation or load
@@ -103,8 +103,8 @@ func init_data() -> void:
 		print("REPLACE OUTDATED FILE")
 	# NEW GAME
 	core_data = CoreData.new()
-	core_data.gems = 0
-	self.gems = 0
+	core_data.gems = 1000
+	self.gems = 1000
 	core_data.game_version = ProjectSettings.get_setting("application/config/version")
 	var path = save_path.plus_file("core.tres")
 	var error: int = ResourceSaver.save(path, core_data)

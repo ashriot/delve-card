@@ -218,6 +218,7 @@ func _on_Perks_pressed():
 		cur_job.unlocked = true
 		emit_signal("save_job", cur_job)
 		display_job_data()
+		refresh_perk()
 	$BG/Perks.mouse_filter = Control.MOUSE_FILTER_STOP
 
 func _on_RankUp_pressed():

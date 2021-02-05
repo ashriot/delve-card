@@ -73,8 +73,8 @@ func _on_Enemy_used_action(action: Action):
 		for x in action.hits:
 			var damage = action.damage * (1 + enemyUI.damage_multiplier) \
 				+ (enemyUI.added_damage)
-			playerUI.take_hit(action, damage)
-			if action.extra_action != null:
+			var missed = playerUI.take_hit(action, damage)
+			if action.extra_action != null and !missed:
 				action.extra_action.execute(playerUI)
 			if playerUI.buffs.has("Flame Shield"):
 				var burn_debuff = load("res://src/actions/debuffs/burn.tres")
