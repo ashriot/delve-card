@@ -144,8 +144,11 @@ __meta__ = {
 [node name="ColorRect" type="ColorRect" parent="Button/AP"]
 margin_left = -1.0
 margin_top = 1.0
-margin_bottom = 5.0
+margin_bottom = 6.0
 color = Color( 0.145098, 0.145098, 0.133333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Timer" type="Timer" parent="."]
 [connection signal="button_down" from="Button" to="." method="_on_Button_down"]

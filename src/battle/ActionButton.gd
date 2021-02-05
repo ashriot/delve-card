@@ -278,8 +278,6 @@ func execute() -> void:
 				if action.name == "Offensive Tactics" \
 				and enemy.get_intent() == "Attack":
 					action.extra_action.execute(player)
-				else:
-					action.extra_action.execute(player)
 			if !enemy.dead:
 				emit_signal("unblock", false)
 			if hits > 1:

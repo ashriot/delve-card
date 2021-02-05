@@ -306,8 +306,10 @@ func remove_debuff(debuff_name: String) -> void:
 func update_atk_panel() -> void:
 	action_to_use = enemy_ai()
 	attack_icon.frame = action_to_use.frame_id
-	intent = "Attack" if action_to_use.action_type == Action.ActionType.WEAPON \
-		else "Skill"
+	if action_to_use.target_type == Action.TargetType.OPPONENT \
+	and action_to_use.damage > 0:
+		intent = "Attack"
+	else: intent = "Skill"
 	update_data()
 
 func update_data() -> void:
