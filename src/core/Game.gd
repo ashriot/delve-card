@@ -4,7 +4,7 @@ class_name Game
 signal battle_finished
 signal looting_finished
 
-var gear = preload("res://assets/images/ui/gear_small.png")
+var gear_icon = preload("res://assets/images/ui/gear_small.png")
 var close = preload("res://assets/images/ui/close_small.png")
 
 export var player: Resource
@@ -119,9 +119,13 @@ func initialize_job_data() -> void:
 		data["level"] = job.level
 		data["xp"] = job.xp
 		data["perks"] = {}
+		data["gears"] = {}
 		for perk in job.perks:
 			perk = perk as Perk
 			data["perks"][perk.name] = 0
+		for gear in job.gears:
+			gear = gear as Gear
+			data["gears"][gear.name] = false
 		core_data.job_data[job.name] = data
 
 func load_job_data() -> void:
@@ -137,6 +141,13 @@ func load_job_data() -> void:
 				data["perks"][perk.name] = 0
 			else:
 				perk.cur_ranks = data["perks"][perk.name]
+		for gear in job.gears:
+			gear = gear as Gear
+			if !data.has("gears"): data["gears"] = {} # TEMP
+			if !data["gears"].keys().has(gear.name):
+				data["gears"][gear.name] = false
+			else:
+				gear.unlocked = data["gears"][gear.name]
 
 func save_job_data(job: Job) -> void:
 	print("saving job data for ", job.name)
@@ -455,7 +466,7 @@ func _on_Settings_button_up():
 		settings.show()
 		settings_btn.texture_normal = close
 	else:
-		settings_btn.texture_normal = gear
+		settings_btn.texture_normal = gear_icon
 		AudioController.back()
 		settings.hide()
 

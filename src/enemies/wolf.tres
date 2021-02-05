@@ -5,15 +5,14 @@
 [ext_resource path="res://src/actions/enemy/attack6x2.tres" type="Resource" id=3]
 [ext_resource path="res://assets/images/enemies/wolf.png" type="Texture" id=4]
 [ext_resource path="res://src/actions/enemy/attack5x3.tres" type="Resource" id=5]
-[ext_resource path="res://src/actions/enemy/gird8.tres" type="Resource" id=6]
-
+[ext_resource path="res://src/actions/enemy/dodge2.tres" type="Resource" id=6]
 
 [resource]
 script = ExtResource( 1 )
 name = "wolf"
 title = "Wuphf"
 level = 1
-max_hp = 45
+max_hp = 50
 max_ap = 3
 initial_ac = 0
 initial_mp = 0

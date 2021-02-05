@@ -8,13 +8,13 @@
 [ext_resource path="res://src/player/perks/iron_fortitude.tres" type="Resource" id=6]
 [ext_resource path="res://src/actions/fighter/1/battle_shout.tres" type="Resource" id=7]
 [ext_resource path="res://src/actions/fighter/1/longsword.tres" type="Resource" id=8]
-[ext_resource path="res://src/actions/fighter/1/iron_shield.tres" type="Resource" id=9]
+[ext_resource path="res://src/actions/fighter/1/buckler.tres" type="Resource" id=9]
 [ext_resource path="res://src/actions/fighter/1/short_sword.tres" type="Resource" id=10]
 
 [resource]
 script = ExtResource( 3 )
 name = "Fighter"
-unlocked = true
+unlocked = false
 desc = "A mighty warrior who is a master of all weapons. Utilizes powerful shields to protect himself.
 [NOT MANY SKILLS YET]"
 sprite_id = 0
@@ -34,3 +34,5 @@ actions = [ ExtResource( 7 ), ExtResource( 9 ), ExtResource( 9 ), ExtResource( 8
 perks = [ ExtResource( 2 ), ExtResource( 1 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ) ]
 trinkets = [  ]
 potions = [  ]
+gears = [  ]
+builds = [  ]

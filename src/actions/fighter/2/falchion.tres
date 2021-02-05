@@ -7,7 +7,7 @@
 script = ExtResource( 2 )
 name = "Falchion"
 description = "Deal %damage damage."
-rarity = 1
+rarity = 2
 upgraded = false
 action_type = 0
 target_type = 1

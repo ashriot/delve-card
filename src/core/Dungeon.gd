@@ -64,18 +64,23 @@ func reset_avatar() -> void:
 	self.progress += 1
 	print("Progress: ", progress)
 	if progress == 2:
-		enemy_list.append("Devil")
+		enemy_list.remove(0)
+		enemy_list.append("devil")
 	if progress == 3:
 		enemy_list.remove(0)
-		enemy_list.append("Tiger")
+		enemy_list.append("wolf")
 	if progress == 5:
+		enemy_list.append("tiger")
+	if progress == 6:
 		enemy_list.remove(0)
+		enemy_list.append("tiger")
 	avatar.global_position = map.position - Vector2(8, 8)
 	map.clear_map()
 	yield(get_tree().create_timer(0.2), "timeout")
 	new_map()
 	var origin = map.get_origin()
 	current_square = origin.get_index()
+	print("Enemies: ", enemy_list)
 
 func path(sq: Square) -> bool:
 	var from = current_square

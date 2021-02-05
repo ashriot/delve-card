@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=11 format=2]
+[gd_resource type="Resource" load_steps=12 format=2]
 
 [ext_resource path="res://src/player/perks/wealth-s.tres" type="Resource" id=1]
 [ext_resource path="res://src/player/perks/toughness-s.tres" type="Resource" id=2]
@@ -9,12 +9,13 @@
 [ext_resource path="res://src/actions/sorcerer/1/mana_dart.tres" type="Resource" id=7]
 [ext_resource path="res://src/actions/sorcerer/1/mana_crystal.tres" type="Resource" id=8]
 [ext_resource path="res://src/actions/sorcerer/1/mana_shell.tres" type="Resource" id=9]
+[ext_resource path="res://src/gear/napsack.tres" type="Resource" id=10]
 [ext_resource path="res://src/player/Job.gd" type="Script" id=11]
 
 [resource]
 script = ExtResource( 11 )
 name = "Sorcerer"
-unlocked = false
+unlocked = true
 desc = "A powerful spell-caster that commands the very elements to perform his bidding."
 sprite_id = 3
 max_hp = 50
@@ -33,3 +34,5 @@ actions = [ ExtResource( 8 ), ExtResource( 8 ), ExtResource( 7 ), ExtResource( 7
 perks = [ ExtResource( 2 ), ExtResource( 1 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ) ]
 trinkets = [  ]
 potions = [  ]
+gears = [ ExtResource( 10 ) ]
+builds = [  ]

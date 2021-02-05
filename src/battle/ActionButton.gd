@@ -275,8 +275,10 @@ func execute() -> void:
 				elif action.name == "Rune Knife" or action.name == "Rune Claws":
 					player.take_healing(damage, "MP")
 			if action.extra_action != null:
-				if action.name == "Offensive Tactics" \
-				and enemy.get_intent() == "Attack":
+				if action.name == "Offensive Tactics":
+					if enemy.get_intent() == "Attack":
+						action.extra_action.execute(player)
+				else:
 					action.extra_action.execute(player)
 			if !enemy.dead:
 				emit_signal("unblock", false)

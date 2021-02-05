@@ -129,26 +129,21 @@ func load_map() -> void:
 				exit = square
 			elif dungeon[i[1]].connections == 1:
 				if chests > 0:
-					print("... is a Chest!")
 					chests -= 1
 					square.initialize("Chest", chest_sprite)
 				elif shops > 0:
-					print("... is a Shop!")
 					shops -= 1
 					square.initialize("Shop", shop_sprite)
 				elif anvils > 0:
-					print("... is an Anvil!")
 					anvils -= 1
 					square.initialize("Anvil", anvil_sprite)
 				elif shrines > 0:
 					shrines -= 1
 					square.initialize("Shrine", shrine_sprite)
 				elif events > 0:
-					print("... is an Event!")
 					events -= 1
 					square.initialize("Event", event_sprite)
 				else:
-					print("... is a Heal!")
 					heals -= 1
 					square.initialize("Rest", heal_sprite)
 			else:
@@ -172,7 +167,6 @@ func load_map() -> void:
 					events -= 1
 					square.initialize("Event", event_sprite)
 				elif heals > 0:
-					print("multi-connection is a Heal!")
 					heals -= 1
 					square.initialize("Rest", heal_sprite)
 				else:

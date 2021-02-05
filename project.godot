@@ -125,6 +125,16 @@ _global_script_classes=[ {
 "path": "res://src/utils/GameData.gd"
 }, {
 "base": "Resource",
+"class": "Gear",
+"language": "GDScript",
+"path": "res://src/gear/gear.gd"
+}, {
+"base": "Button",
+"class": "GearButton",
+"language": "GDScript",
+"path": "res://src/player/GearButton.gd"
+}, {
+"base": "Resource",
 "class": "Job",
 "language": "GDScript",
 "path": "res://src/player/Job.gd"
@@ -213,6 +223,8 @@ _global_script_class_icons={
 "FloatingText": "",
 "Game": "",
 "GameData": "",
+"Gear": "",
+"GearButton": "",
 "Job": "",
 "Loot": "",
 "Perk": "",

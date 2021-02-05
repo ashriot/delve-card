@@ -23,6 +23,9 @@ export(Array, Resource) var perks
 export(Array, Resource) var trinkets
 export(Array, Resource) var potions
 
+export(Array, Resource) var gears
+export(Array, Resource) var builds
+
 func clear_bonuses() -> void:
 	bonus_hp = 0
 	bonus_mp = 0

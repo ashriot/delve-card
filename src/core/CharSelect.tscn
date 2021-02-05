@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://assets/images/ui/back.png" type="Texture" id=1]
 [ext_resource path="res://src/core/CharSelect.gd" type="Script" id=2]
@@ -19,6 +19,7 @@
 [ext_resource path="res://assets/images/ui/perk-tiers.png" type="Texture" id=17]
 [ext_resource path="res://assets/images/ui/pack.png" type="Texture" id=18]
 [ext_resource path="res://assets/images/ui/build.png" type="Texture" id=19]
+[ext_resource path="res://src/player/GearButton.tscn" type="PackedScene" id=20]
 
 [sub_resource type="Animation" id=1]
 length = 1.4
@@ -369,7 +370,7 @@ position = Vector2( 36, 5 )
 texture = ExtResource( 6 )
 centered = false
 
-[node name="Gear" type="Button" parent="BG"]
+[node name="Gears" type="Button" parent="BG"]
 margin_left = 2.0
 margin_top = 68.0
 margin_right = 106.0
@@ -382,7 +383,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Build" type="Button" parent="BG"]
+[node name="Builds" type="Button" parent="BG"]
 margin_left = 2.0
 margin_top = 83.0
 margin_right = 106.0
@@ -505,106 +506,6 @@ margin_bottom = 148.0
 margin_top = 150.0
 margin_bottom = 163.0
 
-[node name="Details" type="Panel" parent="Perks/BG2"]
-margin_left = 2.0
-margin_top = 90.0
-margin_right = 106.0
-margin_bottom = 173.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="DescBG" type="ColorRect" parent="Perks/BG2/Details"]
-margin_left = 1.0
-margin_top = 1.0
-margin_right = 103.0
-margin_bottom = 12.0
-color = Color( 0.792157, 0.780392, 0.721569, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Title" type="Label" parent="Perks/BG2/Details"]
-margin_left = 9.0
-margin_top = -1.0
-margin_right = 102.0
-margin_bottom = 13.0
-custom_colors/font_color = Color( 0.145098, 0.145098, 0.133333, 1 )
-text = "Toughness"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Sprite" type="Sprite" parent="Perks/BG2/Details/Title"]
-modulate = Color( 0.145098, 0.145098, 0.133333, 1 )
-position = Vector2( -7, 3 )
-texture = ExtResource( 17 )
-centered = false
-hframes = 5
-
-[node name="Desc" type="Label" parent="Perks/BG2/Details"]
-margin_left = -1.0
-margin_top = 9.0
-margin_right = 105.0
-margin_bottom = 69.0
-custom_constants/line_spacing = 1
-text = "Maximum HP +5.
-(Next Rank: +5)
-Testing
-Testing
-Testing
-Testing
-Testing
-Testing"
-autowrap = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Ranks" type="Label" parent="Perks/BG2/Details"]
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = -20.0
-margin_top = -1.0
-margin_right = 2.0
-margin_bottom = 13.0
-custom_colors/font_color = Color( 0.145098, 0.145098, 0.133333, 1 )
-text = "0/5"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="RankUp" type="Button" parent="Perks/BG2/Details"]
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = -13.0
-text = " Rank 0 -> 1"
-align = 0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Cost" type="Label" parent="Perks/BG2/Details/RankUp"]
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-margin_left = -44.0
-margin_top = -7.5
-margin_right = -4.0
-margin_bottom = 6.5
-text = "200"
-align = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Sprite" type="Sprite" parent="Perks/BG2/Details/RankUp/Cost"]
-position = Vector2( 37, 5 )
-texture = ExtResource( 6 )
-centered = false
-
 [node name="Banner" type="ColorRect" parent="Perks"]
 anchor_right = 1.0
 margin_right = 108.0
@@ -627,7 +528,6 @@ __meta__ = {
 }
 
 [node name="Gears" parent="." instance=ExtResource( 9 )]
-visible = false
 
 [node name="BG2" type="ColorRect" parent="Gears"]
 margin_right = 108.0
@@ -661,128 +561,27 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Perks" type="VBoxContainer" parent="Gears/BG2/Container"]
+[node name="Gears" type="VBoxContainer" parent="Gears/BG2/Container"]
 margin_right = 100.0
-margin_bottom = 73.0
+margin_bottom = 58.0
 custom_constants/separation = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="PerkButton" parent="Gears/BG2/Container/Perks" instance=ExtResource( 16 )]
-text = "None"
+[node name="GearButton" parent="Gears/BG2/Container/Gears" instance=ExtResource( 20 )]
 
-[node name="PerkButton5" parent="Gears/BG2/Container/Perks" instance=ExtResource( 16 )]
+[node name="GearButton2" parent="Gears/BG2/Container/Gears" instance=ExtResource( 20 )]
 margin_top = 15.0
 margin_bottom = 28.0
-text = "Napsack"
 
-[node name="PerkButton2" parent="Gears/BG2/Container/Perks" instance=ExtResource( 16 )]
+[node name="GearButton3" parent="Gears/BG2/Container/Gears" instance=ExtResource( 20 )]
 margin_top = 30.0
 margin_bottom = 43.0
-text = "Travel Pack"
 
-[node name="PerkButton3" parent="Gears/BG2/Container/Perks" instance=ExtResource( 16 )]
+[node name="GearButton4" parent="Gears/BG2/Container/Gears" instance=ExtResource( 20 )]
 margin_top = 45.0
 margin_bottom = 58.0
-text = "Cauldron"
-
-[node name="PerkButton4" parent="Gears/BG2/Container/Perks" instance=ExtResource( 16 )]
-margin_top = 60.0
-margin_bottom = 73.0
-text = "Conjury Bag"
-
-[node name="Details" type="Panel" parent="Gears/BG2"]
-margin_left = 2.0
-margin_top = 90.0
-margin_right = 106.0
-margin_bottom = 173.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="DescBG" type="ColorRect" parent="Gears/BG2/Details"]
-margin_left = 1.0
-margin_top = 1.0
-margin_right = 103.0
-margin_bottom = 12.0
-color = Color( 0.792157, 0.780392, 0.721569, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Title" type="Label" parent="Gears/BG2/Details"]
-margin_left = 9.0
-margin_top = -1.0
-margin_right = 102.0
-margin_bottom = 13.0
-custom_colors/font_color = Color( 0.145098, 0.145098, 0.133333, 1 )
-text = "Toughness"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Sprite" type="Sprite" parent="Gears/BG2/Details/Title"]
-modulate = Color( 0.368627, 0.364706, 0.376471, 1 )
-position = Vector2( -7, 3 )
-texture = ExtResource( 5 )
-centered = false
-
-[node name="Desc" type="Label" parent="Gears/BG2/Details"]
-anchor_bottom = 0.0361446
-margin_left = -1.0
-margin_top = 9.0
-margin_right = 105.0
-margin_bottom = 69.0
-custom_constants/line_spacing = 1
-autowrap = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Ranks" type="Label" parent="Gears/BG2/Details"]
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = -20.0
-margin_top = -1.0
-margin_right = 2.0
-margin_bottom = 13.0
-custom_colors/font_color = Color( 0.145098, 0.145098, 0.133333, 1 )
-text = "0/5"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="RankUp" type="Button" parent="Gears/BG2/Details"]
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = -13.0
-text = " Rank 0 -> 1"
-align = 0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Cost" type="Label" parent="Gears/BG2/Details/RankUp"]
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-margin_left = -44.0
-margin_top = -7.5
-margin_right = -4.0
-margin_bottom = 6.5
-text = "200"
-align = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Sprite" type="Sprite" parent="Gears/BG2/Details/RankUp/Cost"]
-position = Vector2( 37, 5 )
-texture = ExtResource( 6 )
-centered = false
 
 [node name="Banner" type="ColorRect" parent="Gears"]
 anchor_right = 1.0
@@ -840,7 +639,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Perks" type="VBoxContainer" parent="Builds/BG2/Container"]
+[node name="Builds" type="VBoxContainer" parent="Builds/BG2/Container"]
 margin_right = 100.0
 margin_bottom = 58.0
 custom_constants/separation = 2
@@ -848,20 +647,20 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="PerkButton" parent="Builds/BG2/Container/Perks" instance=ExtResource( 16 )]
+[node name="PerkButton" parent="Builds/BG2/Container/Builds" instance=ExtResource( 16 )]
 text = "Novice"
 
-[node name="PerkButton2" parent="Builds/BG2/Container/Perks" instance=ExtResource( 16 )]
+[node name="PerkButton2" parent="Builds/BG2/Container/Builds" instance=ExtResource( 16 )]
 margin_top = 15.0
 margin_bottom = 28.0
 text = "Champion"
 
-[node name="PerkButton3" parent="Builds/BG2/Container/Perks" instance=ExtResource( 16 )]
+[node name="PerkButton3" parent="Builds/BG2/Container/Builds" instance=ExtResource( 16 )]
 margin_top = 30.0
 margin_bottom = 43.0
 text = "Knight"
 
-[node name="PerkButton4" parent="Builds/BG2/Container/Perks" instance=ExtResource( 16 )]
+[node name="PerkButton4" parent="Builds/BG2/Container/Builds" instance=ExtResource( 16 )]
 margin_top = 45.0
 margin_bottom = 58.0
 text = "Berserker"
@@ -978,16 +777,119 @@ __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
 }
+
+[node name="Details" type="Panel" parent="."]
+margin_left = 2.0
+margin_top = 90.0
+margin_right = 106.0
+margin_bottom = 173.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DescBG" type="ColorRect" parent="Details"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 103.0
+margin_bottom = 12.0
+color = Color( 0.792157, 0.780392, 0.721569, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="Details"]
+margin_left = 9.0
+margin_top = -1.0
+margin_right = 102.0
+margin_bottom = 13.0
+custom_colors/font_color = Color( 0.145098, 0.145098, 0.133333, 1 )
+text = "Toughness"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="Details/Title"]
+modulate = Color( 0.145098, 0.145098, 0.133333, 1 )
+position = Vector2( -7, 3 )
+texture = ExtResource( 17 )
+centered = false
+hframes = 5
+
+[node name="Desc" type="RichTextLabel" parent="Details"]
+margin_left = 3.0
+margin_top = 13.0
+margin_right = 109.0
+margin_bottom = 73.0
+bbcode_enabled = true
+bbcode_text = "Maximum HP +5.
+(Next Rank: +5)
+Testing
+Testing
+Testing
+Testing
+Testing
+Testing"
+text = "Maximum HP +5.
+(Next Rank: +5)
+Testing
+Testing
+Testing
+Testing
+Testing
+Testing"
+
+[node name="Ranks" type="Label" parent="Details"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -20.0
+margin_top = -1.0
+margin_right = 2.0
+margin_bottom = 13.0
+custom_colors/font_color = Color( 0.145098, 0.145098, 0.133333, 1 )
+text = "0/5"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RankUp" type="Button" parent="Details"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -13.0
+text = " Rank 0 -> 1"
+align = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Cost" type="Label" parent="Details/RankUp"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -44.0
+margin_top = -7.5
+margin_right = -4.0
+margin_bottom = 6.5
+text = "200"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="Details/RankUp/Cost"]
+position = Vector2( 37, 5 )
+texture = ExtResource( 6 )
+centered = false
 [connection signal="pressed" from="BG/Prev" to="." method="_on_Prev_pressed"]
 [connection signal="pressed" from="BG/Next" to="." method="_on_Next_pressed"]
 [connection signal="pressed" from="BG/Perks" to="." method="_on_Perks_pressed"]
-[connection signal="pressed" from="BG/Gear" to="." method="_on_Gear_pressed"]
-[connection signal="pressed" from="BG/Build" to="." method="_on_Build_pressed"]
+[connection signal="pressed" from="BG/Gears" to="." method="_on_Gears_pressed"]
+[connection signal="pressed" from="BG/Builds" to="." method="_on_Builds_pressed"]
 [connection signal="pressed" from="BG/Delve" to="." method="_on_Delve_pressed"]
 [connection signal="pressed" from="BG/Back" to="." method="_on_Back_pressed"]
 [connection signal="pressed" from="Perks/BG2/PerksBack" to="." method="_on_PerksBack_pressed"]
-[connection signal="pressed" from="Perks/BG2/Details/RankUp" to="." method="_on_RankUp_pressed"]
 [connection signal="pressed" from="Gears/BG2/GearsBack" to="." method="_on_GearsBack_pressed"]
-[connection signal="pressed" from="Gears/BG2/Details/RankUp" to="." method="_on_RankUp_pressed"]
 [connection signal="pressed" from="Builds/BG2/BuildsBack" to="." method="_on_BuildsBack_pressed"]
 [connection signal="pressed" from="Builds/BG2/Details/RankUp" to="." method="_on_RankUp_pressed"]
+[connection signal="pressed" from="Details/RankUp" to="." method="_on_RankUp_pressed"]
