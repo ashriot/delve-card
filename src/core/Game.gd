@@ -126,6 +126,9 @@ func initialize_job_data() -> void:
 		for gear in job.gears:
 			gear = gear as Gear
 			data["gears"][gear.name] = false
+		for build in job.builds:
+			build = build as Gear
+			data["builds"][build.name] = false
 		core_data.job_data[job.name] = data
 
 func load_job_data() -> void:
@@ -148,6 +151,13 @@ func load_job_data() -> void:
 				data["gears"][gear.name] = false
 			else:
 				gear.unlocked = data["gears"][gear.name]
+		for build in job.builds:
+			build = build as Gear
+			if !data.has("builds"): data["builds"] = {} # TEMP
+			if !data["builds"].keys().has(build.name):
+				data["builds"][build.name] = false
+			else:
+				build.unlocked = data["builds"][build.name]
 
 func save_job_data(job: Job) -> void:
 	print("saving job data for ", job.name)
@@ -161,6 +171,9 @@ func save_job_data(job: Job) -> void:
 	for gear in job.gears:
 		gear = gear as Gear
 		data["gears"][gear.name] = gear.unlocked
+	for build in job.builds:
+		build = build as Gear
+		data["builds"][build.name] = build.unlocked
 	save_core_data()
 
 func save_core_data() -> void:

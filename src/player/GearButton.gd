@@ -21,6 +21,11 @@ func initialize(_gear: Gear):
 	else:
 		$Lock.show()
 		$Chosen/Lock.show()
+	if gear.build:
+		$Sprite.hide()
+		$Badge.show()
+		$Chosen/Sprite.hide()
+		$Chosen/Badge.show()
 
 func unlock() -> void:
 	gear.unlocked = true

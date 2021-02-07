@@ -33,14 +33,20 @@ onready var perk_detail_title: = $Perks/Details/Title
 onready var perk_detail_desc: = $Perks/Details/Desc
 onready var perk_detail_sprite: = $Perks/Details/Title/Sprite
 onready var perk_detail_ranks: = $Perks/Details/Ranks
+onready var rank_up: = $Perks/Details/RankUp
+onready var rank_cost: = $Perks/Details/RankUp/Cost
 onready var gear_detail_panel: = $Gears/Details
 onready var gear_detail_title: = $Gears/Details/Title
 onready var gear_detail_desc: = $Gears/Details/Desc
 onready var gear_detail_sprite: = $Gears/Details/Title/Locked
 onready var gear_detail_choose: = $Gears/Details/Unlock
 onready var gear_cost: = $Gears/Details/Unlock/Cost
-onready var rank_up: = $Perks/Details/RankUp
-onready var rank_cost: = $Perks/Details/RankUp/Cost
+onready var build_panel: = $Builds/Details
+onready var build_title: = $Builds/Details/Title
+onready var build_desc: = $Builds/Details/Desc
+onready var build_sprite: = $Builds/Details/Title/Locked
+onready var build_choose: = $Builds/Details/UnlockBuild
+onready var build_cost: = $Builds/Details/UnlockBuild/Cost
 onready var level: = $BG/XpBar/Level
 onready var xp_bar: = $BG/XpBar
 onready var xp: = $BG/XpBar/XP
@@ -54,7 +60,9 @@ onready var delve: = $BG/Delve
 
 var selected_perk: PerkButton setget set_selected_perk
 var selected_gear: GearButton setget set_selected_gear
+var selected_build: GearButton setget set_selected_build
 var equipped_gear: GearButton
+var equipped_build: GearButton
 
 var game: Game
 var jobs: Array
@@ -72,14 +80,19 @@ func initialize(_game: Game) -> void:
 			perk.connect("pressed", self, "_on_Perk_pressed", [perk])
 		for gear in gears_list.get_children():
 			gear.connect("pressed", self, "_on_Gear_pressed", [gear])
+		for build in builds_list.get_children():
+			build.connect("pressed", self, "_on_Build_pressed", [build])
 	equipped_gear = gears_list.get_child(0)
+	equipped_build = builds_list.get_child(0)
 	equipped_gear.equip()
+	equipped_build.equip()
 	perks.hide_instantly()
 	gears.hide_instantly()
 	builds.hide_instantly()
 	display_job_stats()
 	setup_perks()
 	setup_gears()
+	setup_builds()
 	display_job_data()
 	initialized = true
 
@@ -116,6 +129,8 @@ func setup_perk_button() -> void:
 		unlock_cost.hide()
 		gear_btn.show()
 		build_btn.show()
+		build_btn.text = equipped_build.text
+
 		if cur_job.level < 2:
 			gear_btn.icon = lock
 			gear_btn.disabled = true
@@ -199,6 +214,32 @@ func display_gear(gearButton: GearButton) -> void:
 				gear_detail_choose.text = "Equip"
 				gear_detail_choose.disabled = false
 
+func display_build(gearButton: GearButton) -> void:
+	build_title.text = gearButton.text
+	build_desc.bbcode_text = gearButton.desc
+	build_choose.disabled = false
+	build_cost.text = comma_sep(gearButton.cost)
+	build_cost.modulate.a = 0.5
+	build_cost.show()
+	build_sprite.show()
+	if gearButton.level_req > cur_job.level:
+		build_choose.text = "Requires Lv. " + str(gearButton.level_req)
+		build_choose.disabled = true
+	else:
+		if !gearButton.gear.unlocked:
+			build_choose.disabled = gearButton.cost > game.gems
+			build_cost.modulate.a = 0.5 if game.gems < gearButton.cost else 1.0
+			build_choose.text = "Unlock"
+		else:
+			build_sprite.hide()
+			build_cost.hide()
+			if gearButton == equipped_build:
+				build_choose.text = "Selected"
+				build_choose.disabled = true
+			else:
+				build_choose.text = "Select"
+				build_choose.disabled = false
+
 func setup_perks() -> void:
 	for i in range(perks_list.get_child_count()):
 		var new_perk = perks_list.get_child(i)
@@ -222,6 +263,16 @@ func setup_gears() -> void:
 			new_gear.clear()
 			continue
 		new_gear.initialize(cur_job.gears[i])
+
+func setup_builds() -> void:
+	print("setup_builds()")
+	var first = builds_list.get_child(0)
+	for i in range(builds_list.get_child_count()):
+		var new_build = builds_list.get_child(i)
+		if i >= cur_job.builds.size():
+			new_build.clear()
+			continue
+		new_build.initialize(cur_job.builds[i])
 
 func get_perk_count() -> Array:
 	var count = [0, 0] as Array
@@ -250,7 +301,6 @@ func set_selected_perk(value: PerkButton) -> void:
 	display_perk(selected_perk)
 
 func set_selected_gear(value: GearButton) -> void:
-	print("Gear selected: ", value.gear.name)
 	if value.chosen: return
 	AudioController.click()
 	if selected_gear != null:
@@ -258,6 +308,16 @@ func set_selected_gear(value: GearButton) -> void:
 	value.chosen = true
 	selected_gear = value
 	display_gear(selected_gear)
+
+func set_selected_build(value: GearButton) -> void:
+	print("displaying build")
+	if value.chosen: return
+	AudioController.click()
+	if selected_build != null:
+		selected_build.chosen = false
+	value.chosen = true
+	selected_build = value
+	display_build(selected_build)
 
 func apply_perk() -> void:
 	emit_signal("save_job", cur_job)
@@ -270,8 +330,10 @@ func _on_Perk_pressed(button) -> void:
 	self.selected_perk = button
 
 func _on_Gear_pressed(button) -> void:
-	print("gear pressed")
 	self.selected_gear = button
+
+func _on_Build_pressed(button) -> void:
+	self.selected_build = button
 
 func _on_Perks_pressed():
 	$BG/Perks.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -296,6 +358,14 @@ func _on_Gears_pressed():
 	yield(gears, "done")
 	$BG/Gears.mouse_filter = Control.MOUSE_FILTER_STOP
 
+func _on_Builds_pressed():
+	$BG/Builds.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	AudioController.click()
+	self.selected_build = equipped_build
+	builds.show(false)
+	yield(builds, "done")
+	$BG/Builds.mouse_filter = Control.MOUSE_FILTER_STOP
+
 func _on_RankUp_pressed():
 	AudioController.confirm()
 	game.spend_gems(selected_perk.cost)
@@ -316,6 +386,7 @@ func _on_Prev_pressed():
 	display_job_stats()
 	setup_perks()
 	setup_gears()
+	setup_builds()
 	display_job_data()
 
 func _on_Next_pressed():
@@ -325,6 +396,7 @@ func _on_Next_pressed():
 	display_job_stats()
 	setup_perks()
 	setup_gears()
+	setup_builds()
 	display_job_data()
 
 func _on_Delve_pressed():
@@ -338,13 +410,6 @@ func _on_PerksBack_pressed():
 	perks.hide(false)
 	yield(perks, "done")
 	$Perks/BG2/PerksBack.mouse_filter = Control.MOUSE_FILTER_STOP
-
-func _on_Builds_pressed():
-	$BG/Builds.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	AudioController.click()
-	builds.show(false)
-	yield(builds, "done")
-	$BG/Builds.mouse_filter = Control.MOUSE_FILTER_STOP
 
 func _on_GearsBack_pressed():
 	$Gears/BG2/GearsBack.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -374,3 +439,19 @@ func _on_Unlock_pressed():
 		selected_gear.unlock()
 		emit_signal("save_job", cur_job)
 		display_gear(selected_gear)
+
+
+func _on_UnlockBuild_pressed():
+	AudioController.confirm()
+	if selected_build.gear.unlocked:
+		equipped_build.unequip()
+		equipped_build = selected_build
+		build_btn.text = selected_build.gear.name
+		selected_build.equip()
+		build_choose.text = "Selected"
+		build_choose.disabled = true
+	else:
+		game.spend_gems(selected_build.cost)
+		selected_build.unlock()
+		emit_signal("save_job", cur_job)
+		display_build(selected_build)

@@ -69,11 +69,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/battle/BuffUI.gd"
 }, {
-"base": "Resource",
-"class": "Build",
-"language": "GDScript",
-"path": "res://src/builds/build.gd"
-}, {
 "base": "ColorRect",
 "class": "Card",
 "language": "GDScript",
@@ -217,7 +212,6 @@ _global_script_class_icons={
 "Buff": "",
 "BuffCard": "",
 "BuffUI": "",
-"Build": "",
 "Card": "",
 "CoreData": "",
 "Dungeon": "",

@@ -1,11 +1,14 @@
 [gd_resource type="Resource" load_steps=2 format=2]
 
-[ext_resource path="res://src/builds/build.gd" type="Script" id=1]
+[ext_resource path="res://src/gear/gear.gd" type="Script" id=1]
 
 [resource]
 script = ExtResource( 1 )
 unlocked = true
 name = "Apprentice"
-desc = "Add 10 Gems to your final score when you complete a floor."
+desc = "Add 10 Gems to your final score for each floor completed."
 level_req = 1
 cost = 0
+build = true
+trinkets = [  ]
+potions = [  ]

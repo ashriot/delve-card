@@ -15,5 +15,6 @@ Includes:
 * Magic Mushroom (Restores 6 MP)"
 level_req = 4
 cost = 4000
+build = false
 trinkets = [  ]
 potions = [ ExtResource( 1 ), ExtResource( 2 ) ]

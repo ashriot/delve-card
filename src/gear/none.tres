@@ -9,5 +9,6 @@ name = "None"
 desc = "Start without any extra equipment."
 level_req = 1
 cost = 0
+build = false
 trinkets = [  ]
 potions = [  ]
