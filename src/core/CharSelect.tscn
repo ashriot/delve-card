@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://assets/images/ui/back.png" type="Texture" id=1]
 [ext_resource path="res://src/core/CharSelect.gd" type="Script" id=2]
@@ -20,6 +20,7 @@
 [ext_resource path="res://assets/images/ui/pack.png" type="Texture" id=18]
 [ext_resource path="res://assets/images/ui/build.png" type="Texture" id=19]
 [ext_resource path="res://src/player/GearButton.tscn" type="PackedScene" id=20]
+[ext_resource path="res://assets/images/ui/lock_dark.png" type="Texture" id=21]
 
 [sub_resource type="Animation" id=1]
 length = 1.4
@@ -388,7 +389,6 @@ margin_left = 2.0
 margin_top = 83.0
 margin_right = 106.0
 margin_bottom = 96.0
-disabled = true
 text = "Novice"
 icon = ExtResource( 19 )
 align = 0
@@ -527,7 +527,112 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Details" type="Panel" parent="Perks"]
+margin_left = 2.0
+margin_top = 89.0
+margin_right = 106.0
+margin_bottom = 173.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DescBG" type="ColorRect" parent="Perks/Details"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 103.0
+margin_bottom = 13.0
+color = Color( 0.792157, 0.780392, 0.721569, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="Perks/Details"]
+margin_left = 9.0
+margin_top = -1.0
+margin_right = 102.0
+margin_bottom = 13.0
+custom_colors/font_color = Color( 0.145098, 0.145098, 0.133333, 1 )
+text = "Toughness"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="Perks/Details/Title"]
+modulate = Color( 0.145098, 0.145098, 0.133333, 1 )
+position = Vector2( -7, 3 )
+texture = ExtResource( 17 )
+centered = false
+hframes = 5
+
+[node name="Desc" type="RichTextLabel" parent="Perks/Details"]
+margin_left = 3.0
+margin_top = 14.0
+margin_right = 109.0
+margin_bottom = 73.0
+bbcode_enabled = true
+bbcode_text = "Maximum HP +5.
+(Next Rank: +5)
+Testing
+Testing
+Testing
+Testing
+Testing
+Testing"
+text = "Maximum HP +5.
+(Next Rank: +5)
+Testing
+Testing
+Testing
+Testing
+Testing
+Testing"
+
+[node name="Ranks" type="Label" parent="Perks/Details"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -20.0
+margin_top = -1.0
+margin_right = 2.0
+margin_bottom = 13.0
+custom_colors/font_color = Color( 0.145098, 0.145098, 0.133333, 1 )
+text = "0/5"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RankUp" type="Button" parent="Perks/Details"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -13.0
+text = " Rank 0 -> 1"
+align = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Cost" type="Label" parent="Perks/Details/RankUp"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -44.0
+margin_top = -7.5
+margin_right = -4.0
+margin_bottom = 6.5
+text = "200"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="Perks/Details/RankUp/Cost"]
+position = Vector2( 37, 5 )
+texture = ExtResource( 6 )
+centered = false
+
 [node name="Gears" parent="." instance=ExtResource( 9 )]
+visible = false
 
 [node name="BG2" type="ColorRect" parent="Gears"]
 margin_right = 108.0
@@ -563,7 +668,7 @@ __meta__ = {
 
 [node name="Gears" type="VBoxContainer" parent="Gears/BG2/Container"]
 margin_right = 100.0
-margin_bottom = 58.0
+margin_bottom = 73.0
 custom_constants/separation = 2
 __meta__ = {
 "_edit_use_anchors_": false
@@ -582,6 +687,10 @@ margin_bottom = 43.0
 [node name="GearButton4" parent="Gears/BG2/Container/Gears" instance=ExtResource( 20 )]
 margin_top = 45.0
 margin_bottom = 58.0
+
+[node name="GearButton5" parent="Gears/BG2/Container/Gears" instance=ExtResource( 20 )]
+margin_top = 60.0
+margin_bottom = 73.0
 
 [node name="Banner" type="ColorRect" parent="Gears"]
 anchor_right = 1.0
@@ -604,8 +713,105 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Details" type="Panel" parent="Gears"]
+margin_left = 2.0
+margin_top = 89.0
+margin_right = 106.0
+margin_bottom = 173.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DescBG" type="ColorRect" parent="Gears/Details"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 103.0
+margin_bottom = 13.0
+color = Color( 0.792157, 0.780392, 0.721569, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="Gears/Details"]
+margin_left = 9.0
+margin_top = -1.0
+margin_right = 92.0
+margin_bottom = 13.0
+custom_colors/font_color = Color( 0.145098, 0.145098, 0.133333, 1 )
+text = "Toughness"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="Gears/Details/Title"]
+modulate = Color( 0.145098, 0.145098, 0.133333, 1 )
+position = Vector2( -7, 3 )
+texture = ExtResource( 18 )
+centered = false
+
+[node name="Locked" type="Sprite" parent="Gears/Details/Title"]
+position = Vector2( 84, 3 )
+texture = ExtResource( 21 )
+centered = false
+
+[node name="Desc" type="RichTextLabel" parent="Gears/Details"]
+margin_left = 3.0
+margin_top = 14.0
+margin_right = 107.0
+margin_bottom = 73.0
+bbcode_enabled = true
+bbcode_text = "Maximum HP +5.
+(Next Rank: +5)
+Testing
+Testing
+Testing
+Testing
+Testing
+Testing"
+text = "Maximum HP +5.
+(Next Rank: +5)
+Testing
+Testing
+Testing
+Testing
+Testing
+Testing"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Unlock" type="Button" parent="Gears/Details"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -13.0
+text = " Rank 0 -> 1"
+align = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Cost" type="Label" parent="Gears/Details/Unlock"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -44.0
+margin_top = -7.5
+margin_right = -4.0
+margin_bottom = 6.5
+text = "200"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="Gears/Details/Unlock/Cost"]
+position = Vector2( 37, 5 )
+texture = ExtResource( 6 )
+centered = false
+
 [node name="Builds" parent="." instance=ExtResource( 9 )]
-visible = false
 
 [node name="BG2" type="ColorRect" parent="Builds"]
 margin_right = 108.0
@@ -647,23 +853,19 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="PerkButton" parent="Builds/BG2/Container/Builds" instance=ExtResource( 16 )]
-text = "Novice"
+[node name="GearButton" parent="Builds/BG2/Container/Builds" instance=ExtResource( 20 )]
 
-[node name="PerkButton2" parent="Builds/BG2/Container/Builds" instance=ExtResource( 16 )]
+[node name="GearButton2" parent="Builds/BG2/Container/Builds" instance=ExtResource( 20 )]
 margin_top = 15.0
 margin_bottom = 28.0
-text = "Champion"
 
-[node name="PerkButton3" parent="Builds/BG2/Container/Builds" instance=ExtResource( 16 )]
+[node name="GearButton3" parent="Builds/BG2/Container/Builds" instance=ExtResource( 20 )]
 margin_top = 30.0
 margin_bottom = 43.0
-text = "Knight"
 
-[node name="PerkButton4" parent="Builds/BG2/Container/Builds" instance=ExtResource( 16 )]
+[node name="GearButton4" parent="Builds/BG2/Container/Builds" instance=ExtResource( 20 )]
 margin_top = 45.0
 margin_bottom = 58.0
-text = "Berserker"
 
 [node name="Details" type="Panel" parent="Builds/BG2"]
 margin_left = 2.0
@@ -777,110 +979,6 @@ __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
 }
-
-[node name="Details" type="Panel" parent="."]
-margin_left = 2.0
-margin_top = 90.0
-margin_right = 106.0
-margin_bottom = 173.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="DescBG" type="ColorRect" parent="Details"]
-margin_left = 1.0
-margin_top = 1.0
-margin_right = 103.0
-margin_bottom = 12.0
-color = Color( 0.792157, 0.780392, 0.721569, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Title" type="Label" parent="Details"]
-margin_left = 9.0
-margin_top = -1.0
-margin_right = 102.0
-margin_bottom = 13.0
-custom_colors/font_color = Color( 0.145098, 0.145098, 0.133333, 1 )
-text = "Toughness"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Sprite" type="Sprite" parent="Details/Title"]
-modulate = Color( 0.145098, 0.145098, 0.133333, 1 )
-position = Vector2( -7, 3 )
-texture = ExtResource( 17 )
-centered = false
-hframes = 5
-
-[node name="Desc" type="RichTextLabel" parent="Details"]
-margin_left = 3.0
-margin_top = 13.0
-margin_right = 109.0
-margin_bottom = 73.0
-bbcode_enabled = true
-bbcode_text = "Maximum HP +5.
-(Next Rank: +5)
-Testing
-Testing
-Testing
-Testing
-Testing
-Testing"
-text = "Maximum HP +5.
-(Next Rank: +5)
-Testing
-Testing
-Testing
-Testing
-Testing
-Testing"
-
-[node name="Ranks" type="Label" parent="Details"]
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = -20.0
-margin_top = -1.0
-margin_right = 2.0
-margin_bottom = 13.0
-custom_colors/font_color = Color( 0.145098, 0.145098, 0.133333, 1 )
-text = "0/5"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="RankUp" type="Button" parent="Details"]
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = -13.0
-text = " Rank 0 -> 1"
-align = 0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Cost" type="Label" parent="Details/RankUp"]
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-margin_left = -44.0
-margin_top = -7.5
-margin_right = -4.0
-margin_bottom = 6.5
-text = "200"
-align = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Sprite" type="Sprite" parent="Details/RankUp/Cost"]
-position = Vector2( 37, 5 )
-texture = ExtResource( 6 )
-centered = false
 [connection signal="pressed" from="BG/Prev" to="." method="_on_Prev_pressed"]
 [connection signal="pressed" from="BG/Next" to="." method="_on_Next_pressed"]
 [connection signal="pressed" from="BG/Perks" to="." method="_on_Perks_pressed"]
@@ -889,7 +987,8 @@ centered = false
 [connection signal="pressed" from="BG/Delve" to="." method="_on_Delve_pressed"]
 [connection signal="pressed" from="BG/Back" to="." method="_on_Back_pressed"]
 [connection signal="pressed" from="Perks/BG2/PerksBack" to="." method="_on_PerksBack_pressed"]
+[connection signal="pressed" from="Perks/Details/RankUp" to="." method="_on_RankUp_pressed"]
 [connection signal="pressed" from="Gears/BG2/GearsBack" to="." method="_on_GearsBack_pressed"]
+[connection signal="pressed" from="Gears/Details/Unlock" to="." method="_on_Unlock_pressed"]
 [connection signal="pressed" from="Builds/BG2/BuildsBack" to="." method="_on_BuildsBack_pressed"]
 [connection signal="pressed" from="Builds/BG2/Details/RankUp" to="." method="_on_RankUp_pressed"]
-[connection signal="pressed" from="Details/RankUp" to="." method="_on_RankUp_pressed"]

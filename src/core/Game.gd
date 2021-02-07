@@ -158,6 +158,9 @@ func save_job_data(job: Job) -> void:
 	for perk in job.perks:
 		perk = perk as Perk
 		data["perks"][perk.name] = perk.cur_ranks
+	for gear in job.gears:
+		gear = gear as Gear
+		data["gears"][gear.name] = gear.unlocked
 	save_core_data()
 
 func save_core_data() -> void:

@@ -15,9 +15,25 @@ func initialize(_gear: Gear):
 	gear = _gear
 	text = gear.name
 	$Chosen/Label.text = gear.name
+	if gear.unlocked:
+		$Lock.hide()
+		$Chosen/Lock.hide()
+	else:
+		$Lock.show()
+		$Chosen/Lock.show()
 
 func unlock() -> void:
 	gear.unlocked = true
+	$Lock.hide()
+	$Chosen/Lock.hide()
+
+func equip() -> void:
+	$Equipped.show()
+	$Chosen/Equipped.show()
+
+func unequip() -> void:
+	$Equipped.hide()
+	$Chosen/Equipped.hide()
 
 func set_chosen(value) -> void:
 	chosen = value

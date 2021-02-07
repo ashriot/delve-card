@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://assets/images/ui/perk-tiers.png" type="Texture" id=1]
+[ext_resource path="res://assets/images/ui/pack.png" type="Texture" id=1]
 [ext_resource path="res://src/player/GearButton.gd" type="Script" id=2]
+[ext_resource path="res://assets/images/ui/lock_dark.png" type="Texture" id=3]
+[ext_resource path="res://assets/images/ui/lock.png" type="Texture" id=4]
+[ext_resource path="res://assets/images/ui/ok.png" type="Texture" id=5]
 
 [node name="GearButton" type="Button"]
 margin_right = 100.0
@@ -17,17 +20,57 @@ __meta__ = {
 position = Vector2( 2, 2 )
 texture = ExtResource( 1 )
 centered = false
-hframes = 5
 
-[node name="Chosen" type="Control" parent="."]
-margin_right = 100.0
-margin_bottom = 13.0
+[node name="Lock" type="Sprite" parent="."]
+visible = false
+position = Vector2( 89, 2 )
+texture = ExtResource( 4 )
+centered = false
 
-[node name="ColorRect" type="ColorRect" parent="Chosen"]
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="Equipped" type="Sprite" parent="."]
+visible = false
+position = Vector2( 89, 2 )
+texture = ExtResource( 5 )
+centered = false
+
+[node name="Chosen" type="ColorRect" parent="."]
+visible = false
 margin_left = 1.0
 margin_top = 1.0
-margin_right = -1.0
-margin_bottom = -1.0
+margin_right = 99.0
+margin_bottom = 12.0
+mouse_filter = 2
 color = Color( 0.6, 0.584314, 0.521569, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Chosen"]
+margin_top = -2.0
+margin_right = 98.0
+margin_bottom = 12.0
+custom_colors/font_color = Color( 0.145098, 0.145098, 0.133333, 1 )
+text = "Gear Name"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="Chosen"]
+modulate = Color( 0.145098, 0.145098, 0.133333, 1 )
+position = Vector2( 1, 1 )
+texture = ExtResource( 1 )
+centered = false
+
+[node name="Lock" type="Sprite" parent="Chosen"]
+visible = false
+position = Vector2( 88, 1 )
+texture = ExtResource( 3 )
+centered = false
+
+[node name="Equipped" type="Sprite" parent="Chosen"]
+visible = false
+modulate = Color( 0.145098, 0.145098, 0.133333, 1 )
+position = Vector2( 88, 1 )
+texture = ExtResource( 5 )
+centered = false

@@ -28,14 +28,19 @@ onready var gears_list: = $Gears/BG2/Container/Gears
 onready var gears_banner: = $Gears/Banner/ClassGears
 onready var builds_list: = $Builds/BG2/Container/Builds
 onready var builds_banner: = $Builds/Banner/ClassBuilds
-onready var detail_panel: = $Details
-onready var detail_title: = $Details/Title
-onready var detail_desc: = $Details/Desc
-onready var detail_sprite: = $Details/Title/Sprite
-onready var detail_ranks: = $Details/Ranks
-onready var rank_up: = $Details/RankUp
-onready var rank_cost: = $Details/RankUp/Cost
-onready var rank_gem: = $Details/RankUp/Cost/Sprite
+onready var perk_detail_panel: = $Perks/Details
+onready var perk_detail_title: = $Perks/Details/Title
+onready var perk_detail_desc: = $Perks/Details/Desc
+onready var perk_detail_sprite: = $Perks/Details/Title/Sprite
+onready var perk_detail_ranks: = $Perks/Details/Ranks
+onready var gear_detail_panel: = $Gears/Details
+onready var gear_detail_title: = $Gears/Details/Title
+onready var gear_detail_desc: = $Gears/Details/Desc
+onready var gear_detail_sprite: = $Gears/Details/Title/Locked
+onready var gear_detail_choose: = $Gears/Details/Unlock
+onready var gear_cost: = $Gears/Details/Unlock/Cost
+onready var rank_up: = $Perks/Details/RankUp
+onready var rank_cost: = $Perks/Details/RankUp/Cost
 onready var level: = $BG/XpBar/Level
 onready var xp_bar: = $BG/XpBar
 onready var xp: = $BG/XpBar/XP
@@ -49,6 +54,7 @@ onready var delve: = $BG/Delve
 
 var selected_perk: PerkButton setget set_selected_perk
 var selected_gear: GearButton setget set_selected_gear
+var equipped_gear: GearButton
 
 var game: Game
 var jobs: Array
@@ -66,10 +72,11 @@ func initialize(_game: Game) -> void:
 			perk.connect("pressed", self, "_on_Perk_pressed", [perk])
 		for gear in gears_list.get_children():
 			gear.connect("pressed", self, "_on_Gear_pressed", [gear])
+	equipped_gear = gears_list.get_child(0)
+	equipped_gear.equip()
 	perks.hide_instantly()
 	gears.hide_instantly()
 	builds.hide_instantly()
-	detail_panel.hide()
 	display_job_stats()
 	setup_perks()
 	setup_gears()
@@ -116,7 +123,7 @@ func setup_perk_button() -> void:
 		else:
 			gear_btn.icon = gear_icon
 			gear_btn.disabled = false
-			gear_btn.text = "None"
+			gear_btn.text = equipped_gear.text
 		if cur_job.level < 3:
 			perk_count.text = ""
 			perk_button.icon = lock
@@ -125,7 +132,7 @@ func setup_perk_button() -> void:
 		else:
 			perk_button.icon = perk_icon
 			perk_button.disabled = false
-			perk_button.text = "Check Perks"
+			perk_button.text = "Perks"
 			var count = get_perk_count()
 			perk_count.text = str(count[0]) + "/" + str(count[1])
 			perk_count.show()
@@ -147,16 +154,16 @@ func refresh_perk() -> void:
 	setup_perk_button()
 
 func display_perk(perk: PerkButton) -> void:
-	detail_title.text = perk.text
-	detail_desc.bbcode_text = perk.desc
-	detail_sprite.frame = perk.perk.tier
-	detail_ranks.text = perk.ranks
+	perk_detail_title.text = perk.text
+	perk_detail_desc.bbcode_text = perk.desc
+	perk_detail_sprite.frame = perk.perk.tier
+	perk_detail_ranks.text = perk.ranks
 	rank_up.disabled = true
 	rank_cost.text = comma_sep(perk.cost)
 	rank_cost.modulate.a = 0.5
-	rank_gem.show()
+	rank_cost.show()
 	if perk.level_req > cur_job.level:
-		rank_up.text = "Requires level " + str(perk.level_req)
+		rank_up.text = "Requires Lv. " + str(perk.level_req)
 	else:
 		if perk.perk.cur_ranks < perk.perk.max_ranks:
 			rank_up.disabled = perk.cost > game.gems
@@ -164,28 +171,33 @@ func display_perk(perk: PerkButton) -> void:
 			rank_up.text = "Rank up " + str(perk.perk.cur_ranks) + " -> " + str(perk.perk.cur_ranks + 1)
 		else:
 			rank_up.text = "Max rank!"
-			rank_cost.text = ""
-			rank_gem.hide()
+			rank_cost.hide()
 
 func display_gear(gearButton: GearButton) -> void:
-	gear_btn.text = gearButton.gear.name
-	detail_title.text = gearButton.text
-	detail_desc.bbcode_text = gearButton.desc
-	rank_up.disabled = true
-	rank_cost.text = comma_sep(gearButton.cost)
-	rank_cost.modulate.a = 0.5
-	rank_gem.show()
+	gear_detail_title.text = gearButton.text
+	gear_detail_desc.bbcode_text = gearButton.desc
+	gear_detail_choose.disabled = false
+	gear_cost.text = comma_sep(gearButton.cost)
+	gear_cost.modulate.a = 0.5
+	gear_cost.show()
+	gear_detail_sprite.show()
 	if gearButton.level_req > cur_job.level:
-		rank_up.text = "Requires level " + str(gearButton.level_req)
+		gear_detail_choose.text = "Requires Lv. " + str(gearButton.level_req)
+		gear_detail_choose.disabled = true
 	else:
 		if !gearButton.gear.unlocked:
-			rank_up.disabled = gearButton.cost > game.gems
-			rank_cost.modulate.a = 0.5 if game.gems < gearButton.cost else 1.0
-			rank_up.text = "Unlock"
+			gear_detail_choose.disabled = gearButton.cost > game.gems
+			gear_cost.modulate.a = 0.5 if game.gems < gearButton.cost else 1.0
+			gear_detail_choose.text = "Unlock"
 		else:
-			rank_up.text = "Unlocked!"
-			rank_cost.text = ""
-			rank_gem.hide()
+			gear_detail_sprite.hide()
+			gear_cost.hide()
+			if gearButton == equipped_gear:
+				gear_detail_choose.text = "Equipped"
+				gear_detail_choose.disabled = true
+			else:
+				gear_detail_choose.text = "Equip"
+				gear_detail_choose.disabled = false
 
 func setup_perks() -> void:
 	for i in range(perks_list.get_child_count()):
@@ -203,14 +215,13 @@ func setup_perks() -> void:
 
 func setup_gears() -> void:
 	print("setup_gears()")
+	var first = gears_list.get_child(0)
 	for i in range(gears_list.get_child_count()):
 		var new_gear = gears_list.get_child(i)
 		if i >= cur_job.gears.size():
 			new_gear.clear()
 			continue
 		new_gear.initialize(cur_job.gears[i])
-	var first = perks_list.get_child(0)
-	first.chosen = true
 
 func get_perk_count() -> Array:
 	var count = [0, 0] as Array
@@ -248,11 +259,6 @@ func set_selected_gear(value: GearButton) -> void:
 	selected_gear = value
 	display_gear(selected_gear)
 
-func clear_detail_panel() -> void:
-	detail_panel.hide()
-	detail_title.text = ""
-	detail_desc.bbcode_text = ""
-
 func apply_perk() -> void:
 	emit_signal("save_job", cur_job)
 	display_job_stats()
@@ -266,19 +272,11 @@ func _on_Perk_pressed(button) -> void:
 func _on_Gear_pressed(button) -> void:
 	print("gear pressed")
 	self.selected_gear = button
-	gears.hide(false)
-	yield(gears, "done")
-	clear_detail_panel()
-	gears.remove_child(detail_panel)
-	add_child(detail_panel)
 
 func _on_Perks_pressed():
 	$BG/Perks.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	if cur_job.unlocked:
 		AudioController.click()
-		remove_child(detail_panel)
-		perks.add_child(detail_panel)
-		detail_panel.show()
 		perks.show(false)
 		yield(perks, "done")
 	else:
@@ -293,12 +291,9 @@ func _on_Perks_pressed():
 func _on_Gears_pressed():
 	$BG/Gears.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	AudioController.click()
-	remove_child(detail_panel)
-	gears.add_child(detail_panel)
-	detail_panel.show()
+	self.selected_gear = equipped_gear
 	gears.show(false)
 	yield(gears, "done")
-	detail_panel.show()
 	$BG/Gears.mouse_filter = Control.MOUSE_FILTER_STOP
 
 func _on_RankUp_pressed():
@@ -342,9 +337,6 @@ func _on_PerksBack_pressed():
 	AudioController.back()
 	perks.hide(false)
 	yield(perks, "done")
-	clear_detail_panel()
-	perks.remove_child(detail_panel)
-	add_child(detail_panel)
 	$Perks/BG2/PerksBack.mouse_filter = Control.MOUSE_FILTER_STOP
 
 func _on_Builds_pressed():
@@ -359,9 +351,6 @@ func _on_GearsBack_pressed():
 	AudioController.back()
 	gears.hide(false)
 	yield(gears, "done")
-	clear_detail_panel()
-	gears.remove_child(detail_panel)
-	add_child(detail_panel)
 	$Gears/BG2/GearsBack.mouse_filter = Control.MOUSE_FILTER_STOP
 
 func _on_BuildsBack_pressed():
@@ -370,3 +359,18 @@ func _on_BuildsBack_pressed():
 	builds.hide(false)
 	yield(builds, "done")
 	$Builds/BG2/BuildsBack.mouse_filter = Control.MOUSE_FILTER_STOP
+
+func _on_Unlock_pressed():
+	AudioController.confirm()
+	if selected_gear.gear.unlocked:
+		equipped_gear.unequip()
+		equipped_gear = selected_gear
+		gear_btn.text = selected_gear.gear.name
+		selected_gear.equip()
+		gear_detail_choose.text = "Equipped"
+		gear_detail_choose.disabled = true
+	else:
+		game.spend_gems(selected_gear.cost)
+		selected_gear.unlock()
+		emit_signal("save_job", cur_job)
+		display_gear(selected_gear)
