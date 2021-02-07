@@ -19,32 +19,15 @@ texture = ExtResource( 1 )
 centered = false
 hframes = 5
 
-[node name="Chosen" type="ColorRect" parent="."]
-visible = false
+[node name="Chosen" type="Control" parent="."]
+margin_right = 100.0
+margin_bottom = 13.0
+
+[node name="ColorRect" type="ColorRect" parent="Chosen"]
+anchor_right = 1.0
+anchor_bottom = 1.0
 margin_left = 1.0
 margin_top = 1.0
-margin_right = 99.0
-margin_bottom = 12.0
-mouse_filter = 2
+margin_right = -1.0
+margin_bottom = -1.0
 color = Color( 0.6, 0.584314, 0.521569, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="Chosen"]
-margin_top = -2.0
-margin_right = 98.0
-margin_bottom = 12.0
-custom_colors/font_color = Color( 0.145098, 0.145098, 0.133333, 1 )
-text = "Perk Name"
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Sprite" type="Sprite" parent="Chosen"]
-modulate = Color( 0.145098, 0.145098, 0.133333, 1 )
-position = Vector2( 1, 1 )
-texture = ExtResource( 1 )
-centered = false
-hframes = 5

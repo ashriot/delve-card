@@ -22,10 +22,12 @@ onready var gears: = $Gears
 onready var builds: = $Builds
 onready var gear_btn: = $BG/Gears
 onready var build_btn: = $BG/Builds
-onready var perks_banner: = $Perks/Banner/ClassPerks
 onready var perks_list: = $Perks/BG2/Container/Perks
+onready var perks_banner: = $Perks/Banner/ClassPerks
 onready var gears_list: = $Gears/BG2/Container/Gears
+onready var gears_banner: = $Gears/Banner/ClassGears
 onready var builds_list: = $Builds/BG2/Container/Builds
+onready var builds_banner: = $Builds/Banner/ClassBuilds
 onready var detail_panel: = $Details
 onready var detail_title: = $Details/Title
 onready var detail_desc: = $Details/Desc
@@ -93,7 +95,9 @@ func display_job_data() -> void:
 	else: xp.text = "Max Level"
 	xp_bar.max_value = xp_to_level
 	xp_bar.value = cur_job.xp if cur_job.level < 10 else 1100
-	perks_banner.text = "Level " + str(cur_job.level) + " " + cur_job.name + " Perks"
+	perks_banner.text = "Lv. " + str(cur_job.level) + " " + cur_job.name + " Perks"
+	gears_banner.text = "Lv. " + str(cur_job.level) + " " + cur_job.name + " Gear"
+	builds_banner.text = "Lv. " + str(cur_job.level) + " " + cur_job.name + " Builds"
 	job_desc.text = cur_job.desc
 	job_sprite.frame = cur_job.sprite_id
 	setup_perk_button()
@@ -164,6 +168,7 @@ func display_perk(perk: PerkButton) -> void:
 			rank_gem.hide()
 
 func display_gear(gearButton: GearButton) -> void:
+	gear_btn.text = gearButton.gear.name
 	detail_title.text = gearButton.text
 	detail_desc.bbcode_text = gearButton.desc
 	rank_up.disabled = true
@@ -234,6 +239,7 @@ func set_selected_perk(value: PerkButton) -> void:
 	display_perk(selected_perk)
 
 func set_selected_gear(value: GearButton) -> void:
+	print("Gear selected: ", value.gear.name)
 	if value.chosen: return
 	AudioController.click()
 	if selected_gear != null:
@@ -241,7 +247,6 @@ func set_selected_gear(value: GearButton) -> void:
 	value.chosen = true
 	selected_gear = value
 	display_gear(selected_gear)
-
 
 func clear_detail_panel() -> void:
 	detail_panel.hide()
@@ -259,7 +264,13 @@ func _on_Perk_pressed(button) -> void:
 	self.selected_perk = button
 
 func _on_Gear_pressed(button) -> void:
+	print("gear pressed")
 	self.selected_gear = button
+	gears.hide(false)
+	yield(gears, "done")
+	clear_detail_panel()
+	gears.remove_child(detail_panel)
+	add_child(detail_panel)
 
 func _on_Perks_pressed():
 	$BG/Perks.mouse_filter = Control.MOUSE_FILTER_IGNORE

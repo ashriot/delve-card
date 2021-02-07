@@ -299,6 +299,13 @@ func start_game() -> void:
 	else: new_game()
 
 func new_game() -> void:
+	var gear = char_select.selected_gear.gear as Gear
+	for trinket in gear.trinkets:
+		print("Adding Trinket: ", trinket.name)
+		player.trinkets.append(trinket)
+	for potion in gear.potions:
+		print("Adding Potion: ", potion.name)
+		player.potions.append(potion)
 	dungeon.dungeon_name = "Dark Forest"
 	dungeon.max_prog = rooms
 	dungeon.progress = 1

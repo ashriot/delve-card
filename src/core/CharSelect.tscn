@@ -766,7 +766,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ClassPerks" type="Label" parent="Builds/Banner"]
+[node name="ClassBuilds" type="Label" parent="Builds/Banner"]
 anchor_right = 1.0
 margin_left = -1.0
 margin_top = -3.0
