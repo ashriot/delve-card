@@ -120,6 +120,7 @@ func initialize_job_data() -> void:
 		data["xp"] = job.xp
 		data["perks"] = {}
 		data["gears"] = {}
+		data["builds"] = {}
 		for perk in job.perks:
 			perk = perk as Perk
 			data["perks"][perk.name] = 0

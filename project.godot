@@ -127,7 +127,7 @@ _global_script_classes=[ {
 "base": "Resource",
 "class": "Gear",
 "language": "GDScript",
-"path": "res://src/gear/gear.gd"
+"path": "res://src/player/gear/gear.gd"
 }, {
 "base": "Button",
 "class": "GearButton",

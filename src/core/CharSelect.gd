@@ -263,6 +263,7 @@ func setup_gears() -> void:
 			new_gear.clear()
 			continue
 		new_gear.initialize(cur_job.gears[i])
+	equipped_gear = first
 
 func setup_builds() -> void:
 	print("setup_builds()")
@@ -273,6 +274,7 @@ func setup_builds() -> void:
 			new_build.clear()
 			continue
 		new_build.initialize(cur_job.builds[i])
+	equipped_build = first
 
 func get_perk_count() -> Array:
 	var count = [0, 0] as Array

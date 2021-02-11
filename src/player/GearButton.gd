@@ -11,6 +11,7 @@ var gear: Gear
 var desc: String setget, get_desc
 
 func initialize(_gear: Gear):
+	show()
 	$Chosen.hide()
 	gear = _gear
 	text = gear.name

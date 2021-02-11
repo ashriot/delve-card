@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://src/player/gear/gear.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+unlocked = true
+name = "Soldier"
+desc = "Using a weapon action has a 25% chance to grant you 1 ST."
+level_req = 3
+cost = 3000
+build = true
+trinkets = [  ]
+potions = [  ]
