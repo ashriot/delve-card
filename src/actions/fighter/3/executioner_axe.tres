@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource( 1 )
 name = "Executioner Axe"
-description = "If the enemy has less than 10 HP, they die."
+description = "If the enemy has 10 or less HP, they die."
 rarity = 3
 upgraded = false
 action_type = 0

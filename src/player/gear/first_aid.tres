@@ -6,9 +6,13 @@
 script = ExtResource( 1 )
 unlocked = false
 name = "First Aid Kit"
-desc = ""
-level_req = 1
-cost = 0
+desc = "A basic first-aid kit.
+
+Includes:
+* Small Apple (Heals 4 HP)
+* Bandage (Grants 5 Mend)"
+level_req = 2
+cost = 2000
 build = false
 trinkets = [  ]
 potions = [  ]

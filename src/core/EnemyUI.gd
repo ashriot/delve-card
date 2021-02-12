@@ -162,8 +162,8 @@ func take_effect(action: Action, damage: int) -> void:
 func take_hit(action: Action, damage: int, crit: bool) -> void:
 	if self.dead: return
 	var mp_dmg = action.damage_type == Action.DamageType.MP
-	if action.name == "Executioner Axe":
-		if hp < 11:
+	if hp < 11:
+		if action.name == "Executioner Axe":
 			self.hp = 0
 	else:
 		if damage > 0:

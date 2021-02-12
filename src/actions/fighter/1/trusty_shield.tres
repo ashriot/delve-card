@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource( 1 )
-name = "Buckler"
+name = "Trusty Shield"
 description = "Gain %damage AC."
 rarity = 1
 upgraded = false

@@ -316,7 +316,7 @@ func start_game() -> void:
 	else: new_game()
 
 func new_game() -> void:
-	var gear = char_select.selected_gear.gear as Gear
+	var gear = char_select.equipped_gear.gear as Gear
 	for trinket in gear.trinkets:
 		print("Adding Trinket: ", trinket.name)
 		player.trinkets.append(trinket)

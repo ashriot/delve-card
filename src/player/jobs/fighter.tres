@@ -8,7 +8,7 @@
 [ext_resource path="res://src/player/perks/iron_fortitude.tres" type="Resource" id=6]
 [ext_resource path="res://src/actions/fighter/1/battle_shout.tres" type="Resource" id=7]
 [ext_resource path="res://src/actions/fighter/1/longsword.tres" type="Resource" id=8]
-[ext_resource path="res://src/actions/fighter/1/buckler.tres" type="Resource" id=9]
+[ext_resource path="res://src/actions/fighter/1/trusty_shield.tres" type="Resource" id=9]
 [ext_resource path="res://src/actions/fighter/1/short_sword.tres" type="Resource" id=10]
 [ext_resource path="res://src/player/gear/first_aid.tres" type="Resource" id=11]
 [ext_resource path="res://src/player/gear/none.tres" type="Resource" id=12]
@@ -22,7 +22,7 @@ unlocked = false
 desc = "A mighty warrior who is a master of all weapons. Utilizes powerful shields to protect himself.
 [NOT MANY SKILLS YET]"
 sprite_id = 0
-max_hp = 70
+max_hp = 50
 max_st = 4
 initial_ac = 0
 initial_mp = 3

@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource( 1 )
-unlocked = true
+unlocked = false
 name = "Soldier"
 desc = "Using a weapon action has a 25% chance to grant you 1 ST."
 level_req = 3

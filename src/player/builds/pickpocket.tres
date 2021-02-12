@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource( 1 )
-unlocked = true
+unlocked = false
 name = "Pickpocket"
 desc = "Gain 25% additional gold from combat"
 level_req = 3
