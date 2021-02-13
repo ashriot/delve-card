@@ -639,7 +639,7 @@ func _on_CharSelect_back():
 
 func _on_GemShop_buy_gems(qty):
 	self.gems += qty
-	char_select.refresh_perk()
+	char_select.refresh()
 
 func _on_CharSelect_save_job(job):
 	save_job_data(job)

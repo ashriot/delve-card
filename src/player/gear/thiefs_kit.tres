@@ -11,8 +11,8 @@ desc = "A basic thief's kit.
 Includes:
 * Small Apple
 * Smoke Bomb"
-level_req = 1
-cost = 0
+level_req = 2
+cost = 2000
 build = false
 trinkets = [  ]
 potions = [  ]

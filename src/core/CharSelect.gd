@@ -82,10 +82,6 @@ func initialize(_game: Game) -> void:
 			gear.connect("pressed", self, "_on_Gear_pressed", [gear])
 		for build in builds_list.get_children():
 			build.connect("pressed", self, "_on_Build_pressed", [build])
-	equipped_gear = gears_list.get_child(0)
-	equipped_build = builds_list.get_child(0)
-	equipped_gear.equip()
-	equipped_build.equip()
 	perks.hide_instantly()
 	gears.hide_instantly()
 	builds.hide_instantly()
@@ -163,6 +159,11 @@ func setup_perk_button() -> void:
 
 func xp_to_level() -> int:
 	return (cur_job.level + 1) * 100
+
+func refresh() -> void:
+	refresh_perk()
+	display_gear(selected_gear)
+	display_build(selected_build)
 
 func refresh_perk() -> void:
 	display_perk(selected_perk)
@@ -249,6 +250,7 @@ func setup_perks() -> void:
 		new_perk.initialize(cur_job.perks[i])
 		if new_perk.level_req > cur_job.level: new_perk.fade()
 		else: new_perk.opaque()
+	if selected_perk != null: selected_perk.chosen = false
 	var first = perks_list.get_child(0)
 	first.chosen = true
 	selected_perk = first
@@ -256,25 +258,38 @@ func setup_perks() -> void:
 
 func setup_gears() -> void:
 	print("setup_gears()")
-	var first = gears_list.get_child(0)
 	for i in range(gears_list.get_child_count()):
 		var new_gear = gears_list.get_child(i)
 		if i >= cur_job.gears.size():
 			new_gear.clear()
 			continue
 		new_gear.initialize(cur_job.gears[i])
+	if selected_gear != null: selected_gear.chosen = false
+	if equipped_gear != null:
+		equipped_gear.unequip()
+	var first = gears_list.get_child(0)
+	first.chosen = true
 	equipped_gear = first
+	equipped_gear.equip()
+	selected_gear = first
+	display_gear(selected_gear)
 
 func setup_builds() -> void:
 	print("setup_builds()")
-	var first = builds_list.get_child(0)
 	for i in range(builds_list.get_child_count()):
 		var new_build = builds_list.get_child(i)
 		if i >= cur_job.builds.size():
 			new_build.clear()
 			continue
 		new_build.initialize(cur_job.builds[i])
+	if selected_build != null: selected_build.chosen = false
+	if equipped_build != null: equipped_build.unequip()
+	var first = builds_list.get_child(0)
+	first.chosen = true
 	equipped_build = first
+	equipped_build.equip()
+	selected_build = first
+	display_build(selected_build)
 
 func get_perk_count() -> Array:
 	var count = [0, 0] as Array
@@ -434,8 +449,10 @@ func _on_Unlock_pressed():
 		equipped_gear = selected_gear
 		gear_btn.text = selected_gear.gear.name
 		selected_gear.equip()
-		gear_detail_choose.text = "Equipped"
 		gear_detail_choose.disabled = true
+		gears.hide(false)
+		yield(gears, "done")
+		gear_detail_choose.text = "Equipped"
 	else:
 		game.spend_gems(selected_gear.cost)
 		selected_gear.unlock()
@@ -450,8 +467,10 @@ func _on_UnlockBuild_pressed():
 		equipped_build = selected_build
 		build_btn.text = selected_build.gear.name
 		selected_build.equip()
-		build_choose.text = "Selected"
 		build_choose.disabled = true
+		builds.hide(false)
+		yield(builds, "done")
+		build_choose.text = "Selected"
 	else:
 		game.spend_gems(selected_build.cost)
 		selected_build.unlock()
