@@ -162,33 +162,33 @@ func take_effect(action: Action, damage: int) -> void:
 func take_hit(action: Action, damage: int, crit: bool) -> void:
 	if self.dead: return
 	var mp_dmg = action.damage_type == Action.DamageType.MP
-	if hp < 11:
-		if action.name == "Executioner Axe":
+	if action.name == "Executioner Axe":
+		if hp < 11:
 			self.hp = 0
-	else:
-		if damage > 0:
-			var dmg_text = 0
-			if not action.penetrate and !mp_dmg:
-				if ac > 0:
-					if action.name == "Disintegration Ray": damage *= 2
-					if ac > damage:
-						dmg_text += damage
-						self.ac -= damage
-						damage = 0
-					else:
-						dmg_text += ac
-						damage -= ac
-						self.ac = 0
-						if action.name == "Disintegration Ray": damage /= 2
-			if mp_dmg: self.mp -= damage
-			else: self.hp -= damage
-			dmg_text += damage
-			var floating_text = FloatingText.instance()
-			if mp_dmg:
-				var txt = "-" + str(dmg_text) + "MP"
-				floating_text.display_text(txt)
-			else: floating_text.initialize(dmg_text, crit)
-			add_child(floating_text)
+			damage = 0
+	if damage > 0:
+		var dmg_text = 0
+		if not action.penetrate and !mp_dmg:
+			if ac > 0:
+				if action.name == "Disintegration Ray": damage *= 2
+				if ac > damage:
+					dmg_text += damage
+					self.ac -= damage
+					damage = 0
+				else:
+					dmg_text += ac
+					damage -= ac
+					self.ac = 0
+					if action.name == "Disintegration Ray": damage /= 2
+		if mp_dmg: self.mp -= damage
+		else: self.hp -= damage
+		dmg_text += damage
+		var floating_text = FloatingText.instance()
+		if mp_dmg:
+			var txt = "-" + str(dmg_text) + "MP"
+			floating_text.display_text(txt)
+		else: floating_text.initialize(dmg_text, crit)
+		add_child(floating_text)
 	if self.dead:
 		die()
 	else:

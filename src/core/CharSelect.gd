@@ -257,7 +257,6 @@ func setup_perks() -> void:
 	display_perk(first)
 
 func setup_gears() -> void:
-	print("setup_gears()")
 	for i in range(gears_list.get_child_count()):
 		var new_gear = gears_list.get_child(i)
 		if i >= cur_job.gears.size():
@@ -275,7 +274,6 @@ func setup_gears() -> void:
 	display_gear(selected_gear)
 
 func setup_builds() -> void:
-	print("setup_builds()")
 	for i in range(builds_list.get_child_count()):
 		var new_build = builds_list.get_child(i)
 		if i >= cur_job.builds.size():
