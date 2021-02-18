@@ -66,6 +66,16 @@ func add_trait(trait: String) -> void:
 	if trait == "Mana Flow": initial_mp += 3
 	if trait == "Pocket Change": gold += 20
 
+func add_trinket(trinket: Trinket) -> void:
+	trinkets.append(trinket)
+	if trinket.name == "Magic Ring":
+		initial_mp += trinket.rank * 2 + 2
+
+func remove_trinket(trinket: Trinket) -> void:
+	trinkets.remove(trinkets.find(trinket))
+	if trinket.name == "Magic Ring":
+		initial_mp -= trinket.rank * 2 + 2
+
 func clear_bonuses() -> void:
 	bonus_hp = 0
 	bonus_mp = 0

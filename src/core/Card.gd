@@ -89,7 +89,9 @@ func init_trinket(trinket: Trinket) -> void:
 	$Panel/MP.hide()
 	$Panel/AP.hide()
 	$Panel/Damage.hide()
-	$Panel/Title.text = trinket.name
+	var rank = ""
+	if trinket.rank > 0: rank = "+" + str(trinket.rank)
+	$Panel/Title.text = trinket.name + rank
 	$Panel/Sprite.frame = 63
 	var description = trinket.description
 	$Panel/Type.text = description[0]
