@@ -457,7 +457,6 @@ func _on_Unlock_pressed():
 		emit_signal("save_job", cur_job)
 		display_gear(selected_gear)
 
-
 func _on_UnlockBuild_pressed():
 	AudioController.confirm()
 	if selected_build.gear.unlocked:

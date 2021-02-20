@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=16 format=2]
+[gd_resource type="Resource" load_steps=17 format=2]
 
 [ext_resource path="res://src/player/perks/wealth-s.tres" type="Resource" id=1]
 [ext_resource path="res://src/player/perks/toughness-s.tres" type="Resource" id=2]
@@ -13,8 +13,9 @@
 [ext_resource path="res://src/player/Job.gd" type="Script" id=11]
 [ext_resource path="res://src/player/gear/apprentice_bag.tres" type="Resource" id=12]
 [ext_resource path="res://src/player/gear/none.tres" type="Resource" id=13]
-[ext_resource path="res://src/player/builds/nomad.tres" type="Resource" id=14]
+[ext_resource path="res://src/player/builds/alchemist.tres" type="Resource" id=14]
 [ext_resource path="res://src/player/builds/novice.tres" type="Resource" id=15]
+[ext_resource path="res://src/player/builds/battlemage.tres" type="Resource" id=16]
 
 [resource]
 script = ExtResource( 11 )
@@ -39,4 +40,4 @@ perks = [ ExtResource( 2 ), ExtResource( 1 ), ExtResource( 3 ), ExtResource( 4 )
 trinkets = [  ]
 potions = [  ]
 gears = [ ExtResource( 13 ), ExtResource( 10 ), ExtResource( 12 ) ]
-builds = [ ExtResource( 15 ), ExtResource( 14 ) ]
+builds = [ ExtResource( 15 ), ExtResource( 14 ), ExtResource( 16 ) ]

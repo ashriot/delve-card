@@ -323,6 +323,8 @@ func new_game() -> void:
 	for potion in gear.potions:
 		print("Adding Potion: ", potion.name)
 		player.potions.append(potion)
+	var build = char_select.equipped_build.gear as Gear
+	if build != null: player.set_build(build)
 	dungeon.dungeon_name = ""
 	dungeon.max_prog = rooms
 	dungeon.progress = 1

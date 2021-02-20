@@ -76,6 +76,12 @@ func remove_trinket(trinket: Trinket) -> void:
 	if trinket.name == "Magic Ring":
 		initial_mp -= trinket.rank * 2 + 2
 
+func set_build(build: Gear) -> void:
+	if build.name == "Battlemage":
+		max_ap += 1
+		initial_ac += 2
+		initial_mp -= 3
+
 func clear_bonuses() -> void:
 	bonus_hp = 0
 	bonus_mp = 0
