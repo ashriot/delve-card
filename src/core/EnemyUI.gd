@@ -161,16 +161,17 @@ func take_effect(action: Action, damage: int) -> void:
 
 func take_hit(action: Action, damage: int, crit: bool) -> void:
 	if self.dead: return
-	var mp_dmg = action.damage_type == Action.DamageType.MP
-	if action.name == "Executioner Axe":
+	var mp_dmg = false
+	if action != null: mp_dmg = action.damage_type == Action.DamageType.MP
+	if action != null and action.name == "Executioner Axe":
 		if hp < 11:
 			self.hp = 0
 			damage = 0
 	if damage > 0:
 		var dmg_text = 0
-		if not action.penetrate and !mp_dmg:
+		if action != null and !action.penetrate and !mp_dmg:
 			if ac > 0:
-				if action.name == "Disintegration Ray": damage *= 2
+				if action != null and action.name == "Disintegration Ray": damage *= 2
 				if ac > damage:
 					dmg_text += damage
 					self.ac -= damage
@@ -179,7 +180,7 @@ func take_hit(action: Action, damage: int, crit: bool) -> void:
 					dmg_text += ac
 					damage -= ac
 					self.ac = 0
-					if action.name == "Disintegration Ray": damage /= 2
+					if action != null and action.name == "Disintegration Ray": damage /= 2
 		if mp_dmg: self.mp -= damage
 		else: self.hp -= damage
 		dmg_text += damage

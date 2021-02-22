@@ -58,6 +58,10 @@ func heal(amt: int, type: String) -> void:
 		player.hp += amt
 		set_hp(player.hp)
 
+func add_trinket(trinket: Trinket) -> void:
+	player.add_trinket(trinket)
+	trinket_belt.add_trinket(trinket)
+
 func set_hp(value) -> void:
 	var zeros = 3 - str(value).length()
 	var cur = str(value).pad_zeros(3)

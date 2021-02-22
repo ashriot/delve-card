@@ -15,6 +15,7 @@ export var choice_4: String
 
 onready var tween: = $Desc/Tween
 
+var playerUI: PlayerUI
 var you_frame: int
 var stage: = 0
 
@@ -42,13 +43,14 @@ func _ready():
 
 func initialize(game: Game) -> void:
 	connect("done", game, "_on_Dungeon_event_done")
-	$Person/You.frame = game.player.portrait_id
+	playerUI = game.playerUI
+	$Person/You.frame = playerUI.player.portrait_id
 	begin()
 
 func display_text(text: String) -> void:
 	$Desc.percent_visible = 0
 	$Desc.bbcode_text = text
-	var speed = int(desc.length() / 150)
+	var speed = float(text.length() * .005)
 	tween.interpolate_property($Desc, "percent_visible", 0, 1, speed,
 		Tween.TRANS_LINEAR, Tween.EASE_OUT)
 	tween.start()
@@ -72,18 +74,18 @@ func choices(texts: Array) -> void:
 		$Options/Choice4.text = texts[1]
 		$Options/Choice4.show()
 
+func show_text() -> void:
+		tween.stop_all()
+		$Desc.percent_visible = 1
 
 func _on_Choice1_pressed():
-	pass # Replace with function body.
-
+	pass
 
 func _on_Choice2_pressed():
-	pass # Replace with function body.
-
+	pass
 
 func _on_Choice3_pressed():
-	pass # Replace with function body.
-
+	pass
 
 func _on_Choice4_pressed():
-	pass # Replace with function body.
+	pass

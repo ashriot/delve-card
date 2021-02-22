@@ -5,9 +5,12 @@ var _Button = preload("res://src/trinkets/TrinketButton.tscn")
 onready var tween = $Tween
 onready var trinkets = $Trinkets
 
-func initialize(player: PlayerUI) -> void:
+var player: PlayerUI
+
+func initialize(_player: PlayerUI) -> void:
 	trinkets.modulate.a = 1
 	clear_trinkets()
+	player = _player
 	for trinket in player.player.trinkets:
 		var child = _Button.instance() as TrinketButton
 		trinkets.add_child(child)
@@ -16,6 +19,11 @@ func initialize(player: PlayerUI) -> void:
 func clear_trinkets() -> void:
 	for child in trinkets.get_children():
 		child.queue_free()
+
+func add_trinket(trinket: Trinket) -> void:
+		var child = _Button.instance() as TrinketButton
+		trinkets.add_child(child)
+		child.initialize(player, trinket)
 
 func show() -> void:
 	.show()

@@ -7,13 +7,13 @@
 [resource]
 script = ExtResource( 1 )
 name = "Soothing Mist"
-description = "Gain 3 Mend."
+description = "Gain 4 Mend."
 rarity = 3
 upgraded = false
 action_type = 1
 target_type = 0
 cost_type = 2
-cost = 8
+cost = 6
 healing = true
 damage_type = 0
 damage = 0
@@ -22,6 +22,8 @@ crit_chance = 0.0
 penetrate = false
 impact = 0
 drawX = 0
+discard_random_x = 0
+discard_x = 0
 draw_type = 7
 drop = false
 fade = false

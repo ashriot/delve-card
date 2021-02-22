@@ -6,6 +6,8 @@ signal battle_finished(won)
 signal show_card(btn, amt)
 signal hide_card
 
+signal done_start_effects
+
 var enemy: EnemyActor
 
 onready var actions = $Actions as Actions
@@ -14,6 +16,8 @@ onready var playerUI = $Player
 onready var deck_val = $DeckBtn/ColorRect/Label
 onready var graveyard_val = $GraveyardBtn/Label
 onready var enemy_label = $Banner/Label
+onready var trink = $Trinket
+onready var trink_anim = $Trinket/AnimationPlayer
 
 var auto_end: bool
 var game_over: = false
@@ -27,6 +31,7 @@ func initialize(_player: Actor) -> void:
 	enemyUI.connect("ended_turn", self, "_on_Enemy_ended_turn")
 	playerUI.initialize(_player)
 	actions.initialize(playerUI, enemyUI)
+	trink.modulate.a = 0
 	initialized = true
 
 func start(_enemy: EnemyActor) -> void:
@@ -36,8 +41,9 @@ func start(_enemy: EnemyActor) -> void:
 	enemy = _enemy
 	enemy_label.text = enemy.title
 	enemyUI.initialize(enemy, playerUI)
-	check_battle_start_effects()
 	yield(get_tree().create_timer(0.2), "timeout")
+	check_battle_start_effects()
+	yield(self, "done_start_effects")
 	emit_signal("start_turn")
 
 func toggle_auto_end(value: bool) -> void:
@@ -90,9 +96,23 @@ func _on_Enemy_used_action(action: Action):
 
 func check_battle_start_effects() -> void:
 	for trinket in playerUI.actor.trinkets:
-		trinket = trinket as Trinket
-		if trinket.name == "Crown of Power":
-			playerUI.gain_buff(preload("res://src/actions/buffs/power.tres"), 4)
+		display_trinket(trinket)
+		yield(trink_anim, "animation_finished")
+	yield(get_tree().create_timer(0.2), "timeout")
+	emit_signal("done_start_effects")
+
+func display_trinket(trinket: Trinket) -> void:
+	AudioController.play_sfx("draw")
+	trink.frame = trinket.frame_id
+	trink_anim.play("Show")
+	yield(trink_anim, "animation_finished")
+	if trinket.name == "Crown of Power":
+		var amt = trinket.rank + 1
+		playerUI.gain_buff(preload("res://src/actions/buffs/power.tres"), amt)
+	elif trinket.name == "Black Stone":
+		enemyUI.take_hit(null, 2, false)
+		playerUI.take_healing(1, "HP")
+	trink_anim.play("Hide")
 
 func show_card(btn, amt: int) -> void:
 	emit_signal("show_card", btn, amt)

@@ -270,7 +270,7 @@ func execute() -> void:
 				if player.has_buff("Lifesteal"): lifesteal += damage
 				if action.name == "Blood Claws": lifesteal += damage / 2
 				if lifesteal > 0: player.take_healing(lifesteal, "HP")
-				if action.name == "Calcify": player.take_healing(damage, "AC")
+				if action.name == "Calcify": player.take_healing(damage/2, "AC")
 				elif action.name == "Swift Knife": player.take_healing(damage/2, "AC")
 				elif action.name == "Rune Knife" or action.name == "Rune Claws":
 					player.take_healing(damage, "MP")

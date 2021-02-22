@@ -67,6 +67,7 @@ func add_trait(trait: String) -> void:
 	if trait == "Pocket Change": gold += 20
 
 func add_trinket(trinket: Trinket) -> void:
+	print("Gained the ", trinket.name)
 	trinkets.append(trinket)
 	if trinket.name == "Magic Ring":
 		initial_mp += trinket.rank * 2 + 2

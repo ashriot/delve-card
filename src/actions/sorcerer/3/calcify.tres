@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource( 1 )
 name = "Calcify"
-description = "Deal %damage damage. Gain AC equal to the damage dealt."
+description = "Deal %damage damage. Gain AC equal to half the damage dealt."
 rarity = 3
 upgraded = false
 action_type = 1

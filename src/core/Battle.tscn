@@ -1,10 +1,44 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://src/core/EnemyUI.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/battle/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/images/map/enemy.png" type="Texture" id=3]
+[ext_resource path="res://assets/images/sheets/16x16_various.png" type="Texture" id=4]
 [ext_resource path="res://src/core/Battle.gd" type="Script" id=5]
 [ext_resource path="res://src/battle/Actions.tscn" type="PackedScene" id=6]
+
+[sub_resource type="Animation" id=1]
+resource_name = "Hide"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0.447059, 0.435294, 0.419608, 1 ), Color( 0.447059, 0.435294, 0.419608, 0 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "Show"
+length = 0.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.447059, 0.435294, 0.419608, 0 ), Color( 0.447059, 0.435294, 0.419608, 1 ), Color( 0.447059, 0.435294, 0.419608, 1 ) ]
+}
 
 [node name="Battle" type="Node2D"]
 script = ExtResource( 5 )
@@ -18,8 +52,8 @@ __meta__ = {
 }
 
 [node name="Panel" type="Panel" parent="."]
-margin_left = 12.0
-margin_right = 96.0
+margin_left = 1.0
+margin_right = 107.0
 margin_bottom = 66.0
 __meta__ = {
 "_edit_use_anchors_": false
@@ -142,13 +176,27 @@ __meta__ = {
 [node name="Actions" parent="." instance=ExtResource( 6 )]
 
 [node name="Instakill" type="TextureButton" parent="."]
+margin_left = 4.0
 margin_top = 10.0
-margin_right = 11.0
+margin_right = 15.0
 margin_bottom = 21.0
 texture_normal = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Trinket" type="Sprite" parent="."]
+modulate = Color( 0.447059, 0.435294, 0.419608, 0 )
+position = Vector2( 2, 40 )
+texture = ExtResource( 4 )
+centered = false
+vframes = 15
+hframes = 16
+frame = 104
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Trinket"]
+anims/Hide = SubResource( 1 )
+anims/Show = SubResource( 2 )
 [connection signal="start_turn" from="." to="Actions" method="_on_Battle_start_turn"]
 [connection signal="pressed" from="DeckBtn" to="." method="_on_DeckBtn_pressed"]
 [connection signal="add_to_deck" from="Player" to="Actions" method="_on_Player_add_to_deck"]

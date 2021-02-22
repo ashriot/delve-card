@@ -36,7 +36,10 @@ var actor: Actor
 var buffs: Dictionary
 var debuffs: Dictionary
 
+var first_turn = false
+
 func initialize(_actor: Actor) ->  void:
+	first_turn = true
 	assert(_actor is Actor)
 	actor = _actor as Actor
 	self.ac = actor.ac
@@ -46,6 +49,7 @@ func initialize(_actor: Actor) ->  void:
 	$Player/Panel/AP/Max.rect_size = Vector2(5 * actor.max_ap, 7)
 
 func reset() -> void:
+	first_turn = true
 	self.hp = actor.hp
 	self.ap = actor.st
 	self.ac = actor.ac
@@ -62,25 +66,27 @@ func reset() -> void:
 
 func start_turn() -> void:
 	self.ap = actor.max_ap
-	if debuffs.size() > 0 and debuffs.has("Burn"):
-		AudioController.play_sfx("fire")
-		var Burn = load("res://src/actions/debuffs/burn_action.tres")
-		take_hit(Burn, debuffs["Burn"].stacks)
-		reduce_debuff("Burn")
-		yield(get_tree().create_timer(0.8), "timeout")
-	if debuffs.size() > 0 and debuffs.has("Poison"):
-		AudioController.play_sfx("poison")
-		var poison = load("res://src/actions/debuffs/poison_action.tres")
-# warning-ignore:integer_division
-		take_hit(poison, actor.max_hp / 10)
-		reduce_debuff("Poison")
-		yield(get_tree().create_timer(0.8), "timeout")
-	for child in buff_bar.get_children():
-		if child.fades_per_turn:
-			reduce_buff(child.buff_name)
-	for child in debuff_bar.get_children():
-		if child.fades_per_turn:
-			reduce_debuff(child.buff_name)
+	if !first_turn:
+		if debuffs.size() > 0 and debuffs.has("Burn"):
+			AudioController.play_sfx("fire")
+			var Burn = load("res://src/actions/debuffs/burn_action.tres")
+			take_hit(Burn, debuffs["Burn"].stacks)
+			reduce_debuff("Burn")
+			yield(get_tree().create_timer(0.8), "timeout")
+		if debuffs.size() > 0 and debuffs.has("Poison"):
+			AudioController.play_sfx("poison")
+			var poison = load("res://src/actions/debuffs/poison_action.tres")
+	# warning-ignore:integer_division
+			take_hit(poison, actor.max_hp / 10)
+			reduce_debuff("Poison")
+			yield(get_tree().create_timer(0.8), "timeout")
+		for child in buff_bar.get_children():
+			if child.fades_per_turn:
+				reduce_buff(child.buff_name)
+		for child in debuff_bar.get_children():
+			if child.fades_per_turn:
+				reduce_debuff(child.buff_name)
+	first_turn = false
 	emit_signal("update_enemy")
 
 func take_hit(action: Action, damage: int) -> bool:
@@ -313,7 +319,7 @@ func set_mp(value: int) -> void:
 	mp_value.bbcode_text = text
 
 func set_ap(value: int) -> void:
-	ap = value
+	ap = clamp(value, 0, 10)
 	$Player/Panel/AP/Current.rect_size = Vector2(5 * ap, 7)
 
 func get_dead() -> bool:

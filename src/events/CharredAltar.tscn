@@ -9,10 +9,10 @@ script = ExtResource( 3 )
 title = "The Charred Altar"
 desc = "As you enter the next room, you are suddenly in a dimly lit hall. It appears to be have once been a temple, but has since been wrought by fire.
 
-In the middle of the room lies an altar, badly burned, and atop it a black orb."
+In the middle of the room lies an altar, badly burned, and atop it a black stone."
 scene = 27
-choice_1 = "Take the orb."
-choice_2 = "Stare into the orb."
+choice_1 = "Take the stone."
+choice_2 = "Stare into the stone."
 choice_3 = "Walk past it."
 
 [node name="Scene" parent="." index="3"]
