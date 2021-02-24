@@ -5,8 +5,8 @@
 
 [resource]
 script = ExtResource( 2 )
-name = "Roar"
-description = "Gain 5 Power."
+name = "Grizzly Roar"
+description = "Bearbas releases a feral roar and gains 5 Power."
 rarity = 2
 upgraded = false
 action_type = 3

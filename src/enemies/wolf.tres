@@ -1,16 +1,17 @@
 [gd_resource type="Resource" load_steps=7 format=2]
 
 [ext_resource path="res://src/enemies/enemy_actor.gd" type="Script" id=1]
-[ext_resource path="res://src/actions/enemy/attack10.tres" type="Resource" id=2]
-[ext_resource path="res://src/actions/enemy/attack6x2.tres" type="Resource" id=3]
+[ext_resource path="res://src/actions/enemy/rapid_slashes.tres" type="Resource" id=2]
+[ext_resource path="res://src/actions/enemy/canine_slash.tres" type="Resource" id=3]
 [ext_resource path="res://assets/images/enemies/wolf.png" type="Texture" id=4]
-[ext_resource path="res://src/actions/enemy/attack5x3.tres" type="Resource" id=5]
+[ext_resource path="res://src/actions/enemy/quick_slashes.tres" type="Resource" id=5]
 [ext_resource path="res://src/actions/enemy/dodge2.tres" type="Resource" id=6]
 
 [resource]
 script = ExtResource( 1 )
 name = "wolf"
 title = "Wulf"
+desc = "A ragged ravager that will leave you seeing red."
 level = 1
 max_hp = 70
 max_ap = 3
@@ -18,4 +19,4 @@ initial_ac = 0
 initial_mp = 0
 gold = 10
 texture = ExtResource( 4 )
-actions = [ ExtResource( 2 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 3 ), ExtResource( 5 ), ExtResource( 6 ) ]
+actions = [ ExtResource( 3 ), ExtResource( 5 ), ExtResource( 5 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 6 ) ]

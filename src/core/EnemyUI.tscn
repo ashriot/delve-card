@@ -597,7 +597,7 @@ anims/Idle = SubResource( 7 )
 
 [node name="BuffBar" type="VBoxContainer" parent="Enemy"]
 margin_left = 17.0
-margin_top = -19.0
+margin_top = -17.0
 margin_right = 32.0
 margin_bottom = 22.0
 rect_min_size = Vector2( 15, 0 )
@@ -608,7 +608,7 @@ __meta__ = {
 
 [node name="DebuffBar" type="VBoxContainer" parent="Enemy"]
 margin_left = -31.0
-margin_top = -19.0
+margin_top = -17.0
 margin_right = -16.0
 margin_bottom = 22.0
 rect_min_size = Vector2( 15, 0 )

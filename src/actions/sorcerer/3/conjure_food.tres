@@ -7,8 +7,8 @@
 [resource]
 script = ExtResource( 1 )
 name = "Conjure Food"
-description = "Add 2 `Mana Manna` actions to your deck."
-rarity = 2
+description = "Add 2 `Mana Bread` actions to your deck."
+rarity = 3
 upgraded = false
 action_type = 1
 target_type = 0
@@ -22,6 +22,8 @@ crit_chance = 0.0
 penetrate = false
 impact = 0
 drawX = 0
+discard_random_x = 0
+discard_x = 0
 draw_type = 7
 drop = false
 fade = false

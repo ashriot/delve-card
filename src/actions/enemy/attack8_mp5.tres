@@ -4,8 +4,8 @@
 
 [resource]
 script = ExtResource( 1 )
-name = "Attack"
-description = ""
+name = "Fiend Flay"
+description = "A simple strike that gives the user some MP."
 rarity = 1
 upgraded = false
 action_type = 0

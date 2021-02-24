@@ -1,12 +1,12 @@
 [gd_resource type="Resource" load_steps=3 format=2]
 
-[ext_resource path="res://src/actions/enemy/extra/gain_mend5.gd" type="Script" id=1]
-[ext_resource path="res://src/actions/res/action.gd" type="Script" id=2]
+[ext_resource path="res://src/actions/res/action.gd" type="Script" id=1]
+[ext_resource path="res://src/actions/enemy/extra/gain_mend8.gd" type="Script" id=2]
 
 [resource]
-script = ExtResource( 2 )
-name = "Mend 5"
-description = "Gain 5 Mend."
+script = ExtResource( 1 )
+name = "Survival Instincts"
+description = "A rush of adrenaline fills Bearbas, granting him 8 Mend."
 rarity = 2
 upgraded = false
 action_type = 3
@@ -28,4 +28,4 @@ drop = false
 fade = false
 consume = false
 frame_id = 112
-extra_action = ExtResource( 1 )
+extra_action = ExtResource( 2 )

@@ -4,18 +4,18 @@
 
 [resource]
 script = ExtResource( 1 )
-name = "Attack4x3"
-description = ""
-rarity = 3
+name = "Double Trouble"
+description = "Slams the chest shut twice, dealing %damage damage."
+rarity = 2
 upgraded = false
-action_type = 3
+action_type = 0
 target_type = 1
 cost_type = 3
 cost = 0
 healing = false
 damage_type = 0
-damage = 4
-hits = 3
+damage = 6
+hits = 2
 crit_chance = 0.0
 penetrate = false
 impact = 0
@@ -26,4 +26,4 @@ draw_type = 7
 drop = false
 fade = false
 consume = false
-frame_id = 2
+frame_id = 1

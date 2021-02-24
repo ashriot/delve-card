@@ -39,17 +39,8 @@ func get_description() -> String:
 
 func _on_Button_up() -> void:
 	modulate.a = 1
-	$Timer.stop()
-	if hovering:
-		hovering = false
-		emit_signal("hide_card")
-		return
+	emit_signal("hide_card")
 
 func _on_Button_down():
 	modulate.a = 0.66
-	$Timer.start(.25)
-
-func _on_Timer_timeout() -> void:
-	$Timer.stop()
-	hovering = true
 	emit_signal("show_card", self)

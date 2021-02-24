@@ -5,8 +5,8 @@
 
 [resource]
 script = ExtResource( 1 )
-name = "Attack Weak 2"
-description = ""
+name = "Sap Strike"
+description = "A sharp stab with a pitchfork that will deal %damage damage and sap your strength."
 rarity = 1
 upgraded = false
 action_type = 1

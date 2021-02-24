@@ -248,8 +248,8 @@ func gain_debuff(debuff: Buff, qty: int) -> void:
 	elif debuff.name == "Sunder":
 		damage_reduction -= 0.5
 	debuffUI.connect("remove_buff", self, "remove_debuff")
-#	debuffUI.connect("show_card", self, "show_buff_card")
-#	debuffUI.connect("hide_card", self, "hide_buff_card")
+	debuffUI.connect("show_card", self, "show_buff_card")
+	debuffUI.connect("hide_card", self, "hide_buff_card")
 	update_data()
 
 func has_debuff(debuff_name: String) -> bool:

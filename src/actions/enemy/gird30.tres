@@ -4,8 +4,8 @@
 
 [resource]
 script = ExtResource( 1 )
-name = "Attack"
-description = ""
+name = "Bristle Fur"
+description = "Bearbas bristles his fur, granting him %damage Armor."
 rarity = 1
 upgraded = false
 action_type = 3

@@ -1,17 +1,17 @@
 [gd_resource type="Resource" load_steps=23 format=2]
 
-[ext_resource path="res://src/player/perks/toughness-t.tres" type="Resource" id=1]
+[ext_resource path="res://src/player/perks/thief/toughness-t.tres" type="Resource" id=1]
 [ext_resource path="res://src/player/Job.gd" type="Script" id=2]
-[ext_resource path="res://src/player/perks/wealth-t.tres" type="Resource" id=3]
-[ext_resource path="res://src/player/perks/lightfoot.tres" type="Resource" id=4]
-[ext_resource path="res://src/player/perks/shadow_mind.tres" type="Resource" id=5]
-[ext_resource path="res://src/player/perks/slice_and_dice.tres" type="Resource" id=6]
-[ext_resource path="res://src/player/perks/slash_and_dash.tres" type="Resource" id=7]
-[ext_resource path="res://src/player/perks/ghost.tres" type="Resource" id=8]
-[ext_resource path="res://src/player/perks/prey_on_the_weak.tres" type="Resource" id=9]
-[ext_resource path="res://src/player/perks/desperation.tres" type="Resource" id=10]
-[ext_resource path="res://src/player/perks/counterattack.tres" type="Resource" id=11]
-[ext_resource path="res://src/player/perks/pocket_change.tres" type="Resource" id=12]
+[ext_resource path="res://src/player/perks/thief/wealth-t.tres" type="Resource" id=3]
+[ext_resource path="res://src/player/perks/thief/lightfoot.tres" type="Resource" id=4]
+[ext_resource path="res://src/player/perks/thief/shadow_mind.tres" type="Resource" id=5]
+[ext_resource path="res://src/player/perks/thief/slice_and_dice.tres" type="Resource" id=6]
+[ext_resource path="res://src/player/perks/thief/slash_and_dash.tres" type="Resource" id=7]
+[ext_resource path="res://src/player/perks/thief/ghost.tres" type="Resource" id=8]
+[ext_resource path="res://src/player/perks/thief/prey_on_the_weak.tres" type="Resource" id=9]
+[ext_resource path="res://src/player/perks/thief/desperation.tres" type="Resource" id=10]
+[ext_resource path="res://src/player/perks/thief/counterattack.tres" type="Resource" id=11]
+[ext_resource path="res://src/player/perks/thief/pocket_change.tres" type="Resource" id=12]
 [ext_resource path="res://src/actions/thief/1/swift_knife.tres" type="Resource" id=13]
 [ext_resource path="res://src/actions/thief/1/dart.tres" type="Resource" id=14]
 [ext_resource path="res://src/actions/thief/1/iron_claws.tres" type="Resource" id=15]
@@ -22,6 +22,17 @@
 [ext_resource path="res://src/player/gear/thiefs_kit.tres" type="Resource" id=20]
 [ext_resource path="res://src/player/gear/none.tres" type="Resource" id=21]
 [ext_resource path="res://src/player/builds/treasure_hunter.tres" type="Resource" id=22]
+
+
+
+
+
+
+
+
+
+
+
 
 [resource]
 script = ExtResource( 2 )

@@ -80,9 +80,9 @@ func initialize(_action_button, have: int) -> void:
 	else:
 		$Panel/Have.text = ""
 		$Panel/Damage.hide()
-	set_pos()
 	modulate.a = 0
 	show()
+	set_pos()
 	animation_player.play("FadeIn")
 	initialized = true
 
@@ -108,9 +108,9 @@ func init_trinket(trinket: Trinket) -> void:
 	$Panel/Info/Penetrate.hide()
 	$Panel/Info/Impact.hide()
 
-	set_pos()
 	modulate.a = 0
 	show()
+	set_pos()
 	animation_player.play("FadeIn")
 	initialized = true
 

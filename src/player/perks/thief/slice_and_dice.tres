@@ -13,4 +13,4 @@ cost = 500
 cur_ranks = 0
 max_ranks = 1
 tier = 2
-level_req = 1
+level_req = 8

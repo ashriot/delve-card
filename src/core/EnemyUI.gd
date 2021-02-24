@@ -117,7 +117,7 @@ func act() -> void:
 		return
 	if action_to_use.cost_type == Action.DamageType.MP:
 		self.mp -= action_to_use.cost
-	if intent == "Attack":
+	if intent == "Attack" and action_to_use.action_type != Action.ActionType.SPELL:
 		animationPlayer.play(intent + str(action_to_use.hits))
 	else:
 		animationPlayer.play("Cast")

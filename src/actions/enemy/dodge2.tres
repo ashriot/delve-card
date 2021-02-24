@@ -5,8 +5,8 @@
 
 [resource]
 script = ExtResource( 2 )
-name = "Mend"
-description = "Gain 5 Mend."
+name = "Feral Instincts"
+description = "Heightened feral instincts give the wolf 2 Dodge (+50% evasion for two attacks.)"
 rarity = 2
 upgraded = false
 action_type = 3

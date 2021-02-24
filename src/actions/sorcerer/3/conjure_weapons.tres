@@ -8,7 +8,7 @@
 script = ExtResource( 3 )
 name = "Conjure Weapons"
 description = "Add 2 `Manablade` actions to your deck."
-rarity = 2
+rarity = 3
 upgraded = false
 action_type = 1
 target_type = 0

@@ -2,14 +2,18 @@
 
 [ext_resource path="res://src/enemies/enemy_actor.gd" type="Script" id=1]
 [ext_resource path="res://assets/images/enemies/mimic.png" type="Texture" id=2]
-[ext_resource path="res://src/actions/enemy/attack10.tres" type="Resource" id=3]
-[ext_resource path="res://src/actions/enemy/attack6x2.tres" type="Resource" id=4]
-[ext_resource path="res://src/actions/enemy/attack5x3.tres" type="Resource" id=5]
+[ext_resource path="res://src/actions/enemy/goop_gash.tres" type="Resource" id=3]
+[ext_resource path="res://src/actions/enemy/double_trouble.tres" type="Resource" id=4]
+[ext_resource path="res://src/actions/enemy/triple_threat.tres" type="Resource" id=5]
+
+
+
 
 [resource]
 script = ExtResource( 1 )
 name = "mimic"
 title = "Mimic"
+desc = "A master of mimicry that meddles with the minds of misguided adventurers."
 level = 1
 max_hp = 35
 max_ap = 0

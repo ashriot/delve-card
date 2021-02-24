@@ -13,16 +13,20 @@ onready var choose: = $BG/Choose
 
 var traits: Array
 var selected_trait: TraitButton setget set_selected_trait
+var progress = 0
 
 func _ready():
 	hide()
 
 func initialize(game: Game) -> void:
+	progress = game.dungeon.progress
 	perk_title.text = ""
 	perk_desc.text = ""
 	choose.disabled = true
 	traits = game.traits
 	for trait in traits:
+		var cutoff = progress / 2 + 1
+		if trait.tier > cutoff: continue
 		var btn = _TraitButton.instance()
 		btn.initialize(self, trait)
 		trait_list.add_child(btn)

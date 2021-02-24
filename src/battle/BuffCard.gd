@@ -14,16 +14,16 @@ func initialize(buff: BuffUI) -> void:
 func init_intent(intent: Action) -> void:
 	label.text = intent.name + "\n" + intent.description[1] + " " + \
 		intent.description[0] + ". " + get_cost(intent)
-	set_pos()
 	modulate.a = 0
 	show()
+	set_pos()
 	anim.play("FadeIn")
 
 func init_info(enemy: EnemyActor) -> void:
 	label.text = enemy.get_desc()
-	set_pos()
 	modulate.a = 0
 	show()
+	set_pos()
 	anim.play("FadeIn")
 
 func _on_Button_button_up() -> void:
@@ -36,7 +36,7 @@ func fade_out() -> void:
 	hide()
 
 func get_cost(intent: Action) -> String:
-	if intent.cost == 0: return ""
+	if intent.cost < 1: return ""
 	elif intent.cost_type == Action.DamageType.AP: return str(intent.cost) + " ST."
 	elif intent.cost_type == Action.DamageType.HP: return str(intent.cost) + " HP."
 	elif intent.cost_type == Action.DamageType.AC: return str(intent.cost) + " AC."

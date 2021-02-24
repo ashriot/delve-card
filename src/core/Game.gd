@@ -303,6 +303,7 @@ func _on_StartGame_button_up() -> void:
 	yield(fade, "animation_finished")
 
 func start_game() -> void:
+	dungeon.progress = 1
 	open_gem_shop.hide()
 	for job in jobs:
 		for perk in job.perks:
@@ -327,7 +328,6 @@ func new_game() -> void:
 	if build != null: player.set_build(build)
 	dungeon.dungeon_name = ""
 	dungeon.max_prog = rooms
-	dungeon.progress = 1
 	dungeon.initialize(self)
 	dungeon.new_map()
 	enter_game()

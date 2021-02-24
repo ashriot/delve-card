@@ -10,6 +10,7 @@
 script = ExtResource( 3 )
 name = "devil"
 title = "Dev'lil"
+desc = "An foolish fiend that will fend for itself with flames!"
 level = 1
 max_hp = 45
 max_ap = 3

@@ -48,18 +48,18 @@ __meta__ = {
 }
 
 [node name="GemQty" type="Label" parent="BG"]
-margin_left = 51.0
+margin_left = 34.0
 margin_top = 176.0
-margin_right = 102.0
+margin_right = 105.0
 margin_bottom = 190.0
-text = "999,999"
+text = "999,999,999"
 align = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Gem7" type="Sprite" parent="BG/GemQty"]
-position = Vector2( 48, 5 )
+position = Vector2( 67, 5 )
 texture = ExtResource( 10 )
 centered = false
 
@@ -122,7 +122,7 @@ margin_left = 11.0
 margin_top = -11.0
 margin_right = 99.0
 margin_bottom = 3.0
-text = "+2,000   Find   x2"
+text = "+744   Find   x2"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -156,12 +156,12 @@ __meta__ = {
 }
 
 [node name="Gem" type="Sprite" parent="BG/VBoxContainer/Button"]
-position = Vector2( 68, 7 )
+position = Vector2( 59, 7 )
 texture = ExtResource( 10 )
 centered = false
 
 [node name="Gem2" type="Sprite" parent="BG/VBoxContainer/Button"]
-position = Vector2( 42, 7 )
+position = Vector2( 34, 7 )
 texture = ExtResource( 10 )
 centered = false
 
@@ -201,7 +201,7 @@ margin_left = 11.0
 margin_top = -11.0
 margin_right = 99.0
 margin_bottom = 3.0
-text = "+250"
+text = "+100"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -275,7 +275,7 @@ margin_left = 11.0
 margin_top = -11.0
 margin_right = 99.0
 margin_bottom = 3.0
-text = "+600"
+text = "+216"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -349,7 +349,7 @@ margin_left = 11.0
 margin_top = -11.0
 margin_right = 99.0
 margin_bottom = 3.0
-text = "+1,500"
+text = "+600"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -383,7 +383,7 @@ __meta__ = {
 }
 
 [node name="Gem" type="Sprite" parent="BG/VBoxContainer/Button4"]
-position = Vector2( 42, 7 )
+position = Vector2( 34, 7 )
 texture = ExtResource( 10 )
 centered = false
 
@@ -423,7 +423,7 @@ margin_left = 11.0
 margin_top = -11.0
 margin_right = 99.0
 margin_bottom = 3.0
-text = "+3,000"
+text = "+1,400"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -497,7 +497,7 @@ margin_left = 11.0
 margin_top = -11.0
 margin_right = 99.0
 margin_bottom = 3.0
-text = "+4,500"
+text = "+2,400"
 __meta__ = {
 "_edit_use_anchors_": false
 }
