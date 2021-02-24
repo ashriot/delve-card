@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://src/core/EnemyUI.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/battle/Player.tscn" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://assets/images/sheets/16x16_various.png" type="Texture" id=4]
 [ext_resource path="res://src/core/Battle.gd" type="Script" id=5]
 [ext_resource path="res://src/battle/Actions.tscn" type="PackedScene" id=6]
+[ext_resource path="res://src/battle/BuffCard.tscn" type="PackedScene" id=7]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Hide"
@@ -197,6 +198,8 @@ frame = 104
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Trinket"]
 anims/Hide = SubResource( 1 )
 anims/Show = SubResource( 2 )
+
+[node name="BuffCard" parent="." instance=ExtResource( 7 )]
 [connection signal="start_turn" from="." to="Actions" method="_on_Battle_start_turn"]
 [connection signal="pressed" from="DeckBtn" to="." method="_on_DeckBtn_pressed"]
 [connection signal="add_to_deck" from="Player" to="Actions" method="_on_Player_add_to_deck"]
@@ -204,9 +207,16 @@ anims/Show = SubResource( 2 )
 [connection signal="apply_buff" from="Player" to="Actions" method="_on_Player_apply_buff"]
 [connection signal="apply_debuff" from="Player" to="Actions" method="_on_Player_apply_debuff"]
 [connection signal="discard_random" from="Player" to="Actions" method="_on_Player_discard_random"]
+[connection signal="hide_buff" from="Player" to="." method="_on_Player_hide_buff"]
+[connection signal="show_buff" from="Player" to="." method="_on_Player_show_buff"]
 [connection signal="update_enemy" from="Player" to="." method="_on_Player_update_enemy"]
 [connection signal="block_input" from="Enemy" to="." method="_on_Enemy_block_input"]
 [connection signal="died" from="Enemy" to="." method="_on_Enemy_died"]
+[connection signal="hide_buff" from="Enemy" to="." method="_on_Player_hide_buff"]
+[connection signal="hide_intent" from="Enemy" to="." method="_on_Enemy_hide_intent"]
+[connection signal="show_buff" from="Enemy" to="." method="_on_Player_show_buff"]
+[connection signal="show_info" from="Enemy" to="." method="_on_Enemy_show_info"]
+[connection signal="show_intent" from="Enemy" to="." method="_on_Enemy_show_intent"]
 [connection signal="used_action" from="Enemy" to="." method="_on_Enemy_used_action"]
 [connection signal="discarded_x" from="Actions" to="Player" method="_on_Actions_discarded_x"]
 [connection signal="ended_turn" from="Actions" to="." method="_on_Actions_ended_turn"]

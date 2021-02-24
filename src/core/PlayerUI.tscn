@@ -31,6 +31,15 @@ tracks/0/keys = {
 [node name="PlayerUI" type="Node2D"]
 script = ExtResource( 6 )
 
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_top = 183.0
+margin_right = 108.0
+margin_bottom = 192.0
+color = Color( 0.145098, 0.145098, 0.133333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="TrinketBelt" parent="." instance=ExtResource( 10 )]
 
 [node name="ItemAnchor" type="Position2D" parent="."]

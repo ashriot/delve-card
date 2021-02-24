@@ -74,5 +74,5 @@ func get_description() -> Array:
 		text += " Fade."
 	if consume:
 		text += " Consume."
-	var type = (ActionType.keys()	[action_type] as String).capitalize()
+	var type = (ActionType.keys()[action_type] as String).capitalize()
 	return [type, text]

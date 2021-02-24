@@ -5,6 +5,6 @@
 [resource]
 script = ExtResource( 1 )
 name = "Mend"
-description = "Heal X damage at the end of your turn."
+description = "Heal X damage at the end of each turn. Reduced by 1 each turn."
 fades_per_turn = false
 frame_id = 112

@@ -5,14 +5,14 @@
 
 [resource]
 script = ExtResource( 1 )
-name = "Mend"
-description = "Gain 5 Mend."
+name = "Gelantinous Repair"
+description = "Heal for 3 and gain 3 Mend."
 rarity = 2
 upgraded = false
-action_type = 1
+action_type = 3
 target_type = 0
 cost_type = 2
-cost = 5
+cost = 0
 healing = true
 damage_type = 0
 damage = 3

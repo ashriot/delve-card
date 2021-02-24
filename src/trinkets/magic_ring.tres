@@ -9,3 +9,7 @@ description = "Begin fights with 2 additional MP."
 rarity = 1
 rank = 1
 frame_id = 102
+battle_start = false
+battle_end = false
+turn_start = false
+turn_end = false

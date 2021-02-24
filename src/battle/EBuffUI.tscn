@@ -74,3 +74,5 @@ __meta__ = {
 
 [node name="Timer" type="Timer" parent="."]
 [connection signal="button_down" from="." to="." method="_on_Button_down"]
+[connection signal="button_up" from="." to="." method="_on_Button_up"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

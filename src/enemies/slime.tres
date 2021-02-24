@@ -10,6 +10,7 @@
 script = ExtResource( 3 )
 name = "slime"
 title = "Slime"
+desc = "A goopy guardian, with a gumption for healing itself."
 level = 1
 max_hp = 35
 max_ap = 3

@@ -121,14 +121,18 @@ func update_data() -> void:
 			modulate.a = 0.4
 	var hit_text = "" if hits < 2 else ("x" + str(hits))
 	if action.name == "Lightning Claws": hit_text += "x?"
-	var type = "HP" if action.healing else "dmg"
+	var prepend = "-"
+	if action.damage_type == Action.DamageType.HP: prepend = ""
+	var type = "dmg"
+	if action.healing:
+		type = "HP"
+		prepend = "+"
 	if action.damage_type == Action.DamageType.AC:
 		type = "AC"
 	elif action.damage_type == Action.DamageType.MP:
 		type = "MP"
 	elif action.damage_type == Action.DamageType.AP:
 		type = "ST"
-	var prepend = "+" if action.healing else ""
 	var drown = "+"
 	var damage = action.damage
 	if action.name != "Drown": drown = ""

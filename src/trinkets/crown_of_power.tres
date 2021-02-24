@@ -9,3 +9,7 @@ description = "Begin battles with 1 Power."
 rarity = 1
 rank = 0
 frame_id = 7
+battle_start = true
+battle_end = false
+turn_start = false
+turn_end = false

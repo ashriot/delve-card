@@ -19,6 +19,8 @@ onready var enemy_label = $Banner/Label
 onready var trink = $Trinket
 onready var trink_anim = $Trinket/AnimationPlayer
 
+onready var buff_card = $BuffCard
+
 var auto_end: bool
 var game_over: = false
 var initialized: = false
@@ -29,6 +31,7 @@ func initialize(_player: Actor) -> void:
 	actions.connect("show_card", self, "show_card")
 	actions.connect("hide_card", self, "hide_card")
 	enemyUI.connect("ended_turn", self, "_on_Enemy_ended_turn")
+	buff_card.hide()
 	playerUI.initialize(_player)
 	actions.initialize(playerUI, enemyUI)
 	trink.modulate.a = 0
@@ -96,12 +99,13 @@ func _on_Enemy_used_action(action: Action):
 
 func check_battle_start_effects() -> void:
 	for trinket in playerUI.actor.trinkets:
-		display_trinket(trinket)
+		if !trinket.battle_start: continue
+		check_trinket(trinket)
 		yield(trink_anim, "animation_finished")
 	yield(get_tree().create_timer(0.2), "timeout")
 	emit_signal("done_start_effects")
 
-func display_trinket(trinket: Trinket) -> void:
+func check_trinket(trinket: Trinket) -> void:
 	AudioController.play_sfx("draw")
 	trink.frame = trinket.frame_id
 	trink_anim.play("Show")
@@ -114,11 +118,21 @@ func display_trinket(trinket: Trinket) -> void:
 		playerUI.take_healing(1, "HP")
 	trink_anim.play("Hide")
 
+func show_trinket(trinket: Trinket) -> void:
+	pass
+
 func show_card(btn, amt: int) -> void:
 	emit_signal("show_card", btn, amt)
 
 func hide_card() -> void:
 	emit_signal("hide_card")
+
+func show_buff(buff) -> void:
+	buff_card.initialize(buff)
+
+func hide_buff() -> void:
+	print("hide card")
+	buff_card.fade_out()
 
 func _on_Enemy_block_input():
 	actions.block_input(true)
@@ -142,3 +156,18 @@ func _on_Instakill_pressed():
 
 func _on_Player_update_enemy():
 	enemyUI.update_data()
+
+func _on_Player_show_buff(buff) -> void:
+	show_buff(buff)
+
+func _on_Player_hide_buff() -> void:
+	hide_buff()
+
+func _on_Enemy_show_intent(intent: Action) -> void:
+	buff_card.init_intent(intent)
+
+func _on_Enemy_hide_intent() -> void:
+	buff_card.fade_out()
+
+func _on_Enemy_show_info(enemy: EnemyActor) -> void:
+	buff_card.init_info(enemy)

@@ -9,3 +9,7 @@ description = "Deal 2 damage and gain 1 HP at the beginning of each fight."
 rarity = 1
 rank = 0
 frame_id = 104
+battle_start = true
+battle_end = false
+turn_start = false
+turn_end = false

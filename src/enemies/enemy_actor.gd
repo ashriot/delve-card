@@ -3,6 +3,7 @@ class_name EnemyActor
 
 export var name: String
 export var title: String
+export(String, MULTILINE) var desc
 export var level: = 1
 export var max_hp: = 1
 export var max_ap: = 3
@@ -31,3 +32,5 @@ func spend_gold(amt: int) -> void:
 func have_enough_gold(amt: int) -> bool:
 	return gold >= amt
 
+func get_desc() -> String:
+	return title + "\nMax HP: " + str(max_hp) + "\n" + desc

@@ -5,8 +5,8 @@
 
 [resource]
 script = ExtResource( 1 )
-name = "Attack Fatigue"
-description = ""
+name = "Slime Smack"
+description = "An oozy strike that leaves you feeling fatigued."
 rarity = 1
 upgraded = false
 action_type = 0

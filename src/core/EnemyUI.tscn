@@ -552,7 +552,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 10.0
 margin_right = -3.8147e-06
-margin_bottom = -4.76837e-07
+mouse_filter = 1
 custom_colors/default_color = Color( 0.6, 0.584314, 0.521569, 1 )
 bbcode_enabled = true
 bbcode_text = "10x3"
@@ -562,10 +562,29 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="IntentBtn" type="Button" parent="Enemy/Attack"]
+modulate = Color( 1, 1, 1, 0 )
+margin_top = -2.0
+margin_right = 31.0
+margin_bottom = 8.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Sprite" type="Sprite" parent="Enemy"]
 texture = ExtResource( 1 )
 hframes = 9
-frame = 1
+frame = 2
+
+[node name="EnemyBtn" type="Button" parent="Enemy/Sprite"]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = -12.0
+margin_top = -12.0
+margin_right = 12.0
+margin_bottom = 12.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Enemy"]
 anims/Attack1 = SubResource( 1 )
@@ -588,9 +607,9 @@ __meta__ = {
 }
 
 [node name="DebuffBar" type="VBoxContainer" parent="Enemy"]
-margin_left = -29.0
+margin_left = -31.0
 margin_top = -19.0
-margin_right = -14.0
+margin_right = -16.0
 margin_bottom = 22.0
 rect_min_size = Vector2( 15, 0 )
 custom_constants/separation = 2
@@ -598,12 +617,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Enemy"]
-margin_right = 40.0
-margin_bottom = 40.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )
+[connection signal="button_down" from="Enemy/Attack/IntentBtn" to="." method="_on_IntentBtn_button_down"]
+[connection signal="button_up" from="Enemy/Attack/IntentBtn" to="." method="_on_IntentBtn_button_up"]
+[connection signal="button_down" from="Enemy/Sprite/EnemyBtn" to="." method="_on_EnemyBtn_button_down"]
+[connection signal="button_up" from="Enemy/Sprite/EnemyBtn" to="." method="_on_EnemyBtn_button_up"]

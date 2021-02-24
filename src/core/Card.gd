@@ -80,6 +80,7 @@ func initialize(_action_button, have: int) -> void:
 	else:
 		$Panel/Have.text = ""
 		$Panel/Damage.hide()
+	set_pos()
 	modulate.a = 0
 	show()
 	animation_player.play("FadeIn")
@@ -107,6 +108,7 @@ func init_trinket(trinket: Trinket) -> void:
 	$Panel/Info/Penetrate.hide()
 	$Panel/Info/Impact.hide()
 
+	set_pos()
 	modulate.a = 0
 	show()
 	animation_player.play("FadeIn")
@@ -133,14 +135,19 @@ func update_data() -> void:
 		$Panel/MP.show()
 
 	var hit_text = "" if hits < 2 else ("x" + str(hits))
-	var type = "HP" if action.healing else "dmg"
+	if action.name == "Lightning Claws": hit_text += "x?"
+	var prepend = "-"
+	if action.damage_type == Action.DamageType.HP: prepend = ""
+	var type = "dmg"
+	if action.healing:
+		type = "HP"
+		prepend = "+"
 	if action.damage_type == Action.DamageType.AC:
 		type = "AC"
 	elif action.damage_type == Action.DamageType.MP:
 		type = "MP"
 	elif action.damage_type == Action.DamageType.AP:
 		type = "ST"
-	var prepend = "+" if action.healing else ""
 	var drown = "+"
 	if action.name != "Drown":
 		drown = ""
@@ -156,3 +163,10 @@ func close() -> void:
 		animation_player.play("FadeOut")
 		yield(animation_player, "animation_finished")
 		hide()
+
+func set_pos() -> void:
+	var pos = get_global_mouse_position() as Vector2
+	if pos.y < ($Panel.rect_size.y + 10):
+		$Panel.rect_position.y = pos.y + 15
+	else:
+		$Panel.rect_position.y = 4

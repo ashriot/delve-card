@@ -13,6 +13,8 @@ signal discarded_x(qty)
 signal apply_debuff(debuff, qty)
 signal apply_buff(buff, qty)
 signal update_enemy
+signal show_buff(buff)
+signal hide_buff
 
 onready var hp_value = $Player/Panel/HP/Value
 onready var hp_percent = $Player/Panel/HP/TextureProgress
@@ -276,12 +278,11 @@ func remove_debuff(debuff_name: String) -> void:
 	child.queue_free()
 	update_data()
 
-func show_buff_card(buff: Buff) -> void:
-	var buff_card = BuffCard.instance()
-	buff_card.initialize(buff.name, buff.description)
+func show_buff_card(buff: BuffUI) -> void:
+	emit_signal("show_buff", buff)
 
 func hide_buff_card() -> void:
-	pass
+	emit_signal("hide_buff")
 
 # SETTERS ###########################################
 

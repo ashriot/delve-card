@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource( 1 )
-name = "Attack2"
+name = "Attack6x2"
 description = ""
 rarity = 2
 upgraded = false

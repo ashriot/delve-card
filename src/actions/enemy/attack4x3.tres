@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource( 1 )
-name = "Attack"
+name = "Attack4x3"
 description = ""
 rarity = 3
 upgraded = false
@@ -20,6 +20,8 @@ crit_chance = 0.0
 penetrate = false
 impact = 0
 drawX = 0
+discard_random_x = 0
+discard_x = 0
 draw_type = 7
 drop = false
 fade = false

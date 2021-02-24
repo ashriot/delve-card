@@ -10,6 +10,11 @@ signal used_action(action)
 signal ended_turn
 signal block_input
 signal died
+signal show_buff
+signal hide_buff
+signal show_intent
+signal hide_intent
+signal show_info
 
 onready var sprite: = $Enemy/Sprite
 onready var animationPlayer: = $Enemy/AnimationPlayer
@@ -23,6 +28,8 @@ onready var attack_icon = $Enemy/Attack/Sprite
 onready var attack_value = $Enemy/Attack/RichTextLabel
 onready var hp_panel = $Enemy/HP
 onready var atk_panel = $Enemy/Attack
+onready var atk_btn = $Enemy/Attack/IntentBtn
+onready var enemy_btn = $Enemy/Sprite/EnemyBtn
 
 onready var buff_bar = $Enemy/BuffBar
 onready var debuff_bar = $Enemy/DebuffBar
@@ -337,6 +344,7 @@ func update_data() -> void:
 			dmg_text += "AC"
 	if action_to_use.target_type == Action.TargetType.OPPONENT \
 	and ((player.buffs.has("Mist Form") and action_to_use.action_type == Action.ActionType.WEAPON) \
+	or (player.buffs.has("Mist Form") and action_to_use.action_type == Action.ActionType.SKILL) \
 	or (player.buffs.has("Stoneskin") and action_to_use.action_type == Action.ActionType.SPELL) \
 	or player.buffs.has("Invisibility")):
 		dmg_text = "0"
@@ -349,9 +357,10 @@ func enemy_ai() -> Action:
 	if actor.name == "bear": return bear()
 	elif actor.name == "devil": return devil()
 	elif actor.name == "slime": return slime()
+	elif actor.name == "wolf": return wolf()
 	else:
-		var rand = randi() % actor.actions.size()
-		return actor.actions[rand]
+		var i = randi() % actor.actions.size()
+		return actor.actions[i]
 
 func bear() -> Action:
 	var action = null
@@ -370,7 +379,7 @@ func bear() -> Action:
 	else:
 		if is_injured(0.5): action = actor.actions[2]
 		else: action = actor.actions[1]	# 1x/2x
-	if action.name == "Attack2":
+	if action.name == "Attack6x2":
 		vars.maul_uses += 1
 	else:
 		vars.maul_uses = 0
@@ -396,6 +405,23 @@ func slime() -> Action:
 			action = actor.actions[2]
 	return action
 
+func wolf() -> Action:
+	var valid = false
+	var action = actor.actions[0]
+	while !valid:
+		var i = randi() % actor.actions.size()
+		action = actor.actions[i]
+		if action.name == "Attack5x3" or action.name == "Attack6x2":
+			if vars.multiattacks > 2: continue
+			else:
+				vars.multiattacks += 1
+				valid = true
+			print("MULTIATTACKING! ", vars.multiattacks)
+		else:
+			vars.multiattacking = 0
+			valid = true
+	return action
+
 func set_vars() -> void:
 	vars.clear()
 	if actor.name == "bear":
@@ -410,9 +436,19 @@ func set_vars() -> void:
 		vars = {
 			"shield_used": false
 		}
+	elif actor.name == "wolf":
+		vars = {
+			"multiattacks": 0
+		}
 
 func is_injured(threshold: float) -> bool:
 	return (float(hp) / float(actor.max_hp) <= threshold)
+
+func show_buff_card(buff: BuffUI) -> void:
+	emit_signal("show_buff", buff)
+
+func hide_buff_card() -> void:
+	emit_signal("hide_buff")
 
 # SETTERS ###########################################
 
@@ -460,3 +496,15 @@ func set_mp(value: int) -> void:
 
 func get_dead() -> bool:
 	return hp == 0
+
+func _on_IntentBtn_button_down() -> void:
+	emit_signal("show_intent", action_to_use)
+
+func _on_IntentBtn_button_up() -> void:
+	emit_signal("hide_intent")
+
+func _on_EnemyBtn_button_down() -> void:
+	emit_signal("show_info", actor)
+
+func _on_EnemyBtn_button_up() -> void:
+	emit_signal("hide_intent")
