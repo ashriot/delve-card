@@ -76,10 +76,7 @@ func _ready() -> void:
 	welcome.connect("save_core_data", self, "save_core_data")
 	$DemoScreen/Notes.hide()
 	char_select.hide()
-	if skipping_intro:
-		skip_intro()
-	else:
-		title.show()
+	title.show()
 
 func init_data() -> void:
 	var dir = Directory.new()
@@ -303,7 +300,6 @@ func _on_StartGame_button_up() -> void:
 	yield(fade, "animation_finished")
 
 func start_game() -> void:
-	dungeon.progress = 1
 	open_gem_shop.hide()
 	for job in jobs:
 		for perk in job.perks:
@@ -327,7 +323,6 @@ func new_game() -> void:
 	var build = char_select.equipped_build.gear as Gear
 	if build != null: player.set_build(build)
 	dungeon.dungeon_name = ""
-	dungeon.max_prog = rooms
 	dungeon.initialize(self)
 	dungeon.new_map()
 	enter_game()
@@ -446,12 +441,6 @@ func _on_CharSelect_chose_class(job: Job) -> void:
 	yield(fade, "animation_finished")
 	start_game()
 
-func skip_intro() -> void:
-	fade.play("FadeOut")
-	yield(fade, "animation_finished")
-	char_select.hide()
-	start_game()
-
 func _on_Patch_button_up():
 	AudioController.click()
 	$DemoScreen/Notes.show()
@@ -465,14 +454,12 @@ func _on_Fire_button_up():
 	var n = "fire_sorc"
 	player = load("res://src/actions/sorcerer/" + n + ".tres")
 	player.hp = player.max_hp
-	skip_intro()
 
 func _on_Arcane_button_up():
 	AudioController.click()
 	var n = "arcane_sorc"
 	player = load("res://src/actions/sorcerer/" + n + ".tres")
 	player.hp = player.max_hp
-	skip_intro()
 
 func show_card(btn, amt: int) -> void:
 	card.initialize(btn, amt)

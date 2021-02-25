@@ -13,6 +13,11 @@ export var choice_2: String
 export var choice_3: String
 export var choice_4: String
 
+onready var btn1: = $Options/Choice1
+onready var btn2: = $Options/Choice2
+onready var btn3: = $Options/Choice3
+onready var btn4: = $Options/Choice4
+
 onready var tween: = $Desc/Tween
 
 var playerUI: PlayerUI

@@ -38,6 +38,8 @@ var pathing: = false
 func initialize(game) -> void:
 	print("dungeon.initialize()")
 	tooltip.hide()
+	max_prog = game.rooms
+	self.progress = 1
 	player = game.playerUI.player
 	game_seed = game.game_seed
 	enemy_list = ["slime", "slime"]
@@ -148,4 +150,4 @@ func _on_Map_hide_tooltip():
 
 # ADD EVENT LOGIC HERE!
 func get_event() -> String:
-	return "CharredAltar"
+	return "MoonSanctuary"

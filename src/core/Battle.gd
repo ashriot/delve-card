@@ -118,9 +118,6 @@ func check_trinket(trinket: Trinket) -> void:
 		playerUI.take_healing(1, "HP")
 	trink_anim.play("Hide")
 
-func show_trinket(trinket: Trinket) -> void:
-	pass
-
 func show_card(btn, amt: int) -> void:
 	emit_signal("show_card", btn, amt)
 

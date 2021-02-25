@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://src/events/Event.tscn" type="PackedScene" id=1]
-[ext_resource path="res://assets/images/sheets/backdrops.png" type="Texture" id=2]
 [ext_resource path="res://src/events/CharredAltar.gd" type="Script" id=3]
 
 [node name="CharredAltar" instance=ExtResource( 1 )]
@@ -16,8 +15,6 @@ choice_2 = "Stare into the stone."
 choice_3 = "Walk past it."
 
 [node name="Scene" parent="." index="3"]
-texture = ExtResource( 2 )
-hframes = 21
 frame = 21
 
 [node name="Desc" parent="." index="5"]

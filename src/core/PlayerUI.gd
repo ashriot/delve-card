@@ -58,9 +58,25 @@ func heal(amt: int, type: String) -> void:
 		player.hp += amt
 		set_hp(player.hp)
 
+func full_heal() -> void:
+	set_hp(player.max_hp)
+
 func add_trinket(trinket: Trinket) -> void:
 	player.add_trinket(trinket)
 	trinket_belt.add_trinket(trinket)
+
+func has_trinket(trink_name: String) -> bool:
+	for trinket in player.trinkets:
+		if trinket.name == trink_name: return true
+	return false
+
+func remove_trinket(trink_name: String) -> void:
+	for trinket in player.trinkets:
+		if trinket.name == trink_name:
+			print("Found: ", trinket.name, " - removing")
+			player.trinkets.remove(player.trinkets.find(trinket))
+			trinket_belt.remove_trinket(trink_name)
+			return
 
 func set_hp(value) -> void:
 	var zeros = 3 - str(value).length()

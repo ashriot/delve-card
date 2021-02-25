@@ -1,6 +1,5 @@
 extends Event
 
-
 func begin() -> void:
 	print("Begin!")
 	.display_text(desc)

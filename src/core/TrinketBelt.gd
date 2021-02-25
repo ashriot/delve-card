@@ -25,6 +25,14 @@ func add_trinket(trinket: Trinket) -> void:
 		trinkets.add_child(child)
 		child.initialize(player, trinket)
 
+func remove_trinket(trink_name: String) -> void:
+	for child in trinkets.get_children():
+		child = child as TrinketButton
+		if child.trinket.name == trink_name:
+			trinkets.remove_child(child)
+			child.queue_free()
+			return
+
 func show() -> void:
 	.show()
 	tween.interpolate_property(trinkets, "modulate",
