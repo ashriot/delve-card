@@ -63,7 +63,7 @@ func display_others(actions: Array) -> void:
 	update_other_price_tags()
 
 func get_price(rarity: int) -> int:
-	return rarity * 30 - 40
+	return int(max(rarity * 25 - 35, 0))
 
 func update_price_tags() -> void:
 	for tag in price_tags.get_children():

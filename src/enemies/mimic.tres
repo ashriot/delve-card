@@ -6,19 +6,16 @@
 [ext_resource path="res://src/actions/enemy/double_trouble.tres" type="Resource" id=4]
 [ext_resource path="res://src/actions/enemy/triple_threat.tres" type="Resource" id=5]
 
-
-
-
 [resource]
 script = ExtResource( 1 )
 name = "mimic"
 title = "Mimic"
 desc = "A master of mimicry that meddles with the minds of misguided adventurers."
-level = 1
-max_hp = 35
+level = 3
+max_hp = 50
 max_ap = 0
 initial_ac = 50
 initial_mp = 0
-gold = 50
+gold = 60
 texture = ExtResource( 2 )
 actions = [ ExtResource( 3 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 4 ), ExtResource( 5 ) ]

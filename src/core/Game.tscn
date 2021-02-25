@@ -136,7 +136,7 @@ tracks/1/keys = {
 
 [node name="Game" type="Node"]
 script = ExtResource( 3 )
-rooms = 6
+rooms = 8
 mute = true
 jobs = [ ExtResource( 22 ), ExtResource( 23 ), ExtResource( 24 ) ]
 

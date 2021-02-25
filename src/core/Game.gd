@@ -55,7 +55,7 @@ var auto_end: = true
 func _ready() -> void:
 	$Title/AnimationPlayer.play("FlashTap")
 	rand_seed(game_seed.hash())
-#	randomize()
+	randomize()
 	AudioController.mute = mute
 	AudioController.play_bgm("title")
 	init_data()		# Initial data creation or load

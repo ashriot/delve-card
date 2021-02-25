@@ -15,11 +15,6 @@
 [ext_resource path="res://src/player/builds/novice.tres" type="Resource" id=13]
 [ext_resource path="res://src/player/builds/soldier.tres" type="Resource" id=14]
 
-
-
-
-
-
 [resource]
 script = ExtResource( 3 )
 name = "Fighter"

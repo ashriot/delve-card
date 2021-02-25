@@ -52,7 +52,8 @@ func initialize(_dungeon: Dungeon) -> void:
 	heal_max = randi() % 2 + max(progress / 2, 0) + 1
 # warning-ignore:integer_division
 	event_max = randi() % int(max(progress / 2 + 1, 0)) + 1 if progress > 1 else 0
-	enemy_max = 2 + progress
+# warning-ignore:integer_division
+	enemy_max = 3 + int(progress / 2)
 # warning-ignore:integer_division
 	shop_max = randi() % int(max(progress / 2, 1)) + 1
 	anvil_max = 1

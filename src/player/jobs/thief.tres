@@ -23,17 +23,6 @@
 [ext_resource path="res://src/player/gear/none.tres" type="Resource" id=21]
 [ext_resource path="res://src/player/builds/treasure_hunter.tres" type="Resource" id=22]
 
-
-
-
-
-
-
-
-
-
-
-
 [resource]
 script = ExtResource( 2 )
 name = "Thief"
