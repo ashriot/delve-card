@@ -47,13 +47,13 @@ func initialize(_dungeon: Dungeon) -> void:
 	progress = _dungeon.progress
 	max_prog = _dungeon.max_prog
 # warning-ignore:integer_division
-	chest_max = max(progress / 2, 1)
+	chest_max = max((progress + 2) / 3, 1)
 # warning-ignore:integer_division
-	heal_max = randi() % 2 + max(progress / 2, 0) + 1
+	heal_max = randi() % 2 + max(progress / 3, 0) + 1
 # warning-ignore:integer_division
-	event_max = randi() % int(max(progress / 2 + 1, 0)) + 1 if progress > 1 else 0
+	event_max = randi() % int(max(progress / 3 + 1, 0)) + 1 if progress > 1 else 0
 # warning-ignore:integer_division
-	enemy_max = 3 + int(progress / 2)
+	enemy_max = 3 + int(progress / 3)
 # warning-ignore:integer_division
 	shop_max = randi() % int(max(progress / 2, 1)) + 1
 	anvil_max = 1
@@ -63,7 +63,6 @@ func initialize(_dungeon: Dungeon) -> void:
 	squares.set_owner(self)
 	generation_loop()
 	while astar.get_id_path(origin.get_index(), exit.get_index()).size() > 1:
-		print("looping!")
 		clear_map()
 		generation_loop()
 	for child in branches.get_children():

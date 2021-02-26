@@ -47,7 +47,7 @@ func start(_enemy: EnemyActor) -> void:
 	yield(get_tree().create_timer(0.2), "timeout")
 	check_battle_start_effects()
 	yield(self, "done_start_effects")
-	emit_signal("start_turn")
+	_on_Enemy_ended_turn()
 
 func toggle_auto_end(value: bool) -> void:
 	auto_end = value
@@ -57,7 +57,10 @@ func _on_Actions_ended_turn():
 	print("on actions ended turn")
 	end_of_turn()
 	yield(get_tree().create_timer(0.3), "timeout")
-	if playerUI.has_buff("Time Warp"): emit_signal("start_turn")
+	if playerUI.has_buff("Time Warp"):
+		check_turn_start_trinkets()
+		yield(self, "done_start_effects")
+		emit_signal("start_turn")
 	else: enemyUI.act()
 
 func end_of_turn() -> void:
@@ -71,10 +74,10 @@ func _on_Enemy_ended_turn():
 	if playerUI.dead:
 		game_over = true
 		emit_signal("battle_finished", false)
-	elif enemyUI.dead:
-		enemyUI.die()
+	elif enemyUI.dead: enemyUI.die()
 	else:
-		print("enemyUI 'ended_turn' signal received --> start_turn")
+		check_turn_start_trinkets()
+		yield(self, "done_start_effects")
 		emit_signal("start_turn")
 
 func _on_Enemy_used_action(action: Action):
@@ -102,6 +105,14 @@ func check_battle_start_effects() -> void:
 		if !trinket.battle_start: continue
 		check_trinket(trinket)
 		yield(trink_anim, "animation_finished")
+	yield(get_tree().create_timer(0.1), "timeout")
+	emit_signal("done_start_effects")
+
+func check_turn_start_trinkets() -> void:
+	for trinket in playerUI.actor.trinkets:
+		if !trinket.turn_start: continue
+		check_trinket(trinket)
+		yield(trink_anim, "animation_finished")
 	yield(get_tree().create_timer(0.2), "timeout")
 	emit_signal("done_start_effects")
 
@@ -114,8 +125,12 @@ func check_trinket(trinket: Trinket) -> void:
 		var amt = trinket.rank + 1
 		playerUI.gain_buff(preload("res://src/actions/buffs/power.tres"), amt)
 	elif trinket.name == "Black Stone":
-		enemyUI.take_hit(null, 2, false)
+		enemyUI.take_hit(null, 4, false)
+		playerUI.take_healing(2, "HP")
+	elif trinket.name == "Lunar Stone":
 		playerUI.take_healing(1, "HP")
+	elif trinket.name == "Solar Stone":
+		enemyUI.take_hit(null, 2, false)
 	trink_anim.play("Hide")
 
 func show_card(btn, amt: int) -> void:

@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource( 1 )
 name = "Black Stone"
-description = "Deal 2 damage and gain 1 HP at the beginning of each fight."
+description = "Deal 4 damage and gain 2 HP at the beginning of each battle."
 rarity = 1
 rank = 0
 frame_id = 104
