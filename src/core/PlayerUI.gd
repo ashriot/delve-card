@@ -61,6 +61,14 @@ func heal(amt: int, type: String) -> void:
 func full_heal() -> void:
 	set_hp(player.max_hp)
 
+func lose_hp(value: int) -> void:
+	player.hp -= value
+	set_hp(player.hp)
+
+func max_hp_increase(value: int) -> void:
+	player.max_hp += value
+	lose_hp(-value)
+
 func add_trinket(trinket: Trinket) -> void:
 	player.add_trinket(trinket)
 	trinket_belt.add_trinket(trinket)
@@ -79,6 +87,9 @@ func remove_trinket(trink_name: String) -> void:
 			return
 
 func set_hp(value) -> void:
+	if value < 1: # DEAD
+		print("YOU DIED!!!!!!!")
+		return
 	var zeros = 3 - str(value).length()
 	var cur = str(value).pad_zeros(3)
 	var cur_sub = cur.substr(0, zeros)
@@ -108,6 +119,26 @@ func set_mp(value: int) -> void:
 
 func set_ap(value: int) -> void:
 	ap.rect_size = Vector2(5 * value, 7)
+
+func add_gold(value: int) -> void:
+	player.gold += value
+	gold_label.text = comma_sep(player.gold)
+
+func get_gold_text() -> String:
+	return comma_sep(player.gold)
+
+func get_hp_text() -> String:
+	var value = player.hp
+	var zeros = 3 - str(value).length()
+	var cur = str(value).pad_zeros(3)
+	var cur_sub = cur.substr(0, zeros)
+	zeros = 3 - str(player.max_hp).length()
+	cur = str(player.max_hp).pad_zeros(3)
+	var max_sub = cur.substr(0, zeros)
+	var text = "[color=#22cac7b8]" + cur_sub + "[/color]" + str(value) \
+		+ "/[color=#22cac7b8]" + max_sub + "[/color]" \
+		+ str(player.max_hp)
+	return text
 
 func show_card(btn, amt: int) -> void:
 	emit_signal("show_card", btn, amt)

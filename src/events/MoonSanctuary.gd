@@ -13,7 +13,6 @@ func _on_Choice1_pressed():
 	AudioController.click()
 	if stage == 0:
 		stage = 1
-		btn1.disabled = false
 		var text = "You place the black stone into the pedestal. " + \
 		"\n\nThe ceiling begins to move. Suddenly, the stone begins to fade between " + \
 		"two colors, grey and white."

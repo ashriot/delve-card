@@ -144,7 +144,6 @@ jobs = [ ExtResource( 22 ), ExtResource( 23 ), ExtResource( 24 ) ]
 visible = false
 
 [node name="Dungeon" parent="." instance=ExtResource( 14 )]
-visible = false
 
 [node name="DemoScreen" type="ColorRect" parent="."]
 visible = false
@@ -351,6 +350,7 @@ __meta__ = {
 }
 
 [node name="WelcomeScreen" parent="." instance=ExtResource( 16 )]
+visible = false
 
 [node name="CharSelect" parent="." instance=ExtResource( 9 )]
 visible = false
@@ -368,7 +368,6 @@ visible = false
 visible = false
 
 [node name="PlayerUI" parent="." instance=ExtResource( 13 )]
-visible = false
 
 [node name="EventScreen" parent="." instance=ExtResource( 26 )]
 visible = false

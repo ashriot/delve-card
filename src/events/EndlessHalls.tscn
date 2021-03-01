@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/events/Event.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/events/EndlessHalls.gd" type="Script" id=2]
+
+[node name="EndlessHalls" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+title = "Endless Halls"
+desc = "You enter a narrow hallway with a ceiling so high that it receeds into darkness. The walls are filled with endless archways. Exploring this dark place fills you with dread."
+scene = 43
+choice_1 = "Go left. (-3 HP)"
+choice_2 = "Go forward. (-3 HP)"
+choice_3 = "Go right. (-3 HP)"
+choice_4 = "Leave this place."
+
+[node name="Desc" parent="." index="6"]
+margin_bottom = 123.0

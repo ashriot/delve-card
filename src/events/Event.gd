@@ -6,7 +6,7 @@ signal done
 export var title: String
 export(String, MULTILINE) var desc
 export var person: = -1
-export var scene: = -1
+export var scene: = -1 setget set_scene
 export var item: = -1
 export var choice_1: String
 export var choice_2: String
@@ -17,6 +17,9 @@ onready var btn1: = $Options/Choice1
 onready var btn2: = $Options/Choice2
 onready var btn3: = $Options/Choice3
 onready var btn4: = $Options/Choice4
+
+onready var hp: = $HPBanner/HP
+onready var gp: = $HPBanner/GP
 
 onready var tween: = $Desc/Tween
 
@@ -33,6 +36,7 @@ func _ready():
 	$Options/Choice3.text = choice_3
 	$Options/Choice4.text = choice_4
 	$Desc.percent_visible = 0
+
 	if choice_1 == "": $Options/Choice1.hide()
 	if choice_2 == "": $Options/Choice2.hide()
 	if choice_3 == "": $Options/Choice3.hide()
@@ -41,7 +45,9 @@ func _ready():
 	if person > -1: $Person.frame = person
 	else: $Person.hide()
 	if scene > -1: $Scene.frame = scene
-	else: $Scene.hide()
+	else:
+		$Scene.hide()
+		$SceneBG.hide()
 	if item > -1: $Item.frame = item
 	else: $Item.hide()
 	yield(get_tree().create_timer(0.25), "timeout")
@@ -49,6 +55,8 @@ func _ready():
 func initialize(game: Game) -> void:
 	connect("done", game, "_on_Dungeon_event_done")
 	playerUI = game.playerUI
+	gp.text = playerUI.get_gold_text()
+	hp.bbcode_text = playerUI.get_hp_text()
 	$Person/You.frame = playerUI.player.portrait_id
 	begin()
 
@@ -64,6 +72,10 @@ func begin() -> void:
 	pass
 
 func choices(texts: Array) -> void:
+	btn1.disabled = false
+	btn2.disabled = false
+	btn3.disabled = false
+	btn4.disabled = false
 	$Options/Choice1.text = texts[0]
 	$Options/Choice1.show()
 	if texts.size() < 2: $Options/Choice2.hide()
@@ -72,16 +84,21 @@ func choices(texts: Array) -> void:
 		$Options/Choice2.show()
 	if texts.size() < 3: $Options/Choice3.hide()
 	else:
-		$Options/Choice3.text = texts[1]
+		$Options/Choice3.text = texts[2]
 		$Options/Choice3.show()
-	if texts.size() < 4: $Options/Choice3.hide()
+	if texts.size() < 4: $Options/Choice4.hide()
 	else:
-		$Options/Choice4.text = texts[1]
+		$Options/Choice4.text = texts[3]
 		$Options/Choice4.show()
 
 func show_text() -> void:
-		tween.stop_all()
-		$Desc.percent_visible = 1
+	tween.stop_all()
+	$Desc.percent_visible = 1
+
+func set_scene(value: int) -> void:
+	if value < 0: return
+	scene = value
+	$Scene.frame = value
 
 func _on_Choice1_pressed():
 	pass
