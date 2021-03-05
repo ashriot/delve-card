@@ -86,6 +86,18 @@ func remove_trinket(trink_name: String) -> void:
 			trinket_belt.remove_trinket(trink_name)
 			return
 
+func add_potion(potion: Action) -> void:
+	player.add_potion(potion)
+	item_belt.add_potion(potion)
+
+func add_potions(qty: int) -> void:
+	var potion = load("res://src/potions/potions/healing_potion.tres")
+	add_potion(potion)
+	potion = load("res://src/potions/potions/mana_potion.tres")
+	add_potion(potion)
+	potion = load("res://src/potions/potions/exploding_potion.tres")
+	add_potion(potion)
+
 func set_hp(value) -> void:
 	if value < 1: # DEAD
 		print("YOU DIED!!!!!!!")

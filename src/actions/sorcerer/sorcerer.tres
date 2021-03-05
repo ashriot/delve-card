@@ -5,8 +5,10 @@
 [ext_resource path="res://src/actions/sorcerer/1/mana_dart.tres" type="Resource" id=3]
 [ext_resource path="res://src/actions/sorcerer/1/mana_crystal.tres" type="Resource" id=4]
 [ext_resource path="res://src/actions/sorcerer/1/novice_wand.tres" type="Resource" id=5]
-[ext_resource path="res://src/potions/small_apple.tres" type="Resource" id=7]
-[ext_resource path="res://src/potions/magic_mushroom.tres" type="Resource" id=8]
+[ext_resource path="res://src/potions/food/small_apple.tres" type="Resource" id=7]
+[ext_resource path="res://src/potions/food/magic_mushroom.tres" type="Resource" id=8]
+
+
 
 [resource]
 script = ExtResource( 1 )

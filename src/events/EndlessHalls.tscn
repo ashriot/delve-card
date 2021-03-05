@@ -8,9 +8,9 @@ script = ExtResource( 2 )
 title = "Endless Halls"
 desc = "You enter a narrow hallway with a ceiling so high that it receeds into darkness. The walls are filled with endless archways. Exploring this dark place fills you with dread."
 scene = 43
-choice_1 = "Go left. (-3 HP)"
-choice_2 = "Go forward. (-3 HP)"
-choice_3 = "Go right. (-3 HP)"
+choice_1 = "Go left. (-2 HP)"
+choice_2 = "Go forward. (-2 HP)"
+choice_3 = "Go right. (-2 HP)"
 choice_4 = "Leave this place."
 
 [node name="Desc" parent="." index="6"]

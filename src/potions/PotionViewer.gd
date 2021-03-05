@@ -30,7 +30,8 @@ func _on_Button_up():
 		hovering = false
 		emit_signal("hide_card")
 	else:
-		if action.damage_type == Action.DamageType.HP \
+		if action.target_type == Action.TargetType.MYSELF \
+		and action.damage_type == Action.DamageType.HP \
 		and action.healing:
 			AudioController.click()
 			player.heal(action.damage, "HP")

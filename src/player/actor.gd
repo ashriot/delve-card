@@ -77,6 +77,9 @@ func remove_trinket(trinket: Trinket) -> void:
 	if trinket.name == "Magic Ring":
 		initial_mp -= trinket.rank * 2 + 2
 
+func add_potion(potion: Action) -> void:
+	potions.append(potion)
+
 func set_build(build: Gear) -> void:
 	if build.name == "Battlemage":
 		max_ap += 1

@@ -6,21 +6,27 @@ var _Viewer = preload("res://src/potions/PotionViewer.tscn")
 onready var tween = $Tween
 onready var items = $Items
 
-func initialize(actions: Actions, potions) -> void:
+var player: PlayerUI
+
+func initialize(actions: Actions, potions, enemy) -> void:
 	invis()
 	clear_items()
 	for potion in potions:
 		var child = _Button.instance() as PotionButton
 		items.add_child(child)
-		child.initialize(actions, potion)
+		child.initialize(actions, potion, enemy)
 
-func init_ui(player: PlayerUI) -> void:
-	items.modulate.a = 1
-	clear_items()
-	for potion in player.player.potions:
+func add_potion(potion: Action) -> void:
 		var child = _Viewer.instance() as PotionViewer
 		items.add_child(child)
 		child.initialize(player, potion)
+
+func init_ui(playerUI: PlayerUI) -> void:
+	player = playerUI
+	items.modulate.a = 1
+	clear_items()
+	for potion in player.player.potions:
+		add_potion(potion)
 
 func clear_items() -> void:
 	for child in items.get_children():

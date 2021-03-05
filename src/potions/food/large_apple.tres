@@ -5,25 +5,27 @@
 
 [resource]
 script = ExtResource( 1 )
-name = "Roast Meat"
-description = "Restores %damage HP and MP."
+name = "Large Apple"
+description = "Heals  %damage HP."
 rarity = 1
 upgraded = false
 action_type = 6
 target_type = 0
 cost_type = 3
 cost = 0
-healing = false
-damage_type = 2
-damage = 8
+healing = true
+damage_type = 0
+damage = 16
 hits = 1
 crit_chance = 0.0
 penetrate = false
 impact = 0
 drawX = 0
+discard_random_x = 0
+discard_x = 0
 draw_type = 7
 drop = false
 fade = false
 consume = true
-frame_id = 192
+frame_id = 179
 fx = ExtResource( 2 )

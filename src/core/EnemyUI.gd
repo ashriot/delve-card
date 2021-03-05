@@ -137,7 +137,7 @@ func action_done() -> void:
 			take_effect(Mend, buffs["Mend"].stacks)
 			yield(get_tree().create_timer(0.8), "timeout")
 	reduce_debuffs()
-	reduce_buffs()
+	reduce_buffs(true)
 	update_atk_panel()
 	print("EnemyUI 'ended_turn' signal fired.")
 	emit_signal("ended_turn")
@@ -168,12 +168,19 @@ func take_effect(action: Action, damage: int) -> void:
 
 func take_hit(action: Action, damage: int, crit: bool) -> void:
 	if self.dead: return
+	var dodge = false
+	if buffs.has("Dodge"):
+		if randf() < 0.5:
+			dodge = true
+			reduce_buff("Dodge", false)
 	var mp_dmg = false
 	if action != null: mp_dmg = action.damage_type == Action.DamageType.MP
-	if action != null and action.name == "Executioner Axe":
+	if action != null and action.name == "Executioner Axe" and !dodge:
 		if hp < 11:
 			self.hp = 0
 			damage = 0
+	var floating_text = FloatingText.instance()
+	if dodge: damage = 0
 	if damage > 0:
 		var dmg_text = 0
 		if action != null and !action.penetrate and !mp_dmg:
@@ -191,16 +198,19 @@ func take_hit(action: Action, damage: int, crit: bool) -> void:
 		if mp_dmg: self.mp -= damage
 		else: self.hp -= damage
 		dmg_text += damage
-		var floating_text = FloatingText.instance()
 		if mp_dmg:
 			var txt = "-" + str(dmg_text) + "MP"
 			floating_text.display_text(txt)
 		else: floating_text.initialize(dmg_text, crit)
-		add_child(floating_text)
+	else:
+		var txt = "Dodged!"
+		floating_text.display_text(txt)
+		AudioController.play_sfx("miss")
+	add_child(floating_text)
 	if self.dead:
 		die()
 	else:
-		if animationPlayer.current_animation == "Idle":
+		if animationPlayer.current_animation == "Idle" and !dodge:
 			animationPlayer.play("Hit")
 			yield(animationPlayer, "animation_finished")
 			animationPlayer.play("Idle")
@@ -238,14 +248,15 @@ func gain_buff(buff: Buff, amt: int) -> void:
 	buffUI.connect("show_card", self, "show_buff_card")
 	buffUI.connect("hide_card", self, "hide_buff_card")
 
-func reduce_buffs() -> void:
+func reduce_buffs(eot: bool) -> void:
 	if buffs.size() > 0:
 		for buff in buffs:
-			reduce_buff(buff)
+			reduce_buff(buff, eot)
 
-func reduce_buff(buff_name: String) -> void:
+func reduce_buff(buff_name: String, eot: bool) -> void:
 	for child in buff_bar.get_children():
 		if child.buff_name == buff_name:
+			if eot and !child.fades_per_turn: continue
 			if buff_name == "Power":
 				added_damage -= 1
 			child.stacks -= 1

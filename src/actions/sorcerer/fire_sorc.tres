@@ -6,8 +6,8 @@
 [ext_resource path="res://src/actions/sorcerer/1/mana_crystal.tres" type="Resource" id=4]
 [ext_resource path="res://src/actions/sorcerer/1/novice_wand.tres" type="Resource" id=5]
 [ext_resource path="res://src/actions/sorcerer/3/combust.tres" type="Resource" id=6]
-[ext_resource path="res://src/potions/small_apple.tres" type="Resource" id=7]
-[ext_resource path="res://src/potions/magic_mushroom.tres" type="Resource" id=8]
+[ext_resource path="res://src/potions/food/small_apple.tres" type="Resource" id=7]
+[ext_resource path="res://src/potions/food/magic_mushroom.tres" type="Resource" id=8]
 [ext_resource path="res://src/actions/sorcerer/4/conflagration.tres" type="Resource" id=9]
 [ext_resource path="res://src/actions/sorcerer/3/ignite.tres" type="Resource" id=10]
 [ext_resource path="res://src/actions/sorcerer/2/fireball.tres" type="Resource" id=11]
@@ -15,6 +15,8 @@
 [ext_resource path="res://src/actions/sorcerer/2/ember_crystal.tres" type="Resource" id=13]
 [ext_resource path="res://src/actions/sorcerer/4/conjure_meteors.tres" type="Resource" id=14]
 [ext_resource path="res://src/actions/sorcerer/3/wildfire.tres" type="Resource" id=15]
+
+
 
 [resource]
 script = ExtResource( 1 )

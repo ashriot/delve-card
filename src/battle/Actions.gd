@@ -60,13 +60,13 @@ func initialize(_player: Player, _enemyUI: Enemy) -> void:
 	player = _player
 	enemyUI = _enemyUI
 	actions = player.actor.actions
-	item_belt.initialize(self, player.actor.potions)
+	item_belt.initialize(self, player.actor.potions, _enemyUI)
 	fill_deck()
 	initialized = true
 
 func reset() -> void:
 	item_belt.invis()
-	item_belt.initialize(self, player.actor.potions)
+	item_belt.initialize(self, player.actor.potions, enemyUI)
 	while graveyard.get_child_count() > 0:
 		var action = graveyard.get_child(0)
 		graveyard.remove_child(action)

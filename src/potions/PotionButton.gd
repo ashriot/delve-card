@@ -16,8 +16,9 @@ var action: Resource
 var player: Player
 var hovering: = false
 var initialized: = false
+var enemy: Enemy
 
-func initialize(actions, _action: Action) -> void:
+func initialize(actions, _action: Action, _enemy: Enemy) -> void:
 	connect("unblock", actions, "block_input")
 	connect("draw_cards", actions, "draw_cards")
 	connect("used_potion", actions, "used_potion")
@@ -25,6 +26,7 @@ func initialize(actions, _action: Action) -> void:
 	connect("hide_card", actions, "hide_card")
 	action = _action
 	player = actions.player
+	enemy = _enemy
 	sprite.frame = action.frame_id
 	initialized = true
 
@@ -54,6 +56,21 @@ func execute() -> void:
 					damage = min(player.mp, 30)
 				AudioController.play_sfx("mp_gain")
 				player.take_healing(damage, "MP")
+	else:
+		for hit in action.hits:
+			AudioController.play_sfx("fire")
+			if enemy.dead: break
+			var damage = action.damage
+			if damage > 0:
+				var bonus = 0
+				damage *= (1 - enemy.damage_reduction)
+				enemy.take_hit(action, damage, false)
+			if action.extra_action != null:
+				action.extra_action.execute(player)
+			if !enemy.dead:
+				emit_signal("unblock", false)
+			if action.hits > 1:
+				yield(get_tree().create_timer(0.1), "timeout")
 	player.actor.potions.erase(action)
 	get_tree().call_group("action_button", "update_data")
 	queue_free()

@@ -26,6 +26,7 @@ onready var tween: = $Desc/Tween
 var playerUI: PlayerUI
 var you_frame: int
 var stage: = 0
+var gold: = 0 setget set_gold, get_gold
 
 func _ready():
 	print("readying event")
@@ -55,7 +56,8 @@ func _ready():
 func initialize(game: Game) -> void:
 	connect("done", game, "_on_Dungeon_event_done")
 	playerUI = game.playerUI
-	gp.text = playerUI.get_gold_text()
+	gold = playerUI.player.gold
+	gp.text = str(self.gold)
 	hp.bbcode_text = playerUI.get_hp_text()
 	$Person/You.frame = playerUI.player.portrait_id
 	begin()
@@ -99,6 +101,37 @@ func set_scene(value: int) -> void:
 	if value < 0: return
 	scene = value
 	$Scene.frame = value
+
+func lose_hp(value: int) -> void:
+	playerUI.lose_hp(value)
+	gp.text = playerUI.get_gold_text()
+	hp.bbcode_text = playerUI.get_hp_text()
+
+func heal(value: int) -> void:
+	playerUI.heal(value, "HP")
+	gp.text = playerUI.get_gold_text()
+	hp.bbcode_text = playerUI.get_hp_text()
+
+func max_hp_increase(value: int) -> void:
+	playerUI.max_hp_increase(value)
+	gp.text = playerUI.get_gold_text()
+	hp.bbcode_text = playerUI.get_hp_text()
+
+func set_gold(value: int) -> void:
+	gold = value
+	playerUI.player.gold = gold
+	gp.text = str(gold)
+
+func get_gold() -> int:
+	return gold
+
+func add_gold(value: int) -> void:
+	gold += value
+	playerUI.add_gold(value)
+	gp.text = str(gold)
+
+func add_potions(qty: int) -> void:
+	playerUI.add_potions(3)
 
 func _on_Choice1_pressed():
 	pass

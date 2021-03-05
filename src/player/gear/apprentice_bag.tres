@@ -2,7 +2,7 @@
 
 [ext_resource path="res://src/player/gear/gear.gd" type="Script" id=1]
 [ext_resource path="res://src/trinkets/magic_ring.tres" type="Resource" id=2]
-[ext_resource path="res://src/potions/magic_mushroom.tres" type="Resource" id=3]
+[ext_resource path="res://src/potions/food/magic_mushroom.tres" type="Resource" id=3]
 
 [resource]
 script = ExtResource( 1 )
