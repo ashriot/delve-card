@@ -156,6 +156,10 @@ func update_data() -> void:
 		text = ""
 	if action.name == "Brilliant Crystal":
 		text = "[right]+2xMP"
+	if action.name == "Armor Up":
+		text = "[right]+2xAC"
+	if action.name == "Shield Slam":
+		text = "[right][AC] dmg"
 	$Panel/Damage.bbcode_text = text
 
 func close() -> void:

@@ -76,6 +76,10 @@ func update_data() -> void:
 	var text = "[right]" + prepend + str(damage) + hit_text + type
 	if action.name == "Brilliant Crystal":
 		text = "[right]+2xMP"
+	if action.name == "Armor Up":
+		text = "[right]+2xAC"
+	if action.name == "Shield Slam":
+		text = "[right][AC] dmg"
 	if action.damage == 0:
 		text = ""
 	$Button/Damage.bbcode_text = text

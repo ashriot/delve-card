@@ -4,8 +4,8 @@
 
 [resource]
 script = ExtResource( 1 )
-name = "Warhorn"
-description = "Gain %damage ST and draw an action."
+name = "Muster"
+description = "Gain %damage ST. Draw an action."
 rarity = 3
 upgraded = false
 action_type = 3
@@ -26,4 +26,4 @@ draw_type = 7
 drop = false
 fade = false
 consume = false
-frame_id = 0
+frame_id = 60

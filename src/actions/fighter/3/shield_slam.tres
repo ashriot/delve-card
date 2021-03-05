@@ -1,20 +1,21 @@
-[gd_resource type="Resource" load_steps=2 format=2]
+[gd_resource type="Resource" load_steps=3 format=2]
 
 [ext_resource path="res://src/actions/res/action.gd" type="Script" id=1]
+[ext_resource path="res://assets/animations/ShieldSlam.tscn" type="PackedScene" id=2]
 
 [resource]
 script = ExtResource( 1 )
-name = "Muster"
-description = "Gain %damage ST. Draw an action."
-rarity = 2
+name = "Shield Slam"
+description = "Deal damage equal to your AC, then lose half your AC."
+rarity = 3
 upgraded = false
 action_type = 3
-target_type = 0
+target_type = 1
 cost_type = 3
-cost = 0
+cost = 1
 healing = true
-damage_type = 3
-damage = 2
+damage_type = 0
+damage = 0
 hits = 1
 crit_chance = 0.0
 penetrate = false
@@ -26,4 +27,5 @@ draw_type = 7
 drop = false
 fade = false
 consume = false
-frame_id = 60
+frame_id = 58
+fx = ExtResource( 2 )

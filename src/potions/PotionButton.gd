@@ -52,8 +52,6 @@ func execute() -> void:
 				player.take_healing(action.damage, "AC")
 			elif action.damage_type == Action.DamageType.MP:
 				var damage = action.damage
-				if action.name == "Brilliant Crystal":
-					damage = min(player.mp, 30)
 				AudioController.play_sfx("mp_gain")
 				player.take_healing(damage, "MP")
 	else:

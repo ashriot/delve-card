@@ -134,6 +134,8 @@ func _on_Map_move_to_square(square: Square):
 		square.clear()
 
 func _on_Map_show_tooltip(button):
+	tooltip.modulate.a = 0
+	tooltip.show()
 	if button.type == "Battle":
 		var enemy = load("res://src/enemies/" + button.enemy_name.to_lower() + ".tres")
 		tooltext.text = enemy.title
@@ -143,7 +145,7 @@ func _on_Map_show_tooltip(button):
 	var x = clamp(pos.x - tooltip.rect_size.x / 2, 0, 108 - tooltip.rect_size.x)
 	var y = clamp(pos.y - tooltip.rect_size.y - 12, 0, 92 - tooltip.rect_size.y)
 	tooltip.set_global_position(Vector2(x, y))
-	tooltip.show()
+	tooltip.modulate.a = 1
 
 func _on_Map_hide_tooltip():
 	tooltip.hide()

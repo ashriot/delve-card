@@ -76,7 +76,7 @@ anims/animate = SubResource( 1 )
 [node name="Tween" type="Tween" parent="Avatar"]
 
 [node name="Tooltip" type="HBoxContainer" parent="."]
-margin_left = 47.0
+margin_left = 26.0
 margin_top = 10.0
 margin_right = 63.0
 margin_bottom = 28.0
@@ -86,16 +86,16 @@ __meta__ = {
 }
 
 [node name="PanelContainer" type="PanelContainer" parent="Tooltip"]
-margin_right = 16.0
+margin_right = 37.0
 margin_bottom = 18.0
 custom_styles/panel = ExtResource( 5 )
 
 [node name="Label" type="Label" parent="Tooltip/PanelContainer"]
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 14.0
+margin_right = 35.0
 margin_bottom = 16.0
-text = "T"
+text = "Tooltip"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false

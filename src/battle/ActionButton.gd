@@ -159,8 +159,13 @@ func update_data() -> void:
 	if action.damage == 0:
 		text = ""
 	if action.name == "Brilliant Crystal":
-		var glow = min(player.mp, 30)
-		text = "[right]" + str(glow) + "MP"
+		var mod = min(player.mp, 30)
+		text = "[right]" + str(mod) + "MP"
+	if action.name == "Armor Up":
+		var mod = min(player.ac, 30)
+	if action.name == "Shield Slam":
+		var mod = player.ac
+		text = "[right]" + str(mod) + "dmg"
 	$Button/Damage.bbcode_text = text
 
 func playable() -> bool:
@@ -247,6 +252,9 @@ func execute() -> void:
 					enemy.gain_debuff(conflag, 10)
 			var damage = action.damage
 			if action.name == "Dismantle": damage = enemy.ac
+			if action.name == "Shield Slam":
+				damage = player.ac
+				player.ac /= 2
 			if damage > 0:
 				var roll = randf()
 				var crit_mod = 0
@@ -305,6 +313,7 @@ func execute() -> void:
 		var damage = action.damage
 		if action.name == "Shadow Cloak": damage *= mp_spent
 		if action.name == "Brilliant Crystal": damage = min(player.mp, 30)
+		if action.name == "Armor Up": damage = min(player.ac, 30)
 		if damage > 0:
 			if action.damage_type == Action.DamageType.HP:
 				AudioController.play_sfx("heal")

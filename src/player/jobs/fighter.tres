@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=15 format=2]
+[gd_resource type="Resource" load_steps=16 format=2]
 
 [ext_resource path="res://src/player/perks/fighter/wealth-f.tres" type="Resource" id=1]
 [ext_resource path="res://src/player/perks/fighter/toughness-f.tres" type="Resource" id=2]
@@ -14,6 +14,7 @@
 [ext_resource path="res://src/player/gear/none.tres" type="Resource" id=12]
 [ext_resource path="res://src/player/builds/novice.tres" type="Resource" id=13]
 [ext_resource path="res://src/player/builds/soldier.tres" type="Resource" id=14]
+[ext_resource path="res://src/actions/fighter/3/shield_slam.tres" type="Resource" id=15]
 
 [resource]
 script = ExtResource( 3 )
@@ -34,7 +35,7 @@ bonus_st = 0
 bonus_gp = 0
 level = 10
 xp = 0
-actions = [ ExtResource( 7 ), ExtResource( 9 ), ExtResource( 9 ), ExtResource( 8 ), ExtResource( 8 ), ExtResource( 8 ), ExtResource( 8 ), ExtResource( 10 ), ExtResource( 10 ), ExtResource( 10 ) ]
+actions = [ ExtResource( 7 ), ExtResource( 9 ), ExtResource( 9 ), ExtResource( 15 ), ExtResource( 8 ), ExtResource( 8 ), ExtResource( 8 ), ExtResource( 10 ), ExtResource( 10 ), ExtResource( 10 ) ]
 perks = [ ExtResource( 2 ), ExtResource( 1 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ) ]
 trinkets = [  ]
 potions = [  ]
