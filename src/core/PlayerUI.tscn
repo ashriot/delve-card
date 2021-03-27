@@ -48,9 +48,9 @@ position = Vector2( 37, 147 )
 [node name="ItemBelt" parent="ItemAnchor" instance=ExtResource( 9 )]
 
 [node name="Player" type="Control" parent="."]
-margin_left = 37.0
+margin_left = 38.0
 margin_top = 164.0
-margin_right = 108.0
+margin_right = 107.0
 margin_bottom = 183.0
 __meta__ = {
 "_edit_group_": true,
@@ -77,9 +77,9 @@ __meta__ = {
 }
 
 [node name="HP" type="Control" parent="Player/Panel"]
-margin_left = 2.0
+margin_left = 1.0
 margin_top = 1.0
-margin_right = 45.0
+margin_right = 44.0
 margin_bottom = 10.0
 __meta__ = {
 "_edit_group_": true,
@@ -127,9 +127,9 @@ __meta__ = {
 [node name="AC" type="Control" parent="Player/Panel"]
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -26.0
+margin_left = -25.0
 margin_top = 1.0
-margin_right = -2.0
+margin_right = -1.0
 margin_bottom = 10.0
 __meta__ = {
 "_edit_group_": true,
@@ -160,9 +160,9 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -26.0
+margin_left = -25.0
 margin_top = -10.0
-margin_right = -2.0
+margin_right = -1.0
 margin_bottom = -1.0
 __meta__ = {
 "_edit_group_": true,
@@ -191,9 +191,9 @@ __meta__ = {
 [node name="AP" type="Control" parent="Player/Panel"]
 anchor_top = 1.0
 anchor_bottom = 1.0
-margin_left = 2.0
+margin_left = 1.0
 margin_top = -10.0
-margin_right = 45.0
+margin_right = 44.0
 margin_bottom = -1.0
 __meta__ = {
 "_edit_group_": true,
@@ -240,7 +240,7 @@ __meta__ = {
 }
 
 [node name="Portrait" type="Sprite" parent="."]
-position = Vector2( -6, 141 )
+position = Vector2( -5, 141 )
 texture = ExtResource( 7 )
 centered = false
 vframes = 4

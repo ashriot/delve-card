@@ -222,6 +222,12 @@ func remove_buff(buff_name: String) -> void:
 func has_buff(buff_name: String) -> bool:
 	return buffs.has(buff_name)
 
+func get_buff_stacks(buff_name: String) -> int:
+	for child in buff_bar.get_children():
+		if child.buff_name == buff_name:
+			return child.stacks
+	return 0
+
 func apply_debuff(debuff: Buff, qty: int) -> void:
 	emit_signal("apply_debuff", debuff, qty)
 

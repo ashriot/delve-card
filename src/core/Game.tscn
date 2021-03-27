@@ -1,8 +1,9 @@
-[gd_scene load_steps=41 format=2]
+[gd_scene load_steps=42 format=2]
 
 [ext_resource path="res://src/core/Battle.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/images/bgs/title.png" type="Texture" id=2]
 [ext_resource path="res://src/core/Game.gd" type="Script" id=3]
+[ext_resource path="res://src/core/Endgame.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/core/Loot.tscn" type="PackedScene" id=5]
 [ext_resource path="res://assets/images/ui/Shield.png" type="Texture" id=6]
 [ext_resource path="res://assets/images/ui/Staff.png" type="Texture" id=7]
@@ -367,6 +368,8 @@ visible = false
 [node name="Shop" parent="." instance=ExtResource( 18 )]
 visible = false
 
+[node name="Endgame" parent="." instance=ExtResource( 4 )]
+
 [node name="PlayerUI" parent="." instance=ExtResource( 13 )]
 
 [node name="EventScreen" parent="." instance=ExtResource( 26 )]
@@ -565,7 +568,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="EndGame" type="Panel" parent="."]
+[node name="GameOver" type="Panel" parent="."]
 visible = false
 margin_right = 108.0
 margin_bottom = 192.0
@@ -573,14 +576,14 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="EndGame"]
+[node name="Label" type="Label" parent="GameOver"]
 anchor_right = 1.0
 margin_top = 26.0
 margin_bottom = 40.0
 text = "Thank you for playing!"
 align = 1
 
-[node name="Restart" type="Button" parent="EndGame"]
+[node name="Restart" type="Button" parent="GameOver"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -594,7 +597,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Keep" type="Label" parent="EndGame"]
+[node name="Keep" type="Label" parent="GameOver"]
 margin_top = 73.0
 margin_right = 107.0
 margin_bottom = 105.0
@@ -646,4 +649,4 @@ anims/FadeOut = SubResource( 15 )
 [connection signal="toggled" from="Settings/Dimmer/AutoEnd/AutoEnd" to="." method="_on_AutoEnd_toggled"]
 [connection signal="button_down" from="Settings/Settings" to="." method="_on_Settings_button_down"]
 [connection signal="button_up" from="Settings/Settings" to="." method="_on_Settings_button_up"]
-[connection signal="button_up" from="EndGame/Restart" to="." method="_on_Restart_button_up"]
+[connection signal="button_up" from="GameOver/Restart" to="." method="_on_Restart_button_up"]

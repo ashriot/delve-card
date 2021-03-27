@@ -140,6 +140,7 @@ func update_data() -> void:
 	if action.name == "Shadow Cloak": damage *= min(player.mp, 15)
 	if action.name == "Hidden Knife": if actions.hand_count == 1: damage *= 2
 	if action.name == "Gleaming Knife": if actions.actions_used == 0: damage *= 2
+	if action.name == "Brace": damage = player.get_buff_stacks("Dodge") * 5
 	var multiplier = 1
 	if action.action_type == Action.ActionType.WEAPON:
 		multiplier += weapon_multiplier + player.weapon_multiplier
@@ -314,6 +315,13 @@ func execute() -> void:
 		if action.name == "Shadow Cloak": damage *= mp_spent
 		if action.name == "Brilliant Crystal": damage = min(player.mp, 30)
 		if action.name == "Armor Up": damage = min(player.ac, 30)
+		if action.name == "Brace":
+			if player.has_buff("Dodge"):
+				var amt = player.get_buff_stacks("Dodge")
+				damage = amt * 8
+				player.remove_buff("Dodge")
+			else: damage = 0
+
 		if damage > 0:
 			if action.damage_type == Action.DamageType.HP:
 				AudioController.play_sfx("heal")

@@ -21,7 +21,7 @@ onready var dungeon: = $Dungeon
 onready var loot: = $Loot
 onready var blacksmith = $Blacksmith
 onready var shop = $Shop
-onready var end_game: = $EndGame
+onready var end_game: = $Endgame
 onready var event = $EventScreen
 onready var fade = $Fade/AnimationPlayer
 onready var demo = $DemoScreen
@@ -584,7 +584,7 @@ func _on_Dungeon_shop(square_id: int):
 		actions = merchants[square_id]["actions"]
 #		others = merchants[square_id]["others"]
 	else:
-		print("Cannot find, generating")
+		print("Cannot find saved Shop, generating new one...")
 		actions = loot.new_picker(dungeon.progress, 5)
 #		others = loot.new_picker(progress, 5, true)
 		merchants[square_id] = {"actions": actions}
