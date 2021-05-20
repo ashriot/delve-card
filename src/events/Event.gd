@@ -131,7 +131,7 @@ func add_gold(value: int) -> void:
 	gp.text = str(gold)
 
 func add_potions(qty: int) -> void:
-	playerUI.add_potions(3)
+	playerUI.add_potions(qty)
 
 func _on_Choice1_pressed():
 	pass
