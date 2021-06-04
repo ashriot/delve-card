@@ -166,6 +166,7 @@ func refresh() -> void:
 	display_build(selected_build)
 
 func refresh_perk() -> void:
+	if selected_perk == null: return
 	display_perk(selected_perk)
 	setup_perk_button()
 
@@ -190,6 +191,7 @@ func display_perk(perk: PerkButton) -> void:
 			rank_cost.hide()
 
 func display_gear(gearButton: GearButton) -> void:
+	if gearButton == null: return
 	gear_detail_title.text = gearButton.text
 	gear_detail_desc.bbcode_text = gearButton.desc
 	gear_detail_choose.disabled = false
@@ -216,6 +218,7 @@ func display_gear(gearButton: GearButton) -> void:
 				gear_detail_choose.disabled = false
 
 func display_build(gearButton: GearButton) -> void:
+	if gearButton == null: return
 	build_title.text = gearButton.text
 	build_desc.bbcode_text = gearButton.desc
 	build_choose.disabled = false

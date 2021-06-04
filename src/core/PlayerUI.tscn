@@ -243,25 +243,26 @@ __meta__ = {
 position = Vector2( -5, 141 )
 texture = ExtResource( 7 )
 centered = false
-vframes = 4
 hframes = 7
+vframes = 4
 frame = 5
 
-[node name="Gold" type="Sprite" parent="."]
-position = Vector2( 101, 185 )
-texture = ExtResource( 8 )
-centered = false
-
-[node name="Label" type="Label" parent="Gold"]
-margin_left = -51.0
-margin_top = -5.0
-margin_right = 4.0
-margin_bottom = 9.0
+[node name="GoldLabel" type="Label" parent="."]
+margin_left = 50.0
+margin_top = 180.0
+margin_right = 105.0
+margin_bottom = 194.0
 text = "9999"
 align = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Gold" type="Sprite" parent="."]
+modulate = Color( 0.788235, 0.776471, 0.717647, 1 )
+position = Vector2( 101, 185 )
+texture = ExtResource( 8 )
+centered = false
 
 [node name="DeckButton" type="Button" parent="."]
 margin_top = 126.0
@@ -298,4 +299,5 @@ align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
 [connection signal="button_up" from="DeckButton" to="." method="_on_DeckButton_button_up"]
