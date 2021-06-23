@@ -50,6 +50,7 @@ export var consume: = false
 export var frame_id: = 0
 export var fx: PackedScene
 export var extra_action: Resource
+export var first_strike: Resource
 
 func execute() -> void:
 	pass

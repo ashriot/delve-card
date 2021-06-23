@@ -101,6 +101,7 @@ func take_hit(action: Action, damage: int) -> bool:
 		or buffs.has("Invisibility"):
 		immune = true
 	if !immune and buffs.has("Dodge"):
+		reduce_buff("Dodge")
 		miss = randf() < .5
 	if miss or immune:
 		damage = 0

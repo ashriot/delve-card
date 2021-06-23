@@ -318,7 +318,7 @@ func execute() -> void:
 		if action.name == "Brace":
 			if player.has_buff("Dodge"):
 				var amt = player.get_buff_stacks("Dodge")
-				damage = amt * 8
+				damage = amt * 5
 				player.remove_buff("Dodge")
 			else: damage = 0
 
