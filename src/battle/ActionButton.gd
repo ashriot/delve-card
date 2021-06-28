@@ -47,6 +47,7 @@ func initialize(_actions, _action: Action, _player: Player, _enemy: Enemy) -> vo
 	enemy = _enemy
 	$Button/AP.hide()
 	$Button/MP.hide()
+	$Button/Emphasis.hide()
 	$Button/Sprite.frame = action.frame_id
 	$Button.text = action.name
 	if action.cost_type == Action.DamageType.HP:
@@ -92,6 +93,7 @@ func discard(end_of_turn: bool) -> void:
 	emit_signal("discarded", self)
 
 func update_data() -> void:
+	$Button/Emphasis.hide()
 	modulate.a = 1.0
 	get_action_hits()
 	if action.action_type == Action.ActionType.INJURY and !played:
@@ -105,7 +107,6 @@ func update_data() -> void:
 		var mp_cost_txt = mp_cost
 		if action.name == "Shadow Bolt": mp_cost_txt = clamp(player.mp, 1, 15)
 		if action.name == "Shadow Cloak": mp_cost_txt = clamp(player.mp, 1, 15)
-# warning-ignore:integer_division
 # warning-ignore:integer_division
 		if action.name == "Shadow Dance": mp_cost_txt = clamp(player.mp/mp_cost, 1, 20/mp_cost) * mp_cost
 # warning-ignore:integer_division
@@ -138,9 +139,18 @@ func update_data() -> void:
 	if action.name != "Drown": drown = ""
 	if action.name == "Shadow Bolt": damage *= min(player.mp, 15)
 	if action.name == "Shadow Cloak": damage *= min(player.mp, 15)
-	if action.name == "Hidden Knife": if actions.hand_count == 1: damage *= 2
-	if action.name == "Gleaming Knife": if actions.actions_used == 0: damage *= 2
+	if action.name == "Hidden Knife":
+		if actions.hand_count == 1:
+			damage *= 2
+			$Button/Emphasis.show()
+	if action.name == "Gleaming Knife":
+		if actions.actions_used == 0:
+			damage *= 2
+			$Button/Emphasis.show()
+	if action.name == "Keen Eye": if player.has_buff("Dodge"): $Button/Emphasis.show()
 	if action.name == "Brace": damage = player.get_buff_stacks("Dodge") * 5
+	if action.name == "Mind Games": damage = player.get_buff_stacks("Dodge") * 4
+	if action.name == "Sneak Attack": damage = player.get_buff_stacks("Dodge") * 3
 	var multiplier = 1
 	if action.action_type == Action.ActionType.WEAPON:
 		multiplier += weapon_multiplier + player.weapon_multiplier
@@ -235,6 +245,11 @@ func execute() -> void:
 	var draw = action.drawX
 # warning-ignore:integer_division
 	if action.name == "Shadow Dance": draw *= mp_spent / action.cost
+	elif action.name == "Take Aim": if actions.actions_used == 0: draw += 1
+	if player.has_buff("Dodge"):
+		if action.name == "Keen Eye":
+			player.reduce_buff("Dodge")
+			draw += 1
 	if draw > 0:
 		emit_signal("draw_cards", action, draw)
 	if action.target_type == Action.TargetType.OPPONENT:
@@ -256,6 +271,11 @@ func execute() -> void:
 			if action.name == "Shield Slam":
 				damage = player.ac
 				player.ac /= 2
+			if player.has_buff("Dodge"):
+				var amt = player.get_buff_stacks("Dodge")
+				if action.name == "Sneak Attack":
+					damage = amt * 3
+					player.remove_buff("Dodge")
 			if damage > 0:
 				var roll = randf()
 				var crit_mod = 0
@@ -293,6 +313,8 @@ func execute() -> void:
 						action.extra_action.execute(player)
 				else:
 					action.extra_action.execute(player)
+			if action.first_strike != null:
+				action.first_strike.execute(player)
 			if !enemy.dead:
 				emit_signal("unblock", false)
 			if hits > 1:
@@ -315,12 +337,11 @@ func execute() -> void:
 		if action.name == "Shadow Cloak": damage *= mp_spent
 		if action.name == "Brilliant Crystal": damage = min(player.mp, 30)
 		if action.name == "Armor Up": damage = min(player.ac, 30)
-		if action.name == "Brace":
-			if player.has_buff("Dodge"):
-				var amt = player.get_buff_stacks("Dodge")
-				damage = amt * 5
-				player.remove_buff("Dodge")
-			else: damage = 0
+		if player.has_buff("Dodge"):
+			var amt = player.get_buff_stacks("Dodge")
+			if action.name == "Brace": damage = amt * 5
+			if action.name == "Mind Games": damage = amt * 4
+			player.remove_buff("Dodge")
 
 		if damage > 0:
 			if action.damage_type == Action.DamageType.HP:
@@ -374,7 +395,7 @@ func create_effect(position: Vector2, type: String) -> void:
 		emit_signal("anim_finished")
 
 func weapons_played(amt: int) -> void:
-	if action.name == "Sneak Attack":
+	if action.name == "Backstab":
 		self.added_damage = amt * action.damage
 
 func weapons_in_hand(qty: int) -> void:

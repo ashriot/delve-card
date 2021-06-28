@@ -4,7 +4,6 @@
 [ext_resource path="res://src/battle/Actions.gd" type="Script" id=2]
 [ext_resource path="res://src/battle/ItemBelt.tscn" type="PackedScene" id=3]
 
-
 [node name="Actions" type="Node2D"]
 script = ExtResource( 2 )
 
@@ -117,5 +116,6 @@ __meta__ = {
 custom_constants/separation = 2
 
 [node name="Tween" type="Tween" parent="DeckViewer"]
+
 [connection signal="pressed" from="EndTurn" to="." method="_on_EndTurn_pressed"]
 [connection signal="button_up" from="DeckViewer/InputBlock/Close" to="." method="_on_Close_button_up"]

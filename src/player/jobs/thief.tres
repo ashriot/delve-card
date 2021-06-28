@@ -14,7 +14,7 @@
 [ext_resource path="res://src/player/perks/thief/pocket_change.tres" type="Resource" id=12]
 [ext_resource path="res://src/actions/thief/1/swift_knife.tres" type="Resource" id=13]
 [ext_resource path="res://src/actions/thief/1/dart.tres" type="Resource" id=14]
-[ext_resource path="res://src/actions/thief/1/iron_claws.tres" type="Resource" id=15]
+[ext_resource path="res://src/actions/thief/3/keen_eye.tres" type="Resource" id=15]
 [ext_resource path="res://src/actions/thief/1/evasion.tres" type="Resource" id=16]
 [ext_resource path="res://src/actions/thief/1/trollblood_oil.tres" type="Resource" id=17]
 [ext_resource path="res://src/player/builds/pickpocket.tres" type="Resource" id=18]
@@ -22,7 +22,7 @@
 [ext_resource path="res://src/player/gear/thiefs_kit.tres" type="Resource" id=20]
 [ext_resource path="res://src/player/gear/none.tres" type="Resource" id=21]
 [ext_resource path="res://src/player/builds/treasure_hunter.tres" type="Resource" id=22]
-[ext_resource path="res://src/actions/thief/3/brace.tres" type="Resource" id=23]
+[ext_resource path="res://src/actions/thief/4/sneak_attack.tres" type="Resource" id=23]
 
 [resource]
 script = ExtResource( 2 )

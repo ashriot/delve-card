@@ -5,22 +5,22 @@
 
 [resource]
 script = ExtResource( 2 )
-name = "Brace"
-description = "Gain %damage AC for each stack of Dodge. Lose all Dodge."
-rarity = 4
+name = "Keen Eye"
+description = "Draw an action. Lose 1 Dodge: Draw an additional action."
+rarity = 3
 upgraded = false
 action_type = 3
 target_type = 0
 cost_type = 3
-cost = 1
-healing = true
+cost = 0
+healing = false
 damage_type = 1
-damage = 5
+damage = 0
 hits = 1
 crit_chance = 0.0
 penetrate = false
 impact = 0
-drawX = 0
+drawX = 1
 discard_random_x = 0
 discard_x = 0
 draw_type = 7

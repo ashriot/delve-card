@@ -1,21 +1,21 @@
 [gd_resource type="Resource" load_steps=3 format=2]
 
 [ext_resource path="res://src/actions/res/action.gd" type="Script" id=1]
-[ext_resource path="res://assets/animations/Dagger.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/animations/Skill.tscn" type="PackedScene" id=2]
 
 [resource]
 script = ExtResource( 1 )
-name = "Gleaming Knife"
-description = "Deals %damage damage. First Strike: Deal %dx2 damage instead."
-rarity = 3
+name = "Brace"
+description = "Gain %damage AC for each stack of Dodge. Lose all Dodge."
+rarity = 4
 upgraded = false
-action_type = 0
-target_type = 1
+action_type = 3
+target_type = 0
 cost_type = 3
 cost = 0
-healing = false
-damage_type = 0
-damage = 6
+healing = true
+damage_type = 1
+damage = 5
 hits = 1
 crit_chance = 0.0
 penetrate = false
@@ -27,5 +27,5 @@ draw_type = 7
 drop = false
 fade = false
 consume = false
-frame_id = 20
+frame_id = 0
 fx = ExtResource( 2 )

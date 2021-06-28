@@ -78,8 +78,8 @@ anims/Blink = SubResource( 1 )
 position = Vector2( -4, 7 )
 texture = ExtResource( 3 )
 centered = false
-vframes = 4
 hframes = 7
+vframes = 4
 frame = 19
 
 [node name="XpBar" type="TextureProgress" parent="BG"]
@@ -966,6 +966,7 @@ __meta__ = {
 position = Vector2( 37, 5 )
 texture = ExtResource( 6 )
 centered = false
+
 [connection signal="pressed" from="BG/Prev" to="." method="_on_Prev_pressed"]
 [connection signal="pressed" from="BG/Next" to="." method="_on_Next_pressed"]
 [connection signal="pressed" from="BG/Perks" to="." method="_on_Perks_pressed"]

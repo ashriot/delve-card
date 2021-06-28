@@ -32,7 +32,7 @@ tracks/1/keys = {
 "start_offset": 0.0,
 "stream": ExtResource( 3 )
 } ],
-"times": PoolRealArray( 0.15 )
+"times": PoolRealArray( 0 )
 }
 tracks/2/type = "method"
 tracks/2/path = NodePath(".")
@@ -53,6 +53,7 @@ tracks/2/keys = {
 modulate = Color( 0.792157, 0.780392, 0.721569, 1 )
 
 [node name="Sprite" parent="." index="0"]
+modulate = Color( 1, 1, 1, 0 )
 position = Vector2( -1, 0 )
 texture = ExtResource( 2 )
 
