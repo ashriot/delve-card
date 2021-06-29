@@ -144,7 +144,7 @@ func update_data() -> void:
 			damage *= 2
 			$Button/Emphasis.show()
 	if action.name == "Gleaming Knife":
-		if actions.actions_used == 0:
+		if actions.actions_used == 0 or player.has_buff("Hide"):
 			damage *= 2
 			$Button/Emphasis.show()
 	if action.name == "Keen Eye": if player.has_buff("Dodge"): $Button/Emphasis.show()
@@ -245,7 +245,7 @@ func execute() -> void:
 	var draw = action.drawX
 # warning-ignore:integer_division
 	if action.name == "Shadow Dance": draw *= mp_spent / action.cost
-	elif action.name == "Take Aim": if actions.actions_used == 0: draw += 1
+	elif action.name == "Take Aim": if actions.actions_used == 0 or player.has_buff("Hide"): draw += 1
 	if player.has_buff("Dodge"):
 		if action.name == "Keen Eye":
 			player.reduce_buff("Dodge")
@@ -289,7 +289,7 @@ func execute() -> void:
 					if action.name == "Fireball": bonus += 6
 					elif action.name == "Combust": bonus += 12
 				if action.name == "Hidden Knife": if actions.hand_count == 0: damage *= 2
-				if action.name == "Gleaming Knife": if actions.actions_used == 0: damage *= 2
+				if action.name == "Gleaming Knife": if actions.actions_used == 0 or player.has_buff("Hide"): damage *= 2
 				if action.name == "Shadow Bolt": damage *= mp_spent
 				if action.name == "Drown": damage += clamp(player.mp, 0, 30)
 				damage += (bonus + player.added_damage + added_damage) * \
@@ -326,6 +326,7 @@ func execute() -> void:
 			player.reduce_buff("Lifesteal")
 		if player.has_buff("Aim") and action.damage > 0:
 			player.reduce_buff("Aim")
+		if player.has_buff("Hide"): player.reduce_buff("Hide")
 		finalize_execute()
 	else:
 		create_effect(player.global_position, "effect")
@@ -339,9 +340,12 @@ func execute() -> void:
 		if action.name == "Armor Up": damage = min(player.ac, 30)
 		if player.has_buff("Dodge"):
 			var amt = player.get_buff_stacks("Dodge")
-			if action.name == "Brace": damage = amt * 5
-			if action.name == "Mind Games": damage = amt * 4
-			player.remove_buff("Dodge")
+			if action.name == "Brace":
+				damage = amt * 5
+				player.remove_buff("Dodge")
+			if action.name == "Mind Games":
+				damage = amt * 4
+				player.remove_buff("Dodge")
 
 		if damage > 0:
 			if action.damage_type == Action.DamageType.HP:
