@@ -148,6 +148,10 @@ func update_data() -> void:
 			damage *= 2
 			$Button/Emphasis.show()
 	if action.name == "Keen Eye": if player.has_buff("Dodge"): $Button/Emphasis.show()
+	if action.name == "Secret Knife":
+		if player.has_buff("Dodge"):
+			$Button/Emphasis.show()
+			damage = action.damage * 2
 	if action.name == "Brace": damage = player.get_buff_stacks("Dodge") * 5
 	if action.name == "Mind Games": damage = player.get_buff_stacks("Dodge") * 4
 	if action.name == "Sneak Attack": damage = player.get_buff_stacks("Dodge") * 3
@@ -276,6 +280,9 @@ func execute() -> void:
 				if action.name == "Sneak Attack":
 					damage = amt * 3
 					player.remove_buff("Dodge")
+				elif action.name == "Secret Knife":
+					damage += action.damage
+					player.reduce_buff("Dodge")
 			if damage > 0:
 				var roll = randf()
 				var crit_mod = 0

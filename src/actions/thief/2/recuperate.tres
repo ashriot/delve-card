@@ -1,15 +1,16 @@
-[gd_resource type="Resource" load_steps=2 format=2]
+[gd_resource type="Resource" load_steps=3 format=2]
 
 [ext_resource path="res://src/actions/res/action.gd" type="Script" id=1]
+[ext_resource path="res://src/actions/thief/add/lifesteal.gd" type="Script" id=2]
 
 [resource]
 script = ExtResource( 1 )
-name = "Dismantle"
-description = "Remove all enemy AC."
-rarity = 4
+name = "Recuperate"
+description = "Your next weapon attack has 100% Lifesteal. (Heal equal to the damage dealt.)"
+rarity = 2
 upgraded = false
-action_type = 1
-target_type = 1
+action_type = 3
+target_type = 0
 cost_type = 3
 cost = 1
 healing = false
@@ -27,3 +28,4 @@ drop = false
 fade = false
 consume = false
 frame_id = 0
+extra_action = ExtResource( 2 )
