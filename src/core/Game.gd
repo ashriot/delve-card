@@ -396,7 +396,7 @@ func start_loot(gold: int, qty: int) -> void:
 
 func game_over() -> void:
 	AudioController.play_bgm("title")
-	$EndGame/Label.text = "Game Over"
+	$EndGame/Banner/Label.text = "Game Over"
 	end_game.show()
 	fade.play("FadeIn")
 

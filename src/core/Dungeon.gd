@@ -66,10 +66,10 @@ func reset_avatar() -> void:
 	self.progress += 1
 	print("Progress: ", progress)
 	if progress == 2:
-		enemy_list.remove(0)
 		enemy_list.append("devil")
 	if progress == 3:
 		enemy_list.remove(0)
+		enemy_list.remove(1)
 		enemy_list.append("wolf")
 	if progress == 5:
 		enemy_list.append("tiger")
