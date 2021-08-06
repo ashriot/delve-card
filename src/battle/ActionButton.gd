@@ -143,8 +143,8 @@ func update_data() -> void:
 		if actions.hand_count == 1:
 			damage *= 2
 			$Button/Emphasis.show()
-	if action.name == "Gleaming Knife":
-		if actions.actions_used == 0 or player.has_buff("Hide"):
+	if first_striking():
+		if action.name == "Gleaming Knife":
 			damage *= 2
 			$Button/Emphasis.show()
 	if action.name == "Keen Eye": if player.has_buff("Dodge"): $Button/Emphasis.show()
@@ -249,7 +249,7 @@ func execute() -> void:
 	var draw = action.drawX
 # warning-ignore:integer_division
 	if action.name == "Shadow Dance": draw *= mp_spent / action.cost
-	elif action.name == "Take Aim": if actions.actions_used == 0 or player.has_buff("Hide"): draw += 1
+	elif action.name == "Take Aim": if first_striking(): draw += 1
 	if player.has_buff("Dodge"):
 		if action.name == "Keen Eye":
 			player.reduce_buff("Dodge")
@@ -296,7 +296,7 @@ func execute() -> void:
 					if action.name == "Fireball": bonus += 6
 					elif action.name == "Combust": bonus += 12
 				if action.name == "Hidden Knife": if actions.hand_count == 0: damage *= 2
-				if action.name == "Gleaming Knife": if actions.actions_used == 0 or player.has_buff("Hide"): damage *= 2
+				if action.name == "Gleaming Knife": if first_striking(): damage *= 2
 				if action.name == "Shadow Bolt": damage *= mp_spent
 				if action.name == "Drown": damage += clamp(player.mp, 0, 30)
 				damage += (bonus + player.added_damage + added_damage) * \
@@ -429,6 +429,9 @@ func set_weapon_multiplier(value: float) -> void:
 func set_spell_multiplier(value: float) -> void:
 	spell_multiplier = value
 	update_data()
+
+func first_striking() -> bool:
+	return actions.actions_used == 0 or player.has_buff("Hide")
 
 func _on_Button_up() -> void:
 	update_data()

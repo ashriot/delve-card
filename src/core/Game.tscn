@@ -145,6 +145,7 @@ jobs = [ ExtResource( 22 ), ExtResource( 23 ), ExtResource( 24 ) ]
 visible = false
 
 [node name="Dungeon" parent="." instance=ExtResource( 14 )]
+visible = false
 
 [node name="DemoScreen" type="ColorRect" parent="."]
 visible = false
@@ -369,6 +370,7 @@ visible = false
 visible = false
 
 [node name="Endgame" parent="." instance=ExtResource( 4 )]
+visible = false
 
 [node name="PlayerUI" parent="." instance=ExtResource( 13 )]
 
