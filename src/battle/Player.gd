@@ -154,6 +154,9 @@ func take_healing(amount: int, type: String) -> void:
 		x = 70
 		y = 74
 		self.mp += amount
+	if type == "GP":
+		x = 55
+		actor.gold += amount
 	var text = "+" + str(amount) + type
 	floating_text.display_text(text)
 	floating_text.position = Vector2(x, y)

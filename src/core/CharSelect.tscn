@@ -404,7 +404,7 @@ margin_left = 27.0
 margin_top = -53.0
 margin_right = -27.0
 margin_bottom = -36.0
-text = "Delve!"
+text = "DELVE!"
 icon = ExtResource( 8 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -812,6 +812,7 @@ texture = ExtResource( 6 )
 centered = false
 
 [node name="Builds" parent="." instance=ExtResource( 9 )]
+visible = false
 
 [node name="BG2" type="ColorRect" parent="Builds"]
 margin_right = 108.0

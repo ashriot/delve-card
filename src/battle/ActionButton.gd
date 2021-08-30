@@ -345,6 +345,11 @@ func execute() -> void:
 		if action.name == "Shadow Cloak": damage *= mp_spent
 		if action.name == "Brilliant Crystal": damage = min(player.mp, 30)
 		if action.name == "Armor Up": damage = min(player.ac, 30)
+		if action.name == "Steal Gold":
+			damage = randi() % 6 + 5
+			AudioController.play_sfx("miss")
+			player.take_healing(damage, "GP")
+			damage = 0
 		if player.has_buff("Dodge"):
 			var amt = player.get_buff_stacks("Dodge")
 			if action.name == "Brace":

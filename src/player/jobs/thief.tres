@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=23 format=2]
+[gd_resource type="Resource" load_steps=24 format=2]
 
 [ext_resource path="res://src/player/perks/thief/toughness-t.tres" type="Resource" id=1]
 [ext_resource path="res://src/player/Job.gd" type="Script" id=2]
@@ -22,6 +22,7 @@
 [ext_resource path="res://src/player/gear/thiefs_kit.tres" type="Resource" id=20]
 [ext_resource path="res://src/player/gear/none.tres" type="Resource" id=21]
 [ext_resource path="res://src/player/builds/treasure_hunter.tres" type="Resource" id=22]
+[ext_resource path="res://src/actions/thief/2/steal_gold.tres" type="Resource" id=23]
 
 [resource]
 script = ExtResource( 2 )
@@ -41,7 +42,7 @@ bonus_st = 0
 bonus_gp = 0
 level = 1
 xp = 0
-actions = [ ExtResource( 13 ), ExtResource( 13 ), ExtResource( 13 ), ExtResource( 17 ), ExtResource( 14 ), ExtResource( 14 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 16 ) ]
+actions = [ ExtResource( 23 ), ExtResource( 13 ), ExtResource( 13 ), ExtResource( 17 ), ExtResource( 14 ), ExtResource( 14 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 16 ) ]
 perks = [ ExtResource( 1 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 12 ), ExtResource( 6 ), ExtResource( 11 ), ExtResource( 8 ), ExtResource( 7 ), ExtResource( 10 ), ExtResource( 9 ) ]
 trinkets = [  ]
 potions = [  ]

@@ -200,6 +200,7 @@ anims/Hide = SubResource( 1 )
 anims/Show = SubResource( 2 )
 
 [node name="BuffCard" parent="." instance=ExtResource( 7 )]
+visible = false
 
 [connection signal="start_turn" from="." to="Actions" method="_on_Battle_start_turn"]
 [connection signal="pressed" from="DeckBtn" to="." method="_on_DeckBtn_pressed"]
