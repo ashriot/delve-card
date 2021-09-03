@@ -143,13 +143,12 @@ func update_data() -> void:
 		if actions.hand_count == 1:
 			damage *= 2
 			$Button/Emphasis.show()
-	if first_striking():
-		if action.name == "Gleaming Knife":
-			damage *= 2
-			$Button/Emphasis.show()
-	if action.name == "Keen Eye": if player.has_buff("Dodge"): $Button/Emphasis.show()
-	if action.name == "Secret Knife":
-		if player.has_buff("Dodge"):
+	if first_striking() and action.first_strike:
+		$Button/Emphasis.show()
+		if action.name == "Gleaming Knife": damage *= 2
+	if player.has_buff("Dodge"):
+		if action.name == "Keen Eye": $Button/Emphasis.show()
+		if action.name == "Secret Knife":
 			$Button/Emphasis.show()
 			damage = action.damage * 2
 	if action.name == "Brace": damage = player.get_buff_stacks("Dodge") * 5
@@ -244,7 +243,7 @@ func execute() -> void:
 		player.discard_random(action.discard_random_x)
 		var qty = yield(player, "discarded_x")
 		if qty < action.discard_random_x:
-			finalize_execute()
+			call_deferred("finalize_execute")
 			return
 	var draw = action.drawX
 # warning-ignore:integer_division
@@ -283,6 +282,8 @@ func execute() -> void:
 				elif action.name == "Secret Knife":
 					damage += action.damage
 					player.reduce_buff("Dodge")
+			if first_striking():
+				if action.name == "Gleaming Knife": damage *= 2
 			if damage > 0:
 				var roll = randf()
 				var crit_mod = 0
@@ -296,7 +297,6 @@ func execute() -> void:
 					if action.name == "Fireball": bonus += 6
 					elif action.name == "Combust": bonus += 12
 				if action.name == "Hidden Knife": if actions.hand_count == 0: damage *= 2
-				if action.name == "Gleaming Knife": if first_striking(): damage *= 2
 				if action.name == "Shadow Bolt": damage *= mp_spent
 				if action.name == "Drown": damage += clamp(player.mp, 0, 30)
 				damage += (bonus + player.added_damage + added_damage) * \
@@ -306,6 +306,10 @@ func execute() -> void:
 					player.take_healing(1, "ST")
 				damage *= (1 - enemy.damage_reduction)
 				enemy.take_hit(action, damage, crit)
+				if player.has_buff("Parry"):
+					if action.action_type == Action.ActionType.WEAPON:
+						player.reduce_buff("Parry")
+						player.take_healing(damage, "AC")
 				var lifesteal = 0
 				if player.has_buff("Lifesteal"): lifesteal += damage
 				if action.name == "Blood Claws": lifesteal += damage / 2
@@ -320,8 +324,6 @@ func execute() -> void:
 						action.extra_action.execute(player)
 				else:
 					action.extra_action.execute(player)
-			if action.first_strike != null:
-				action.first_strike.execute(player)
 			if !enemy.dead:
 				emit_signal("unblock", false)
 			if hits > 1:
@@ -345,11 +347,12 @@ func execute() -> void:
 		if action.name == "Shadow Cloak": damage *= mp_spent
 		if action.name == "Brilliant Crystal": damage = min(player.mp, 30)
 		if action.name == "Armor Up": damage = min(player.ac, 30)
-		if action.name == "Steal Gold":
-			damage = randi() % 6 + 5
-			AudioController.play_sfx("miss")
-			player.take_healing(damage, "GP")
-			damage = 0
+		if first_striking():
+			if action.name == "Steal Gold":
+				damage = randi() % 6 + 5
+				AudioController.confirm()
+				player.take_healing(damage, "GP")
+				damage = 0
 		if player.has_buff("Dodge"):
 			var amt = player.get_buff_stacks("Dodge")
 			if action.name == "Brace":
@@ -373,7 +376,7 @@ func execute() -> void:
 				AudioController.play_sfx("mp_gain")
 				player.take_healing(damage, "MP")
 		yield(self, "anim_finished")
-		finalize_execute()
+		call_deferred("finalize_execute")
 
 func get_action_hits() -> void:
 	hits = action.hits

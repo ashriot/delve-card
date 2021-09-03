@@ -44,13 +44,14 @@ export var drawX: = 0
 export var discard_random_x: = 0
 export var discard_x: = 0
 export(ActionType) var draw_type: = ActionType.ANY
+export var undodgeable: bool
+export var first_strike: bool
 export var drop: = false
 export var fade: = false
 export var consume: = false
 export var frame_id: = 0
 export var fx: PackedScene
 export var extra_action: Resource
-export var first_strike: Resource
 
 func execute() -> void:
 	pass

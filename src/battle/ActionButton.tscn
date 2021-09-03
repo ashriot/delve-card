@@ -5,11 +5,10 @@
 [ext_resource path="res://src/battle/ActionButton.gd" type="Script" id=3]
 [ext_resource path="res://assets/theming/button.tres" type="StyleBox" id=4]
 
-[sub_resource type="CanvasItemMaterial" id=7]
+[sub_resource type="CanvasItemMaterial" id=1]
 blend_mode = 1
 
-[sub_resource type="Animation" id=1]
-resource_name = "Discard"
+[sub_resource type="Animation" id=2]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("Button:rect_position")
@@ -36,8 +35,7 @@ tracks/1/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="Animation" id=2]
-resource_name = "Discard_Gain"
+[sub_resource type="Animation" id=3]
 length = 0.5
 step = 0.05
 tracks/0/type = "value"
@@ -65,7 +63,7 @@ tracks/1/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=4]
 length = 0.1
 step = 0.01
 tracks/0/type = "value"
@@ -93,8 +91,8 @@ tracks/1/keys = {
 "values": [ Vector2( -8, -6 ), Vector2( 0, 2 ) ]
 }
 
-[sub_resource type="Animation" id=4]
-length = 0.1
+[sub_resource type="Animation" id=5]
+length = 0.2
 step = 0.025
 tracks/0/type = "value"
 tracks/0/path = NodePath("Button:rect_position")
@@ -103,8 +101,8 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 0.5 ),
 "update": 0,
 "values": [ Vector2( 0, 2 ), Vector2( 0, -22 ) ]
 }
@@ -115,13 +113,13 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1 ),
+"times": PoolRealArray( 0.1, 0.2 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ), Color( 0.145098, 0.145098, 0.133333, 0 ) ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=6]
 length = 0.5
 step = 0.05
 tracks/0/type = "value"
@@ -149,7 +147,7 @@ tracks/1/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=7]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("Button:rect_position")
@@ -188,9 +186,10 @@ __meta__ = {
 }
 
 [node name="Button" type="Button" parent="."]
-margin_top = 2.0
+modulate = Color( 0.145098, 0.145098, 0.133333, 0 )
+margin_top = -22.0
 margin_right = 98.0
-margin_bottom = 15.0
+margin_bottom = -9.0
 rect_min_size = Vector2( 90, 13 )
 custom_styles/pressed = ExtResource( 4 )
 text = "Action Button"
@@ -200,7 +199,7 @@ __meta__ = {
 }
 
 [node name="Emphasis" type="ColorRect" parent="Button"]
-material = SubResource( 7 )
+material = SubResource( 1 )
 margin_right = 98.0
 margin_bottom = 13.0
 mouse_filter = 2
@@ -279,12 +278,12 @@ color = Color( 0.145098, 0.145098, 0.133333, 1 )
 one_shot = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/Discard = SubResource( 1 )
-anims/Discard_Gain = SubResource( 2 )
-anims/Draw = SubResource( 3 )
-anims/Drop = SubResource( 4 )
-anims/Gain = SubResource( 5 )
-anims/Use = SubResource( 6 )
+anims/Discard = SubResource( 2 )
+anims/Discard_Gain = SubResource( 3 )
+anims/Draw = SubResource( 4 )
+anims/Drop = SubResource( 5 )
+anims/Gain = SubResource( 6 )
+anims/Use = SubResource( 7 )
 
 [connection signal="button_down" from="Button" to="." method="_on_Button_down"]
 [connection signal="button_up" from="Button" to="." method="_on_Button_up"]

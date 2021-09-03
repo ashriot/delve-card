@@ -352,7 +352,7 @@ func enter_game() -> void:
 	player.update_perk_bonuses()
 	playerUI.initialize(self)
 	playerUI.show()
-	yield(get_tree().create_timer(0.5), "timeout")
+	yield(get_tree().create_timer(0.3), "timeout")
 	fade.play("FadeIn")
 	AudioController.play_bgm("dungeon")
 	yield(fade, "animation_finished")

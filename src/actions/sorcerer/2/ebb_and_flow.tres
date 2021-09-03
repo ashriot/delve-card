@@ -23,6 +23,7 @@ drawX = 2
 discard_random_x = 0
 discard_x = 0
 draw_type = 7
+first_strike = false
 drop = false
 fade = false
 consume = false

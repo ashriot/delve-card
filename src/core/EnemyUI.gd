@@ -144,7 +144,7 @@ func action_done() -> void:
 
 func take_effect(action: Action, damage: int) -> void:
 	if action.extra_action != null:
-		action.extra_action.execute(self)
+		action.extra_action.execute(null, self)
 	var amount = damage
 	if action.healing:
 		var type = action.damage_type
@@ -166,10 +166,29 @@ func take_effect(action: Action, damage: int) -> void:
 		floating_text.position = pos
 		get_parent().add_child(floating_text)
 
+func take_healing(amount: int, type) -> void:
+	var postfix = ""
+	var floating_text = FloatingText.instance()
+	if type == Action.DamageType.HP:
+		self.hp += amount
+		postfix = " HP"
+	if type == Action.DamageType.AC:
+		self.ac += amount
+		postfix = " AC"
+	if type == Action.DamageType.AP:
+		self.ap += amount
+	if type == Action.DamageType.MP:
+		self.mp += amount
+	var text = "+" + str(amount) + postfix
+	floating_text.display_text(text)
+	var pos = Vector2(self.position.x, self.position.y + rand_range(-8, 8))
+	floating_text.position = pos
+	get_parent().add_child(floating_text)
+
 func take_hit(action: Action, damage: int, crit: bool) -> void:
 	if self.dead: return
 	var dodge = false
-	if buffs.has("Dodge"):
+	if buffs.has("Dodge") and !action.undodgeable:
 		if randf() < 0.5:
 			dodge = true
 			reduce_buff("Dodge", false)
@@ -368,6 +387,7 @@ func enemy_ai() -> Action:
 	if actor.name == "bear": return bear()
 	elif actor.name == "devil": return devil()
 	elif actor.name == "slime": return slime()
+	elif actor.name == "worm": return worm()
 	elif actor.name == "wolf": return wolf()
 	else:
 		var i = randi() % actor.actions.size()
@@ -414,6 +434,15 @@ func slime() -> Action:
 			action = actor.actions[1]
 		else:
 			action = actor.actions[2]
+	return action
+
+func worm() -> Action:
+	var action = actor.actions[0]
+	if randf() < 0.5:
+		if !buffs.has("Dodge"):
+			action = actor.actions[2]
+		else:
+			action = actor.actions[1]
 	return action
 
 func wolf() -> Action:

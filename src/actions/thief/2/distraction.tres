@@ -6,7 +6,7 @@
 script = ExtResource( 1 )
 name = "Distraction"
 description = "Discard a random action and gain %damage AC."
-rarity = 1
+rarity = 2
 upgraded = false
 action_type = 3
 target_type = 0
@@ -23,6 +23,7 @@ drawX = 0
 discard_random_x = 1
 discard_x = 0
 draw_type = 7
+first_strike = false
 drop = false
 fade = false
 consume = false

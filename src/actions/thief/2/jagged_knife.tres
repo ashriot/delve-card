@@ -8,7 +8,7 @@
 script = ExtResource( 1 )
 name = "Jagged Knife"
 description = "Deal %damage and apply 2 Sunder."
-rarity = 1
+rarity = 2
 upgraded = false
 action_type = 0
 target_type = 1
@@ -25,6 +25,7 @@ drawX = 0
 discard_random_x = 0
 discard_x = 0
 draw_type = 7
+first_strike = false
 drop = false
 fade = false
 consume = false

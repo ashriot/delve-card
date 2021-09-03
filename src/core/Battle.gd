@@ -42,7 +42,7 @@ func start(_enemy: EnemyActor) -> void:
 	playerUI.reset()
 	actions.reset()
 	enemy = _enemy
-	enemy_label.text = enemy.title
+	enemy_label.text = "Lv. " + str(enemy.level) + " " + enemy.title
 	enemyUI.initialize(enemy, playerUI)
 	yield(get_tree().create_timer(0.2), "timeout")
 	check_battle_start_effects()
@@ -87,14 +87,20 @@ func _on_Enemy_used_action(action: Action):
 				+ (enemyUI.added_damage)
 			var missed = playerUI.take_hit(action, damage)
 			if action.extra_action != null and !missed:
-				action.extra_action.execute(playerUI)
+				action.extra_action.execute(playerUI, enemyUI)
 			if playerUI.buffs.has("Flame Shield"):
 				var burn_debuff = load("res://src/actions/debuffs/burn.tres")
 				enemyUI.gain_debuff(burn_debuff, 1)
+			if playerUI.buffs.has("Counterattack"):
+				var counterattack = load("res://src/actions/created/counterattack.tres")
+				yield(get_tree().create_timer(0.1, true), "timeout")
+				AudioController.play_sfx("gash")
+				enemyUI.take_hit(counterattack, counterattack.damage, false)
 			if playerUI.buffs.has("Static Shield"):
 				var static_shield = load("res://src/actions/debuffs/static_shield.tres")
 				var crit = randf() < static_shield.crit_chance
 				enemyUI.take_hit(static_shield, static_shield.damage * (2 if crit else 1), crit)
+				yield(get_tree().create_timer(0.1, true), "timeout")
 			if playerUI.buffs.has("Mist Shield"):
 				playerUI.take_healing(2, "HP")
 			if x < action.hits:
@@ -105,16 +111,14 @@ func check_battle_start_effects() -> void:
 		if !trinket.battle_start: continue
 		check_trinket(trinket)
 		yield(trink_anim, "animation_finished")
-	yield(get_tree().create_timer(0.1), "timeout")
-	emit_signal("done_start_effects")
+	call_deferred("emit_signal", "done_start_effects")
 
 func check_turn_start_trinkets() -> void:
 	for trinket in playerUI.actor.trinkets:
 		if !trinket.turn_start: continue
 		check_trinket(trinket)
 		yield(trink_anim, "animation_finished")
-	yield(get_tree().create_timer(0.2), "timeout")
-	emit_signal("done_start_effects")
+	call_deferred("emit_signal", "done_start_effects")
 
 func check_trinket(trinket: Trinket) -> void:
 	AudioController.play_sfx("draw")

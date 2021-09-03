@@ -307,7 +307,7 @@ func button_pressed(action_button: ActionButton) -> void:
 	remove_pos(action_button)
 	limbo.add_child(action_button)
 	actions_queued += 1
-	emit_signal("done_pressing")
+	call_deferred("emit_signal", "done_pressing")
 
 func block_input(block: bool) -> void:
 	if block:
@@ -332,15 +332,15 @@ func end_turn() -> void:
 	if hand_count > 0:
 		discard_hand(true)
 		yield(self, "done_discarding")
-	emit_signal("ended_turn")
+	call_deferred("emit_signal", "ended_turn")
 
 func set_deck_count(value: int) -> void:
 	deck_count = value
-	emit_signal("deck_count", value)
+	call_deferred("emit_signal", "deck_count", value)
 
 func set_graveyard_count(value: int) -> void:
 	graveyard_count = value
-	emit_signal("graveyard_count", value)
+	call_deferred("emit_signal", "graveyard_count", value)
 
 func show_card(action_button) -> void:
 	var count = 0

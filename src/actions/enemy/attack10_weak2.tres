@@ -1,7 +1,7 @@
 [gd_resource type="Resource" load_steps=3 format=2]
 
 [ext_resource path="res://src/actions/res/action.gd" type="Script" id=1]
-[ext_resource path="res://src/actions/enemy/extra/gain_weak_2.gd" type="Script" id=2]
+[ext_resource path="res://src/actions/enemy/extra/grant_weak2.gd" type="Script" id=2]
 
 [resource]
 script = ExtResource( 1 )
@@ -21,7 +21,10 @@ crit_chance = 0.0
 penetrate = false
 impact = 0
 drawX = 0
+discard_random_x = 0
+discard_x = 0
 draw_type = 7
+first_strike = false
 drop = false
 fade = false
 consume = false
