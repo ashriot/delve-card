@@ -108,11 +108,13 @@ func update_data() -> void:
 	elif action.cost_type == Action.DamageType.MP and action.cost > 0:
 		var mp_cost_txt = mp_cost
 		if action.name == "Shadow Bolt": mp_cost_txt = clamp(player.mp, 1, 15)
-		if action.name == "Shadow Cloak": mp_cost_txt = clamp(player.mp, 1, 15)
+		elif action.name == "Shadow Cloak": mp_cost_txt = clamp(player.mp, 1, 15)
 # warning-ignore:integer_division
-		if action.name == "Shadow Dance": mp_cost_txt = clamp(player.mp/mp_cost, 1, 20/mp_cost) * mp_cost
+		elif action.name == "Shadow Dance": mp_cost_txt = clamp(player.mp/mp_cost, 1, 20/mp_cost) * mp_cost
 # warning-ignore:integer_division
-		if action.name == "Mana Storm": mp_cost_txt = min(5, player.mp / action.cost) * action.cost
+		elif action.name == "Shadow Blur": mp_cost_txt = clamp(player.mp/mp_cost, 1, 12/mp_cost) * mp_cost
+# warning-ignore:integer_division
+		elif action.name == "Mana Storm": mp_cost_txt = min(5, player.mp / action.cost) * action.cost
 		$Button/MP.bbcode_text = " " + str(mp_cost_txt) + "MP"
 		$Button/MP.show()
 		if mp_cost > player.mp and !played:
@@ -230,8 +232,9 @@ func play() -> void:
 	if action.name == "Shadow Bolt": mp_spent = min(player.mp, 15)
 	if action.name == "Shadow Cloak": mp_spent = min(player.mp, 15)
 # warning-ignore:integer_division
-# warning-ignore:integer_division
 	if action.name == "Shadow Dance": mp_spent = min(player.mp/mp_cost, 20/mp_cost) * mp_cost
+# warning-ignore:integer_division
+	if action.name == "Shadow Blur": mp_spent = min(player.mp/mp_cost, 12/mp_cost) * mp_cost
 	if action.name == "Mana Storm": mp_spent = 0
 	player.mp -= mp_spent
 	player.hp -= hp_cost
@@ -255,7 +258,7 @@ func execute() -> void:
 			return
 	var draw = action.drawX
 # warning-ignore:integer_division
-	if action.name == "Shadow Dance": draw *= mp_spent / action.cost
+	if action.name == "Shadow Dance": draw *= int(mp_spent / action.cost)
 	elif action.name == "Take Aim": if first_striking(): draw += 1
 	if player.has_buff("Dodge"):
 		if action.name == "Keen Eye":
@@ -287,8 +290,9 @@ func execute() -> void:
 					enemy.gain_debuff(burn_debuff, ((stacks + 2) * 2) - stacks)
 				else:
 					enemy.gain_debuff(burn_debuff, 10)
-			if action.name == "Dismantle": damage = enemy.ac
-			if action.name == "Shield Slam":
+			elif action.name == "Glass Knife": damage = randi() % damage + damage
+			elif action.name == "Dismantle": damage = enemy.ac
+			elif action.name == "Shield Slam":
 				damage = player.ac
 				player.ac /= 2
 			if player.has_buff("Dodge"):
@@ -330,16 +334,16 @@ func execute() -> void:
 				if action.name == "Blood Claws": lifesteal += damage / 2
 				if lifesteal > 0: player.take_healing(lifesteal, "HP")
 				if action.name == "Calcify": player.take_healing(damage / 2, "AC")
-				elif action.name == "Swift Knife": player.take_healing(2, "AC")
 				elif action.name == "Rune Knife" or action.name == "Rune Claws":
 					player.take_healing(damage, "MP")
 			else: enemy.shake()
 			if action.extra_action != null:
 				if action.name == "Offensive Tactics":
 					if enemy.get_intent() == "Attack":
-						action.extra_action.execute(player)
+						pass
 				else:
 					action.extra_action.execute(player)
+			check_effects()
 			if !enemy.dead:
 				emit_signal("unblock", false)
 			if hits > 1:
@@ -357,8 +361,8 @@ func execute() -> void:
 		create_effect(player.global_position, "effect")
 		yield(self, "inflict_effect")
 		emit_signal("unblock", false)
-		if action.extra_action != null:
-			action.extra_action.execute(player)
+		if action.extra_action != null: action.extra_action.execute(player)
+		check_effects()
 		var damage = action.damage
 		if action.name == "Shadow Cloak": damage *= mp_spent
 		if action.name == "Brilliant Crystal": damage = min(player.mp, 30)
@@ -369,6 +373,8 @@ func execute() -> void:
 				AudioController.confirm()
 				player.take_healing(damage, "GP")
 				damage = 0
+			elif action.name == "Night Crystal": emit_signal("draw_cards", action, 1)
+			elif action.name == "First Aid Kit": damage *= 2
 		if player.has_buff("Dodge"):
 			var amt = player.get_buff_stacks("Dodge")
 			if action.name == "Brace":
@@ -393,6 +399,22 @@ func execute() -> void:
 				player.take_healing(damage, "MP")
 		yield(self, "anim_finished")
 		call_deferred("finalize_execute")
+
+func check_effects() -> void:
+	if action.gain_buffs.size() > 0:
+		for item in action.gain_buffs:
+			player.gain_buff(item[0], item[1])
+	if action.gain_debuffs.size() > 0:
+		for item in action.gain_debuffs:
+			player.gain_debuff(item[0], item[1])
+	if action.inflict_buffs.size() > 0:
+		for item in action.inflict_buffs:
+			enemy.gain_buff(item[0], item[1])
+	if action.inflict_debuffs.size() > 0:
+		for item in action.inflict_debuffs:
+			var amt = item[1]
+			if action.name == "Shadow Blur": amt = int(mp_spent / action.cost)
+			enemy.gain_debuff(item[0], amt)
 
 func get_action_hits() -> void:
 	hits = action.hits

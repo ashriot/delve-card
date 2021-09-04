@@ -2,7 +2,7 @@
 
 [ext_resource path="res://resources/actions/res/action.gd" type="Script" id=1]
 [ext_resource path="res://assets/animations/Skill.tscn" type="PackedScene" id=2]
-[ext_resource path="res://resources/actions/thief/add/aim1.gd" type="Script" id=3]
+[ext_resource path="res://resources/actions/buffs/aim.tres" type="Resource" id=3]
 
 [resource]
 script = ExtResource( 1 )
@@ -25,10 +25,14 @@ drawX = 0
 discard_random_x = 0
 discard_x = 0
 draw_type = 7
+undodgeable = false
 first_strike = false
 drop = false
 fade = false
 consume = false
 frame_id = 81
 fx = ExtResource( 2 )
-extra_action = ExtResource( 3 )
+gain_buffs = [ [ ExtResource( 3 ), 1 ] ]
+gain_debuffs = [  ]
+inflict_debuffs = [  ]
+inflict_buffs = [  ]

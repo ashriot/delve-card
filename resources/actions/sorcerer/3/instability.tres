@@ -1,8 +1,9 @@
-[gd_resource type="Resource" load_steps=4 format=2]
+[gd_resource type="Resource" load_steps=5 format=2]
 
 [ext_resource path="res://resources/actions/res/action.gd" type="Script" id=1]
-[ext_resource path="res://resources/actions/sorcerer/add/instability.gd" type="Script" id=2]
+[ext_resource path="res://resources/actions/buffs/power.tres" type="Resource" id=2]
 [ext_resource path="res://assets/animations/Conductivity.tscn" type="PackedScene" id=3]
+[ext_resource path="res://resources/actions/debuffs/sunder.tres" type="Resource" id=4]
 
 [resource]
 script = ExtResource( 1 )
@@ -26,9 +27,14 @@ drawX = 0
 discard_random_x = 0
 discard_x = 0
 draw_type = 7
+undodgeable = false
+first_strike = false
 drop = false
 fade = false
 consume = false
 frame_id = 0
 fx = ExtResource( 3 )
-extra_action = ExtResource( 2 )
+gain_buffs = [ [ ExtResource( 2 ), 5 ] ]
+gain_debuffs = [ [ ExtResource( 4 ), 1 ] ]
+inflict_debuffs = [  ]
+inflict_buffs = [  ]

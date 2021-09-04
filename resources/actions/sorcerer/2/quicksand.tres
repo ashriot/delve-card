@@ -2,8 +2,7 @@
 
 [ext_resource path="res://assets/animations/Quicksand.tscn" type="PackedScene" id=1]
 [ext_resource path="res://resources/actions/res/action.gd" type="Script" id=2]
-[ext_resource path="res://resources/actions/sorcerer/add/weak_2.gd" type="Script" id=3]
-
+[ext_resource path="res://resources/actions/debuffs/weak.tres" type="Resource" id=3]
 
 [resource]
 script = ExtResource( 2 )
@@ -23,10 +22,17 @@ crit_chance = 0.0
 penetrate = false
 impact = 0
 drawX = 0
+discard_random_x = 0
+discard_x = 0
 draw_type = 7
+undodgeable = false
+first_strike = false
 drop = false
 fade = false
 consume = false
 frame_id = 84
 fx = ExtResource( 1 )
-extra_action = ExtResource( 3 )
+gain_buffs = [  ]
+gain_debuffs = [  ]
+inflict_debuffs = [ [ ExtResource( 3 ), 2 ] ]
+inflict_buffs = [  ]

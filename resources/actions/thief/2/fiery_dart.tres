@@ -1,7 +1,7 @@
 [gd_resource type="Resource" load_steps=4 format=2]
 
 [ext_resource path="res://resources/actions/res/action.gd" type="Script" id=1]
-[ext_resource path="res://resources/actions/sorcerer/add/burn2.gd" type="Script" id=2]
+[ext_resource path="res://resources/actions/debuffs/burn.tres" type="Resource" id=2]
 [ext_resource path="res://assets/animations/Dart.tscn" type="PackedScene" id=3]
 
 [resource]
@@ -32,8 +32,7 @@ fade = false
 consume = false
 frame_id = 0
 fx = ExtResource( 3 )
-extra_action = ExtResource( 2 )
 gain_buffs = [  ]
 gain_debuffs = [  ]
-inflict_debuffs = [  ]
+inflict_debuffs = [ [ ExtResource( 2 ), 2 ] ]
 inflict_buffs = [  ]

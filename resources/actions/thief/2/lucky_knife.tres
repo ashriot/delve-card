@@ -3,7 +3,6 @@
 [ext_resource path="res://resources/actions/res/action.gd" type="Script" id=1]
 [ext_resource path="res://assets/animations/Dagger.tscn" type="PackedScene" id=2]
 
-
 [resource]
 script = ExtResource( 1 )
 name = "Lucky Knife"
@@ -32,7 +31,7 @@ fade = false
 consume = false
 frame_id = 0
 fx = ExtResource( 2 )
-inflict_debuffs = [  ]
 gain_buffs = [  ]
 gain_debuffs = [  ]
+inflict_debuffs = [  ]
 inflict_buffs = [  ]

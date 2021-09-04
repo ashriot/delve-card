@@ -1,7 +1,7 @@
 [gd_resource type="Resource" load_steps=3 format=2]
 
 [ext_resource path="res://resources/actions/res/action.gd" type="Script" id=1]
-[ext_resource path="res://resources/actions/thief/add/dodge_1.gd" type="Script" id=2]
+[ext_resource path="res://resources/actions/buffs/dodge.tres" type="Resource" id=2]
 
 [resource]
 script = ExtResource( 1 )
@@ -24,8 +24,13 @@ drawX = 1
 discard_random_x = 0
 discard_x = 0
 draw_type = 7
+undodgeable = false
+first_strike = false
 drop = false
 fade = false
 consume = true
 frame_id = 46
-extra_action = ExtResource( 2 )
+gain_buffs = [ [ ExtResource( 2 ), 1 ] ]
+gain_debuffs = [  ]
+inflict_debuffs = [  ]
+inflict_buffs = [  ]

@@ -88,10 +88,10 @@ func start_turn() -> void:
 		for child in debuff_bar.get_children():
 			if child.fades_per_turn:
 				reduce_debuff(child.buff_name)
-	first_turn = false
+	else: first_turn = false
 	emit_signal("update_enemy")
 
-func take_hit(action: Action, damage: int) -> bool:
+func take_hit(action: Action, damage: int, miss_chance: = 0.0) -> bool:
 	var floating_text = FloatingText.instance()
 	var miss = false
 	var immune = false
@@ -102,7 +102,8 @@ func take_hit(action: Action, damage: int) -> bool:
 		immune = true
 	if !immune and buffs.has("Dodge"):
 		reduce_buff("Dodge")
-		miss = randf() < .5
+		miss_chance += 0.5
+	miss = randf() < miss_chance
 	if miss or immune:
 		damage = 0
 	damage *= (1 - damage_reduction)
