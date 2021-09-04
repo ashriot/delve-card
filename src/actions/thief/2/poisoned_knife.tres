@@ -6,8 +6,8 @@
 
 [resource]
 script = ExtResource( 1 )
-name = "Poison Needle"
-description = "Deal %damage damage an apply Poison."
+name = "Poisoned Knife"
+description = "Deal %damage damage and apply 1 Poison."
 rarity = 2
 upgraded = false
 action_type = 0
@@ -25,6 +25,7 @@ drawX = 0
 discard_random_x = 0
 discard_x = 0
 draw_type = 7
+undodgeable = false
 first_strike = false
 drop = false
 fade = false
@@ -32,3 +33,7 @@ consume = false
 frame_id = 0
 fx = ExtResource( 3 )
 extra_action = ExtResource( 2 )
+inflict_debuffs = [  ]
+gain_buffs = [  ]
+gain_debuffs = [  ]
+inflict_buffs = [  ]

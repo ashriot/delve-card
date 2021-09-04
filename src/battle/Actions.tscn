@@ -44,10 +44,10 @@ __meta__ = {
 mouse_filter = 2
 
 [node name="EndTurn" type="Button" parent="."]
-margin_left = 71.0
-margin_top = 175.0
-margin_right = 108.0
-margin_bottom = 192.0
+margin_left = 72.0
+margin_top = 176.0
+margin_right = 107.0
+margin_bottom = 191.0
 text = "End Turn"
 __meta__ = {
 "_edit_use_anchors_": false

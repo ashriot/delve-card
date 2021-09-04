@@ -1,4 +1,4 @@
 extends Node2D
 
 static func execute(player: Player) -> void:
-	player.gain_buff(preload("res://src/actions/buffs/lifesteal.tres"), 1)
+	player.gain_buff(preload("res://src/actions/buffs/lifesteal_50.tres"), 1)

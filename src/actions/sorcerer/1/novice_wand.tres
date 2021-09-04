@@ -33,3 +33,7 @@ consume = false
 frame_id = 28
 fx = ExtResource( 2 )
 extra_action = ExtResource( 3 )
+gain_buffs = [  ]
+gain_debuffs = [  ]
+inflict_debuffs = [  ]
+inflict_buffs = [  ]

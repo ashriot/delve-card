@@ -6,10 +6,10 @@
 [resource]
 script = ExtResource( 1 )
 name = "Constrict"
-description = ""
+description = "Deal 10 damage and inflict 1 Weak (damage dealt is reduced by 25%.)"
 rarity = 1
 upgraded = false
-action_type = 0
+action_type = 3
 target_type = 1
 cost_type = 3
 cost = 0
@@ -31,3 +31,7 @@ fade = false
 consume = false
 frame_id = 104
 extra_action = ExtResource( 2 )
+inflict_debuffs = [  ]
+gain_buffs = [  ]
+gain_debuffs = [  ]
+inflict_buffs = [  ]

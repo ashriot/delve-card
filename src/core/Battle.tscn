@@ -52,15 +52,15 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Panel" type="Panel" parent="."]
-margin_left = 1.0
-margin_right = 107.0
+[node name="EnemyBG" type="Panel" parent="."]
+margin_left = 3.0
+margin_right = 105.0
 margin_bottom = 66.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ColorRect" type="ColorRect" parent="Panel"]
+[node name="ColorRect" type="ColorRect" parent="EnemyBG"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 2.0
@@ -72,22 +72,24 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="DeckBG" type="ColorRect" parent="."]
-margin_top = 61.0
-margin_right = 15.0
-margin_bottom = 82.0
-color = Color( 0.145098, 0.145098, 0.133333, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="DeckBtn" type="Button" parent="."]
-margin_left = 1.0
+margin_left = 2.0
 margin_top = 62.0
-margin_right = 14.0
+margin_right = 15.0
 margin_bottom = 81.0
 __meta__ = {
 "_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="DeckBG" type="ColorRect" parent="DeckBtn"]
+show_behind_parent = true
+margin_left = -1.0
+margin_top = -1.0
+margin_right = 14.0
+margin_bottom = 20.0
+color = Color( 0.145098, 0.145098, 0.133333, 1 )
+__meta__ = {
 "_edit_use_anchors_": false
 }
 
@@ -116,23 +118,24 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="DiscardBG" type="ColorRect" parent="."]
-margin_left = 93.0
-margin_top = 61.0
-margin_right = 108.0
-margin_bottom = 82.0
-color = Color( 0.145098, 0.145098, 0.133333, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="GraveyardBtn" type="Button" parent="."]
-margin_left = 94.0
+margin_left = 93.0
 margin_top = 62.0
-margin_right = 107.0
+margin_right = 106.0
 margin_bottom = 81.0
 __meta__ = {
 "_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="DiscardBG" type="ColorRect" parent="GraveyardBtn"]
+show_behind_parent = true
+margin_left = -1.0
+margin_top = -1.0
+margin_right = 14.0
+margin_bottom = 20.0
+color = Color( 0.145098, 0.145098, 0.133333, 1 )
+__meta__ = {
 "_edit_use_anchors_": false
 }
 
@@ -168,7 +171,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -3.0
 margin_bottom = 2.0
-text = "Monster"
+text = "Lv. 99 Monster"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
@@ -177,12 +180,23 @@ __meta__ = {
 [node name="Actions" parent="." instance=ExtResource( 6 )]
 
 [node name="Instakill" type="TextureButton" parent="."]
-margin_left = 4.0
-margin_top = 10.0
-margin_right = 15.0
-margin_bottom = 21.0
+margin_left = 2.0
+margin_top = 31.0
+margin_right = 13.0
+margin_bottom = 42.0
 texture_normal = ExtResource( 3 )
 __meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="Panel" parent="Instakill"]
+show_behind_parent = true
+margin_left = -2.0
+margin_top = -2.0
+margin_right = 13.0
+margin_bottom = 13.0
+__meta__ = {
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 

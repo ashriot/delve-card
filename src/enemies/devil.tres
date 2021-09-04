@@ -4,7 +4,7 @@
 [ext_resource path="res://src/actions/enemy/attack8_mp5.tres" type="Resource" id=2]
 [ext_resource path="res://src/enemies/enemy_actor.gd" type="Script" id=3]
 [ext_resource path="res://src/actions/enemy/attack12_weak2.tres" type="Resource" id=4]
-[ext_resource path="res://src/actions/enemy/e_flame_shield.tres" type="Resource" id=5]
+[ext_resource path="res://src/actions/enemy/devil_infernal_armor.tres" type="Resource" id=5]
 
 [resource]
 script = ExtResource( 3 )

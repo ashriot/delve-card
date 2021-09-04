@@ -5,8 +5,8 @@
 
 [resource]
 script = ExtResource( 1 )
-name = "Fiery Armor"
-description = "Gain %damage Armor. Add Burns to attackers for each hit."
+name = "Infernal Armor"
+description = "Gain %damage Armor. Inflict Burn each time you are hit."
 rarity = 2
 upgraded = false
 action_type = 1

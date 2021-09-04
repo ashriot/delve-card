@@ -52,6 +52,10 @@ export var consume: = false
 export var frame_id: = 0
 export var fx: PackedScene
 export var extra_action: Resource
+export (Array, Array)var gain_buffs
+export (Array, Array)var gain_debuffs
+export (Array, Array)var inflict_debuffs
+export (Array, Array)var inflict_buffs
 
 func execute() -> void:
 	pass
