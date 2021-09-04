@@ -100,8 +100,8 @@ __meta__ = {
 [node name="ColorRect" type="ColorRect" parent="Player"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -1.0
-margin_right = -2.0
+margin_left = -2.0
+margin_right = -1.0
 color = Color( 0.145098, 0.145098, 0.133333, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -112,18 +112,18 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -37.5
+margin_left = -38.5
 margin_top = -9.5
-margin_right = 34.5
+margin_right = 35.5
 margin_bottom = 9.5
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="HP" type="Control" parent="Player/Panel"]
-margin_left = 1.0
+margin_left = 3.0
 margin_top = 1.0
-margin_right = 44.0
+margin_right = 46.0
 margin_bottom = 10.0
 __meta__ = {
 "_edit_group_": true,
@@ -171,9 +171,9 @@ __meta__ = {
 [node name="AC" type="Control" parent="Player/Panel"]
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -25.0
+margin_left = -27.0
 margin_top = 1.0
-margin_right = -1.0
+margin_right = -3.0
 margin_bottom = 10.0
 __meta__ = {
 "_edit_group_": true,
@@ -204,9 +204,9 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -25.0
+margin_left = -27.0
 margin_top = -10.0
-margin_right = -1.0
+margin_right = -3.0
 margin_bottom = -1.0
 __meta__ = {
 "_edit_group_": true,
@@ -235,9 +235,9 @@ __meta__ = {
 [node name="AP" type="Control" parent="Player/Panel"]
 anchor_top = 1.0
 anchor_bottom = 1.0
-margin_left = 1.0
+margin_left = 2.0
 margin_top = -10.0
-margin_right = 44.0
+margin_right = 45.0
 margin_bottom = -1.0
 __meta__ = {
 "_edit_group_": true,

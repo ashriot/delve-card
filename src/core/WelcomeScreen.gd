@@ -141,8 +141,3 @@ func _on_NewOK_pressed():
 	AudioController.click()
 	emit_signal("new")
 	$BG/NewDialog/Panel/NewOK.mouse_filter = Control.MOUSE_FILTER_STOP
-
-func _on_LineEditBtn_button_down():
-	$Profiles/CreateDialog/Panel/LineEdit.grab_focus()
-	if OS.has_virtual_keyboard():
-		OS.show_virtual_keyboard()

@@ -2,7 +2,6 @@ extends Control
 class_name ActionButton
 
 var FloatingText = preload("res://assets/animations/FloatingText.tscn")
-var burn_debuff = preload("res://src/actions/debuffs/burn.tres")
 
 signal inflict_hit
 signal inflict_effect
@@ -19,7 +18,6 @@ signal hide_card
 onready var button = $Button
 onready var animationPlayer: = $AnimationPlayer
 onready var timer: = $Timer
-onready var emphasis: = $Button/Emphasis
 
 var actions = null
 var action: Action
@@ -59,7 +57,7 @@ func initialize(_actions, _action: Action, _player: Player, _enemy: Enemy) -> vo
 	elif action.cost_type == Action.DamageType.MP:
 		mp_cost = action.cost
 	hits = action.hits
-	call_deferred("update_data")
+	update_data()
 	initialized = true
 
 func show() -> void:
@@ -95,7 +93,7 @@ func discard(end_of_turn: bool) -> void:
 	emit_signal("discarded", self)
 
 func update_data() -> void:
-	emphasis.hide()
+	$Button/Emphasis.hide()
 	modulate.a = 1.0
 	get_action_hits()
 	if action.action_type == Action.ActionType.INJURY and !played:
@@ -144,21 +142,15 @@ func update_data() -> void:
 	if action.name == "Hidden Knife":
 		if actions.hand_count == 1:
 			damage *= 2
-			emphasis.show()
+			$Button/Emphasis.show()
 	if first_striking() and action.first_strike:
-		emphasis.show()
+		$Button/Emphasis.show()
 		if action.name == "Gleaming Knife": damage *= 2
 	if player.has_buff("Dodge"):
-		if action.name == "Keen Eye": emphasis.show()
+		if action.name == "Keen Eye": $Button/Emphasis.show()
 		if action.name == "Secret Knife":
-			emphasis.show()
+			$Button/Emphasis.show()
 			damage = action.damage * 2
-	if enemy.has_debuff("Poison"):
-		if action.name == "Snake Knife":
-			emphasis.show()
-	if enemy.has_debuff("Burn"):
-		if action.name == "Ember Knife":
-			emphasis.show()
 	if action.name == "Brace": damage = player.get_buff_stacks("Dodge") * 5
 	if action.name == "Mind Games": damage = player.get_buff_stacks("Dodge") * 4
 	if action.name == "Sneak Attack": damage = player.get_buff_stacks("Dodge") * 3
@@ -265,28 +257,19 @@ func execute() -> void:
 		emit_signal("draw_cards", action, draw)
 	if action.target_type == Action.TargetType.OPPONENT:
 		get_action_hits()
-		var parried = false
-		if player.has_buff("Parry"):
-				if action.action_type == Action.ActionType.WEAPON:
-					AudioController.play_sfx("gleam")
-					player.reduce_buff("Parry")
-					parried = true
 		for hit in hits:
 			if enemy.dead: break
 			if action.name == "Mana Storm": player.mp -= action.cost
-			var damage = action.damage
-			if parried:
-				player.take_healing(damage, "AC")
-				damage = 0
-			else:
-				create_effect(enemy.global_position, "hit")
-				yield(self, "inflict_hit")
+			create_effect(enemy.global_position, "hit")
+			yield(self, "inflict_hit")
 			if action.name == "Conflagration":
+				var conflag = load("res://src/actions/debuffs/burn.tres")
 				if enemy.has_debuff("Burn"):
 					var stacks = enemy.get_debuff_stacks("Burn")
-					enemy.gain_debuff(burn_debuff, ((stacks + 2) * 2) - stacks)
+					enemy.gain_debuff(conflag, ((stacks + 2) * 2) - stacks)
 				else:
-					enemy.gain_debuff(burn_debuff, 10)
+					enemy.gain_debuff(conflag, 10)
+			var damage = action.damage
 			if action.name == "Dismantle": damage = enemy.ac
 			if action.name == "Shield Slam":
 				damage = player.ac
@@ -302,19 +285,17 @@ func execute() -> void:
 			if first_striking():
 				if action.name == "Gleaming Knife": damage *= 2
 			if damage > 0:
-				var bonus = 0
 				var roll = randf()
 				var crit_mod = 0
+				if player.has_buff("Aim"):
+					crit_mod = 0.5
+				var crit = roll < crit_mod + action.crit_chance
+				var bonus = 0
 				if action.impact > 0:
 					bonus += player.added_damage * (action.impact - 1)
 				if enemy.has_debuff("Burn"):
 					if action.name == "Fireball": bonus += 6
 					elif action.name == "Combust": bonus += 12
-					elif action.name == "Ember Knife": crit_mod = 1
-				if enemy.has_debuff("Poison"):
-					if action.name == "Snake Knife": crit_mod = 1
-				if player.has_buff("Aim"): crit_mod += 0.5
-				var crit = roll < min(crit_mod + action.crit_chance, 1)
 				if action.name == "Hidden Knife": if actions.hand_count == 0: damage *= 2
 				if action.name == "Shadow Bolt": damage *= mp_spent
 				if action.name == "Drown": damage += clamp(player.mp, 0, 30)
@@ -325,15 +306,18 @@ func execute() -> void:
 					player.take_healing(1, "ST")
 				damage *= (1 - enemy.damage_reduction)
 				enemy.take_hit(action, damage, crit)
+				if player.has_buff("Parry"):
+					if action.action_type == Action.ActionType.WEAPON:
+						player.reduce_buff("Parry")
+						player.take_healing(damage, "AC")
 				var lifesteal = 0
-				if player.has_buff("Lifesteal"): lifesteal += damage / 2
+				if player.has_buff("Lifesteal"): lifesteal += damage
 				if action.name == "Blood Claws": lifesteal += damage / 2
 				if lifesteal > 0: player.take_healing(lifesteal, "HP")
-				if action.name == "Calcify": player.take_healing(damage / 2, "AC")
-				elif action.name == "Swift Knife": player.take_healing(2, "AC")
+				if action.name == "Calcify": player.take_healing(damage/2, "AC")
+				elif action.name == "Swift Knife": player.take_healing(damage/2, "AC")
 				elif action.name == "Rune Knife" or action.name == "Rune Claws":
 					player.take_healing(damage, "MP")
-			else: enemy.shake()
 			if action.extra_action != null:
 				if action.name == "Offensive Tactics":
 					if enemy.get_intent() == "Attack":
@@ -404,6 +388,7 @@ func get_action_hits() -> void:
 
 func inflict_hit() -> void:
 	if enemy.has_buff("Flame Shield"):
+		var burn_debuff = load("res://src/actions/debuffs/burn.tres")
 		player.gain_debuff(burn_debuff, 1)
 	emit_signal("inflict_hit")
 

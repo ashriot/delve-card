@@ -5,8 +5,8 @@
 
 [resource]
 script = ExtResource( 2 )
-name = "Evasion"
-description = "Gain 2 Dodge (incoming hits have a 50% chance to miss; lose 1 stack on a successful dodge.)"
+name = "Feral Instincts"
+description = "Heightened feral instincts give the wolf 2 Dodge (+50% evasion for two attacks.)"
 rarity = 2
 upgraded = false
 action_type = 3
@@ -29,9 +29,5 @@ first_strike = false
 drop = false
 fade = false
 consume = false
-frame_id = 120
+frame_id = 112
 extra_action = ExtResource( 1 )
-inflict_debuffs = [  ]
-gain_buffs = [  ]
-gain_debuffs = [  ]
-inflict_buffs = [  ]

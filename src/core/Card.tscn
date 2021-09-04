@@ -62,8 +62,8 @@ modulate = Color( 0.792157, 0.780392, 0.721569, 1 )
 position = Vector2( 3, 3 )
 texture = ExtResource( 4 )
 centered = false
-hframes = 10
 vframes = 30
+hframes = 10
 frame = 45
 
 [node name="MP" type="RichTextLabel" parent="Panel"]
@@ -319,6 +319,7 @@ text = "Impact x%imp Gain %impx damage bonus from Power."
 scroll_active = false
 
 [node name="Weak" type="Panel" parent="Panel/Info"]
+visible = false
 margin_top = 85.0
 margin_right = 108.0
 margin_bottom = 103.0

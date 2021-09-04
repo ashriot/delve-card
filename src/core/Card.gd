@@ -18,7 +18,7 @@ func initialize(_action_button, have: int) -> void:
 		init_trinket(_action_button.trinket)
 		return
 	action_button = _action_button
-	action = action_button.action as Action
+	action = action_button.action
 	var potion = true if \
 		action.action_type == Action.ActionType.ITEM \
 		else false
@@ -59,10 +59,6 @@ func initialize(_action_button, have: int) -> void:
 		$Panel/Info/Impact/Label.bbcode_text = text
 	else:
 		$Panel/Info/Impact.hide()
-
-	if action.extra_action != null:
-		pass
-
 	if !potion:
 		if have > 0:
 			$Panel/Have.text = "Have: " + str(have)

@@ -7,7 +7,7 @@
 [resource]
 script = ExtResource( 1 )
 name = "Parry"
-description = "This turn, next weapon grants AC equal to its damage instead of attacking. Draw a weapon."
+description = "Next weapon grants AC equal to its damage dealt. Draw a weapon."
 rarity = 2
 upgraded = false
 action_type = 3
@@ -25,7 +25,6 @@ drawX = 1
 discard_random_x = 0
 discard_x = 0
 draw_type = 0
-undodgeable = false
 first_strike = false
 drop = false
 fade = false
@@ -33,7 +32,3 @@ consume = false
 frame_id = 64
 fx = ExtResource( 2 )
 extra_action = ExtResource( 3 )
-inflict_debuffs = [  ]
-gain_buffs = [  ]
-gain_debuffs = [  ]
-inflict_buffs = [  ]

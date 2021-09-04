@@ -32,8 +32,8 @@ modulate = Color( 0.145098, 0.145098, 0.133333, 1 )
 position = Vector2( 4, 0 )
 texture = ExtResource( 1 )
 centered = false
-hframes = 10
 vframes = 30
+hframes = 10
 frame = 102
 
 [node name="StacksShadow" type="Label" parent="."]
@@ -64,5 +64,5 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Timer" type="Timer" parent="."]
 [connection signal="button_down" from="." to="." method="_on_Button_down"]
-[connection signal="button_up" from="." to="." method="_on_Button_up"]

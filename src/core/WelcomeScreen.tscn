@@ -49,7 +49,6 @@ __meta__ = {
 }
 
 [node name="Profile" type="Button" parent="BG"]
-visible = false
 margin_left = 2.0
 margin_top = 13.0
 margin_right = 106.0
@@ -316,6 +315,7 @@ __meta__ = {
 }
 
 [node name="CreateDialog" parent="Profiles" instance=ExtResource( 19 )]
+visible = false
 
 [node name="Banner" type="ColorRect" parent="Profiles/CreateDialog"]
 anchor_right = 1.0
@@ -358,23 +358,15 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 3.0
-margin_top = -18.0
+margin_top = -19.0
 margin_right = -3.0
 margin_bottom = -3.0
 align = 1
 max_length = 15
-context_menu_enabled = false
+clear_button_enabled = true
 placeholder_text = "Enter Name"
 placeholder_alpha = 0.33
 caret_blink = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="LineEditBtn" type="Button" parent="Profiles/CreateDialog/Panel/LineEdit"]
-modulate = Color( 1, 1, 1, 0 )
-anchor_right = 1.0
-anchor_bottom = 1.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -437,7 +429,6 @@ __meta__ = {
 }
 
 [node name="Timer" type="Timer" parent="Profiles/CreateDialog/Exists"]
-
 [connection signal="pressed" from="BG/Profile" to="." method="_on_Profile_pressed"]
 [connection signal="pressed" from="BG/ContinueGame" to="." method="_on_ContinueGame_pressed"]
 [connection signal="pressed" from="BG/NewGame" to="." method="_on_NewGame_pressed"]
@@ -445,7 +436,6 @@ __meta__ = {
 [connection signal="pressed" from="BG/NewDialog/Panel/NewOK" to="." method="_on_NewOK_pressed"]
 [connection signal="pressed" from="Profiles/NewProfile" to="." method="_on_NewProfile_pressed"]
 [connection signal="text_changed" from="Profiles/CreateDialog/Panel/LineEdit" to="." method="_on_LineEdit_text_changed"]
-[connection signal="button_down" from="Profiles/CreateDialog/Panel/LineEdit/LineEditBtn" to="." method="_on_LineEditBtn_button_down"]
 [connection signal="pressed" from="Profiles/CreateDialog/Panel/OK" to="." method="_on_OK_pressed"]
 [connection signal="pressed" from="Profiles/CreateDialog/Panel/NewProfileBack" to="." method="_on_NewProfileBack_pressed"]
 [connection signal="timeout" from="Profiles/CreateDialog/Exists/Timer" to="." method="_on_Timer_timeout"]

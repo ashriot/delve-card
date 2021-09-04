@@ -5,6 +5,6 @@
 [resource]
 script = ExtResource( 1 )
 name = "Parry"
-description = "This turn, next weapon grants AC equal to its damage instead of attacking."
+description = "Next weapon grants AC equal to its damage dealt."
 fades_per_turn = true
 frame_id = 130

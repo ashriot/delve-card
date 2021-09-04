@@ -6,10 +6,10 @@
 [resource]
 script = ExtResource( 1 )
 name = "Wriggle"
-description = "Deal 8 damage and gain 5 AC."
+description = "Deal damage and gain AC."
 rarity = 1
 upgraded = false
-action_type = 3
+action_type = 0
 target_type = 1
 cost_type = 3
 cost = 0
@@ -31,7 +31,3 @@ fade = false
 consume = false
 frame_id = 104
 extra_action = ExtResource( 2 )
-inflict_debuffs = [  ]
-gain_buffs = [  ]
-gain_debuffs = [  ]
-inflict_buffs = [  ]

@@ -4,7 +4,7 @@ class_name BuffCard
 onready var anim = $AnimationPlayer
 onready var label = $Label
 
-func initialize(buff) -> void:
+func initialize(buff: BuffUI) -> void:
 	label.text = buff.buff_name + "\n" + buff.description
 	set_pos()
 	modulate.a = 0
@@ -12,8 +12,8 @@ func initialize(buff) -> void:
 	anim.play("FadeIn")
 
 func init_intent(intent: Action) -> void:
-	label.text = intent.name + "\n" + intent.description[0] + ". " + \
-		intent.description[1] + ". " + get_cost(intent)
+	label.text = intent.name + "\n" + intent.description[1] + " " + \
+		intent.description[0] + ". " + get_cost(intent)
 	modulate.a = 0
 	show()
 	set_pos()
@@ -47,4 +47,4 @@ func set_pos() -> void:
 	if pos.y < (label.rect_size.y + 10):
 		label.rect_position.y = pos.y + 15
 	else:
-		label.rect_position.y = 8
+		label.rect_position.y = 4
