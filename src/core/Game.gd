@@ -455,13 +455,13 @@ func _on_PatchBack_button_up():
 func _on_Fire_button_up():
 	AudioController.click()
 	var n = "fire_sorc"
-	player = load("res://src/actions/sorcerer/" + n + ".tres")
+	player = load("res://resources/actions/sorcerer/" + n + ".tres")
 	player.hp = player.max_hp
 
 func _on_Arcane_button_up():
 	AudioController.click()
 	var n = "arcane_sorc"
-	player = load("res://src/actions/sorcerer/" + n + ".tres")
+	player = load("res://resources/actions/sorcerer/" + n + ".tres")
 	player.hp = player.max_hp
 
 func show_card(btn, amt: int) -> void:
@@ -494,7 +494,7 @@ func _on_Dungeon_start_loot(gold):
 	# Chance to fight a Mimic!!
 	var rand = randf()
 	if rand < 0.05 * float(dungeon.progress) - 0.05:
-		var enemy = load("res://src/enemies/mimic.tres")
+		var enemy = load("res://resources/enemies/mimic.tres")
 		start_battle(dungeon, enemy)
 		yield(self, "battle_finished")
 	else:
@@ -517,7 +517,7 @@ func _on_Dungeon_event(event_name:String):
 	yield(get_tree().create_timer(0.25), "timeout")
 	fade.play("FadeIn")
 	event.show()
-	var child = load("res://src/events/" + event_name + ".tscn").instance()
+	var child = load("res://resources/events/" + event_name + ".tscn").instance()
 	event.add_child(child)
 	child.initialize(self)
 

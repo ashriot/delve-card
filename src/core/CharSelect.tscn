@@ -15,11 +15,11 @@
 [ext_resource path="res://assets/images/ui/Shield.png" type="Texture" id=13]
 [ext_resource path="res://assets/images/ui/stam_lg.png" type="Texture" id=14]
 [ext_resource path="res://assets/images/ui/prev.png" type="Texture" id=15]
-[ext_resource path="res://src/player/PerkButton.tscn" type="PackedScene" id=16]
+[ext_resource path="res://resources/player/PerkButton.tscn" type="PackedScene" id=16]
 [ext_resource path="res://assets/images/ui/perk-tiers.png" type="Texture" id=17]
 [ext_resource path="res://assets/images/ui/pack.png" type="Texture" id=18]
 [ext_resource path="res://assets/images/ui/build.png" type="Texture" id=19]
-[ext_resource path="res://src/player/GearButton.tscn" type="PackedScene" id=20]
+[ext_resource path="res://resources/player/GearButton.tscn" type="PackedScene" id=20]
 [ext_resource path="res://assets/images/ui/lock_dark.png" type="Texture" id=21]
 
 [sub_resource type="Animation" id=1]

@@ -369,7 +369,7 @@ func _on_Player_add_to_deck(action_name: String, qty: int):
 	var btns = []
 	for i in qty:
 		var action_button = _ActionButton.instance()
-		var action = load("res://src/actions/created/" + action_name + ".tres")
+		var action = load("res://resources/actions/created/" + action_name + ".tres")
 		initialize_button(action_button, action)
 		btns.append(action_button)
 	add_to_deck(btns)
@@ -379,9 +379,9 @@ func _on_Player_add_to_discard(action_name: String, qty: int):
 	var btns = []
 	for i in qty:
 		var action_button = _ActionButton.instance()
-		var load_dir = "res://src/actions/created/" + action_name + ".tres"
+		var load_dir = "res://resources/actions/created/" + action_name + ".tres"
 		if action_name == "boomerang":
-			load_dir = "res://src/actions/thief/2/boomerang.tres"
+			load_dir = "res://resources/actions/thief/2/boomerang.tres"
 		var action = load(load_dir)
 		initialize_button(action_button, action)
 		btns.append(action_button)

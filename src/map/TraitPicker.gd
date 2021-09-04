@@ -3,7 +3,7 @@ extends Node2D
 signal trait_back
 signal trait_choose(perk)
 
-var _TraitButton = preload("res://src/player/TraitButton.tscn")
+var _TraitButton = preload("res://resources/player/TraitButton.tscn")
 
 onready var trait_list = $BG/Container/Traits
 onready var perk_title = $BG/Info/Title

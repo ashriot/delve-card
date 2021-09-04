@@ -91,11 +91,11 @@ func add_potion(potion: Action) -> void:
 	item_belt.add_potion(potion)
 
 func add_potions(qty: int) -> void:
-	var potion = load("res://src/potions/potions/healing_potion.tres")
+	var potion = load("res://resources/potions/potions/healing_potion.tres")
 	add_potion(potion)
-	potion = load("res://src/potions/potions/mana_potion.tres")
+	potion = load("res://resources/potions/potions/mana_potion.tres")
 	add_potion(potion)
-	potion = load("res://src/potions/potions/exploding_potion.tres")
+	potion = load("res://resources/potions/potions/exploding_potion.tres")
 	add_potion(potion)
 
 func set_hp(value) -> void:

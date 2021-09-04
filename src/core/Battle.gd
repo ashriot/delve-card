@@ -89,15 +89,15 @@ func _on_Enemy_used_action(action: Action):
 			if action.extra_action != null and !missed:
 				action.extra_action.execute(playerUI, enemyUI)
 			if playerUI.buffs.has("Flame Shield"):
-				var burn_debuff = load("res://src/actions/debuffs/burn.tres")
+				var burn_debuff = load("res://resources/actions/debuffs/burn.tres")
 				enemyUI.gain_debuff(burn_debuff, 1)
 			if playerUI.buffs.has("Counterattack"):
-				var counterattack = load("res://src/actions/created/counterattack.tres")
+				var counterattack = load("res://resources/actions/created/counterattack.tres")
 				yield(get_tree().create_timer(0.1, true), "timeout")
 				AudioController.play_sfx("gash")
 				enemyUI.take_hit(counterattack, counterattack.damage, false)
 			if playerUI.buffs.has("Static Shield"):
-				var static_shield = load("res://src/actions/debuffs/static_shield.tres")
+				var static_shield = load("res://resources/actions/debuffs/static_shield.tres")
 				var crit = randf() < static_shield.crit_chance
 				enemyUI.take_hit(static_shield, static_shield.damage * (2 if crit else 1), crit)
 				yield(get_tree().create_timer(0.1, true), "timeout")
@@ -127,7 +127,7 @@ func check_trinket(trinket: Trinket) -> void:
 	yield(trink_anim, "animation_finished")
 	if trinket.name == "Crown of Power":
 		var amt = trinket.rank + 1
-		playerUI.gain_buff(preload("res://src/actions/buffs/power.tres"), amt)
+		playerUI.gain_buff(preload("res://resources/actions/buffs/power.tres"), amt)
 	elif trinket.name == "Black Stone":
 		enemyUI.take_hit(null, 4, false)
 		playerUI.take_healing(2, "HP")

@@ -1,7 +1,7 @@
 extends Control
 
-var _Button = preload("res://src/potions/PotionButton.tscn")
-var _Viewer = preload("res://src/potions/PotionViewer.tscn")
+var _Button = preload("res://resources/potions/PotionButton.tscn")
+var _Viewer = preload("res://resources/potions/PotionViewer.tscn")
 
 onready var tween = $Tween
 onready var items = $Items

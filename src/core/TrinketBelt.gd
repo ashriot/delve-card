@@ -1,6 +1,6 @@
 extends Control
 
-var _Button = preload("res://src/trinkets/TrinketButton.tscn")
+var _Button = preload("res://resources/trinkets/TrinketButton.tscn")
 
 onready var tween = $Tween
 onready var trinkets = $Trinkets

@@ -1,0 +1,18 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://resources/player/gear/gear.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+unlocked = false
+name = "Thief's Kit"
+desc = "A basic thief's kit.
+
+Includes:
+* Small Apple
+* Smoke Bomb"
+level_req = 2
+cost = 2000
+build = false
+trinkets = [  ]
+potions = [  ]

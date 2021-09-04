@@ -71,13 +71,13 @@ func start_turn() -> void:
 	if !first_turn:
 		if debuffs.size() > 0 and debuffs.has("Burn"):
 			AudioController.play_sfx("fire")
-			var Burn = load("res://src/actions/debuffs/burn_action.tres")
+			var Burn = load("res://resources/actions/debuffs/burn_action.tres")
 			take_hit(Burn, debuffs["Burn"].stacks)
 			reduce_debuff("Burn")
 			yield(get_tree().create_timer(0.8), "timeout")
 		if debuffs.size() > 0 and debuffs.has("Poison"):
 			AudioController.play_sfx("poison")
-			var poison = load("res://src/actions/debuffs/poison_action.tres")
+			var poison = load("res://resources/actions/debuffs/poison_action.tres")
 	# warning-ignore:integer_division
 			take_hit(poison, actor.max_hp / 10)
 			reduce_debuff("Poison")

@@ -1,0 +1,21 @@
+[gd_resource type="Resource" load_steps=6 format=2]
+
+[ext_resource path="res://assets/images/enemies/slime.png" type="Texture" id=1]
+[ext_resource path="res://resources/actions/enemy/goop_gash.tres" type="Resource" id=2]
+[ext_resource path="res://resources/enemies/enemy_actor.gd" type="Script" id=3]
+[ext_resource path="res://resources/actions/enemy/attack8fatigue1.tres" type="Resource" id=4]
+[ext_resource path="res://resources/actions/enemy/heal3mend3.tres" type="Resource" id=5]
+
+[resource]
+script = ExtResource( 3 )
+name = "slime"
+title = "Slime"
+desc = "A goopy guardian, with a gumption for healing itself."
+level = 1
+max_hp = 30
+max_ap = 3
+initial_ac = 10
+initial_mp = 0
+gold = 10
+texture = ExtResource( 1 )
+actions = [ ExtResource( 2 ), ExtResource( 5 ), ExtResource( 4 ) ]

@@ -1,0 +1,38 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://resources/actions/res/action.gd" type="Script" id=1]
+[ext_resource path="res://resources/actions/enemy/extra/gain_5AC.gd" type="Script" id=2]
+
+
+[resource]
+script = ExtResource( 1 )
+name = "Wriggle"
+description = "Deal 8 damage and gain 5 AC."
+rarity = 1
+upgraded = false
+action_type = 3
+target_type = 1
+cost_type = 3
+cost = 0
+healing = false
+damage_type = 0
+damage = 8
+hits = 1
+crit_chance = 0.0
+penetrate = false
+impact = 0
+drawX = 0
+discard_random_x = 0
+discard_x = 0
+draw_type = 7
+undodgeable = false
+first_strike = false
+drop = false
+fade = false
+consume = false
+frame_id = 104
+extra_action = ExtResource( 2 )
+inflict_debuffs = [  ]
+gain_buffs = [  ]
+gain_debuffs = [  ]
+inflict_buffs = [  ]

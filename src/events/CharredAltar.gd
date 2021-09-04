@@ -10,7 +10,7 @@ func _on_Choice1_pressed():
 		return
 	if stage == 0:
 		AudioController.click()
-		var black_stone = load("res://src/trinkets/black_stone.tres") as Trinket
+		var black_stone = load("res://resources/trinkets/black_stone.tres") as Trinket
 		playerUI.add_trinket(black_stone)
 		var text = "You grab the black stone. It is warm to the touch almost as " + \
 		"if is alive.\n\n" + \

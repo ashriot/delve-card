@@ -1,0 +1,20 @@
+[gd_resource type="Resource" load_steps=4 format=2]
+
+[ext_resource path="res://resources/player/gear/gear.gd" type="Script" id=1]
+[ext_resource path="res://resources/trinkets/magic_ring.tres" type="Resource" id=2]
+[ext_resource path="res://resources/potions/food/magic_mushroom.tres" type="Resource" id=3]
+
+[resource]
+script = ExtResource( 1 )
+unlocked = false
+name = "Apprentice Bag"
+desc = "A neophyte sorcerer's bag.
+
+Includes:
+* Magic Ring (MP +2)
+* Magic Mushroom (Restores 6 MP)"
+level_req = 4
+cost = 4000
+build = false
+trinkets = [ ExtResource( 2 ) ]
+potions = [ ExtResource( 3 ) ]

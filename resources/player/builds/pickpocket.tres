@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://resources/player/gear/gear.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+unlocked = false
+name = "Pickpocket"
+desc = "Gain 33% additional gold from combat."
+level_req = 3
+cost = 3000
+build = true
+trinkets = [  ]
+potions = [  ]

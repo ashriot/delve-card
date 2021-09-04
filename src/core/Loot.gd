@@ -104,7 +104,7 @@ func remove_loot(item: String) -> void:
 	item = item.to_lower()
 	item = item.replace(" ", "_")
 	item += ".tres"
-	var path = "res://src/actions/" + player.name.to_lower() + "/"
+	var path = "res://resources/actions/" + player.name.to_lower() + "/"
 	if loot1.has(path + "1/" + item):
 		loot1.remove(loot1.find(path + "1/" + item))
 		return
@@ -120,7 +120,7 @@ func remove_loot(item: String) -> void:
 
 func get_loot(rank: int, other_classes: = false) -> Array:
 	var list = []
-	var path = "res://src/actions/" + player.name.to_lower() + "/" + str(rank) + "/"
+	var path = "res://resources/actions/" + player.name.to_lower() + "/" + str(rank) + "/"
 	var files = []
 	var dir = Directory.new()
 	dir.open(path)

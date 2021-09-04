@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://resources/trinkets/trinket.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+name = "Black Stone"
+description = "Deal 4 damage and gain 2 HP at the beginning of each battle."
+rarity = 1
+rank = 0
+frame_id = 104
+battle_start = true
+battle_end = false
+turn_start = false
+turn_end = false

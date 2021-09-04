@@ -1,0 +1,16 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://resources/player/Perk.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+name = "Slash and Dash"
+desc = "15% chance to gain 1 ST when using an Action."
+trait = true
+units = [ "gold" ]
+amts = [ 5 ]
+cost = 800
+cur_ranks = 0
+max_ranks = 1
+tier = 3
+level_req = 9

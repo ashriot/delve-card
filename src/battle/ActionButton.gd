@@ -2,7 +2,7 @@ extends Control
 class_name ActionButton
 
 var FloatingText = preload("res://assets/animations/FloatingText.tscn")
-var burn_debuff = preload("res://src/actions/debuffs/burn.tres")
+var burn_debuff = preload("res://resources/actions/debuffs/burn.tres")
 
 signal inflict_hit
 signal inflict_effect

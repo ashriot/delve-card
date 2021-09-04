@@ -4,7 +4,7 @@ class_name Enemy
 var FloatingText = preload("res://assets/animations/FloatingText.tscn")
 var EBuffUI = preload("res://src/battle/EBuffUI.tscn")
 var EDebuffUI = preload("res://src/battle/EDebuffUI.tscn")
-var Mend = preload("res://src/actions/buffs/mend_action.tres")
+var Mend = preload("res://resources/actions/buffs/mend_action.tres")
 
 signal used_action(action)
 signal ended_turn
@@ -99,13 +99,13 @@ func act() -> void:
 		return
 	if debuffs.size() > 0:
 		if debuffs.has("Burn"):
-			var Burn = load("res://src/actions/debuffs/burn_action.tres")
+			var Burn = load("res://resources/actions/debuffs/burn_action.tres")
 			AudioController.play_sfx("fire")
 			take_hit(Burn, debuffs["Burn"].stacks, false)
 			reduce_debuff("Burn")
 			yield(get_tree().create_timer(0.8), "timeout")
 		if debuffs.has("Poison"):
-			var Poison = load("res://src/actions/debuffs/burn_action.tres")
+			var Poison = load("res://resources/actions/debuffs/burn_action.tres")
 			AudioController.play_sfx("poison")
 # warning-ignore:integer_division
 			take_hit(Poison, actor.max_hp / 10, false)

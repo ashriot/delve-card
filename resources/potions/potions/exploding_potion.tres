@@ -1,0 +1,29 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://resources/actions/res/action.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+name = "Exploding Potion"
+description = "Deals %damage damage."
+rarity = 1
+upgraded = false
+action_type = 6
+target_type = 1
+cost_type = 3
+cost = 0
+healing = true
+damage_type = 0
+damage = 6
+hits = 1
+crit_chance = 0.0
+penetrate = false
+impact = 0
+drawX = 0
+discard_random_x = 0
+discard_x = 0
+draw_type = 7
+drop = false
+fade = false
+consume = true
+frame_id = 171

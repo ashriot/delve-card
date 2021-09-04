@@ -1,0 +1,31 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://resources/actions/res/action.gd" type="Script" id=1]
+[ext_resource path="res://assets/animations/Cast.tscn" type="PackedScene" id=2]
+
+[resource]
+script = ExtResource( 1 )
+name = "Large Apple"
+description = "Heals  %damage HP."
+rarity = 1
+upgraded = false
+action_type = 6
+target_type = 0
+cost_type = 3
+cost = 0
+healing = true
+damage_type = 0
+damage = 16
+hits = 1
+crit_chance = 0.0
+penetrate = false
+impact = 0
+drawX = 0
+discard_random_x = 0
+discard_x = 0
+draw_type = 7
+drop = false
+fade = false
+consume = true
+frame_id = 179
+fx = ExtResource( 2 )

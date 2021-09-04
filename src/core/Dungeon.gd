@@ -116,7 +116,7 @@ func _on_Map_move_to_square(square: Square):
 	elif square.type == "Down":
 		emit_signal("advance")
 	elif square.type == "Battle":
-		var enemy = load("res://src/enemies/" + square.enemy_name.to_lower() + ".tres")
+		var enemy = load("res://resources/enemies/" + square.enemy_name.to_lower() + ".tres")
 		emit_signal("start_battle", enemy)
 	elif square.type == "Chest":
 		emit_signal("start_loot", 0)
@@ -137,7 +137,7 @@ func _on_Map_show_tooltip(button):
 	tooltip.modulate.a = 0
 	tooltip.show()
 	if button.type == "Battle":
-		var enemy = load("res://src/enemies/" + button.enemy_name.to_lower() + ".tres")
+		var enemy = load("res://resources/enemies/" + button.enemy_name.to_lower() + ".tres")
 		tooltext.text = enemy.title
 	else:
 		tooltext.text = button.type.capitalize()

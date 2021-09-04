@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://resources/player/gear/gear.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+unlocked = false
+name = "Battlemage"
+desc = "Start with +1 ST and +2 AC but -3 MP."
+level_req = 5
+cost = 5000
+build = true
+trinkets = [  ]
+potions = [  ]

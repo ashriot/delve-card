@@ -1,0 +1,16 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://resources/player/Perk.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+name = "Mana Flow"
+desc = "Start fights with 3 additional magic points."
+trait = true
+units = [ "MP" ]
+amts = [ 3 ]
+cost = 350
+cur_ranks = 0
+max_ranks = 1
+tier = 1
+level_req = 6

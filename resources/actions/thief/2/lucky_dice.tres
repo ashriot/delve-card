@@ -1,0 +1,36 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://resources/actions/res/action.gd" type="Script" id=1]
+
+
+[resource]
+script = ExtResource( 1 )
+name = "Lucky Dice"
+description = "Draw an action. If discarded, draw 2 actions."
+rarity = 2
+upgraded = false
+action_type = 3
+target_type = 0
+cost_type = 3
+cost = 0
+healing = false
+damage_type = 0
+damage = 0
+hits = 1
+crit_chance = 0.0
+penetrate = false
+impact = 0
+drawX = 1
+discard_random_x = 0
+discard_x = 0
+draw_type = 7
+undodgeable = false
+first_strike = false
+drop = false
+fade = false
+consume = false
+frame_id = 0
+inflict_debuffs = [  ]
+gain_buffs = [  ]
+gain_debuffs = [  ]
+inflict_buffs = [  ]

@@ -23,7 +23,7 @@ func _on_Choice1_pressed():
 	elif stage == 1:
 		stage = 2
 		playerUI.remove_trinket("Black Stone")
-		var trinket = load("res://src/trinkets/lunar_stone.tres") as Trinket
+		var trinket = load("res://resources/trinkets/lunar_stone.tres") as Trinket
 		playerUI.add_trinket(trinket)
 		.display_text("You take the lunar stone and continue on.")
 		.choices(["Return to map."])
@@ -47,7 +47,7 @@ func _on_Choice2_pressed():
 	elif stage == 1:
 		stage = 2
 		playerUI.remove_trinket("Black Stone")
-		var trinket = load("res://src/trinkets/solar_stone.tres") as Trinket
+		var trinket = load("res://resources/trinkets/solar_stone.tres") as Trinket
 		playerUI.add_trinket(trinket)
 		.display_text("You take the solar stone and continue on.")
 		.choices(["Return to map."])
