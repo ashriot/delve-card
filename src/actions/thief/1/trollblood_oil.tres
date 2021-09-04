@@ -1,0 +1,37 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://src/actions/res/action.gd" type="Script" id=1]
+[ext_resource path="res://src/actions/thief/add/lifesteal.gd" type="Script" id=2]
+
+[resource]
+script = ExtResource( 1 )
+name = "Trollblood Oil"
+description = "This turn, your next weapon attack has 50% Lifesteal. (Heal equal to the damage dealt.)"
+rarity = 1
+upgraded = false
+action_type = 3
+target_type = 0
+cost_type = 3
+cost = 1
+healing = false
+damage_type = 0
+damage = 0
+hits = 1
+crit_chance = 0.0
+penetrate = false
+impact = 0
+drawX = 0
+discard_random_x = 0
+discard_x = 0
+draw_type = 7
+undodgeable = false
+first_strike = false
+drop = false
+fade = false
+consume = false
+frame_id = 0
+extra_action = ExtResource( 2 )
+gain_buffs = [  ]
+gain_debuffs = [  ]
+inflict_debuffs = [  ]
+inflict_buffs = [  ]

@@ -234,6 +234,12 @@ func take_hit(action: Action, damage: int, crit: bool) -> void:
 			yield(animationPlayer, "animation_finished")
 			animationPlayer.play("Idle")
 
+func shake() -> void:
+	if animationPlayer.current_animation == "Idle":
+		animationPlayer.play("Hit")
+		yield(animationPlayer, "animation_finished")
+		animationPlayer.play("Idle")
+
 func die() -> void:
 	emit_signal("block_input")
 	hp_panel.hide()
@@ -306,14 +312,14 @@ func gain_debuff(debuff: Buff, qty: int) -> void:
 		damage_multiplier -= 0.25
 	elif debuff.name == "Sunder":
 		damage_reduction -= 0.5
-	debuffUI.connect("remove_debuff", self, "remove_debuff")
-#	debuffUI.connect("show_card", self, "show_buff_card")
-#	debuffUI.connect("hide_card", self, "hide_buff_card")
+	debuffUI.connect("remove_buff", self, "remove_debuff")
+	debuffUI.connect("show_card", self, "show_buff_card")
+	debuffUI.connect("hide_card", self, "hide_buff_card")
 	update_data()
 
 func get_debuff_stacks(title: String) -> int:
 	for child in debuff_bar.get_children():
-		if child.debuff_name == title:
+		if child.buff_name == title:
 			return child.stacks
 	return 0
 
@@ -323,11 +329,11 @@ func has_debuff(title: String) -> bool:
 func reduce_debuffs() -> void:
 	for child in debuff_bar.get_children():
 		if child.fades_per_turn:
-			reduce_debuff(child.debuff_name)
+			reduce_debuff(child.buff_name)
 
-func reduce_debuff(debuff_name: String) -> void:
+func reduce_debuff(buff_name: String) -> void:
 	for child in debuff_bar.get_children():
-		if child.debuff_name == debuff_name:
+		if child.buff_name == buff_name:
 			child.stacks -= 1
 	update_data()
 
@@ -484,7 +490,7 @@ func set_vars() -> void:
 func is_injured(threshold: float) -> bool:
 	return (float(hp) / float(actor.max_hp) <= threshold)
 
-func show_buff_card(buff: BuffUI) -> void:
+func show_buff_card(buff) -> void:
 	emit_signal("show_buff", buff)
 
 func hide_buff_card() -> void:

@@ -58,7 +58,7 @@ func _ready() -> void:
 	randomize()
 	AudioController.mute = mute
 	AudioController.play_bgm("title")
-	init_data()		# Initial data creation or load
+	init_data()
 	open_gem_shop.hide()
 	playerUI.hide()
 	settings.hide()
@@ -100,6 +100,8 @@ func init_data() -> void:
 		print("REPLACE OUTDATED FILE")
 	# NEW GAME
 	core_data = CoreData.new()
+	core_data.profiles.append("Player")
+	core_data.profile_name = "Player"
 	core_data.gems = 1000
 	self.gems = 1000
 	core_data.game_version = ProjectSettings.get_setting("application/config/version")

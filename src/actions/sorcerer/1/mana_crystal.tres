@@ -29,3 +29,7 @@ drop = false
 fade = false
 consume = false
 frame_id = 89
+gain_buffs = [  ]
+gain_debuffs = [  ]
+inflict_debuffs = [  ]
+inflict_buffs = [  ]
