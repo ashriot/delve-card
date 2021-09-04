@@ -24,44 +24,52 @@ func initialize(_action_button, have: int) -> void:
 		else false
 	$Panel/AP.hide()
 	$Panel/MP.hide()
-	if potion:
-		$Panel/Sprite.frame = 60
-	else:
-		$Panel/Sprite.frame = action.frame_id
+	$Panel/Info/Dodge.hide()
+	$Panel/Info/Hide.hide()
+	$Panel/Info/Lifesteal.hide()
+	$Panel/Info/Weak.hide()
+	$Panel/Info/Poison.hide()
+	$Panel/Info/Blind.hide()
+
+	if potion: $Panel/Sprite.frame = 60
+	else: $Panel/Sprite.frame = action.frame_id
 	$Panel/Title.text = action.name
 	var description = action.description
 	$Panel/Type.text = description[0]
 	$Panel/Description.text = description[1]
 	var rarity: = ""
-	for _i in range(action.rarity):
-		rarity += "*"
+	for _i in range(action.rarity): rarity += "*"
 	$Panel/Rarity.text = rarity
-	if action.drop:
-		$Panel/Info/Drop.show()
-	else:
-		$Panel/Info/Drop.hide()
-	if action.fade:
-		$Panel/Info/Fade.show()
-	else:
-		$Panel/Info/Fade.hide()
-	if action.consume:
-		$Panel/Info/Consume.show()
-	else:
-		$Panel/Info/Consume.hide()
-	if action.penetrate:
-		$Panel/Info/Penetrate.show()
-	else:
-		$Panel/Info/Penetrate.hide()
+	if action.drop: $Panel/Info/Drop.show()
+	else: $Panel/Info/Drop.hide()
+	if action.fade: $Panel/Info/Fade.show()
+	else: $Panel/Info/Fade.hide()
+	if action.consume: $Panel/Info/Consume.show()
+	else: $Panel/Info/Consume.hide()
+	if action.penetrate: $Panel/Info/Penetrate.show()
+	else: $Panel/Info/Penetrate.hide()
 	if action.impact > 0:
 		$Panel/Info/Impact.show()
 		var text = "Impact x%imp [color=#88cac7b8]Gain %impx damage bonus from Power."
 		text = text.replace("%imp", str(action.impact))
 		$Panel/Info/Impact/Label.bbcode_text = text
-	else:
-		$Panel/Info/Impact.hide()
+	else: $Panel/Info/Impact.hide()
 
-	if action.extra_action != null:
-		pass
+	# BUFFS
+	if action.gain_buffs.size() > 0:
+		for item in action.gain_buffs:
+			var buff = item[0] as Buff
+			if buff.name == "Dodge": $Panel/Info/Dodge.show()
+			elif buff.name == "Hide": $Panel/Info/Hide.show()
+			elif buff.name == "Lifesteal": $Panel/Info/Lifesteal.show()
+
+	# DEBUFFS
+	if action.inflict_debuffs.size() > 0:
+		for item in action.inflict_debuffs:
+			var debuff = item[0] as Buff
+			if debuff.name == "Weak": $Panel/Info/Weak.show()
+			elif debuff.name == "Poison": $Panel/Info/Poison.show()
+			elif debuff.name == "Blind": $Panel/Info/Blind.show()
 
 	if !potion:
 		if have > 0:

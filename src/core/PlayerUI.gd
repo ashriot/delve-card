@@ -23,15 +23,13 @@ onready var animation_player = $Player/AnimationPlayer
 var SAVE_KEY: String = "player"
 
 var player: Actor
-var profile_name: String
 
 func initialize(game) -> void:
 	player = game.player
-	profile_name = game.core_data.profile_name
 	connect("show_card", game, "show_card")
 	connect("hide_card", game, "hide_card")
 	connect("open_deck", game, "open_deck")
-	job_title.text = profile_name + " the " + player.name
+	job_title.text = player.name
 	portrait.frame = player.portrait_id
 	item_belt.init_ui(self)
 	trinket_belt.initialize(self)

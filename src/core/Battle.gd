@@ -82,11 +82,11 @@ func _on_Enemy_ended_turn():
 
 func _on_Enemy_used_action(action: Action):
 	if action.target_type == Action.TargetType.OPPONENT:
-		var miss_chance: = 0.0
-		if enemyUI.has_debuff("Blind"):
-			enemyUI.reduce_debuff("Blind")
-			miss_chance += 0.5
 		for x in action.hits:
+			var miss_chance: = 0.0
+			if enemyUI.has_debuff("Blind"):
+				enemyUI.reduce_debuff("Blind")
+				miss_chance += 0.5
 			var damage = action.damage * (1 + enemyUI.damage_multiplier) \
 				+ (enemyUI.added_damage)
 			var missed = playerUI.take_hit(action, damage, miss_chance)

@@ -189,12 +189,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ColorRect" type="Panel" parent="Instakill"]
+[node name="Panel" type="Panel" parent="Instakill"]
 show_behind_parent = true
 margin_left = -2.0
 margin_top = -2.0
 margin_right = 13.0
 margin_bottom = 13.0
+mouse_filter = 2
 __meta__ = {
 "_edit_lock_": true,
 "_edit_use_anchors_": false

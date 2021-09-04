@@ -85,6 +85,8 @@ func discard(end_of_turn: bool) -> void:
 	yield(animationPlayer, "animation_finished")
 	if !end_of_turn:
 		if action.name == "Lucky Dice": emit_signal("draw_cards", action, action.drawX + 1)
+		if action.name == "Lucky Ring": player.take_healing(6, "HP")
+		if action.name == "Lucky Bandana": player.take_healing(3, "ST")
 		if action.name == "Lucky Knife":
 			create_effect(enemy.global_position, "hit")
 			yield(self, "inflict_hit")
@@ -150,9 +152,15 @@ func update_data() -> void:
 	if first_striking() and action.first_strike:
 		emphasis.show()
 		if action.name == "Gleaming Knife": damage *= 2
+		elif action.name == "Dismantle": damage = max(enemy.ac, damage * 2)
+	else:
+		if action.name == "Dismantle": damage = max(enemy.ac, damage)
 	if player.has_buff("Dodge"):
 		if action.name == "Keen Eye": emphasis.show()
-		if action.name == "Secret Knife":
+		elif action.name == "Reverse Step":
+			emphasis.show()
+			damage = player.get_buff_stacks("Dodge")
+		elif action.name == "Secret Knife":
 			emphasis.show()
 			damage = action.damage * 2
 	if enemy.has_debuff("Poison"):
@@ -291,7 +299,9 @@ func execute() -> void:
 				else:
 					enemy.gain_debuff(burn_debuff, 10)
 			elif action.name == "Glass Knife": damage = randi() % damage + damage
-			elif action.name == "Dismantle": damage = enemy.ac
+			elif action.name == "Dismantle":
+				if first_striking(): damage = max(enemy.ac, action.damage * 2)
+				else: damage = max(enemy.ac, action.damage)
 			elif action.name == "Shield Slam":
 				damage = player.ac
 				player.ac /= 2
@@ -351,7 +361,8 @@ func execute() -> void:
 					yield(self, "anim_finished")
 				else:
 					yield(get_tree().create_timer(0.1), "timeout")
-		if player.has_buff("Lifesteal") and action.damage > 0:
+		if player.has_buff("Lifesteal") and action.damage > 0 \
+			and action.action_type == Action.ActionType.WEAPON:
 			player.reduce_buff("Lifesteal")
 		if player.has_buff("Aim") and action.damage > 0:
 			player.reduce_buff("Aim")
@@ -365,8 +376,8 @@ func execute() -> void:
 		check_effects()
 		var damage = action.damage
 		if action.name == "Shadow Cloak": damage *= mp_spent
-		if action.name == "Brilliant Crystal": damage = min(player.mp, 30)
-		if action.name == "Armor Up": damage = min(player.ac, 30)
+		elif action.name == "Brilliant Crystal": damage = min(player.mp, 30)
+		elif action.name == "Armor Up": damage = min(player.ac, 30)
 		if first_striking():
 			if action.name == "Steal Gold":
 				damage = randi() % 6 + 5
@@ -380,8 +391,11 @@ func execute() -> void:
 			if action.name == "Brace":
 				damage = amt * 5
 				player.remove_buff("Dodge")
-			if action.name == "Mind Games":
+			elif action.name == "Mind Games":
 				damage = amt * 4
+				player.remove_buff("Dodge")
+			elif action.name == "Reverse Step":
+				damage = amt
 				player.remove_buff("Dodge")
 
 		if damage > 0:

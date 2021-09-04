@@ -212,6 +212,7 @@ __meta__ = {
 }
 
 [node name="Drop" type="Panel" parent="Panel/Info"]
+visible = false
 margin_right = 108.0
 margin_bottom = 18.0
 rect_min_size = Vector2( 108, 18 )
@@ -227,14 +228,14 @@ margin_left = 3.0
 margin_top = 2.0
 margin_right = 1.0
 bbcode_enabled = true
-bbcode_text = "Drop. [color=#88cac7b8]Remove for remainder of the battle."
-text = "Drop. Remove for remainder of the battle."
+bbcode_text = "Drop. [color=#88cac7b8]Remove for remainder of the battle when used."
+text = "Drop. Remove for remainder of the battle when used."
 scroll_active = false
 
 [node name="Fade" type="Panel" parent="Panel/Info"]
-margin_top = 17.0
+visible = false
 margin_right = 108.0
-margin_bottom = 35.0
+margin_bottom = 18.0
 rect_min_size = Vector2( 108, 18 )
 __meta__ = {
 "_edit_group_": true,
@@ -256,9 +257,9 @@ __meta__ = {
 }
 
 [node name="Consume" type="Panel" parent="Panel/Info"]
-margin_top = 34.0
+visible = false
 margin_right = 108.0
-margin_bottom = 52.0
+margin_bottom = 18.0
 rect_min_size = Vector2( 108, 18 )
 __meta__ = {
 "_edit_group_": true,
@@ -272,14 +273,14 @@ margin_left = 3.0
 margin_top = 2.0
 margin_right = 1.0
 bbcode_enabled = true
-bbcode_text = "Consume. [color=#88cac7b8]Permanently remove."
-text = "Consume. Permanently remove."
+bbcode_text = "Consume. [color=#88cac7b8]Permanently remove when used."
+text = "Consume. Permanently remove when used."
 scroll_active = false
 
 [node name="Penetrate" type="Panel" parent="Panel/Info"]
-margin_top = 51.0
+visible = false
 margin_right = 108.0
-margin_bottom = 69.0
+margin_bottom = 18.0
 rect_min_size = Vector2( 108, 18 )
 __meta__ = {
 "_edit_group_": true,
@@ -298,9 +299,9 @@ text = "Penetrate. Damage ignores enemy AC."
 scroll_active = false
 
 [node name="Impact" type="Panel" parent="Panel/Info"]
-margin_top = 68.0
+visible = false
 margin_right = 108.0
-margin_bottom = 86.0
+margin_bottom = 18.0
 rect_min_size = Vector2( 108, 18 )
 __meta__ = {
 "_edit_group_": true,
@@ -314,14 +315,90 @@ margin_left = 3.0
 margin_top = 2.0
 margin_right = 1.0
 bbcode_enabled = true
-bbcode_text = "Impact x%imp [color=#88cac7b8]Gain %impx damage bonus from Power."
-text = "Impact x%imp Gain %impx damage bonus from Power."
+bbcode_text = "Impact x%imp. [color=#88cac7b8]Gain %impx damage bonus from Power."
+text = "Impact x%imp. Gain %impx damage bonus from Power."
 scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Dodge" type="Panel" parent="Panel/Info"]
+visible = false
+margin_right = 108.0
+margin_bottom = 18.0
+rect_min_size = Vector2( 108, 18 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="RichTextLabel" parent="Panel/Info/Dodge"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 2.0
+margin_right = 1.0
+bbcode_enabled = true
+bbcode_text = "Dodge. [color=#88cac7b8]50% chance to avoid next hit."
+text = "Dodge. 50% chance to avoid next hit."
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Hide" type="Panel" parent="Panel/Info"]
+visible = false
+margin_right = 108.0
+margin_bottom = 18.0
+rect_min_size = Vector2( 108, 18 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="RichTextLabel" parent="Panel/Info/Hide"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 2.0
+margin_right = 1.0
+bbcode_enabled = true
+bbcode_text = "Hide. [color=#88cac7b8]Next action, trigger First Strike, if able."
+text = "Hide. Next action, trigger First Strike, if able."
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Lifesteal" type="Panel" parent="Panel/Info"]
+visible = false
+margin_top = 17.0
+margin_right = 108.0
+margin_bottom = 35.0
+rect_min_size = Vector2( 108, 18 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="RichTextLabel" parent="Panel/Info/Lifesteal"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 2.0
+margin_right = 1.0
+bbcode_enabled = true
+bbcode_text = "Lifesteal. [color=#88cac7b8]Next weapon, heal 50% of damage dealt."
+text = "Lifesteal. Next weapon, heal 50% of damage dealt."
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Weak" type="Panel" parent="Panel/Info"]
-margin_top = 85.0
+visible = false
 margin_right = 108.0
-margin_bottom = 103.0
+margin_bottom = 18.0
 rect_min_size = Vector2( 108, 18 )
 __meta__ = {
 "_edit_group_": true,
@@ -335,8 +412,56 @@ margin_left = 3.0
 margin_top = 2.0
 margin_right = 1.0
 bbcode_enabled = true
-bbcode_text = "Weak [color=#88cac7b8]Enemy deals 25% less damage next turn."
-text = "Weak Enemy deals 25% less damage next turn."
+bbcode_text = "Weak. [color=#88cac7b8]Enemy deals 25% less damage next turn."
+text = "Weak. Enemy deals 25% less damage next turn."
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Poison" type="Panel" parent="Panel/Info"]
+visible = false
+margin_right = 108.0
+margin_bottom = 18.0
+rect_min_size = Vector2( 108, 18 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="RichTextLabel" parent="Panel/Info/Poison"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 2.0
+margin_right = 1.0
+bbcode_enabled = true
+bbcode_text = "Poison. [color=#88cac7b8]Lose 10% HP each turn."
+text = "Poison. Lose 10% HP each turn."
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Blind" type="Panel" parent="Panel/Info"]
+visible = false
+margin_right = 108.0
+margin_bottom = 18.0
+rect_min_size = Vector2( 108, 18 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="RichTextLabel" parent="Panel/Info/Blind"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 2.0
+margin_right = 1.0
+bbcode_enabled = true
+bbcode_text = "Blind. [color=#88cac7b8]Next hit has a 50% chance to miss."
+text = "Blind. Next hit has a 50% chance to miss."
 scroll_active = false
 __meta__ = {
 "_edit_use_anchors_": false

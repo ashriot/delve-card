@@ -5,6 +5,6 @@
 [resource]
 script = ExtResource( 1 )
 name = "Lifesteal"
-description = "This turn, gain HP equal to 50% of the damage of your next attack."
+description = "This turn, gain HP equal to 50% of the damage of your next weapon used."
 fades_per_turn = true
 frame_id = 124

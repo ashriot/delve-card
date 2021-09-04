@@ -1,21 +1,21 @@
 [gd_resource type="Resource" load_steps=3 format=2]
 
 [ext_resource path="res://resources/actions/res/action.gd" type="Script" id=1]
-[ext_resource path="res://resources/actions/buffs/hide.tres" type="Resource" id=2]
+[ext_resource path="res://assets/animations/Dagger.tscn" type="PackedScene" id=2]
 
 [resource]
 script = ExtResource( 1 )
-name = "Hide"
-description = "Gain 1 Hide."
-rarity = 3
+name = "Hidden Knife"
+description = "Deals %damage damage or %dx2 if this is the only action in your hand."
+rarity = 4
 upgraded = false
-action_type = 3
-target_type = 0
+action_type = 0
+target_type = 1
 cost_type = 3
-cost = 1
+cost = 0
 healing = false
 damage_type = 0
-damage = 0
+damage = 6
 hits = 1
 crit_chance = 0.0
 penetrate = false
@@ -29,8 +29,9 @@ first_strike = false
 drop = false
 fade = false
 consume = false
-frame_id = 0
-gain_buffs = [ [ ExtResource( 2 ), 1 ] ]
+frame_id = 20
+fx = ExtResource( 2 )
+gain_buffs = [  ]
 gain_debuffs = [  ]
 inflict_debuffs = [  ]
 inflict_buffs = [  ]

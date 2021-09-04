@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://src/core/Loot.gd" type="Script" id=1]
 [ext_resource path="res://assets/images/ui/coin.png" type="Texture" id=2]
@@ -8,7 +8,7 @@ resource_name = "Blink"
 length = 1.4
 loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath(".:color")
+tracks/0/path = NodePath(".:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -17,7 +17,24 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.5, 1.2 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Color( 0.145098, 0.145098, 0.133333, 0 ), Color( 0.145098, 0.145098, 0.133333, 1 ), Color( 0.145098, 0.145098, 0.133333, 0 ) ]
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "Blink"
+length = 1.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
 [node name="Loot" type="Node2D"]
@@ -46,26 +63,32 @@ margin_top = -3.0
 margin_right = -1.0
 margin_bottom = 11.0
 text = "Choose a Reward"
+align = 1
 __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
 }
 
-[node name="ColorRect" type="ColorRect" parent="BG/Banner/Choose"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="BG/Banner/Choose"]
+autoplay = "Blink"
+anims/Blink = SubResource( 1 )
+
+[node name="Choose2" type="Label" parent="BG/Banner"]
 anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 2.0
-margin_top = 3.0
-margin_right = -9.0
-margin_bottom = -3.0
-color = Color( 0.145098, 0.145098, 0.133333, 0 )
+margin_left = -1.0
+margin_top = -3.0
+margin_right = -1.0
+margin_bottom = 11.0
+text = "Choose a Reward"
+align = 1
 __meta__ = {
+"_edit_group_": true,
 "_edit_use_anchors_": false
 }
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="BG/Banner/Choose/ColorRect"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="BG/Banner/Choose2"]
 autoplay = "Blink"
-anims/Blink = SubResource( 1 )
+anims/Blink = SubResource( 2 )
 
 [node name="Choices" type="VBoxContainer" parent="BG"]
 margin_left = 2.0
@@ -80,9 +103,9 @@ __meta__ = {
 
 [node name="Finished" type="Button" parent="BG"]
 margin_left = 17.0
-margin_top = 110.0
+margin_top = 107.0
 margin_right = 91.0
-margin_bottom = 125.0
+margin_bottom = 122.0
 text = "Finished"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -102,7 +125,9 @@ __meta__ = {
 }
 
 [node name="Sprite" type="Sprite" parent="BG/Gold"]
+self_modulate = Color( 0.788235, 0.776471, 0.717647, 1 )
 position = Vector2( 29, 5 )
 texture = ExtResource( 2 )
 centered = false
+
 [connection signal="pressed" from="BG/Finished" to="." method="_on_Finished_pressed"]
