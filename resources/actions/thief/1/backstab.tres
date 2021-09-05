@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource( 1 )
 name = "Backstab"
-description = "Deal %damage + %damage damage for each weapon attack used this turn."
+description = "Deal %damage + %damage damage for each Weapon used this turn."
 rarity = 1
 upgraded = false
 action_type = 3

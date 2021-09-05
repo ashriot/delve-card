@@ -104,9 +104,9 @@ __meta__ = {
 
 [node name="ScrollContainer" type="ScrollContainer" parent="DeckViewer/InputBlock"]
 margin_left = 2.0
-margin_top = 10.0
+margin_top = 11.0
 margin_right = 108.0
-margin_bottom = 172.0
+margin_bottom = 173.0
 scroll_horizontal_enabled = false
 __meta__ = {
 "_edit_use_anchors_": false
@@ -117,5 +117,62 @@ custom_constants/separation = 2
 
 [node name="Tween" type="Tween" parent="DeckViewer"]
 
+[node name="DiscardViewer" type="Node2D" parent="."]
+position = Vector2( 124, 0 )
+
+[node name="InputBlock" type="ColorRect" parent="DiscardViewer"]
+margin_right = 108.0
+margin_bottom = 192.0
+color = Color( 0, 0, 0, 0.882353 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Banner" type="ColorRect" parent="DiscardViewer/InputBlock"]
+anchor_right = 1.0
+margin_bottom = 9.0
+color = Color( 0.145098, 0.145098, 0.133333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Banner" type="Label" parent="DiscardViewer/InputBlock/Banner"]
+margin_left = -1.0
+margin_top = -3.0
+margin_right = 73.0
+margin_bottom = 11.0
+text = "Current Discard (XX)"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DiscardClose" type="Button" parent="DiscardViewer/InputBlock"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = -17.0
+margin_right = 106.0
+margin_bottom = -2.0
+text = "Close"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScrollContainer" type="ScrollContainer" parent="DiscardViewer/InputBlock"]
+margin_left = 2.0
+margin_top = 11.0
+margin_right = 108.0
+margin_bottom = 173.0
+scroll_horizontal_enabled = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Deck" type="VBoxContainer" parent="DiscardViewer/InputBlock/ScrollContainer"]
+custom_constants/separation = 2
+
+[node name="Tween" type="Tween" parent="DiscardViewer"]
+
 [connection signal="pressed" from="EndTurn" to="." method="_on_EndTurn_pressed"]
 [connection signal="button_up" from="DeckViewer/InputBlock/Close" to="." method="_on_Close_button_up"]
+[connection signal="pressed" from="DiscardViewer/InputBlock/DiscardClose" to="." method="_on_DiscardClose_pressed"]

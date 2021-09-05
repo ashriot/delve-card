@@ -3,6 +3,7 @@ class_name ActionButton
 
 var FloatingText = preload("res://assets/animations/FloatingText.tscn")
 var burn_debuff = preload("res://resources/actions/debuffs/burn.tres")
+var poison_debuff = preload("res://resources/actions/debuffs/poison.tres")
 
 signal inflict_hit
 signal inflict_effect
@@ -47,6 +48,7 @@ func initialize(_actions, _action: Action, _player: Player, _enemy: Enemy) -> vo
 	action = _action
 	player = _player
 	enemy = _enemy
+	$Button.modulate.a = 1
 	$Button/AP.hide()
 	$Button/MP.hide()
 	$Button/Emphasis.hide()
@@ -69,6 +71,12 @@ func show() -> void:
 	yield(animationPlayer, "animation_finished")
 	played = false
 	update_data()
+
+func instant_show() -> void:
+	$Button.rect_position.x = 0
+	$Button.rect_position.y = 2
+	modulate.a = 1
+	$Button.modulate.a = 1
 
 func gain() -> void:
 	modulate.a = 1
@@ -98,7 +106,7 @@ func discard(end_of_turn: bool) -> void:
 
 func update_data() -> void:
 	emphasis.hide()
-	modulate.a = 1.0
+	modulate.a = 1
 	get_action_hits()
 	if action.action_type == Action.ActionType.INJURY and !played:
 		modulate.a = 0.4
@@ -282,6 +290,10 @@ func execute() -> void:
 					AudioController.play_sfx("gleam")
 					player.reduce_buff("Parry")
 					parried = true
+		var serpent = false
+		if player.has_buff("Serpent Oil") and action.action_type == Action.ActionType.WEAPON:
+			serpent = true
+			player.reduce_buff("Serpent Oil")
 		for hit in hits:
 			if enemy.dead: break
 			if action.name == "Mana Storm": player.mp -= action.cost
@@ -316,28 +328,34 @@ func execute() -> void:
 			if first_striking():
 				if action.name == "Gleaming Knife": damage *= 2
 			if damage > 0:
-				var bonus = 0
-				var roll = randf()
-				var crit_mod = 0
-				if action.impact > 0:
-					bonus += player.added_damage * (action.impact - 1)
-				if enemy.has_debuff("Burn"):
-					if action.name == "Fireball": bonus += 6
-					elif action.name == "Combust": bonus += 12
-					elif action.name == "Ember Knife": crit_mod = 1
-				if enemy.has_debuff("Poison"):
-					if action.name == "Snake Knife": crit_mod = 1
-				if player.has_buff("Aim"): crit_mod += 0.5
-				var crit = roll < min(crit_mod + action.crit_chance, 1)
-				if action.name == "Hidden Knife": if actions.hand_count == 0: damage *= 2
-				if action.name == "Shadow Bolt": damage *= mp_spent
-				if action.name == "Drown": damage += clamp(player.mp, 0, 30)
-				damage += (bonus + player.added_damage + added_damage) * \
-					(1 + weapon_multiplier + player.weapon_multiplier)
-				damage *= (2 if crit else 1)
-				if action.name == "Silver Claws" and crit:
-					player.take_healing(1, "ST")
-				damage *= (1 - enemy.damage_reduction)
+				var crit = 0
+				var dodge = false
+				if enemy.has_buff("Dodge") and !action.undodgeable:
+					enemy.reduce_buff("Dodge")
+					if randf() < 0.5: dodge = true
+				if !dodge:
+					var bonus = 0
+					var roll = randf()
+					var crit_mod = 0
+					if player.has_buff("Aim"): crit_mod += 0.5
+					if action.impact > 0: bonus += player.added_damage * (action.impact - 1)
+					if serpent: enemy.gain_debuff(poison_debuff, 1)
+					if enemy.has_debuff("Burn"):
+						if action.name == "Fireball": bonus += 6
+						elif action.name == "Combust": bonus += 12
+						elif action.name == "Ember Knife": crit_mod = 1
+					if enemy.has_debuff("Poison"): if action.name == "Snake Knife": crit_mod = 1
+					crit = roll < min(crit_mod + action.crit_chance, 1)
+					if action.name == "Hidden Knife": if actions.hand_count == 0: damage *= 2
+					if action.name == "Shadow Bolt": damage *= mp_spent
+					if action.name == "Drown": damage += clamp(player.mp, 0, 30)
+					damage += (bonus + player.added_damage + added_damage) * \
+						(1 + weapon_multiplier + player.weapon_multiplier)
+					damage *= (2 if crit else 1)
+					if action.name == "Silver Claws" and crit:
+						player.take_healing(1, "ST")
+					damage *= (1 - enemy.damage_reduction)
+				else: damage = 0
 				enemy.take_hit(action, damage, crit)
 				var lifesteal = 0
 				if player.has_buff("Lifesteal"): lifesteal += damage / 2

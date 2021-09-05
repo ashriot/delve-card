@@ -171,6 +171,10 @@ func _on_DeckBtn_pressed():
 	AudioController.click()
 	actions.show_deck_viewer()
 
+func _on_GraveyardBtn_pressed():
+	AudioController.click()
+	actions.show_discard_viewer()
+
 func _on_Instakill_pressed():
 	enemyUI.die()
 

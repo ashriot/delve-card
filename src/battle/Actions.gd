@@ -30,9 +30,11 @@ onready var pos3: = $Hand/Pos3
 onready var pos4: = $Hand/Pos4
 onready var pos5: = $Hand/Pos5
 onready var deck_viewer: = $DeckViewer
+onready var graveyard_viewer: = $DiscardViewer
 onready var deck_tween = $DeckViewer/Tween
+onready var graveyard_tween = $DiscardViewer/Tween
 onready var deck: = $DeckViewer/InputBlock/ScrollContainer/Deck
-onready var graveyard: = $Graveyard
+onready var graveyard: = $DiscardViewer/InputBlock/ScrollContainer/Deck
 onready var limbo: = $Limbo
 onready var item_belt: = $ItemAnchor/ItemBelt
 onready var end_turn_btn: = $EndTurn
@@ -458,6 +460,32 @@ func _on_Close_button_up():
 	deck_viewer.modulate.a = 0
 	deck_viewer.global_position = Vector2(-112, 0)
 
+func show_discard_viewer() -> void:
+	$DiscardViewer/InputBlock/Banner/Banner.text = \
+		"Discard Pile (" + str(graveyard_count) + ")"
+	if graveyard_tween.is_active(): return
+	AudioController.click()
+	graveyard_viewer.global_position = Vector2.ZERO
+	graveyard_tween.interpolate_property(graveyard_viewer, "modulate",
+		Color(modulate.r, modulate.g, modulate.b, 0),
+		Color(modulate.r, modulate.g, modulate.b, 1),
+		0.2, Tween.TRANS_LINEAR, Tween.EASE_OUT)
+	graveyard_tween.start()
+	for child in graveyard.get_children():
+		child.instant_show()
+	yield(graveyard_tween, "tween_all_completed")
+
+func _on_DiscardClose_pressed():
+	if graveyard_tween.is_active(): return
+	AudioController.back()
+	graveyard_tween.interpolate_property(graveyard_viewer, "modulate",
+		Color(modulate.r, modulate.g, modulate.b, 1),
+		Color(modulate.r, modulate.g, modulate.b, 0),
+		0.2, Tween.TRANS_LINEAR, Tween.EASE_OUT)
+	graveyard_tween.start()
+	yield(graveyard_tween, "tween_all_completed")
+	graveyard_viewer.modulate.a = 0
+	graveyard_viewer.global_position = Vector2(125, 0)
 
 func _on_EndTurn_pressed():
 	AudioController.click()

@@ -72,6 +72,53 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Player" parent="." instance=ExtResource( 2 )]
+position = Vector2( 55, 72 )
+
+[node name="Enemy" parent="." instance=ExtResource( 1 )]
+position = Vector2( 54, 35 )
+
+[node name="Instakill" type="TextureButton" parent="."]
+margin_left = 2.0
+margin_top = 31.0
+margin_right = 13.0
+margin_bottom = 42.0
+texture_normal = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="Instakill"]
+show_behind_parent = true
+margin_left = -2.0
+margin_top = -2.0
+margin_right = 13.0
+margin_bottom = 13.0
+mouse_filter = 2
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Banner" type="ColorRect" parent="."]
+margin_right = 108.0
+margin_bottom = 9.0
+color = Color( 0.145098, 0.145098, 0.133333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Banner"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -3.0
+margin_bottom = 2.0
+text = "Lv. 99 Monster"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="DeckBtn" type="Button" parent="."]
 margin_left = 2.0
 margin_top = 62.0
@@ -88,6 +135,7 @@ margin_left = -1.0
 margin_top = -1.0
 margin_right = 14.0
 margin_bottom = 20.0
+mouse_filter = 2
 color = Color( 0.145098, 0.145098, 0.133333, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -134,6 +182,7 @@ margin_left = -1.0
 margin_top = -1.0
 margin_right = 14.0
 margin_bottom = 20.0
+mouse_filter = 2
 color = Color( 0.145098, 0.145098, 0.133333, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -152,54 +201,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Player" parent="." instance=ExtResource( 2 )]
-position = Vector2( 55, 72 )
-
-[node name="Enemy" parent="." instance=ExtResource( 1 )]
-position = Vector2( 54, 35 )
-
-[node name="Banner" type="ColorRect" parent="."]
-margin_right = 108.0
-margin_bottom = 9.0
-color = Color( 0.145098, 0.145098, 0.133333, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="Banner"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = -3.0
-margin_bottom = 2.0
-text = "Lv. 99 Monster"
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="Actions" parent="." instance=ExtResource( 6 )]
-
-[node name="Instakill" type="TextureButton" parent="."]
-margin_left = 2.0
-margin_top = 31.0
-margin_right = 13.0
-margin_bottom = 42.0
-texture_normal = ExtResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Panel" type="Panel" parent="Instakill"]
-show_behind_parent = true
-margin_left = -2.0
-margin_top = -2.0
-margin_right = 13.0
-margin_bottom = 13.0
-mouse_filter = 2
-__meta__ = {
-"_edit_lock_": true,
-"_edit_use_anchors_": false
-}
 
 [node name="Trinket" type="Sprite" parent="."]
 modulate = Color( 0.447059, 0.435294, 0.419608, 0 )
@@ -218,7 +220,6 @@ anims/Show = SubResource( 2 )
 visible = false
 
 [connection signal="start_turn" from="." to="Actions" method="_on_Battle_start_turn"]
-[connection signal="pressed" from="DeckBtn" to="." method="_on_DeckBtn_pressed"]
 [connection signal="add_to_deck" from="Player" to="Actions" method="_on_Player_add_to_deck"]
 [connection signal="add_to_discard" from="Player" to="Actions" method="_on_Player_add_to_discard"]
 [connection signal="apply_buff" from="Player" to="Actions" method="_on_Player_apply_buff"]
@@ -235,6 +236,8 @@ visible = false
 [connection signal="show_info" from="Enemy" to="." method="_on_Enemy_show_info"]
 [connection signal="show_intent" from="Enemy" to="." method="_on_Enemy_show_intent"]
 [connection signal="used_action" from="Enemy" to="." method="_on_Enemy_used_action"]
+[connection signal="pressed" from="Instakill" to="." method="_on_Instakill_pressed"]
+[connection signal="pressed" from="DeckBtn" to="." method="_on_DeckBtn_pressed"]
+[connection signal="pressed" from="GraveyardBtn" to="." method="_on_GraveyardBtn_pressed"]
 [connection signal="discarded_x" from="Actions" to="Player" method="_on_Actions_discarded_x"]
 [connection signal="ended_turn" from="Actions" to="." method="_on_Actions_ended_turn"]
-[connection signal="pressed" from="Instakill" to="." method="_on_Instakill_pressed"]

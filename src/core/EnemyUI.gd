@@ -187,19 +187,13 @@ func take_healing(amount: int, type) -> void:
 
 func take_hit(action: Action, damage: int, crit: bool) -> void:
 	if self.dead: return
-	var dodge = false
-	if buffs.has("Dodge") and !action.undodgeable:
-		if randf() < 0.5:
-			dodge = true
-			reduce_buff("Dodge", false)
 	var mp_dmg = false
 	if action != null: mp_dmg = action.damage_type == Action.DamageType.MP
-	if action != null and action.name == "Executioner Axe" and !dodge:
+	if action != null and action.name == "Executioner Axe" and damage > 0:
 		if hp < 11:
 			self.hp = 0
 			damage = 0
 	var floating_text = FloatingText.instance()
-	if dodge: damage = 0
 	if damage > 0:
 		var dmg_text = 0
 		if action != null and !action.penetrate and !mp_dmg:
@@ -229,7 +223,7 @@ func take_hit(action: Action, damage: int, crit: bool) -> void:
 	if self.dead:
 		die()
 	else:
-		if animationPlayer.current_animation == "Idle" and !dodge:
+		if animationPlayer.current_animation == "Idle" and damage > 0:
 			animationPlayer.play("Hit")
 			yield(animationPlayer, "animation_finished")
 			animationPlayer.play("Idle")
@@ -278,7 +272,7 @@ func reduce_buffs(eot: bool) -> void:
 		for buff in buffs:
 			reduce_buff(buff, eot)
 
-func reduce_buff(buff_name: String, eot: bool) -> void:
+func reduce_buff(buff_name: String, eot: = false) -> void:
 	for child in buff_bar.get_children():
 		if child.buff_name == buff_name:
 			if eot and !child.fades_per_turn: continue

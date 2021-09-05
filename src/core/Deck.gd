@@ -62,8 +62,8 @@ func resize_cover() -> void:
 		cover.rect_position.y = 151
 	else:
 		$BG/ScrollContainer.rect_size.y = 154
-		cover.rect_size.y = 16
-		cover.rect_position.y = 167
+		cover.rect_size.y = 17
+		cover.rect_position.y = 168
 
 func fill_deck() -> void:
 	for child in deck.get_children():

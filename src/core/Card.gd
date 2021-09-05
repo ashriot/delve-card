@@ -179,6 +179,7 @@ func close() -> void:
 		animation_player.play("FadeOut")
 		yield(animation_player, "animation_finished")
 		hide()
+	else: hide()
 
 func set_pos() -> void:
 	var pos = get_global_mouse_position() as Vector2
@@ -186,3 +187,7 @@ func set_pos() -> void:
 		$Panel.rect_position.y = pos.y + 15
 	else:
 		$Panel.rect_position.y = 4
+
+
+func _on_Button_button_down():
+	close()

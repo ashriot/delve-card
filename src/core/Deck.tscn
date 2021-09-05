@@ -97,5 +97,6 @@ __meta__ = {
 
 [node name="Deck" type="VBoxContainer" parent="BG/ScrollContainer" index="0"]
 custom_constants/separation = 2
+
 [connection signal="button_up" from="BG/Action" to="." method="_on_Action_button_up"]
 [connection signal="button_up" from="BG/Close" to="." method="_on_Close_button_up"]

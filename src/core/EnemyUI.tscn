@@ -432,7 +432,7 @@ __meta__ = {
 }
 
 [node name="Sprite" type="Sprite" parent="Enemy/HP"]
-modulate = Color( 0.447059, 0.435294, 0.419608, 1 )
+modulate = Color( 0.145098, 0.145098, 0.133333, 1 )
 texture = ExtResource( 8 )
 centered = false
 
@@ -475,7 +475,7 @@ __meta__ = {
 }
 
 [node name="Sprite" type="Sprite" parent="Enemy/AC"]
-modulate = Color( 0.447059, 0.435294, 0.419608, 1 )
+modulate = Color( 0.145098, 0.145098, 0.133333, 1 )
 position = Vector2( -8, 0 )
 texture = ExtResource( 5 )
 centered = false
@@ -508,7 +508,7 @@ __meta__ = {
 }
 
 [node name="Sprite" type="Sprite" parent="Enemy/MP"]
-modulate = Color( 0.447059, 0.435294, 0.419608, 1 )
+modulate = Color( 0.145098, 0.145098, 0.133333, 1 )
 position = Vector2( -8, 0 )
 texture = ExtResource( 3 )
 centered = false
