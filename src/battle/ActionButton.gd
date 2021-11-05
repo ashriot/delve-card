@@ -105,7 +105,7 @@ func discard(end_of_turn: bool) -> void:
 	emit_signal("discarded", self)
 
 func update_data() -> void:
-	emphasis.hide()
+	$Button/Emphasis.hide()
 	modulate.a = 1
 	get_action_hits()
 	if action.action_type == Action.ActionType.INJURY and !played:
