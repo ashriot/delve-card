@@ -102,7 +102,7 @@ _global_script_classes=[ {
 "base": "ColorRect",
 "class": "Event",
 "language": "GDScript",
-"path": "res://src/events/Event.gd"
+"path": "res://resources/events/Event.gd"
 }, {
 "base": "Position2D",
 "class": "FloatingText",

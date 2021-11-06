@@ -25,7 +25,7 @@
 [ext_resource path="res://resources/player/jobs/fighter.tres" type="Resource" id=23]
 [ext_resource path="res://resources/player/jobs/thief.tres" type="Resource" id=24]
 [ext_resource path="res://src/map/TraitPicker.tscn" type="PackedScene" id=25]
-[ext_resource path="res://src/events/EventScreen.tscn" type="PackedScene" id=26]
+[ext_resource path="res://resources/events/EventScreen.tscn" type="PackedScene" id=26]
 
 [sub_resource type="Animation" id=1]
 length = 1.2
@@ -63,7 +63,9 @@ tracks/0/keys = {
 
 [sub_resource type="StyleBoxEmpty" id=11]
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="StyleBoxEmpty" id=12]
+
+[sub_resource type="Animation" id=13]
 length = 1.2
 loop = true
 tracks/0/type = "value"
@@ -78,8 +80,6 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
-
-[sub_resource type="StyleBoxEmpty" id=13]
 
 [sub_resource type="Animation" id=14]
 length = 0.2
@@ -163,6 +163,7 @@ mute = true
 jobs = [ ExtResource( 22 ), ExtResource( 23 ), ExtResource( 24 ) ]
 
 [node name="Battle" parent="." instance=ExtResource( 1 )]
+visible = false
 
 [node name="Dungeon" parent="." instance=ExtResource( 14 )]
 visible = false
@@ -372,7 +373,6 @@ __meta__ = {
 }
 
 [node name="WelcomeScreen" parent="." instance=ExtResource( 16 )]
-visible = false
 
 [node name="CharSelect" parent="." instance=ExtResource( 9 )]
 visible = false
@@ -393,12 +393,12 @@ visible = false
 visible = false
 
 [node name="PlayerUI" parent="." instance=ExtResource( 13 )]
+visible = false
 
 [node name="EventScreen" parent="." instance=ExtResource( 26 )]
 visible = false
 
 [node name="Deck" parent="." instance=ExtResource( 21 )]
-visible = false
 
 [node name="OpenGemShop" type="Button" parent="."]
 visible = false
@@ -418,13 +418,95 @@ position = Vector2( 51, 4 )
 texture = ExtResource( 10 )
 centered = false
 
+[node name="Settings" type="Control" parent="."]
+margin_right = 108.0
+margin_bottom = 192.0
+mouse_filter = 2
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Dimmer" type="ColorRect" parent="Settings"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.784314 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AutoEnd" type="Panel" parent="Settings/Dimmer"]
+anchor_right = 1.0
+margin_left = 8.0
+margin_top = 19.0
+margin_right = -8.0
+margin_bottom = 61.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Settings/Dimmer/AutoEnd"]
+margin_left = 12.0
+margin_top = 2.0
+margin_right = 71.0
+margin_bottom = 16.0
+text = "Auto-End Turn"
+
+[node name="Label2" type="Label" parent="Settings/Dimmer/AutoEnd"]
+margin_top = 14.0
+margin_right = 93.0
+margin_bottom = 46.0
+custom_colors/font_color = Color( 0.447059, 0.435294, 0.419608, 1 )
+custom_constants/line_spacing = 1
+text = "Automatically End Turn when your hand is empty."
+autowrap = true
+
+[node name="AutoEnd" type="CheckBox" parent="Settings/Dimmer/AutoEnd"]
+margin_left = 70.0
+margin_top = -2.0
+margin_right = 94.0
+margin_bottom = 22.0
+custom_styles/focus = SubResource( 7 )
+pressed = true
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="Settings/Dimmer"]
+anchor_right = 1.0
+margin_bottom = 9.0
+color = Color( 0.145098, 0.145098, 0.133333, 1 )
+
+[node name="Label" type="Label" parent="Settings/Dimmer/ColorRect"]
+margin_left = -1.0
+margin_top = -3.0
+margin_right = 37.0
+margin_bottom = 11.0
+text = "Settings"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Settings" type="TextureButton" parent="Settings"]
+margin_left = 97.0
+margin_right = 108.0
+margin_bottom = 9.0
+texture_normal = ExtResource( 11 )
+expand = true
+stretch_mode = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Title" type="Node2D" parent="."]
 visible = false
 
 [node name="ColorRect" type="ColorRect" parent="Title"]
 margin_right = 108.0
 margin_bottom = 192.0
-color = Color( 0.145098, 0.145098, 0.133333, 1 )
+color = Color( 0.152941, 0.152941, 0.152941, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -494,102 +576,20 @@ __meta__ = {
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 9.0
-custom_styles/hover = SubResource( 7 )
-custom_styles/pressed = SubResource( 8 )
-custom_styles/focus = SubResource( 9 )
-custom_styles/disabled = SubResource( 10 )
-custom_styles/normal = SubResource( 11 )
+custom_styles/hover = SubResource( 8 )
+custom_styles/pressed = SubResource( 9 )
+custom_styles/focus = SubResource( 10 )
+custom_styles/disabled = SubResource( 11 )
+custom_styles/normal = SubResource( 12 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Title"]
-anims/FlashTap = SubResource( 12 )
+anims/FlashTap = SubResource( 13 )
 
 [node name="GemShop" parent="." instance=ExtResource( 17 )]
 visible = false
-
-[node name="Settings" type="Control" parent="."]
-margin_right = 108.0
-margin_bottom = 192.0
-mouse_filter = 2
-__meta__ = {
-"_edit_lock_": true,
-"_edit_use_anchors_": false
-}
-
-[node name="Dimmer" type="ColorRect" parent="Settings"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-color = Color( 0, 0, 0, 0.784314 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="AutoEnd" type="Panel" parent="Settings/Dimmer"]
-anchor_right = 1.0
-margin_left = 8.0
-margin_top = 19.0
-margin_right = -8.0
-margin_bottom = 61.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="Settings/Dimmer/AutoEnd"]
-margin_left = 12.0
-margin_top = 2.0
-margin_right = 71.0
-margin_bottom = 16.0
-text = "Auto-End Turn"
-
-[node name="Label2" type="Label" parent="Settings/Dimmer/AutoEnd"]
-margin_top = 14.0
-margin_right = 93.0
-margin_bottom = 46.0
-custom_colors/font_color = Color( 0.447059, 0.435294, 0.419608, 1 )
-custom_constants/line_spacing = 1
-text = "Automatically End Turn when your hand is empty."
-autowrap = true
-
-[node name="AutoEnd" type="CheckBox" parent="Settings/Dimmer/AutoEnd"]
-margin_left = 70.0
-margin_top = -2.0
-margin_right = 94.0
-margin_bottom = 22.0
-custom_styles/focus = SubResource( 13 )
-pressed = true
-align = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ColorRect" type="ColorRect" parent="Settings/Dimmer"]
-anchor_right = 1.0
-margin_bottom = 9.0
-color = Color( 0.145098, 0.145098, 0.133333, 1 )
-
-[node name="Label" type="Label" parent="Settings/Dimmer/ColorRect"]
-margin_left = -1.0
-margin_top = -3.0
-margin_right = 37.0
-margin_bottom = 11.0
-text = "Settings"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Settings" type="TextureButton" parent="Settings"]
-margin_left = 97.0
-margin_right = 108.0
-margin_bottom = 9.0
-texture_normal = ExtResource( 11 )
-expand = true
-stretch_mode = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="GameOver" type="Panel" parent="."]
 visible = false
@@ -648,6 +648,7 @@ anims/FadeOut = SubResource( 15 )
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Shader" type="ColorRect" parent="CanvasLayer"]
+visible = false
 material = SubResource( 17 )
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -677,9 +678,9 @@ __meta__ = {
 [connection signal="show_card" from="Loot" to="." method="show_card"]
 [connection signal="shop_purchase" from="Shop" to="." method="_on_Shop_shop_purchase"]
 [connection signal="pressed" from="OpenGemShop" to="." method="_on_OpenGemShop_pressed"]
-[connection signal="button_up" from="Title/ColorRect/StartGame" to="." method="_on_StartGame_button_up"]
-[connection signal="buy_gems" from="GemShop" to="." method="_on_GemShop_buy_gems"]
 [connection signal="toggled" from="Settings/Dimmer/AutoEnd/AutoEnd" to="." method="_on_AutoEnd_toggled"]
 [connection signal="button_down" from="Settings/Settings" to="." method="_on_Settings_button_down"]
 [connection signal="button_up" from="Settings/Settings" to="." method="_on_Settings_button_up"]
+[connection signal="button_up" from="Title/ColorRect/StartGame" to="." method="_on_StartGame_button_up"]
+[connection signal="buy_gems" from="GemShop" to="." method="_on_GemShop_buy_gems"]
 [connection signal="button_up" from="GameOver/Restart" to="." method="_on_Restart_button_up"]

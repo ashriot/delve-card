@@ -19,6 +19,7 @@ func _ready():
 	hide()
 
 func initialize(game: Game) -> void:
+	connect("trait_choose", game, "_on_TraitPicker_trait_choose")
 	progress = game.dungeon.progress
 	perk_title.text = ""
 	perk_desc.text = ""

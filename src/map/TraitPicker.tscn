@@ -147,5 +147,6 @@ icon = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
 [connection signal="pressed" from="BG/Choose" to="." method="_on_Choose_pressed"]
 [connection signal="pressed" from="BG/Back" to="." method="_on_Back_pressed"]

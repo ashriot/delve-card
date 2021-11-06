@@ -65,13 +65,13 @@ centered = false
 
 [node name="Desc" type="Label" parent="BG"]
 anchor_right = 1.0
-margin_left = -2.0
+margin_left = -1.0
 margin_top = 6.0
-margin_right = 3.0
+margin_right = 4.0
 margin_bottom = 48.0
-custom_colors/font_color = Color( 0.6, 0.584314, 0.521569, 1 )
+custom_colors/font_color = Color( 0.588235, 0.588235, 0.588235, 1 )
 custom_constants/line_spacing = 1
-text = "In-app purchases are not necessary and only serve to help speed things up or reward the developer of the game! Thank you!"
+text = "In-app purchases are not necessary and only serve to help speed things up or reward the developer of the game. Thank you!"
 autowrap = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -104,9 +104,9 @@ __meta__ = {
 }
 
 [node name="Name" type="Label" parent="BG/VBoxContainer/Button"]
-margin_left = 11.0
+margin_left = 10.0
 margin_top = -4.0
-margin_right = 99.0
+margin_right = 98.0
 margin_bottom = 10.0
 custom_colors/font_color = Color( 0.447059, 0.435294, 0.419608, 0.701961 )
 text = "Cup of Coffee"
@@ -122,7 +122,7 @@ margin_left = 11.0
 margin_top = -11.0
 margin_right = 99.0
 margin_bottom = 3.0
-text = "+744   Find   x2"
+text = "+800   Find   x2"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -183,9 +183,9 @@ __meta__ = {
 }
 
 [node name="Name" type="Label" parent="BG/VBoxContainer/Button2"]
-margin_left = 11.0
+margin_left = 10.0
 margin_top = -4.0
-margin_right = 99.0
+margin_right = 98.0
 margin_bottom = 10.0
 custom_colors/font_color = Color( 0.447059, 0.435294, 0.419608, 0.701961 )
 text = "Gem Pile"
@@ -257,9 +257,9 @@ __meta__ = {
 }
 
 [node name="Name" type="Label" parent="BG/VBoxContainer/Button3"]
-margin_left = 11.0
+margin_left = 10.0
 margin_top = -4.0
-margin_right = 99.0
+margin_right = 98.0
 margin_bottom = 10.0
 custom_colors/font_color = Color( 0.447059, 0.435294, 0.419608, 0.701961 )
 text = "Gem Stash"
@@ -275,7 +275,7 @@ margin_left = 11.0
 margin_top = -11.0
 margin_right = 99.0
 margin_bottom = 3.0
-text = "+216"
+text = "+220"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -331,9 +331,9 @@ __meta__ = {
 }
 
 [node name="Name" type="Label" parent="BG/VBoxContainer/Button4"]
-margin_left = 11.0
+margin_left = 10.0
 margin_top = -4.0
-margin_right = 99.0
+margin_right = 98.0
 margin_bottom = 10.0
 custom_colors/font_color = Color( 0.447059, 0.435294, 0.419608, 0.701961 )
 text = "Gem Box"
@@ -405,9 +405,9 @@ __meta__ = {
 }
 
 [node name="Name" type="Label" parent="BG/VBoxContainer/Button5"]
-margin_left = 11.0
+margin_left = 10.0
 margin_top = -4.0
-margin_right = 99.0
+margin_right = 98.0
 margin_bottom = 10.0
 custom_colors/font_color = Color( 0.447059, 0.435294, 0.419608, 0.701961 )
 text = "Gem Crate"
@@ -479,9 +479,9 @@ __meta__ = {
 }
 
 [node name="Name" type="Label" parent="BG/VBoxContainer/Button6"]
-margin_left = 11.0
+margin_left = 10.0
 margin_top = -4.0
-margin_right = 99.0
+margin_right = 98.0
 margin_bottom = 10.0
 custom_colors/font_color = Color( 0.447059, 0.435294, 0.419608, 0.701961 )
 text = "Gem Bounty"
@@ -603,13 +603,13 @@ __meta__ = {
 
 [node name="Desc" type="Label" parent="BG/DonorBundles"]
 anchor_right = 1.0
-margin_left = -2.0
+margin_left = -1.0
 margin_top = 8.0
-margin_right = 4.0
+margin_right = 5.0
 margin_bottom = 64.0
-custom_colors/font_color = Color( 0.6, 0.584314, 0.521569, 1 )
+custom_colors/font_color = Color( 0.588235, 0.588235, 0.588235, 1 )
 custom_constants/line_spacing = 1
-text = "If you are really enjoying the game and want to help development, consider a Donor Bundle! All Donor Bundle items can be found during normal gameplay. Tap the ? for more info."
+text = "If you are really enjoying the game and want to help development, consider a Donor Bundle! All Donor Bundle benefits can be found during normal gameplay. Tap the ? for more info."
 autowrap = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -654,7 +654,7 @@ margin_top = -4.0
 margin_right = 98.0
 margin_bottom = 10.0
 custom_colors/font_color = Color( 0.447059, 0.435294, 0.419608, 0.701961 )
-text = "Multi-Pack"
+text = "Unlock"
 uppercase = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -679,7 +679,7 @@ margin_left = -33.0
 margin_top = -4.0
 margin_right = 4.99999
 margin_bottom = 10.0
-text = "19.99"
+text = "9.99"
 align = 2
 __meta__ = {
 "_edit_use_anchors_": false
@@ -721,7 +721,7 @@ margin_top = -4.0
 margin_right = 98.0
 margin_bottom = 10.0
 custom_colors/font_color = Color( 0.447059, 0.435294, 0.419608, 0.701961 )
-text = "Thief"
+text = "Unlock"
 uppercase = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -746,7 +746,7 @@ margin_left = -33.0
 margin_top = -4.0
 margin_right = 4.99999
 margin_bottom = 10.0
-text = "19.99"
+text = "9.99"
 align = 2
 __meta__ = {
 "_edit_use_anchors_": false
@@ -788,7 +788,7 @@ margin_top = -4.0
 margin_right = 98.0
 margin_bottom = 10.0
 custom_colors/font_color = Color( 0.447059, 0.435294, 0.419608, 0.701961 )
-text = "Sorcerer"
+text = "Unlock"
 uppercase = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -813,80 +813,13 @@ margin_left = -33.0
 margin_top = -4.0
 margin_right = 4.99999
 margin_bottom = 10.0
-text = "19.99"
+text = "9.99"
 align = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Currency" type="Label" parent="BG/DonorBundles/VBoxContainer/Button3"]
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -15.0
-margin_top = -11.0
-margin_right = 4.99998
-margin_bottom = 3.0
-text = "USD"
-align = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Button4" type="Control" parent="BG/DonorBundles/VBoxContainer"]
-margin_top = 51.0
-margin_right = 98.0
-margin_bottom = 64.0
-rect_min_size = Vector2( 98, 13 )
-
-[node name="Button" type="TextureButton" parent="BG/DonorBundles/VBoxContainer/Button4"]
-margin_right = 13.0
-margin_bottom = 13.0
-texture_normal = ExtResource( 1 )
-texture_pressed = ExtResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Desc" type="Label" parent="BG/DonorBundles/VBoxContainer/Button4"]
-margin_left = 10.0
-margin_top = -4.0
-margin_right = 98.0
-margin_bottom = 10.0
-custom_colors/font_color = Color( 0.447059, 0.435294, 0.419608, 0.701961 )
-text = "Priestess"
-uppercase = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Name" type="Label" parent="BG/DonorBundles/VBoxContainer/Button4"]
-anchor_top = 1.0
-anchor_bottom = 1.0
-margin_left = 11.0
-margin_top = -11.0
-margin_right = 99.0
-margin_bottom = 3.0
-text = "Priestess"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Price" type="Label" parent="BG/DonorBundles/VBoxContainer/Button4"]
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = -33.0
-margin_top = -4.0
-margin_right = 4.99999
-margin_bottom = 10.0
-text = "19.99"
-align = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Currency" type="Label" parent="BG/DonorBundles/VBoxContainer/Button4"]
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
@@ -939,6 +872,7 @@ __meta__ = {
 }
 
 [node name="Tween" type="Tween" parent="."]
+
 [connection signal="pressed" from="BG/Donor" to="." method="_on_Donor_pressed"]
 [connection signal="pressed" from="BG/CloseShop" to="." method="_on_CloseShop_pressed"]
 [connection signal="pressed" from="BG/DonorBundles/DonorBack" to="." method="_on_DonorBack_pressed"]

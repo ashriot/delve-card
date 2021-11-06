@@ -3,11 +3,10 @@
 [ext_resource path="res://resources/player/PerkButton.gd" type="Script" id=2]
 [ext_resource path="res://assets/images/ui/perk-tiers.png" type="Texture" id=3]
 
-
 [node name="PerkButton" type="Button"]
-margin_right = 100.0
+margin_right = 99.0
 margin_bottom = 13.0
-rect_min_size = Vector2( 100, 13 )
+rect_min_size = Vector2( 99, 13 )
 text = "Perk Name"
 script = ExtResource( 2 )
 __meta__ = {
@@ -39,17 +38,18 @@ __meta__ = {
 visible = false
 margin_left = 1.0
 margin_top = 1.0
-margin_right = 99.0
+margin_right = 98.0
 margin_bottom = 12.0
 mouse_filter = 2
-color = Color( 0.6, 0.584314, 0.521569, 1 )
+color = Color( 0.588235, 0.588235, 0.588235, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Label" type="Label" parent="Chosen"]
+margin_left = -1.0
 margin_top = -2.0
-margin_right = 98.0
+margin_right = 97.0
 margin_bottom = 12.0
 custom_colors/font_color = Color( 0.145098, 0.145098, 0.133333, 1 )
 text = "Perk Name"
@@ -59,9 +59,9 @@ __meta__ = {
 }
 
 [node name="Ranks" type="Label" parent="Chosen"]
-margin_left = 78.0
+margin_left = 77.0
 margin_top = -2.0
-margin_right = 100.0
+margin_right = 99.0
 margin_bottom = 12.0
 custom_colors/font_color = Color( 0.145098, 0.145098, 0.133333, 1 )
 text = "0/5"

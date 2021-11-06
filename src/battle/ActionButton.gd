@@ -331,8 +331,9 @@ func execute() -> void:
 				var crit = 0
 				var dodge = false
 				if enemy.has_buff("Dodge") and !action.undodgeable:
-					enemy.reduce_buff("Dodge")
-					if randf() < 0.5: dodge = true
+					if randf() < 0.5:
+						enemy.reduce_buff("Dodge")
+						dodge = true
 				if !dodge:
 					var bonus = 0
 					var roll = randf()

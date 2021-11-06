@@ -422,7 +422,6 @@ __meta__ = {
 }
 
 [node name="Perks" parent="." instance=ExtResource( 9 )]
-visible = false
 
 [node name="BG2" type="ColorRect" parent="Perks"]
 margin_right = 108.0
@@ -457,7 +456,7 @@ __meta__ = {
 }
 
 [node name="Perks" type="VBoxContainer" parent="Perks/BG2/Container"]
-margin_right = 100.0
+margin_right = 99.0
 margin_bottom = 163.0
 custom_constants/separation = 2
 __meta__ = {
@@ -541,7 +540,7 @@ margin_left = 1.0
 margin_top = 1.0
 margin_right = 103.0
 margin_bottom = 13.0
-color = Color( 0.792157, 0.780392, 0.721569, 1 )
+color = Color( 0.760784, 0.760784, 0.760784, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
