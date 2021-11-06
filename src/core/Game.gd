@@ -9,19 +9,19 @@ var close = preload("res://assets/images/ui/close_small.png")
 
 export var player: Resource
 export var rooms: int
-export var mute: = false
-export var skipping_intro: = false
+export var mute:= false
+export var skipping_intro:= false
 export(Array, Resource) var jobs
 
-onready var title: = $Title
-onready var welcome: = $WelcomeScreen
-onready var trait_picker: = $TraitPicker
-onready var battle: = $Battle
-onready var dungeon: = $Dungeon
-onready var loot: = $Loot
+onready var title:= $Title
+onready var welcome:= $WelcomeScreen
+onready var trait_picker:= $TraitPicker
+onready var battle:= $Battle
+onready var dungeon:= $Dungeon
+onready var loot:= $Loot
 onready var blacksmith = $Blacksmith
 onready var shop = $Shop
-onready var end_game: = $Endgame
+onready var end_game:= $Endgame
 onready var event = $EventScreen
 onready var fade = $Fade/AnimationPlayer
 onready var demo = $DemoScreen
@@ -34,14 +34,14 @@ onready var settings_btn = $Settings/Settings
 onready var gem_shop = $GemShop
 onready var open_gem_shop = $OpenGemShop
 
-var gems: = 0 setget set_gems
+var gems:= 0 setget set_gems
 
 var merchants: Dictionary
 var traits: Array
 
 var profile_hash: int setget, get_profile_hash
 var core_data: Resource
-var loading: = false
+var loading:= false
 
 var SAVE_DIR = "user://saves/"
 var SAVE_NAME_TEMPLATE: String = "save_%d"
@@ -50,7 +50,7 @@ var game_data = GameData.new()
 var game_seed: String = "GODOT" # randomize eventually
 
 # Settings
-var auto_end: = true
+var auto_end:= true
 
 func _ready() -> void:
 	$Title/AnimationPlayer.play("FlashTap")
@@ -414,7 +414,7 @@ func blacksmithing_deck(smith: Blacksmith) -> void:
 	deck.smithing(smith)
 	deck.show()
 
-func refresh_player(save: = true) -> void:
+func refresh_player(save:= true) -> void:
 	playerUI.refresh()
 	if save: save_game()
 

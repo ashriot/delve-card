@@ -7,12 +7,12 @@ onready var upgrade = $BG/Choices/Upgrade
 onready var destroy = $BG/Choices/Destroy
 onready var destroy_label = $BG/Choices/Destroy/Cost
 
-var upgrade_cost: = 0
-var destroy_increase: = 10
-var destroy_cost: = 0
+var upgrade_cost:= 0
+var destroy_increase:= 10
+var destroy_cost:= 0
 
-var upgrading: = false
-var destroying: = false
+var upgrading:= false
+var destroying:= false
 
 var cost: int setget , get_cost
 
@@ -31,7 +31,7 @@ func destroy_card() -> void:
 	destroy_cost += destroy_increase
 	destroy_label.text = str(destroy_cost)
 
-func show(move: = true) -> void:
+func show(move:= true) -> void:
 	$BG/Choices/Exit.mouse_filter = Control.MOUSE_FILTER_STOP
 	AudioController.click()
 	.show(move)

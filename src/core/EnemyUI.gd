@@ -16,8 +16,8 @@ signal show_intent
 signal hide_intent
 signal show_info
 
-onready var sprite: = $Enemy/Sprite
-onready var animationPlayer: = $Enemy/AnimationPlayer
+onready var sprite:= $Enemy/Sprite
+onready var animationPlayer:= $Enemy/AnimationPlayer
 onready var hp_value = $Enemy/HP/Value
 onready var hp_percent = $Enemy/HP/TextureProgress
 onready var ac_panel = $Enemy/AC
@@ -43,7 +43,7 @@ var actor: EnemyActor
 var action_to_use: Action
 var dead: bool setget , get_dead
 
-var added_damage: = 0
+var added_damage:= 0
 var damage_multiplier = 0.0 as float
 var damage_reduction = 0.0 as float
 
@@ -272,7 +272,7 @@ func reduce_buffs(eot: bool) -> void:
 		for buff in buffs:
 			reduce_buff(buff, eot)
 
-func reduce_buff(buff_name: String, eot: = false) -> void:
+func reduce_buff(buff_name: String, eot:= false) -> void:
 	for child in buff_bar.get_children():
 		if child.buff_name == buff_name:
 			if eot and !child.fades_per_turn: continue

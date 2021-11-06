@@ -1,8 +1,8 @@
 extends Button
 class_name GearButton
 
-onready var chosen: = false setget set_chosen
-onready var sprite: = $Sprite
+onready var chosen:= false setget set_chosen
+onready var sprite:= $Sprite
 
 var level_req setget, get_level_req
 var cost setget, get_cost

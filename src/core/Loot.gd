@@ -58,7 +58,7 @@ func setup(progress: int, gold_amt: int, qty: int) -> void:
 			child.initialize(action, player)
 		child.chosen = false
 
-func new_picker(progress: int, qty: int, other_classes: = false) -> Array:
+func new_picker(progress: int, qty: int, other_classes:= false) -> Array:
 	#warning-ignore:integer_division
 	var level = min((1 + progress / 2) as int, 4)
 	var loot_list = []
@@ -118,7 +118,7 @@ func remove_loot(item: String) -> void:
 		loot4.remove(loot4.find(path + "4/" + item))
 		return
 
-func get_loot(rank: int, other_classes: = false) -> Array:
+func get_loot(rank: int, other_classes:= false) -> Array:
 	var list = []
 	var path = "res://resources/actions/" + player.name.to_lower() + "/" + str(rank) + "/"
 	var files = []

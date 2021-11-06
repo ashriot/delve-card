@@ -18,15 +18,15 @@ signal show_card(action_button)
 signal hide_card
 
 onready var button = $Button
-onready var animationPlayer: = $AnimationPlayer
-onready var timer: = $Timer
-onready var emphasis: = $Button/Emphasis
+onready var animationPlayer:= $AnimationPlayer
+onready var timer:= $Timer
+onready var emphasis:= $Button/Emphasis
 
 var actions = null
 var action: Action
 var player: Player
 var enemy: Enemy
-var played: = true
+var played:= true
 
 var hp_cost: int
 var ap_cost: int setget set_ap_cost
@@ -36,12 +36,12 @@ var ap_spent: int
 #var damage: int
 var hits: int
 
-var added_damage: = 0 setget set_added_damage
-var weapon_multiplier: = 0.0 setget set_weapon_multiplier
-var spell_multiplier: = 0.0 setget set_spell_multiplier
+var added_damage:= 0 setget set_added_damage
+var weapon_multiplier:= 0.0 setget set_weapon_multiplier
+var spell_multiplier:= 0.0 setget set_spell_multiplier
 
-var hovering: = false
-var initialized: = false
+var hovering:= false
+var initialized:= false
 
 func initialize(_actions, _action: Action, _player: Player, _enemy: Enemy) -> void:
 	actions = _actions

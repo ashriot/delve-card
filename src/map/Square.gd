@@ -8,23 +8,23 @@ signal hide_tooltip
 onready var timer = $Timer
 
 export var pos: Vector2
-export var origin: = false
+export var origin:= false
 
 export var type: String
 export var enemy_name: String
-export var cleared: = false
-export var hovering: = false
+export var cleared:= false
+export var hovering:= false
 
-export var up: = Vector2.ZERO
-export var down: = Vector2.ZERO
-export var left: = Vector2.ZERO
-export var right: = Vector2.ZERO
-export var connected: = false
-export var initialized: = false
+export var up:= Vector2.ZERO
+export var down:= Vector2.ZERO
+export var left:= Vector2.ZERO
+export var right:= Vector2.ZERO
+export var connected:= false
+export var initialized:= false
 
-var connections: = 0 setget, get_connections
+var connections:= 0 setget, get_connections
 
-func initialize(_type: String, texture: Texture, _enemy_name: = "") -> void:
+func initialize(_type: String, texture: Texture, _enemy_name:= "") -> void:
 	if initialized: return
 	type = _type
 	enemy_name = _enemy_name

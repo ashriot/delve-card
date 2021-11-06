@@ -1,8 +1,8 @@
 extends Button
 class_name PerkButton
 
-onready var chosen: = false setget set_chosen
-onready var sprite: = $Sprite
+onready var chosen:= false setget set_chosen
+onready var sprite:= $Sprite
 
 var perk: Perk
 var desc: String setget , get_desc

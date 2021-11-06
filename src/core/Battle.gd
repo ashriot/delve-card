@@ -22,8 +22,8 @@ onready var trink_anim = $Trinket/AnimationPlayer
 onready var buff_card = $BuffCard
 
 var auto_end: bool
-var game_over: = false
-var initialized: = false
+var game_over:= false
+var initialized:= false
 
 func initialize(_player: Actor) -> void:
 	actions.connect("deck_count", self, "set_deck_count")
@@ -83,7 +83,7 @@ func _on_Enemy_ended_turn():
 func _on_Enemy_used_action(action: Action):
 	if action.target_type == Action.TargetType.OPPONENT:
 		for x in action.hits:
-			var miss_chance: = 0.0
+			var miss_chance:= 0.0
 			if enemyUI.has_debuff("Blind"):
 				enemyUI.reduce_debuff("Blind")
 				miss_chance += 0.5

@@ -1,15 +1,15 @@
 extends Node2D
 
-export var mute: = false
-export var vol_bgm: = 0.0
-export var vol_sfx: = 0.0
+export var mute:= false
+export var vol_bgm:= 0.0
+export var vol_sfx:= 0.0
 
-onready var bgm: = $bgm
-onready var sfx1: = $sfx1
-onready var sfx2: = $sfx2
-onready var sfx3: = $sfx3
-onready var sfx4: = $sfx4
-onready var sfx5: = $sfx5
+onready var bgm:= $bgm
+onready var sfx1:= $sfx1
+onready var sfx2:= $sfx2
+onready var sfx3:= $sfx3
+onready var sfx4:= $sfx4
+onready var sfx5:= $sfx5
 
 func _ready() -> void:
 	set_bgm_volume()

@@ -3,13 +3,13 @@ class_name FloatingText
 
 onready var tween = $Tween
 
-var gravity: = Vector2(0, 1)
-var mass: = 200
+var gravity:= Vector2(0, 1)
+var mass:= 200
 var vertical_velocity = -80
 
 var velocity: Vector2
 var text setget set_text
-var crit: = false
+var crit:= false
 
 func _ready() -> void:
 	tween.interpolate_property(self, "modulate",

@@ -7,7 +7,7 @@ signal open_deck(amt, type)
 signal show_card(btn, amt)
 signal hide_card
 
-onready var portrait: = $Portrait
+onready var portrait:= $Portrait
 onready var hp_value = $Player/Panel/HP/Value
 onready var hp_percent = $Player/Panel/HP/TextureProgress
 onready var ac_value = $Player/Panel/AC/Value

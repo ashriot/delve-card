@@ -2,7 +2,7 @@ extends Resource
 class_name Job
 
 export var name: String
-export var unlocked: = false
+export var unlocked:= false
 export(String, MULTILINE) var desc
 export var sprite_id: int
 export var max_hp: int
@@ -15,7 +15,7 @@ export var bonus_mp: int
 export var bonus_ac: int
 export var bonus_st: int
 export var bonus_gp: int
-export var level: = 1
+export var level:= 1
 export var xp: int
 
 export(Array, Resource) var actions

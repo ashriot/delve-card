@@ -37,7 +37,7 @@ func initialize(_action_button, have: int) -> void:
 	var description = action.description
 	$Panel/Type.text = description[0]
 	$Panel/Description.text = description[1]
-	var rarity: = ""
+	var rarity:= ""
 	for _i in range(action.rarity): rarity += "*"
 	$Panel/Rarity.text = rarity
 	if action.drop: $Panel/Info/Drop.show()
@@ -109,7 +109,7 @@ func init_trinket(trinket: Trinket) -> void:
 	var description = trinket.description
 	$Panel/Type.text = description[0]
 	$Panel/Description.text = description[1]
-	var rarity: = ""
+	var rarity:= ""
 	for _i in range(trinket.rarity):
 		rarity += "*"
 	$Panel/Rarity.text = rarity

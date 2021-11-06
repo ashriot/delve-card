@@ -7,9 +7,9 @@ var _TraitButton = preload("res://resources/player/TraitButton.tscn")
 
 onready var trait_list = $BG/Container/Traits
 onready var perk_title = $BG/Info/Title
-onready var perk_desc: = $BG/Info/Desc
-onready var icon: = $BG/Info/Sprite
-onready var choose: = $BG/Choose
+onready var perk_desc:= $BG/Info/Desc
+onready var icon:= $BG/Info/Sprite
+onready var choose:= $BG/Choose
 
 var traits: Array
 var selected_trait: TraitButton setget set_selected_trait

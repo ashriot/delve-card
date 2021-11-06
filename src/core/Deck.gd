@@ -6,11 +6,11 @@ signal show_card(btn, count)
 signal hide_card
 signal refresh_player
 
-onready var deck: = $BG/ScrollContainer/Deck
-onready var action: = $BG/Action
-onready var cost: = $BG/Cost
-onready var banner: = $BG/ColorRect/Banner
-onready var cover: = $BG/Cover
+onready var deck:= $BG/ScrollContainer/Deck
+onready var action:= $BG/Action
+onready var cost:= $BG/Cost
+onready var banner:= $BG/ColorRect/Banner
+onready var cover:= $BG/Cover
 
 var player: Actor
 var blacksmith: Blacksmith

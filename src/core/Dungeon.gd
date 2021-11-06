@@ -33,7 +33,7 @@ var dungeon_name: String
 var progress: int setget set_progress
 var max_prog: int
 
-var pathing: = false
+var pathing:= false
 
 func initialize(game) -> void:
 	print("dungeon.initialize()")

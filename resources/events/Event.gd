@@ -5,28 +5,28 @@ signal done
 
 export var title: String
 export(String, MULTILINE) var desc
-export var person: = -1
-export var scene: = -1 setget set_scene
-export var item: = -1
+export var person:= -1
+export var scene:= -1 setget set_scene
+export var item:= -1
 export var choice_1: String
 export var choice_2: String
 export var choice_3: String
 export var choice_4: String
 
-onready var btn1: = $Options/Choice1
-onready var btn2: = $Options/Choice2
-onready var btn3: = $Options/Choice3
-onready var btn4: = $Options/Choice4
+onready var btn1:= $Options/Choice1
+onready var btn2:= $Options/Choice2
+onready var btn3:= $Options/Choice3
+onready var btn4:= $Options/Choice4
 
-onready var hp: = $HPBanner/HP
-onready var gp: = $HPBanner/GP
+onready var hp:= $HPBanner/HP
+onready var gp:= $HPBanner/GP
 
-onready var tween: = $Desc/Tween
+onready var tween:= $Desc/Tween
 
 var playerUI: PlayerUI
 var you_frame: int
-var stage: = 0
-var gold: = 0 setget set_gold, get_gold
+var stage:= 0
+var gold:= 0 setget set_gold, get_gold
 
 func _ready():
 	print("readying event")

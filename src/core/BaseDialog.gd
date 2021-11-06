@@ -6,7 +6,7 @@ signal done
 onready var tween = $Tween
 onready var bg = $BG
 
-func show(move: = true) -> void:
+func show(move:= true) -> void:
 	.show()
 	tween.interpolate_property(self, "modulate",
 		Color(modulate.r, modulate.g, modulate.b, 0),
@@ -21,7 +21,7 @@ func show(move: = true) -> void:
 	yield(tween, "tween_all_completed")
 	emit_signal("done")
 
-func hide(move: = true) -> void:
+func hide(move:= true) -> void:
 	tween.interpolate_property(self, "modulate",
 		Color(modulate.r, modulate.g, modulate.b, 1),
 		Color(modulate.r, modulate.g, modulate.b, 0),

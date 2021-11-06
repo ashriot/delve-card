@@ -3,7 +3,7 @@ class_name TraitButton
 
 signal clicked(perk)
 
-onready var chosen: = false setget set_chosen
+onready var chosen:= false setget set_chosen
 
 var perk: Perk
 

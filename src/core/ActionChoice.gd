@@ -17,8 +17,8 @@ var damage: int
 var hits: int
 var chosen: bool setget set_chosen
 
-var hovering: = false
-var initialized: = false
+var hovering:= false
+var initialized:= false
 
 func initialize(_action: Action, _player: Actor) -> void:
 	if _action == null:

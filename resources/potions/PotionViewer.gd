@@ -6,14 +6,14 @@ signal show_card(button)
 signal hide_card
 #signal used_potion(button)
 
-onready var button: = $Button
-onready var sprite: = $Button/Sprite
-onready var timer: = $Timer
+onready var button:= $Button
+onready var sprite:= $Button/Sprite
+onready var timer:= $Timer
 
 var action: Resource
 var player: PlayerUI
-var hovering: = false
-var initialized: = false
+var hovering:= false
+var initialized:= false
 
 func initialize(_player: PlayerUI, _action: Action) -> void:
 	action = _action

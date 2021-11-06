@@ -27,29 +27,29 @@ enum DamageType {
 
 export var name: String
 export(String, MULTILINE) var description setget, get_description
-export var rarity: = 1
-export var upgraded: = false
-export(ActionType) var action_type: = ActionType.WEAPON
-export(TargetType) var target_type: = TargetType.OPPONENT
-export(DamageType) var cost_type: = DamageType.AP
-export var cost: = 0
-export var healing: = false
-export(DamageType) var damage_type: = DamageType.HP
-export var damage: = 0
-export var hits: = 1
-export var crit_chance: = 0.0
-export var penetrate: = false
-export var impact: = 0
-export var drawX: = 0
-export var discard_random_x: = 0
-export var discard_x: = 0
-export(ActionType) var draw_type: = ActionType.ANY
+export var rarity:= 1
+export var upgraded:= false
+export(ActionType) var action_type:= ActionType.WEAPON
+export(TargetType) var target_type:= TargetType.OPPONENT
+export(DamageType) var cost_type:= DamageType.AP
+export var cost:= 0
+export var healing:= false
+export(DamageType) var damage_type:= DamageType.HP
+export var damage:= 0
+export var hits:= 1
+export var crit_chance:= 0.0
+export var penetrate:= false
+export var impact:= 0
+export var drawX:= 0
+export var discard_random_x:= 0
+export var discard_x:= 0
+export(ActionType) var draw_type:= ActionType.ANY
 export var undodgeable: bool
 export var first_strike: bool
-export var drop: = false
-export var fade: = false
-export var consume: = false
-export var frame_id: = 0
+export var drop:= false
+export var fade:= false
+export var consume:= false
+export var frame_id:= 0
 export var fx: PackedScene
 export var extra_action: Resource
 export (Array, Array)var gain_buffs

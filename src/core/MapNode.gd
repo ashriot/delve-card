@@ -20,7 +20,7 @@ signal hide_tooltip
 onready var branches = $Branches
 onready var squares = $Squares
 
-var generator: = preload("res://src/map/dungeon_generation.gd").new()
+var generator:= preload("res://src/map/dungeon_generation.gd").new()
 var _Square = preload("res://src/map/Square.tscn")
 var astar: AStar2D
 var origin: Square
@@ -33,13 +33,13 @@ var max_prog: int
 var DIST = 18
 
 var dungeon = {}
-var chest_max: = 3
-var heal_max: = 3
-var event_max: = 3
-var enemy_max: = 5
-var shop_max: = 2
-var anvil_max: = 1
-var shrine_max: = 1
+var chest_max:= 3
+var heal_max:= 3
+var event_max:= 3
+var enemy_max:= 5
+var shop_max:= 2
+var anvil_max:= 1
+var shrine_max:= 1
 
 func initialize(_dungeon: Dungeon) -> void:
 	enemy_list = _dungeon.enemy_list

@@ -2,13 +2,13 @@ extends Resource
 class_name Actor
 
 export var name: String
-export var portrait_id: = 0
-export var level: = 1
-export var max_hp: = 1
-export var max_ap: = 3
-export var initial_ac: = 0
-export var initial_mp: = 0
-export var gold: = 0
+export var portrait_id:= 0
+export var level:= 1
+export var max_hp:= 1
+export var max_ap:= 3
+export var initial_ac:= 0
+export var initial_mp:= 0
+export var gold:= 0
 
 export var bonus_hp: int
 export var bonus_mp: int
@@ -26,9 +26,9 @@ export(Array, Resource) var active_perks
 
 export var hp: int setget set_hp
 
-export(Array) var trinkets: = []
-export(Array) var potions: = []
-export(Array) var actions: = []
+export(Array) var trinkets:= []
+export(Array) var potions:= []
+export(Array) var actions:= []
 
 func initialize(job: Job) -> void:
 	name = job.name

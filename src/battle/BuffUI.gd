@@ -12,7 +12,7 @@ var description: String setget, get_description
 var stacks: int setget set_stacks
 var fades_per_turn: bool
 
-var hovering: = false
+var hovering:= false
 
 func initialize(_buff: Buff, amt: int) -> void:
 	buff = _buff

@@ -8,8 +8,8 @@ signal blacksmith
 signal show_tooltip(button)
 signal hide_tooltip
 
-var row_count: = 5
-var col_count: = 7
+var row_count:= 5
+var col_count:= 7
 
 func initialize() -> void:
 	generate_map()

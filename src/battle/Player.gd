@@ -30,9 +30,9 @@ var mp: int setget set_mp
 var ap: int setget set_ap
 var dead: bool setget , get_dead
 
-var added_damage: = 0
-var weapon_multiplier: = 0.0
-var damage_reduction: = 0.0
+var added_damage:= 0
+var weapon_multiplier:= 0.0
+var damage_reduction:= 0.0
 
 var actor: Actor
 var buffs: Dictionary
@@ -91,7 +91,7 @@ func start_turn() -> void:
 	else: first_turn = false
 	emit_signal("update_enemy")
 
-func take_hit(action: Action, damage: int, miss_chance: = 0.0) -> bool:
+func take_hit(action: Action, damage: int, miss_chance:= 0.0) -> bool:
 	var floating_text = FloatingText.instance()
 	var miss = false
 	var immune = false

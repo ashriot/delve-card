@@ -9,54 +9,54 @@ var perk_icon = preload("res://assets/images/ui/talents.png")
 var gear_icon = preload("res://assets/images/ui/pack.png")
 
 # STATS
-onready var hp: = $BG/Stats/HP/Label
-onready var mp: = $BG/Stats/MP/Label
-onready var ac: = $BG/Stats/AC/Label
-onready var st: = $BG/Stats/ST/Label
-onready var gp: = $BG/Stats/GP/Label
+onready var hp:= $BG/Stats/HP/Label
+onready var mp:= $BG/Stats/MP/Label
+onready var ac:= $BG/Stats/AC/Label
+onready var st:= $BG/Stats/ST/Label
+onready var gp:= $BG/Stats/GP/Label
 
-onready var prev_btn: = $BG/Prev
-onready var next_btn: = $BG/Next
-onready var perks: = $Perks
-onready var gears: = $Gears
-onready var builds: = $Builds
-onready var gear_btn: = $BG/Gears
-onready var build_btn: = $BG/Builds
-onready var perks_list: = $Perks/BG2/Container/Perks
-onready var perks_banner: = $Perks/Banner/ClassPerks
-onready var gears_list: = $Gears/BG2/Container/Gears
-onready var gears_banner: = $Gears/Banner/ClassGears
-onready var builds_list: = $Builds/BG2/Container/Builds
-onready var builds_banner: = $Builds/Banner/ClassBuilds
-onready var perk_detail_panel: = $Perks/Details
-onready var perk_detail_title: = $Perks/Details/Title
-onready var perk_detail_desc: = $Perks/Details/Desc
-onready var perk_detail_sprite: = $Perks/Details/Title/Sprite
-onready var perk_detail_ranks: = $Perks/Details/Ranks
-onready var rank_up: = $Perks/Details/RankUp
-onready var rank_cost: = $Perks/Details/RankUp/Cost
-onready var gear_detail_panel: = $Gears/Details
-onready var gear_detail_title: = $Gears/Details/Title
-onready var gear_detail_desc: = $Gears/Details/Desc
-onready var gear_detail_sprite: = $Gears/Details/Title/Locked
-onready var gear_detail_choose: = $Gears/Details/Unlock
-onready var gear_cost: = $Gears/Details/Unlock/Cost
-onready var build_panel: = $Builds/Details
-onready var build_title: = $Builds/Details/Title
-onready var build_desc: = $Builds/Details/Desc
-onready var build_sprite: = $Builds/Details/Title/Locked
-onready var build_choose: = $Builds/Details/UnlockBuild
-onready var build_cost: = $Builds/Details/UnlockBuild/Cost
-onready var level: = $BG/XpBar/Level
-onready var xp_bar: = $BG/XpBar
-onready var xp: = $BG/XpBar/XP
-onready var job_desc: = $BG/Desc
-onready var job_sprite: = $BG/Portrait
-onready var perk_button: = $BG/Perks
-onready var perk_count: = $BG/Perks/Amt
-onready var unlock_cost: = $BG/Perks/Price
+onready var prev_btn:= $BG/Prev
+onready var next_btn:= $BG/Next
+onready var perks:= $Perks
+onready var gears:= $Gears
+onready var builds:= $Builds
+onready var gear_btn:= $BG/Gears
+onready var build_btn:= $BG/Builds
+onready var perks_list:= $Perks/BG2/Container/Perks
+onready var perks_banner:= $Perks/Banner/ClassPerks
+onready var gears_list:= $Gears/BG2/Container/Gears
+onready var gears_banner:= $Gears/Banner/ClassGears
+onready var builds_list:= $Builds/BG2/Container/Builds
+onready var builds_banner:= $Builds/Banner/ClassBuilds
+onready var perk_detail_panel:= $Perks/Details
+onready var perk_detail_title:= $Perks/Details/Title
+onready var perk_detail_desc:= $Perks/Details/Desc
+onready var perk_detail_sprite:= $Perks/Details/Title/Sprite
+onready var perk_detail_ranks:= $Perks/Details/Ranks
+onready var rank_up:= $Perks/Details/RankUp
+onready var rank_cost:= $Perks/Details/RankUp/Cost
+onready var gear_detail_panel:= $Gears/Details
+onready var gear_detail_title:= $Gears/Details/Title
+onready var gear_detail_desc:= $Gears/Details/Desc
+onready var gear_detail_sprite:= $Gears/Details/Title/Locked
+onready var gear_detail_choose:= $Gears/Details/Unlock
+onready var gear_cost:= $Gears/Details/Unlock/Cost
+onready var build_panel:= $Builds/Details
+onready var build_title:= $Builds/Details/Title
+onready var build_desc:= $Builds/Details/Desc
+onready var build_sprite:= $Builds/Details/Title/Locked
+onready var build_choose:= $Builds/Details/UnlockBuild
+onready var build_cost:= $Builds/Details/UnlockBuild/Cost
+onready var level:= $BG/XpBar/Level
+onready var xp_bar:= $BG/XpBar
+onready var xp:= $BG/XpBar/XP
+onready var job_desc:= $BG/Desc
+onready var job_sprite:= $BG/Portrait
+onready var perk_button:= $BG/Perks
+onready var perk_count:= $BG/Perks/Amt
+onready var unlock_cost:= $BG/Perks/Price
 
-onready var delve: = $BG/Delve
+onready var delve:= $BG/Delve
 
 var selected_perk: PerkButton setget set_selected_perk
 var selected_gear: GearButton setget set_selected_gear
@@ -68,7 +68,7 @@ var game: Game
 var jobs: Array
 var cur_job: Job
 
-var initialized: = false
+var initialized:= false
 
 func initialize(_game: Game) -> void:
 	print("initializing char select")

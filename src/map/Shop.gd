@@ -101,7 +101,7 @@ func update_other_price_tags() -> void:
 				label.modulate.a = 1.0
 				child.disable(false)
 
-func show(move: = true) -> void:
+func show(move:= true) -> void:
 	$BG/Menu/Exit.mouse_filter = Control.MOUSE_FILTER_STOP
 	AudioController.click()
 	.show(move)

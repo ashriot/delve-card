@@ -1,7 +1,7 @@
 extends Node2D
 class_name Actions
 
-var _ActionButton: = preload("res://src/battle/ActionButton.tscn")
+var _ActionButton:= preload("res://src/battle/ActionButton.tscn")
 var FloatingText = preload("res://assets/animations/FloatingText.tscn")
 
 signal deck_count(value)
@@ -20,41 +20,41 @@ signal done_pressing
 signal show_card(btn, qty)
 signal hide_card
 
-export var HAND_SIZE: = 5
+export var HAND_SIZE:= 5
 
-onready var input_blocker: = $InputBlocker
-onready var hand: = $Hand
-onready var pos1: = $Hand/Pos1
-onready var pos2: = $Hand/Pos2
-onready var pos3: = $Hand/Pos3
-onready var pos4: = $Hand/Pos4
-onready var pos5: = $Hand/Pos5
-onready var deck_viewer: = $DeckViewer
-onready var graveyard_viewer: = $DiscardViewer
+onready var input_blocker:= $InputBlocker
+onready var hand:= $Hand
+onready var pos1:= $Hand/Pos1
+onready var pos2:= $Hand/Pos2
+onready var pos3:= $Hand/Pos3
+onready var pos4:= $Hand/Pos4
+onready var pos5:= $Hand/Pos5
+onready var deck_viewer:= $DeckViewer
+onready var graveyard_viewer:= $DiscardViewer
 onready var deck_tween = $DeckViewer/Tween
 onready var graveyard_tween = $DiscardViewer/Tween
-onready var deck: = $DeckViewer/InputBlock/ScrollContainer/Deck
-onready var graveyard: = $DiscardViewer/InputBlock/ScrollContainer/Deck
-onready var limbo: = $Limbo
-onready var item_belt: = $ItemAnchor/ItemBelt
-onready var end_turn_btn: = $EndTurn
+onready var deck:= $DeckViewer/InputBlock/ScrollContainer/Deck
+onready var graveyard:= $DiscardViewer/InputBlock/ScrollContainer/Deck
+onready var limbo:= $Limbo
+onready var item_belt:= $ItemAnchor/ItemBelt
+onready var end_turn_btn:= $EndTurn
 
-var auto_end: = false
-var ended_turn: = false
-var actions_queued: = 0
-var hand_count: = 0
+var auto_end:= false
+var ended_turn:= false
+var actions_queued:= 0
+var hand_count:= 0
 var deck_count setget set_deck_count
-var deck_order: = []
+var deck_order:= []
 var graveyard_count setget set_graveyard_count
 var player: Player
 var enemyUI: Enemy
 var actions: Array
 
-var weapons_played: = 0
-var actions_used: = 0
-var weapons_in_hand: = 0
+var weapons_played:= 0
+var actions_used:= 0
+var weapons_in_hand:= 0
 
-var initialized: = false
+var initialized:= false
 
 func initialize(_player: Player, _enemyUI: Enemy) -> void:
 	self.deck_count = 0
@@ -401,7 +401,7 @@ func _on_Player_discard_random(qty):
 		yield(get_tree().create_timer(0.1), "timeout")
 		emit_signal("discarded_x", 0)
 		return
-	var rand_array: = hand.get_children()
+	var rand_array:= hand.get_children()
 	rand_array.shuffle()
 	for pos in rand_array:
 		if pos.get_child_count() > 0 and count > 0:
