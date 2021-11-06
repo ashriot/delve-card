@@ -14,12 +14,12 @@ func _on_Choice1_pressed():
 		return
 	AudioController.click()
 	if stage == 0:
+		stage = 1
 		add_gold(-50)
 		var text = "The woman hands you three small flasks.\n\"Good luck to you.\""
 		.display_text(text)
 		.choices(["Leave this place."])
 		add_potions(3)
-		stage = 1
 	elif stage == 1:
 		emit_signal("done")
 
@@ -29,15 +29,15 @@ func _on_Choice2_pressed():
 		return
 	AudioController.click()
 	if stage == 0:
+		stage = 1
 		add_gold(-15)
 		var text = "The woman hands you a cup of bubbling brew.\n\n" + \
 		"\"This should do the trick.\"\n\nYou take a deep sip and suddenly feel much better."
-		heal(999)
+		heal()
 		.display_text(text)
 		.choices(["Leave this place."])
 
 func _on_Choice3_pressed():
-	print(stage)
 	if $Desc.percent_visible < 1:
 		show_text()
 		return

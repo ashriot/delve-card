@@ -40,8 +40,8 @@ modulate = Color( 0.792157, 0.780392, 0.721569, 1 )
 texture = ExtResource( 2 )
 centered = false
 offset = Vector2( -3, -3 )
-vframes = 15
 hframes = 16
+vframes = 15
 frame = 166
 
 [node name="Timer" type="Timer" parent="."]

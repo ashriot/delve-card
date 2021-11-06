@@ -50,15 +50,15 @@ __meta__ = {
 position = Vector2( 85, 32 )
 texture = ExtResource( 1 )
 flip_h = true
-vframes = 4
 hframes = 7
+vframes = 4
 frame = 17
 
 [node name="You" type="Sprite" parent="Person"]
 position = Vector2( -62, 0 )
 texture = ExtResource( 1 )
-vframes = 4
 hframes = 7
+vframes = 4
 
 [node name="SceneBG" type="ColorRect" parent="."]
 margin_left = 3.0
@@ -74,15 +74,15 @@ __meta__ = {
 position = Vector2( 14, 12 )
 texture = ExtResource( 3 )
 centered = false
-vframes = 6
 hframes = 21
+vframes = 6
 
 [node name="Item" type="Sprite" parent="."]
 modulate = Color( 0.792157, 0.780392, 0.721569, 1 )
 position = Vector2( 54, 34 )
 texture = ExtResource( 2 )
-vframes = 16
 hframes = 16
+vframes = 16
 frame = 56
 
 [node name="Desc" type="RichTextLabel" parent="."]
@@ -166,12 +166,13 @@ __meta__ = {
 }
 
 [node name="Sprite" type="Sprite" parent="HPBanner"]
-modulate = Color( 0.788235, 0.776471, 0.717647, 1 )
+modulate = Color( 0.760784, 0.760784, 0.760784, 1 )
 position = Vector2( 1, 1 )
 texture = ExtResource( 5 )
 centered = false
 
 [node name="Sprite2" type="Sprite" parent="HPBanner"]
+modulate = Color( 0.760784, 0.760784, 0.760784, 1 )
 position = Vector2( 101, 2 )
 texture = ExtResource( 6 )
 centered = false
@@ -186,6 +187,7 @@ align = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
 [connection signal="pressed" from="Options/Choice1" to="." method="_on_Choice1_pressed"]
 [connection signal="pressed" from="Options/Choice2" to="." method="_on_Choice2_pressed"]
 [connection signal="pressed" from="Options/Choice3" to="." method="_on_Choice3_pressed"]

@@ -1,6 +1,8 @@
 extends Control
 class_name PotionButton
 
+signal inflict_hit
+signal anim_finished
 signal unblock(value)
 signal draw_cards(action)
 
@@ -31,6 +33,7 @@ func initialize(actions, _action: Action, _enemy: Enemy) -> void:
 	initialized = true
 
 func execute() -> void:
+	hide()
 	if action.target_type == Action.TargetType.MYSELF:
 #		create_effect(player.global_position, "effect")
 #		yield(self, "inflict_effect")
@@ -56,7 +59,8 @@ func execute() -> void:
 				player.take_healing(damage, "MP")
 	else:
 		for hit in action.hits:
-			AudioController.play_sfx("fire")
+			create_effect(enemy.global_position, "hit")
+			yield(self, "inflict_hit")
 			if enemy.dead: break
 			var damage = action.damage
 			if damage > 0:
@@ -71,7 +75,6 @@ func execute() -> void:
 				yield(get_tree().create_timer(0.1), "timeout")
 	player.actor.potions.erase(action)
 	get_tree().call_group("action_button", "update_data")
-	queue_free()
 
 func _on_Button_up():
 	sprite.modulate.a = 1
@@ -90,3 +93,25 @@ func _on_Timer_timeout() -> void:
 	timer.stop()
 	hovering = true
 	emit_signal("show_card", self)
+
+
+func inflict_hit() -> void:
+	emit_signal("inflict_hit")
+
+func create_effect(position: Vector2, type: String) -> void:
+	if action.fx == null:
+		yield(get_tree().create_timer(0.1), "timeout")
+		if type == "hit":
+			emit_signal("inflict_hit")
+		else:
+			emit_signal("inflict_effect")
+		yield(get_tree().create_timer(0.2), "timeout")
+		emit_signal("anim_finished")
+	else:
+		var effect = action.fx.instance()
+		effect.connect("inflict_hit", self, "inflict_hit")
+		enemy.add_child(effect)
+		effect.global_position = position
+		yield(effect, "finished")
+		emit_signal("anim_finished")
+	queue_free()

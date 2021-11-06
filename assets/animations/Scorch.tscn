@@ -81,11 +81,11 @@ tracks/4/keys = {
 [node name="Scorch" instance=ExtResource( 2 )]
 
 [node name="Sprite" parent="." index="0"]
-modulate = Color( 1, 1, 1, 0.882353 )
-scale = Vector2( 0.571429, 0.571429 )
+modulate = Color( 1, 1, 1, 0 )
+scale = Vector2( 2, 2 )
 texture = ExtResource( 1 )
 hframes = 6
-frame = 4
+frame = 5
 
 [node name="AnimationPlayer" parent="." index="1"]
 autoplay = "Animate"

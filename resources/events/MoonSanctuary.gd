@@ -41,7 +41,7 @@ func _on_Choice2_pressed():
 		var text = "You speak a quiet prayer to Luna. " + \
 		"\n\nYou suddenly feel at ease. " + \
 		"\n\n(HP restored to full.)"
-		playerUI.full_heal()
+		heal()
 		.display_text(text)
 		.choices(["Return to map."])
 	elif stage == 1:

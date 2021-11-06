@@ -57,6 +57,8 @@ func heal(amt: int, type: String) -> void:
 		set_hp(player.hp)
 
 func full_heal() -> void:
+	AudioController.play_sfx("heal")
+	player.hp = player.max_hp
 	set_hp(player.max_hp)
 
 func lose_hp(value: int) -> void:

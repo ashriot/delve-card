@@ -4,17 +4,18 @@ class_name EnemyActor
 export var name: String
 export var title: String
 export(String, MULTILINE) var desc
-export var level: = 1
-export var max_hp: = 1
-export var max_ap: = 3
-export var initial_ac: = 0
-export var initial_mp: = 0
-export var gold: = 0
+export var level := 1
+export var max_hp := 1
+export var max_ap := 3
+export var initial_ac := 0
+export var initial_mp := 0
+export var attack_power := 5
+export var gold := 0
 export var texture: Texture
 
 var hp: int setget set_hp
 
-export(Array) var actions: = []
+export(Array) var actions := []
 
 func initialize() -> void:
 	pass

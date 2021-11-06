@@ -107,7 +107,7 @@ func lose_hp(value: int) -> void:
 	gp.text = playerUI.get_gold_text()
 	hp.bbcode_text = playerUI.get_hp_text()
 
-func heal(value: int) -> void:
+func heal(value := 999) -> void:
 	playerUI.heal(value, "HP")
 	gp.text = playerUI.get_gold_text()
 	hp.bbcode_text = playerUI.get_hp_text()
