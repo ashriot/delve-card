@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=2]
+[gd_scene load_steps=44 format=2]
 
 [ext_resource path="res://src/core/Battle.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/images/bgs/title.png" type="Texture" id=2]
@@ -134,6 +134,27 @@ tracks/1/keys = {
 "update": 1,
 "values": [ 0 ]
 }
+
+[sub_resource type="Shader" id=16]
+code = "shader_type canvas_item;
+// Sepia Color Conversion
+
+uniform float _red : hint_range(0, 2) = 0.3;
+uniform float _green : hint_range(0, 2) = 0.6;
+uniform float _blue : hint_range(0, 2) = 0.1;
+
+void fragment() {
+	vec3 col = textureLod(SCREEN_TEXTURE, SCREEN_UV, 0.0).rgb;
+	col.rgb = vec3(col.r * _red, col.g * _green, col.b * _blue);
+	
+	COLOR.rgb = col;
+}"
+
+[sub_resource type="ShaderMaterial" id=17]
+shader = SubResource( 16 )
+shader_param/_red = 1.1
+shader_param/_green = 1.05
+shader_param/_blue = 0.95
 
 [node name="Game" type="Node"]
 script = ExtResource( 3 )
@@ -623,6 +644,17 @@ __meta__ = {
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Fade"]
 anims/FadeIn = SubResource( 14 )
 anims/FadeOut = SubResource( 15 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Shader" type="ColorRect" parent="CanvasLayer"]
+material = SubResource( 17 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [connection signal="advance" from="Dungeon" to="." method="_on_Dungeon_advance"]
 [connection signal="blacksmith" from="Dungeon" to="." method="_on_Dungeon_blacksmith"]

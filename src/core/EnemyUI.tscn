@@ -432,7 +432,7 @@ __meta__ = {
 }
 
 [node name="Sprite" type="Sprite" parent="Enemy/HP"]
-modulate = Color( 0.145098, 0.145098, 0.133333, 1 )
+modulate = Color( 0.152941, 0.152941, 0.152941, 1 )
 texture = ExtResource( 8 )
 centered = false
 
@@ -441,7 +441,7 @@ margin_left = 8.0
 margin_top = -1.0
 margin_right = 23.0
 margin_bottom = 6.0
-custom_colors/default_color = Color( 0.145098, 0.145098, 0.133333, 1 )
+custom_colors/default_color = Color( 0.152941, 0.152941, 0.152941, 1 )
 bbcode_enabled = true
 bbcode_text = "025"
 text = "025"
@@ -458,9 +458,12 @@ margin_bottom = 7.0
 value = 50.0
 texture_under = ExtResource( 4 )
 texture_progress = ExtResource( 4 )
-tint_under = Color( 0.6, 0.584314, 0.521569, 1 )
-tint_progress = Color( 0.145098, 0.145098, 0.133333, 1 )
+tint_under = Color( 0.490196, 0.490196, 0.490196, 1 )
+tint_progress = Color( 0.152941, 0.152941, 0.152941, 1 )
 nine_patch_stretch = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="AC" type="Control" parent="Enemy"]
 anchor_left = 0.5
@@ -475,7 +478,7 @@ __meta__ = {
 }
 
 [node name="Sprite" type="Sprite" parent="Enemy/AC"]
-modulate = Color( 0.145098, 0.145098, 0.133333, 1 )
+modulate = Color( 0.152941, 0.152941, 0.152941, 1 )
 position = Vector2( -8, 0 )
 texture = ExtResource( 5 )
 centered = false
@@ -486,7 +489,7 @@ anchor_bottom = 0.5
 margin_top = -3.5
 margin_right = 15.0
 margin_bottom = 3.5
-custom_colors/default_color = Color( 0.145098, 0.145098, 0.133333, 1 )
+custom_colors/default_color = Color( 0.152941, 0.152941, 0.152941, 1 )
 bbcode_enabled = true
 bbcode_text = "025"
 text = "025"
@@ -508,7 +511,7 @@ __meta__ = {
 }
 
 [node name="Sprite" type="Sprite" parent="Enemy/MP"]
-modulate = Color( 0.145098, 0.145098, 0.133333, 1 )
+modulate = Color( 0.152941, 0.152941, 0.152941, 1 )
 position = Vector2( -8, 0 )
 texture = ExtResource( 3 )
 centered = false
@@ -519,7 +522,7 @@ anchor_bottom = 0.5
 margin_top = -3.5
 margin_right = 15.0
 margin_bottom = 3.5
-custom_colors/default_color = Color( 0.145098, 0.145098, 0.133333, 1 )
+custom_colors/default_color = Color( 0.152941, 0.152941, 0.152941, 1 )
 bbcode_enabled = true
 bbcode_text = "025"
 text = "025"
@@ -539,7 +542,7 @@ __meta__ = {
 }
 
 [node name="Sprite" type="Sprite" parent="Enemy/Attack"]
-modulate = Color( 0.6, 0.584314, 0.521569, 1 )
+modulate = Color( 0.490196, 0.490196, 0.490196, 1 )
 position = Vector2( 1, -1 )
 texture = ExtResource( 7 )
 centered = false
@@ -553,7 +556,7 @@ anchor_bottom = 1.0
 margin_left = 10.0
 margin_right = -3.8147e-06
 mouse_filter = 1
-custom_colors/default_color = Color( 0.6, 0.584314, 0.521569, 1 )
+custom_colors/default_color = Color( 0.588235, 0.588235, 0.588235, 1 )
 bbcode_enabled = true
 bbcode_text = "10x3"
 text = "10x3"

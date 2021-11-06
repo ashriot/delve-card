@@ -75,7 +75,7 @@ __meta__ = {
 [node name="Banner" type="ColorRect" parent="DeckViewer/InputBlock"]
 anchor_right = 1.0
 margin_bottom = 9.0
-color = Color( 0.145098, 0.145098, 0.133333, 1 )
+color = Color( 0.152941, 0.152941, 0.152941, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -131,7 +131,7 @@ __meta__ = {
 [node name="Banner" type="ColorRect" parent="DiscardViewer/InputBlock"]
 anchor_right = 1.0
 margin_bottom = 9.0
-color = Color( 0.145098, 0.145098, 0.133333, 1 )
+color = Color( 0.152941, 0.152941, 0.152941, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

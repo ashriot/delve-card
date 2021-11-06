@@ -67,7 +67,7 @@ margin_left = 2.0
 margin_top = 2.0
 margin_right = -2.0
 margin_bottom = -2.0
-color = Color( 0.792157, 0.780392, 0.721569, 1 )
+color = Color( 0.760784, 0.760784, 0.760784, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -103,7 +103,7 @@ __meta__ = {
 [node name="Banner" type="ColorRect" parent="."]
 margin_right = 108.0
 margin_bottom = 9.0
-color = Color( 0.145098, 0.145098, 0.133333, 1 )
+color = Color( 0.152941, 0.152941, 0.152941, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -149,7 +149,7 @@ margin_top = 1.0
 margin_right = -1.0
 margin_bottom = -1.0
 mouse_filter = 2
-color = Color( 0.792157, 0.780392, 0.721569, 1 )
+color = Color( 0.760784, 0.760784, 0.760784, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
