@@ -190,7 +190,7 @@ func add_to_deck(actions_to_add) -> void:
 		player.get_parent().add_child(action)
 		action.rect_position = Vector2(0, 64)
 		action.animationPlayer.play("Gain")
-		yield(get_tree().create_timer(0.65), "timeout")
+		yield(get_tree().create_timer(0.6), "timeout")
 		action.gain()
 		player.get_parent().remove_child(action)
 		action.rect_position = Vector2.ZERO
@@ -264,7 +264,7 @@ func discard_hand(end_of_turn: bool) -> void:
 	if hand_count > 0:
 		for i in hand.get_children():
 			if i.get_child_count() > 0:
-				var child = i.get_child(0)
+				var child = i.get_child(0) as ActionButton
 				if child.played:
 					continue
 				else:
@@ -372,6 +372,16 @@ func _on_Player_add_to_deck(action_name: String, qty: int):
 	for i in qty:
 		var action_button = _ActionButton.instance()
 		var action = load("res://resources/actions/created/" + action_name + ".tres")
+		initialize_button(action_button, action)
+		btns.append(action_button)
+	add_to_deck(btns)
+	yield(self,"done_adding_to_deck")
+
+func _on_Player_add_many_to_deck(actions: Array):
+	var btns = []
+	for i in actions.size():
+		var action_button = _ActionButton.instance()
+		var action = load("res://resources/actions/created/" + actions[i] + ".tres")
 		initialize_button(action_button, action)
 		btns.append(action_button)
 	add_to_deck(btns)

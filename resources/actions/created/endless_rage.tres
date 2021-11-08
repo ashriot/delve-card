@@ -1,0 +1,37 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://resources/actions/res/action.gd" type="Script" id=1]
+[ext_resource path="res://assets/animations/Shout.tscn" type="PackedScene" id=2]
+
+[resource]
+script = ExtResource( 1 )
+name = "Manic Rage"
+description = "Lose 3 HP. Gain 3 ST and draw an action."
+rarity = 2
+upgraded = false
+action_type = 3
+target_type = 0
+cost_type = 0
+cost = 3
+healing = true
+damage_type = 3
+damage = 3
+hits = 1
+crit_chance = 0.0
+penetrate = false
+impact = 0
+drawX = 1
+discard_random_x = 0
+discard_x = 0
+draw_type = 7
+undodgeable = false
+first_strike = false
+drop = false
+fade = true
+consume = false
+frame_id = 0
+fx = ExtResource( 2 )
+gain_buffs = [  ]
+gain_debuffs = [  ]
+inflict_debuffs = [  ]
+inflict_buffs = [  ]

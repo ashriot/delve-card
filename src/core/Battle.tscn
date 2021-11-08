@@ -220,6 +220,7 @@ anims/Show = SubResource( 2 )
 visible = false
 
 [connection signal="start_turn" from="." to="Actions" method="_on_Battle_start_turn"]
+[connection signal="add_many_to_deck" from="Player" to="Actions" method="_on_Player_add_many_to_deck"]
 [connection signal="add_to_deck" from="Player" to="Actions" method="_on_Player_add_to_deck"]
 [connection signal="add_to_discard" from="Player" to="Actions" method="_on_Player_add_to_discard"]
 [connection signal="apply_buff" from="Player" to="Actions" method="_on_Player_apply_buff"]

@@ -14,7 +14,7 @@ func _on_Choice1_pressed():
 	if stage == 0:
 		stage = 1
 		var text = "You place the black stone into the pedestal. " + \
-		"\n\nThe ceiling begins to move. Suddenly, the stone begins to fade between " + \
+		"\n\nThe ceiling begins to move. Suddenly, the stone begins to shift between " + \
 		"two colors, grey and white."
 		$Scene.frame = 32
 

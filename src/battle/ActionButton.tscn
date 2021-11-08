@@ -186,6 +186,7 @@ __meta__ = {
 }
 
 [node name="Button" type="Button" parent="."]
+modulate = Color( 1, 1, 1, 0 )
 margin_top = 2.0
 margin_right = 98.0
 margin_bottom = 15.0

@@ -81,7 +81,7 @@ func instant_show() -> void:
 func gain() -> void:
 	modulate.a = 1
 	$Button.modulate.a = 1
-	$Button.rect_position = Vector2.ZERO
+	$Button.rect_position = Vector2(0, 2)
 
 func discard(end_of_turn: bool) -> void:
 	played = true
@@ -102,6 +102,8 @@ func discard(end_of_turn: bool) -> void:
 			if player.has_buff("Aim"): crit_mod = 0.5
 			var crit = randf() < crit_mod + action.crit_chance
 			enemy.take_hit(action, action.damage * 3, crit)
+	else:
+		if action.name == "Graze": player.take_hit(action, action.damage)
 	emit_signal("discarded", self)
 
 func update_data() -> void:

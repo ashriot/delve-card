@@ -6,10 +6,13 @@
 [node name="MoonSanctuary" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 title = "Moon Sanctuary"
-desc = "You enter a beautiful, tranquil room with a huge window in the ceiling. Above you, you see the celestial sky. This room must be a sanctuary for Luna, the goddess of the night.
+desc = "You enter a beautiful, tranquil room with a huge window in the ceiling. Above you, you see the celestial sky. This room must be a sanctuary for Luna, goddess of the night.
 
 In the middle of the room, a pedestal with a small space to place a round stone."
 scene = 74
 choice_1 = "Set the black stone."
 choice_2 = "Speak a prayer."
 choice_3 = "Leave the room."
+
+[node name="Scene" parent="." index="4"]
+frame = 74

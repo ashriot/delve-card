@@ -41,7 +41,19 @@ func _on_Choice3_pressed():
 	if $Desc.percent_visible < 1:
 		show_text()
 		return
+	if stage == 0:
+		stage = 1
+		var dmg = playerUI.player.max_hp / 10
+		if playerUI.player.hp <= dmg:
+			dmg = playerUI.player.hp - 1
+		var text = "\"You refuse my hospitality? Then take this gift, no charge!\"" + \
+		"\n\nYou feel a wave of pain wash over you."
+		.display_text(text)
+		AudioController.play_sfx("down")
+		lose_hp(dmg)
+		.choices(["Escape while you can."])
 	AudioController.click()
+
 
 func _on_Choice4_pressed():
 	if $Desc.percent_visible < 1:
