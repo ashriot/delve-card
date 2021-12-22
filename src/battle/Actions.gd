@@ -54,7 +54,9 @@ var weapons_played:= 0
 var actions_used:= 0
 var weapons_in_hand:= 0
 
-var initialized:= false
+var discarding := false
+
+var initialized := false
 
 func initialize(_player: Player, _enemyUI: Enemy) -> void:
 	self.deck_count = 0
@@ -428,6 +430,9 @@ func _on_Player_discard_random(qty):
 					graveyard.add_child(child)
 					self.graveyard_count += 1
 	emit_signal("discarded_x", qty)
+
+func _on_Player_discard(qty: int) -> void:
+	print("Discarding ", qty, " actions!!!!!!!!!")
 
 func _on_Player_apply_debuff(debuff: Buff, qty: int):
 	enemyUI.gain_debuff(debuff, qty)

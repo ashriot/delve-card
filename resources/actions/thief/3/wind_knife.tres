@@ -1,11 +1,11 @@
 [gd_resource type="Resource" load_steps=3 format=2]
 
-[ext_resource path="res://assets/animations/Dagger.tscn" type="PackedScene" id=1]
-[ext_resource path="res://resources/actions/res/action.gd" type="Script" id=2]
+[ext_resource path="res://resources/actions/res/action.gd" type="Script" id=1]
+[ext_resource path="res://assets/animations/Dagger.tscn" type="PackedScene" id=2]
 
 [resource]
-script = ExtResource( 2 )
-name = "Secret Knife"
+script = ExtResource( 1 )
+name = "Wind Knife"
 description = "Deal %damage damage. Lose 1 Dodge to deal %damage additional damage."
 rarity = 2
 upgraded = false
@@ -30,7 +30,7 @@ drop = false
 fade = false
 consume = false
 frame_id = 0
-fx = ExtResource( 1 )
+fx = ExtResource( 2 )
 gain_buffs = [  ]
 gain_debuffs = [  ]
 inflict_debuffs = [  ]

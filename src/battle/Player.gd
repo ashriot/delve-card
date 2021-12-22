@@ -10,6 +10,7 @@ signal add_to_deck(action_name, qty)
 signal add_many_to_deck(action_names)
 signal add_to_discard(action_name, qty)
 signal discard_random(qty)
+signal discard(qty)
 signal discarded_x(qty)
 signal apply_debuff(debuff, qty)
 signal apply_buff(buff, qty)
@@ -175,6 +176,9 @@ func add_to_discard(action_name: String, qty: int) -> void:
 
 func discard_random(qty: int) -> void:
 	emit_signal("discard_random", qty)
+
+func discard(qty: int) -> void:
+	emit_signal("discard", qty)
 
 func _on_Actions_discarded_x(qty):
 	emit_signal("discarded_x", qty)

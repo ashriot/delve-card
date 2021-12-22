@@ -79,6 +79,7 @@ position = Vector2( 55, 72 )
 position = Vector2( 54, 35 )
 
 [node name="Instakill" type="TextureButton" parent="."]
+visible = false
 margin_left = 2.0
 margin_top = 31.0
 margin_right = 13.0
@@ -225,6 +226,7 @@ visible = false
 [connection signal="add_to_discard" from="Player" to="Actions" method="_on_Player_add_to_discard"]
 [connection signal="apply_buff" from="Player" to="Actions" method="_on_Player_apply_buff"]
 [connection signal="apply_debuff" from="Player" to="Actions" method="_on_Player_apply_debuff"]
+[connection signal="discard" from="Player" to="Actions" method="_on_Player_discard"]
 [connection signal="discard_random" from="Player" to="Actions" method="_on_Player_discard_random"]
 [connection signal="hide_buff" from="Player" to="." method="_on_Player_hide_buff"]
 [connection signal="show_buff" from="Player" to="." method="_on_Player_show_buff"]

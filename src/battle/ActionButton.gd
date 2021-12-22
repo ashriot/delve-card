@@ -170,7 +170,7 @@ func update_data() -> void:
 		elif action.name == "Reverse Step":
 			emphasis.show()
 			damage = player.get_buff_stacks("Dodge")
-		elif action.name == "Secret Knife":
+		elif action.name == "Wind Knife":
 			emphasis.show()
 			damage = action.damage * 2
 	if enemy.has_debuff("Poison"):
@@ -233,10 +233,10 @@ func get_error() -> String:
 	return "Something's missing!"
 
 func play() -> void:
+	emit_signal("hide_card")
 	mp_spent = mp_cost
 	ap_spent = ap_cost
 	if action.name == "Lightning Claws": ap_spent = player.ap
-	emit_signal("hide_card")
 	if !playable():
 		display_error()
 		return
@@ -272,6 +272,12 @@ func execute() -> void:
 		player.discard_random(action.discard_random_x)
 		var qty = yield(player, "discarded_x")
 		if qty < action.discard_random_x:
+			call_deferred("finalize_execute")
+			return
+	if action.discard_x > 0:
+		player.discard(action.discard_x)
+		var qty = yield(player, "discarded_x")
+		if qty < action.discard_x:
 			call_deferred("finalize_execute")
 			return
 	var draw = action.drawX
@@ -324,7 +330,7 @@ func execute() -> void:
 				if action.name == "Sneak Attack":
 					damage = amt * 3
 					player.remove_buff("Dodge")
-				elif action.name == "Secret Knife":
+				elif action.name == "Wind Knife":
 					damage += action.damage
 					player.reduce_buff("Dodge")
 			if first_striking():

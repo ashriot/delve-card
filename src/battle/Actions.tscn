@@ -1,6 +1,5 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://src/core/Card.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/battle/Actions.gd" type="Script" id=2]
 [ext_resource path="res://src/battle/ItemBelt.tscn" type="PackedScene" id=3]
 
@@ -29,10 +28,6 @@ position = Vector2( 0, 48 )
 
 [node name="Pos5" type="Position2D" parent="Hand"]
 position = Vector2( 0, 64 )
-
-[node name="Card" parent="." instance=ExtResource( 1 )]
-visible = false
-mouse_filter = 2
 
 [node name="ItemAnchor" type="Position2D" parent="."]
 position = Vector2( 0, 176 )

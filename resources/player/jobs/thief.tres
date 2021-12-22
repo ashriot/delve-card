@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=26 format=2]
+[gd_resource type="Resource" load_steps=23 format=2]
 
 [ext_resource path="res://resources/player/Job.gd" type="Script" id=1]
 [ext_resource path="res://resources/player/gear/none.tres" type="Resource" id=2]
@@ -22,9 +22,6 @@
 [ext_resource path="res://resources/player/perks/thief/ghost.tres" type="Resource" id=20]
 [ext_resource path="res://resources/player/perks/thief/slice_and_dice.tres" type="Resource" id=21]
 [ext_resource path="res://resources/player/perks/thief/prey_on_the_weak.tres" type="Resource" id=22]
-[ext_resource path="res://resources/actions/thief/2/distraction.tres" type="Resource" id=23]
-[ext_resource path="res://resources/actions/thief/2/lucky_ring.tres" type="Resource" id=24]
-[ext_resource path="res://resources/actions/thief/3/serpent_oil.tres" type="Resource" id=25]
 
 [resource]
 script = ExtResource( 1 )
@@ -44,7 +41,7 @@ bonus_st = 0
 bonus_gp = 0
 level = 1
 xp = 0
-actions = [ ExtResource( 24 ), ExtResource( 25 ), ExtResource( 23 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 14 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ) ]
+actions = [ ExtResource( 13 ), ExtResource( 13 ), ExtResource( 13 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 14 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ) ]
 perks = [ ExtResource( 9 ), ExtResource( 10 ), ExtResource( 18 ), ExtResource( 11 ), ExtResource( 8 ), ExtResource( 21 ), ExtResource( 6 ), ExtResource( 20 ), ExtResource( 19 ), ExtResource( 12 ), ExtResource( 22 ) ]
 trinkets = [  ]
 potions = [  ]
