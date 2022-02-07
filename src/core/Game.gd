@@ -108,7 +108,7 @@ func init_data() -> void:
 	var path = save_path.plus_file("core.tres")
 	var error: int = ResourceSaver.save(path, core_data)
 	initialize_job_data()
-	check_error(path, error)
+	save_core_data()
 
 func initialize_job_data() -> void:
 	for job in jobs:
