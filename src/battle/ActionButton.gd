@@ -159,7 +159,7 @@ func update_data() -> void:
 		if actions.hand_count == 1:
 			damage *= 2
 			emphasis.show()
-	if first_striking() and action.first_strike:
+	if blindsiding() and action.blindside:
 		emphasis.show()
 		if action.name == "Gleaming Knife": damage *= 2
 		elif action.name == "Dismantle": damage = max(enemy.ac, damage * 2)
@@ -283,7 +283,7 @@ func execute() -> void:
 	var draw = action.drawX
 # warning-ignore:integer_division
 	if action.name == "Shadow Dance": draw *= int(mp_spent / action.cost)
-	elif action.name == "Take Aim": if first_striking(): draw += 1
+	elif action.name == "Take Aim": if blindsiding(): draw += 1
 	if player.has_buff("Dodge"):
 		if action.name == "Keen Eye":
 			player.reduce_buff("Dodge")
@@ -320,7 +320,7 @@ func execute() -> void:
 					enemy.gain_debuff(burn_debuff, 10)
 			elif action.name == "Glass Knife": damage = randi() % damage + damage
 			elif action.name == "Dismantle":
-				if first_striking(): damage = max(enemy.ac, action.damage * 2)
+				if blindsiding(): damage = max(enemy.ac, action.damage * 2)
 				else: damage = max(enemy.ac, action.damage)
 			elif action.name == "Shield Slam":
 				damage = player.ac
@@ -333,7 +333,7 @@ func execute() -> void:
 				elif action.name == "Wind Knife":
 					damage += action.damage
 					player.reduce_buff("Dodge")
-			if first_striking():
+			if blindsiding():
 				if action.name == "Gleaming Knife": damage *= 2
 			if damage > 0:
 				var crit = 0
@@ -405,7 +405,7 @@ func execute() -> void:
 		if action.name == "Shadow Cloak": damage *= mp_spent
 		elif action.name == "Brilliant Crystal": damage = min(player.mp, 30)
 		elif action.name == "Armor Up": damage = min(player.ac, 30)
-		if first_striking():
+		if blindsiding():
 			if action.name == "Steal Gold":
 				damage = randi() % 6 + 5
 				AudioController.confirm()
@@ -516,7 +516,7 @@ func set_spell_multiplier(value: float) -> void:
 	spell_multiplier = value
 	update_data()
 
-func first_striking() -> bool:
+func blindsiding() -> bool:
 	return actions.actions_used == 0 or player.has_buff("Hide")
 
 func _on_Button_up() -> void:

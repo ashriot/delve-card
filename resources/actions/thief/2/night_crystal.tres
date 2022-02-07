@@ -6,7 +6,7 @@
 script = ExtResource( 1 )
 name = "Night Crystal"
 description = "Gain %damage MP. First Strike: Draw a spell."
-rarity = 3
+rarity = 2
 upgraded = false
 action_type = 2
 target_type = 0
@@ -24,7 +24,7 @@ discard_random_x = 0
 discard_x = 0
 draw_type = 1
 undodgeable = false
-first_strike = true
+blindside = true
 drop = false
 fade = false
 consume = false

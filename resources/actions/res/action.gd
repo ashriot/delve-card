@@ -45,7 +45,7 @@ export var discard_random_x:= 0
 export var discard_x:= 0
 export(ActionType) var draw_type:= ActionType.ANY
 export var undodgeable: bool
-export var first_strike: bool
+export var blindside: bool
 export var drop:= false
 export var fade:= false
 export var consume:= false
