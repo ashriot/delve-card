@@ -79,7 +79,6 @@ position = Vector2( 55, 72 )
 position = Vector2( 54, 35 )
 
 [node name="Instakill" type="TextureButton" parent="."]
-visible = false
 margin_left = 2.0
 margin_top = 31.0
 margin_right = 13.0

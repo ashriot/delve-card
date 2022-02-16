@@ -53,7 +53,7 @@ func initialize(_dungeon: Dungeon) -> void:
 # warning-ignore:integer_division
 	event_max = randi() % int(max(progress / 3 + 1, 0)) + 1 if progress > 1 else 0
 # warning-ignore:integer_division
-	enemy_max = 3 + int(progress / 3)
+	enemy_max = progress + 1
 # warning-ignore:integer_division
 	shop_max = randi() % int(max(progress / 2, 1)) + 1
 	anvil_max = 1
