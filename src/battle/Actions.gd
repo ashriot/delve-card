@@ -360,10 +360,10 @@ func hide_card() -> void:
 func _on_Battle_start_turn():
 	print("Actions: On battle start turn")
 	player.start_turn()
+	yield(player, "done_turn_start")
 	fill_hand()
 	yield(self, "done_filling_hand")
 	AudioController.play_sfx("player_turn")
-	get_tree().call_group("action_button", "update_data")
 	item_belt.show()
 	block_input(false)
 	ended_turn = false

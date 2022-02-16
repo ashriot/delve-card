@@ -4,17 +4,17 @@
 
 [resource]
 script = ExtResource( 1 )
-name = "2 Manaberries"
-description = "Increases your maximum MP by 2."
-rarity = 2
+name = "Brilliant Crystal"
+description = "Double your current MP (gain up to 30.)"
+rarity = 5
 upgraded = false
-action_type = 4
+action_type = 2
 target_type = 0
 cost_type = 3
 cost = 0
 healing = true
 damage_type = 2
-damage = 2
+damage = 1
 hits = 0
 crit_chance = 0.0
 penetrate = false
@@ -25,10 +25,10 @@ discard_x = 0
 draw_type = 7
 undodgeable = false
 blindside = false
-drop = false
+drop = true
 fade = false
 consume = false
-frame_id = 62
+frame_id = 89
 gain_buffs = [  ]
 gain_debuffs = [  ]
 inflict_debuffs = [  ]

@@ -10,7 +10,7 @@
 script = ExtResource( 3 )
 name = "worm"
 title = "Worm"
-desc = "A writhing ground dweller that likes to wriggle free from your wrest."
+desc = "A writhing ground dweller that likes to wriggle from your wrest."
 level = 1
 max_hp = 15
 max_ap = 3

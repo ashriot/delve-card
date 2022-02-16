@@ -1,34 +1,36 @@
-[gd_resource type="Resource" load_steps=2 format=2]
+[gd_resource type="Resource" load_steps=3 format=2]
 
 [ext_resource path="res://resources/actions/res/action.gd" type="Script" id=1]
+[ext_resource path="res://assets/animations/Skill.tscn" type="PackedScene" id=2]
 
 [resource]
 script = ExtResource( 1 )
-name = "2 Manaberries"
-description = "Increases your maximum MP by 2."
+name = "Sidestep"
+description = "Draw an action. Blindside: Gain %damage AC."
 rarity = 2
 upgraded = false
-action_type = 4
+action_type = 3
 target_type = 0
 cost_type = 3
 cost = 0
 healing = true
-damage_type = 2
-damage = 2
-hits = 0
+damage_type = 1
+damage = 4
+hits = 1
 crit_chance = 0.0
 penetrate = false
 impact = 0
-drawX = 0
+drawX = 1
 discard_random_x = 0
 discard_x = 0
 draw_type = 7
 undodgeable = false
-blindside = false
+blindside = true
 drop = false
 fade = false
 consume = false
-frame_id = 62
+frame_id = 0
+fx = ExtResource( 2 )
 gain_buffs = [  ]
 gain_debuffs = [  ]
 inflict_debuffs = [  ]

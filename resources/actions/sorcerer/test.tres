@@ -1,8 +1,8 @@
 [gd_resource type="Resource" load_steps=6 format=2]
 
 [ext_resource path="res://resources/player/actor.gd" type="Script" id=1]
-[ext_resource path="res://resources/actions/sorcerer/1/mana_crystal.tres" type="Resource" id=4]
-[ext_resource path="res://resources/actions/sorcerer/4/mana_storm.tres" type="Resource" id=6]
+[ext_resource path="res://resources/actions/sorcerer/2/mana_crystal.tres" type="Resource" id=4]
+[ext_resource path="res://resources/actions/sorcerer/5/mana_storm.tres" type="Resource" id=6]
 [ext_resource path="res://resources/potions/food/small_apple.tres" type="Resource" id=7]
 [ext_resource path="res://resources/potions/food/magic_mushroom.tres" type="Resource" id=8]
 

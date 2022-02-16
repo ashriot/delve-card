@@ -17,6 +17,7 @@ signal apply_buff(buff, qty)
 signal update_enemy
 signal show_buff(buff)
 signal hide_buff
+signal done_turn_start
 
 onready var hp_value = $Player/Panel/HP/Value
 onready var hp_percent = $Player/Panel/HP/TextureProgress
@@ -91,7 +92,9 @@ func start_turn() -> void:
 			if child.fades_per_turn:
 				reduce_debuff(child.buff_name)
 	else: first_turn = false
-	emit_signal("update_enemy")
+	get_tree().call_group("action_button", "update_data")
+	call_deferred("emit_signal", "done_turn_start")
+	call_deferred("emit_signal", "update_enemy")
 
 func take_hit(action: Action, damage: int, miss_chance:= 0.0) -> bool:
 	var floating_text = FloatingText.instance()

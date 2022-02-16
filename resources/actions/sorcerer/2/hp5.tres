@@ -4,8 +4,8 @@
 
 [resource]
 script = ExtResource( 1 )
-name = "2 Manaberries"
-description = "Increases your maximum MP by 2."
+name = "5 Lifeberries"
+description = "Increases your maximum HP by 5."
 rarity = 2
 upgraded = false
 action_type = 4
@@ -13,8 +13,8 @@ target_type = 0
 cost_type = 3
 cost = 0
 healing = true
-damage_type = 2
-damage = 2
+damage_type = 0
+damage = 5
 hits = 0
 crit_chance = 0.0
 penetrate = false

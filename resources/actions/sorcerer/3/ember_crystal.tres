@@ -1,12 +1,13 @@
-[gd_resource type="Resource" load_steps=2 format=2]
+[gd_resource type="Resource" load_steps=3 format=2]
 
-[ext_resource path="res://resources/actions/res/action.gd" type="Script" id=1]
+[ext_resource path="res://resources/actions/debuffs/burn.tres" type="Resource" id=1]
+[ext_resource path="res://resources/actions/res/action.gd" type="Script" id=2]
 
 [resource]
-script = ExtResource( 1 )
-name = "Cracked Crystal"
-description = "Gain %damage MP."
-rarity = 1
+script = ExtResource( 2 )
+name = "Ember Crystal"
+description = "Gain %damage MP and add Burns."
+rarity = 3
 upgraded = false
 action_type = 2
 target_type = 0
@@ -14,7 +15,7 @@ cost_type = 3
 cost = 0
 healing = true
 damage_type = 2
-damage = 2
+damage = 6
 hits = 1
 crit_chance = 0.0
 penetrate = false
@@ -31,5 +32,5 @@ consume = false
 frame_id = 89
 gain_buffs = [  ]
 gain_debuffs = [  ]
-inflict_debuffs = [  ]
+inflict_debuffs = [ [ ExtResource( 1 ), 1 ] ]
 inflict_buffs = [  ]
