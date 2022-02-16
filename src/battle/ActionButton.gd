@@ -165,6 +165,7 @@ func update_data() -> void:
 		elif action.name == "Dismantle": damage = max(enemy.ac, damage * 2)
 	else:
 		if action.name == "Dismantle": damage = max(enemy.ac, damage)
+		elif action.name == "Sidestep": damage = 0
 	if player.has_buff("Dodge"):
 		if action.name == "Keen Eye": emphasis.show()
 		elif action.name == "Reverse Step":
@@ -413,6 +414,8 @@ func execute() -> void:
 				damage = 0
 			elif action.name == "Night Crystal": emit_signal("draw_cards", action, 1)
 			elif action.name == "First Aid Kit": damage *= 2
+		else:
+			if action.name == "Sidestep": damage = 0
 		if player.has_buff("Dodge"):
 			var amt = player.get_buff_stacks("Dodge")
 			if action.name == "Brace":

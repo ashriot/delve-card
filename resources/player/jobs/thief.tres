@@ -14,9 +14,9 @@
 [ext_resource path="res://resources/player/perks/thief/desperation.tres" type="Resource" id=12]
 [ext_resource path="res://resources/actions/thief/1/swift_knife.tres" type="Resource" id=13]
 [ext_resource path="res://resources/actions/thief/1/dart.tres" type="Resource" id=14]
-[ext_resource path="res://resources/actions/thief/1/backstab.tres" type="Resource" id=15]
+[ext_resource path="res://resources/actions/thief/1/whetstone.tres" type="Resource" id=15]
 [ext_resource path="res://resources/actions/thief/1/evasion.tres" type="Resource" id=16]
-[ext_resource path="res://resources/actions/thief/1/trollblood_oil.tres" type="Resource" id=17]
+[ext_resource path="res://resources/actions/fighter/1/rusty_dagger.tres" type="Resource" id=17]
 [ext_resource path="res://resources/player/perks/thief/lightfoot.tres" type="Resource" id=18]
 [ext_resource path="res://resources/player/perks/thief/slash_and_dash.tres" type="Resource" id=19]
 [ext_resource path="res://resources/player/perks/thief/ghost.tres" type="Resource" id=20]
@@ -41,7 +41,7 @@ bonus_st = 0
 bonus_gp = 0
 level = 1
 xp = 0
-actions = [ ExtResource( 13 ), ExtResource( 13 ), ExtResource( 13 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 14 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ) ]
+actions = [ ExtResource( 17 ), ExtResource( 17 ), ExtResource( 13 ), ExtResource( 13 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 16 ) ]
 perks = [ ExtResource( 9 ), ExtResource( 10 ), ExtResource( 18 ), ExtResource( 11 ), ExtResource( 8 ), ExtResource( 21 ), ExtResource( 6 ), ExtResource( 20 ), ExtResource( 19 ), ExtResource( 12 ), ExtResource( 22 ) ]
 trinkets = [  ]
 potions = [  ]

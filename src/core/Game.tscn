@@ -158,7 +158,7 @@ shader_param/_blue = 0.95
 
 [node name="Game" type="Node"]
 script = ExtResource( 3 )
-rooms = 8
+rooms = 6
 mute = true
 skipping_intro = true
 jobs = [ ExtResource( 22 ), ExtResource( 23 ), ExtResource( 24 ) ]

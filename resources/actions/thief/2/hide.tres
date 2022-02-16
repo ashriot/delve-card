@@ -7,7 +7,7 @@
 script = ExtResource( 1 )
 name = "Hide"
 description = "Gain 1 Hide."
-rarity = 3
+rarity = 2
 upgraded = false
 action_type = 3
 target_type = 0
@@ -25,7 +25,7 @@ discard_random_x = 0
 discard_x = 0
 draw_type = 7
 undodgeable = false
-first_strike = false
+blindside = false
 drop = false
 fade = false
 consume = false

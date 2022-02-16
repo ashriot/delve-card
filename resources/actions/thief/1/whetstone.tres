@@ -1,21 +1,21 @@
 [gd_resource type="Resource" load_steps=3 format=2]
 
-[ext_resource path="res://resources/actions/res/action.gd" type="Script" id=1]
-[ext_resource path="res://assets/animations/Sword.tscn" type="PackedScene" id=2]
+[ext_resource path="res://resources/actions/buffs/power.tres" type="Resource" id=1]
+[ext_resource path="res://resources/actions/res/action.gd" type="Script" id=2]
 
 [resource]
-script = ExtResource( 1 )
-name = "Longsword"
-description = "Deal %damage damage."
+script = ExtResource( 2 )
+name = "Whetstone"
+description = "Gain 1 Power."
 rarity = 1
 upgraded = false
-action_type = 0
-target_type = 1
+action_type = 3
+target_type = 0
 cost_type = 3
 cost = 1
 healing = false
 damage_type = 0
-damage = 3
+damage = 0
 hits = 1
 crit_chance = 0.0
 penetrate = false
@@ -29,9 +29,8 @@ blindside = false
 drop = false
 fade = false
 consume = false
-frame_id = 1
-fx = ExtResource( 2 )
-gain_buffs = [  ]
+frame_id = 0
+gain_buffs = [ [ ExtResource( 1 ), 1 ] ]
 gain_debuffs = [  ]
 inflict_debuffs = [  ]
 inflict_buffs = [  ]
