@@ -18,6 +18,7 @@ signal update_enemy
 signal show_buff(buff)
 signal hide_buff
 signal done_turn_start
+signal died
 
 onready var hp_value = $Player/Panel/HP/Value
 onready var hp_percent = $Player/Panel/HP/TextureProgress
@@ -324,6 +325,8 @@ func set_hp(value: int) -> void:
 	hp_value.bbcode_text = text
 	hp_percent.max_value = actor.max_hp
 	hp_percent.value = hp
+	if hp == 0:
+		emit_signal("died")
 
 func set_ac(value: int) -> void:
 	ac = value

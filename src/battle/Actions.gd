@@ -301,7 +301,6 @@ func action_finished(action_button: ActionButton) -> void:
 	get_tree().call_group("action_button", "update_data")
 	enemyUI.update_data()
 	if hand_count == 0 && auto_end && actions_queued == 0:
-		print("end turn")
 		end_turn()
 
 func button_pressed(action_button: ActionButton) -> void:
@@ -358,9 +357,9 @@ func hide_card() -> void:
 	emit_signal("hide_card")
 
 func _on_Battle_start_turn():
-	print("Actions: On battle start turn")
 	player.start_turn()
 	yield(player, "done_turn_start")
+	if player.dead: return
 	fill_hand()
 	yield(self, "done_filling_hand")
 	AudioController.play_sfx("player_turn")

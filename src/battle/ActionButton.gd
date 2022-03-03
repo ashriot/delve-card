@@ -245,8 +245,10 @@ func play() -> void:
 	emit_signal("button_pressed", self)
 	if action.drop or action.fade or action.consume:
 		animationPlayer.play("Drop")
+		AudioController.play_sfx("gash")
 	else:
 		animationPlayer.play("Use")
+		AudioController.play_sfx("draw")
 	player.ap -= ap_spent
 	if action.name == "Shadow Bolt": mp_spent = min(player.mp, 15)
 	if action.name == "Shadow Cloak": mp_spent = min(player.mp, 15)
@@ -289,8 +291,6 @@ func execute() -> void:
 		if action.name == "Keen Eye":
 			player.reduce_buff("Dodge")
 			draw += 1
-	if draw > 0:
-		emit_signal("draw_cards", action, draw)
 	if action.target_type == Action.TargetType.OPPONENT:
 		get_action_hits()
 		var parried = false
@@ -395,7 +395,6 @@ func execute() -> void:
 		if player.has_buff("Aim") and action.damage > 0:
 			player.reduce_buff("Aim")
 		if player.has_buff("Hide"): player.reduce_buff("Hide")
-		finalize_execute()
 	else:
 		create_effect(player.global_position, "effect")
 		yield(self, "inflict_effect")
@@ -442,7 +441,9 @@ func execute() -> void:
 				AudioController.play_sfx("mp_gain")
 				player.take_healing(damage, "MP")
 		yield(self, "anim_finished")
-		call_deferred("finalize_execute")
+	if draw > 0: emit_signal("draw_cards", action, draw)
+	if animationPlayer.is_playing(): yield(animationPlayer, "animation_finished")
+	call_deferred("finalize_execute")
 
 func check_effects() -> void:
 	if action.gain_buffs.size() > 0:

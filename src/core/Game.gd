@@ -49,6 +49,8 @@ var game_data = GameData.new()
 
 var game_seed: String = "GODOT" # randomize eventually
 
+var scene_to_hide = null
+
 # Settings
 var auto_end:= true
 
@@ -345,7 +347,7 @@ func enter_game() -> void:
 	deck.initialize(self)
 	deck.connect("show_card", self, "show_card")
 	deck.connect("hide_card", self, "hide_card")
-	battle.initialize(player)
+	battle.initialize(self, player)
 	battle.toggle_auto_end(true)
 	battle.connect("show_card", self, "show_card")
 	battle.connect("hide_card", self, "hide_card")
@@ -360,15 +362,17 @@ func enter_game() -> void:
 	yield(fade, "animation_finished")
 	save_game()
 
-func start_battle(scene_to_hide: Node2D, enemy: EnemyActor) -> void:
+func start_battle(dungeon: Node2D, enemy: EnemyActor) -> void:
 	fade.play("FadeOut")
 	yield(fade, "animation_finished")
+	scene_to_hide = dungeon
 	if scene_to_hide != null: scene_to_hide.hide()
 	playerUI.hide()
 	battle.show()
 	battle.start(enemy)
 	fade.play("FadeIn")
-	yield(battle, "battle_finished")
+
+func _on_battle_finished(won: bool) -> void:
 	fade.play("FadeOut")
 	yield(fade, "animation_finished")
 	battle.hide()
@@ -377,7 +381,7 @@ func start_battle(scene_to_hide: Node2D, enemy: EnemyActor) -> void:
 	if battle.game_over:
 		game_over()
 		return
-	start_loot(enemy.gold, 3)
+	start_loot(battle.enemy.gold, 3)
 	yield(self, "looting_finished")
 	if scene_to_hide != null: scene_to_hide.show()
 	save_game()

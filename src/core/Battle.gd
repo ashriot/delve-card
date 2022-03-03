@@ -12,12 +12,13 @@ var enemy: EnemyActor
 
 onready var actions = $Actions as Actions
 onready var enemyUI = $Enemy
-onready var playerUI = $Player
+onready var playerUI = $Player as Player
 onready var deck_val = $DeckBtn/ColorRect/Label
 onready var graveyard_val = $GraveyardBtn/Label
 onready var enemy_label = $Banner/Label
 onready var trink = $Trinket
 onready var trink_anim = $Trinket/AnimationPlayer
+onready var dead_pan = $Dead
 
 onready var buff_card = $BuffCard
 
@@ -25,7 +26,8 @@ var auto_end: bool
 var game_over:= false
 var initialized:= false
 
-func initialize(_player: Actor) -> void:
+func initialize(_game, _player: Actor) -> void:
+	connect("battle_finished", _game, "_on_battle_finished")
 	actions.connect("deck_count", self, "set_deck_count")
 	actions.connect("graveyard_count", self, "set_graveyard_count")
 	actions.connect("show_card", self, "show_card")
@@ -33,6 +35,7 @@ func initialize(_player: Actor) -> void:
 	enemyUI.connect("ended_turn", self, "_on_Enemy_ended_turn")
 	buff_card.hide()
 	playerUI.initialize(_player)
+	playerUI.connect("died", self, "_on_Player_died")
 	actions.initialize(playerUI, enemyUI)
 	trink.modulate.a = 0
 	initialized = true
@@ -41,6 +44,7 @@ func start(_enemy: EnemyActor) -> void:
 	game_over = false
 	playerUI.reset()
 	actions.reset()
+	dead_pan.hide()
 	enemy = _enemy
 	enemy_label.text = "Lv. " + str(enemy.level) + " " + enemy.title
 	enemyUI.initialize(enemy, playerUI)
@@ -54,13 +58,12 @@ func toggle_auto_end(value: bool) -> void:
 	actions.auto_end = auto_end
 
 func _on_Actions_ended_turn():
-	print("on actions ended turn")
 	end_of_turn()
 	yield(get_tree().create_timer(0.3), "timeout")
 	if playerUI.has_buff("Time Warp"):
 		check_turn_start_trinkets()
 		yield(self, "done_start_effects")
-		emit_signal("start_turn")
+		if not game_over: emit_signal("start_turn")
 	else: enemyUI.act()
 
 func end_of_turn() -> void:
@@ -71,14 +74,11 @@ func end_of_turn() -> void:
 		yield(get_tree().create_timer(0.8), "timeout")
 
 func _on_Enemy_ended_turn():
-	if playerUI.dead:
-		game_over = true
-		emit_signal("battle_finished", false)
-	elif enemyUI.dead: enemyUI.die()
+	if enemyUI.dead: enemyUI.die()
 	else:
 		check_turn_start_trinkets()
 		yield(self, "done_start_effects")
-		emit_signal("start_turn")
+		if not game_over: emit_signal("start_turn")
 
 func _on_Enemy_used_action(action: Action):
 	if action.target_type == Action.TargetType.OPPONENT:
@@ -118,6 +118,7 @@ func check_battle_start_effects() -> void:
 	call_deferred("emit_signal", "done_start_effects")
 
 func check_turn_start_trinkets() -> void:
+	if game_over: return
 	for trinket in playerUI.actor.trinkets:
 		if !trinket.turn_start: continue
 		check_trinket(trinket)
@@ -186,6 +187,17 @@ func _on_Player_show_buff(buff) -> void:
 
 func _on_Player_hide_buff() -> void:
 	hide_buff()
+	
+func _on_Player_died() -> void:
+	game_over = true
+	AudioController.play_sfx("crush")
+	yield(get_tree().create_timer(0.8), "timeout")
+	dead_pan.show()
+
+func _on_Restart_pressed():
+	AudioController.confirm()
+	emit_signal("battle_finished", false)
+	
 
 func _on_Enemy_show_intent(intent: Action) -> void:
 	buff_card.init_intent(intent)

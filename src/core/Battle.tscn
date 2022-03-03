@@ -219,6 +219,35 @@ anims/Show = SubResource( 2 )
 [node name="BuffCard" parent="." instance=ExtResource( 7 )]
 visible = false
 
+[node name="Dead" type="Panel" parent="."]
+margin_left = 1.0
+margin_top = 84.0
+margin_right = 107.0
+margin_bottom = 191.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Dead"]
+anchor_right = 1.0
+margin_bottom = 37.0
+text = "You have died."
+align = 1
+valign = 1
+
+[node name="Restart" type="Button" parent="Dead"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 9.0
+margin_top = -53.0
+margin_right = -10.0
+margin_bottom = -38.0
+text = "Restart"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [connection signal="start_turn" from="." to="Actions" method="_on_Battle_start_turn"]
 [connection signal="add_many_to_deck" from="Player" to="Actions" method="_on_Player_add_many_to_deck"]
 [connection signal="add_to_deck" from="Player" to="Actions" method="_on_Player_add_to_deck"]
@@ -243,3 +272,4 @@ visible = false
 [connection signal="pressed" from="GraveyardBtn" to="." method="_on_GraveyardBtn_pressed"]
 [connection signal="discarded_x" from="Actions" to="Player" method="_on_Actions_discarded_x"]
 [connection signal="ended_turn" from="Actions" to="." method="_on_Actions_ended_turn"]
+[connection signal="pressed" from="Dead/Restart" to="." method="_on_Restart_pressed"]
