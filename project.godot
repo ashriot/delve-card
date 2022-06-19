@@ -8,269 +8,29 @@
 
 config_version=4
 
-_global_script_classes=[ {
-"base": "Resource",
-"class": "Action",
-"language": "GDScript",
-"path": "res://resources/actions/res/action.gd"
-}, {
-"base": "Control",
-"class": "ActionButton",
-"language": "GDScript",
-"path": "res://src/battle/ActionButton.gd"
-}, {
-"base": "Control",
-"class": "ActionChoice",
-"language": "GDScript",
-"path": "res://src/core/ActionChoice.gd"
-}, {
-"base": "Node2D",
-"class": "Actions",
-"language": "GDScript",
-"path": "res://src/battle/Actions.gd"
-}, {
-"base": "Resource",
-"class": "Actor",
-"language": "GDScript",
-"path": "res://resources/player/actor.gd"
-}, {
-"base": "Control",
-"class": "BaseControl",
-"language": "GDScript",
-"path": "res://src/core/BaseControl.gd"
-}, {
-"base": "Control",
-"class": "BaseDialog",
-"language": "GDScript",
-"path": "res://src/core/BaseDialog.gd"
-}, {
-"base": "Node2D",
-"class": "Battle",
-"language": "GDScript",
-"path": "res://src/core/Battle.gd"
-}, {
-"base": "BaseControl",
-"class": "Blacksmith",
-"language": "GDScript",
-"path": "res://src/map/Blacksmith.gd"
-}, {
-"base": "Resource",
-"class": "Buff",
-"language": "GDScript",
-"path": "res://resources/actions/buffs/buff.gd"
-}, {
-"base": "ColorRect",
-"class": "BuffCard",
-"language": "GDScript",
-"path": "res://src/battle/BuffCard.gd"
-}, {
-"base": "Button",
-"class": "BuffUI",
-"language": "GDScript",
-"path": "res://src/battle/BuffUI.gd"
-}, {
-"base": "ColorRect",
-"class": "Card",
-"language": "GDScript",
-"path": "res://src/core/Card.gd"
-}, {
-"base": "Resource",
-"class": "CoreData",
-"language": "GDScript",
-"path": "res://src/utils/CoreData.gd"
-}, {
-"base": "Node2D",
-"class": "Dungeon",
-"language": "GDScript",
-"path": "res://src/core/Dungeon.gd"
-}, {
-"base": "Node",
-"class": "DungeonGeneration",
-"language": "GDScript",
-"path": "res://src/map/dungeon_generation.gd"
-}, {
-"base": "Node2D",
-"class": "Enemy",
-"language": "GDScript",
-"path": "res://src/core/EnemyUI.gd"
-}, {
-"base": "Resource",
-"class": "EnemyActor",
-"language": "GDScript",
-"path": "res://resources/enemies/enemy_actor.gd"
-}, {
-"base": "ColorRect",
-"class": "Event",
-"language": "GDScript",
-"path": "res://resources/events/Event.gd"
-}, {
-"base": "Position2D",
-"class": "FloatingText",
-"language": "GDScript",
-"path": "res://assets/animations/FloatingText.gd"
-}, {
-"base": "Node",
-"class": "Game",
-"language": "GDScript",
-"path": "res://src/core/Game.gd"
-}, {
-"base": "Resource",
-"class": "GameData",
-"language": "GDScript",
-"path": "res://src/utils/GameData.gd"
-}, {
-"base": "Resource",
-"class": "Gear",
-"language": "GDScript",
-"path": "res://resources/player/gear/gear.gd"
-}, {
-"base": "Button",
-"class": "GearButton",
-"language": "GDScript",
-"path": "res://resources/player/GearButton.gd"
-}, {
-"base": "Resource",
-"class": "Job",
-"language": "GDScript",
-"path": "res://resources/player/Job.gd"
-}, {
-"base": "Node2D",
-"class": "Loot",
-"language": "GDScript",
-"path": "res://src/core/Loot.gd"
-}, {
-"base": "Resource",
-"class": "Perk",
-"language": "GDScript",
-"path": "res://resources/player/Perk.gd"
-}, {
-"base": "Button",
-"class": "PerkButton",
-"language": "GDScript",
-"path": "res://resources/player/PerkButton.gd"
-}, {
-"base": "Node2D",
-"class": "Player",
-"language": "GDScript",
-"path": "res://src/battle/Player.gd"
-}, {
-"base": "Node2D",
-"class": "PlayerUI",
-"language": "GDScript",
-"path": "res://src/core/PlayerUI.gd"
-}, {
-"base": "Control",
-"class": "PotionButton",
-"language": "GDScript",
-"path": "res://resources/potions/PotionButton.gd"
-}, {
-"base": "Control",
-"class": "PotionViewer",
-"language": "GDScript",
-"path": "res://resources/potions/PotionViewer.gd"
-}, {
-"base": "Resource",
-"class": "Profile",
-"language": "GDScript",
-"path": "res://resources/player/profile.gd"
-}, {
-"base": "TextureButton",
-"class": "Square",
-"language": "GDScript",
-"path": "res://src/map/Square.gd"
-}, {
-"base": "Button",
-"class": "TraitButton",
-"language": "GDScript",
-"path": "res://resources/player/TraitButton.gd"
-}, {
-"base": "Resource",
-"class": "Trinket",
-"language": "GDScript",
-"path": "res://resources/trinkets/trinket.gd"
-}, {
-"base": "Control",
-"class": "TrinketButton",
-"language": "GDScript",
-"path": "res://resources/trinkets/TrinketButton.gd"
-} ]
-_global_script_class_icons={
-"Action": "",
-"ActionButton": "",
-"ActionChoice": "",
-"Actions": "",
-"Actor": "",
-"BaseControl": "",
-"BaseDialog": "",
-"Battle": "",
-"Blacksmith": "",
-"Buff": "",
-"BuffCard": "",
-"BuffUI": "",
-"Card": "",
-"CoreData": "",
-"Dungeon": "",
-"DungeonGeneration": "",
-"Enemy": "",
-"EnemyActor": "",
-"Event": "",
-"FloatingText": "",
-"Game": "",
-"GameData": "",
-"Gear": "",
-"GearButton": "",
-"Job": "",
-"Loot": "",
-"Perk": "",
-"PerkButton": "",
-"Player": "",
-"PlayerUI": "",
-"PotionButton": "",
-"PotionViewer": "",
-"Profile": "",
-"Square": "",
-"TraitButton": "",
-"Trinket": "",
-"TrinketButton": ""
-}
-
 [application]
 
 config/name="Delve"
 run/main_scene="res://src/core/Game.tscn"
-boot_splash/bg_color=Color( 0, 0, 0, 1 )
-config/icon="res://assets/images/icon.png"
-config/version="0.1.2"
-
-[audio]
-
-output_latency=40
-output_latency.web=70
-
-[autoload]
-
-AudioController="*res://src/core/AudioController.tscn"
-ActionSorter="*res://src/core/ActionSorter.gd"
-
-[debug]
-
-gdscript/warnings/narrowing_conversion=false
-gdscript/warnings/return_value_discarded=false
+config/icon="res://icon.png"
 
 [display]
 
-window/size/width=108
+window/size/width=109
 window/size/height=192
-window/size/test_width=540
+window/size/test_width=545
 window/size/test_height=960
-window/handheld/orientation="portrait"
 window/stretch/mode="2d"
 window/stretch/aspect="keep"
 
+[global]
+
+font=false
+
 [gui]
 
-theme/custom="res://assets/theming/default_theme.tres"
-theme/custom_font="res://assets/theming/fonts/Doraku-export.fnt"
+theme/custom="res://assets/gui/default_theme.tres"
+theme/custom_font="res://assets/gui/Doraku.fnt"
 
 [importer_defaults]
 
@@ -289,19 +49,20 @@ texture={
 "process/HDR_as_SRGB": false,
 "process/fix_alpha_border": true,
 "process/invert_color": false,
+"process/normal_map_invert_y": false,
 "process/premult_alpha": false,
 "size_limit": 0,
 "stream": false,
 "svg/scale": 1.0
 }
 
+[physics]
+
+common/enable_pause_aware_picking=true
+
 [rendering]
 
 quality/driver/driver_name="GLES2"
-quality/intended_usage/framebuffer_allocation=0
-quality/intended_usage/framebuffer_allocation.mobile=0
-2d/snapping/use_gpu_pixel_snap=true
 vram_compression/import_etc=true
 vram_compression/import_etc2=false
-batching/precision/uv_contract=true
 environment/default_environment="res://default_env.tres"
